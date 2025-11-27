@@ -1,10 +1,6 @@
 import json
 from datetime import datetime
 
-print("="*80)
-print("EXTRAIR JSON CORRETO")
-print("="*80 + "\n")
-
 # DADOS CORRETOS
 dados_raw = [
     ("RECURSOS HUMANOS", 14549944.75, 9358526.35),
@@ -57,62 +53,5 @@ dados_dashboard = {
     "timestamp": datetime.now().isoformat()
 }
 
-print("1. JSON CORRETO GERADO\n")
-print(f"   Total FUABC: R$ {total_fuabc:,.2f}")
-print(f"   Total SESAUD: R$ {total_sesaud:,.2f}")
-print(f"   Categorias: {len(categorias)}\n")
-
-print("="*80)
-print("COPIE APENAS ISTO (O JSON PURO):")
-print("="*80 + "\n")
-
 json_str = json.dumps(dados_dashboard, ensure_ascii=False, indent=2)
 print(json_str)
-
-print("\n" + "="*80)
-print("PASSOS PARA ATUALIZAR NO GITHUB:")
-print("="*80 + "\n")
-
-print("""
-PASSO 1: ABRIR data.json NO GITHUB
-
-Clique aqui:
-https://github.com/rtoledomota/SESAUD-Orcamento/blob/main/data.json
-
-PASSO 2: CLIQUE NO LÁPIS (EDIT)
-
-No canto superior direito, clique em ✏️ Edit
-
-PASSO 3: APAGAR TUDO
-
-Pressione: Ctrl + A (seleciona tudo)
-Pressione: Delete (apaga tudo)
-
-PASSO 4: COLAR O JSON
-
-Acima, eu mostrei o JSON CORRETO.
-
-Faça isto:
-1. Selecione TODO o JSON acima (Ctrl+A)
-2. Copie (Ctrl+C)
-3. No GitHub, clique na caixa
-4. Cole (Ctrl+V)
-
-PASSO 5: COMMIT
-
-Scroll para baixo
-Clique "Commit changes"
-Deixe a mensagem padrão
-Clique "Commit" novamente
-
-PRONTO! ✅
-
-Dashboard atualiza em 30 segundos!
-
-Depois:
-1. Abra: https://rtoledomota.github.io/SESAUD-Orcamento/
-2. Pressione: Ctrl + Shift + R
-3. Me avisa se atualizou!
-
-FACA AGORA! 👇
-""")
