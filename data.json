@@ -1,57 +1,114 @@
-import json
-from datetime import datetime
-
-# DADOS CORRETOS
-dados_raw = [
-    ("RECURSOS HUMANOS", 14549944.75, 9358526.35),
-    ("PROCESSOS TRABALHISTA", 0.00, 2944.00),
-    ("MATERIAIS DE CONSUMO", 3085899.09, 599300.63),
-    ("SERVIÇOS DE TERCEIROS", 13583505.23, 3412043.98),
-    ("LOCAÇÃO", 813390.00, 96530.36),
-    ("INVESTIMENTOS", 382950.00, 1329727.83),
-    ("Combustível", 500.00, 43201.59),
-    ("Utilidades, Energia, Água, coleta de lixo e internet", 7000.00, 547260.90),
-    ("Despesas financeiras e bancárias", 200.00, 3410.29),
-    ("Outras despesas", 5500.00, 413947.91),
-    ("Despesas de Rateio", 90000.00, 9358526.35),
-    ("Apoio Técnico", 0.00, 411601.13),
-    ("Custas Processos Judiciais", 3000.00, 0.00),
-    ("Despesas Administrativas", 1000.00, 0.00),
-]
-
-categorias = []
-total_fuabc = 0
-total_sesaud = 0
-
-for categoria, fuabc, sesaud in dados_raw:
-    categorias.append({
-        "categoria": categoria,
-        "fuabc": round(fuabc, 2),
-        "sesaud": round(sesaud, 2),
-        "diferenca": round(sesaud - fuabc, 2),
-        "percentual_diff": round(((sesaud - fuabc) / fuabc * 100) if fuabc > 0 else 0, 1)
-    })
-    total_fuabc += fuabc
-    total_sesaud += sesaud
-
-total_geral = total_fuabc + total_sesaud
-percentual_fuabc = round((total_fuabc / total_geral * 100), 1)
-percentual_sesaud = round((total_sesaud / total_geral * 100), 1)
-
-dados_dashboard = {
-    "resumo": {
-        "total_fuabc": round(total_fuabc, 2),
-        "total_sesaud": round(total_sesaud, 2),
-        "total_geral": round(total_geral, 2),
-        "diferenca": round(total_sesaud - total_fuabc, 2),
-        "percentual_fuabc": percentual_fuabc,
-        "percentual_sesaud": percentual_sesaud,
-        "percentual_diff": round(((total_sesaud - total_fuabc) / total_fuabc * 100), 1)
+{
+  "resumo": {
+    "total_fuabc": 32522889.07,
+    "total_sesaud": 25577021.32,
+    "total_geral": 58099910.39,
+    "diferenca": -6945867.75,
+    "percentual_fuabc": 56.0,
+    "percentual_sesaud": 44.0,
+    "percentual_diff": -21.4
+  },
+  "categorias": [
+    {
+      "categoria": "RECURSOS HUMANOS",
+      "fuabc": 14549944.75,
+      "sesaud": 9358526.35,
+      "diferenca": -5191418.4,
+      "percentual_diff": -35.7
     },
-    "categorias": categorias,
-    "atualizado_em": datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
-    "timestamp": datetime.now().isoformat()
+    {
+      "categoria": "PROCESSOS TRABALHISTA",
+      "fuabc": 0.0,
+      "sesaud": 2944.0,
+      "diferenca": 2944.0,
+      "percentual_diff": 0
+    },
+    {
+      "categoria": "MATERIAIS DE CONSUMO",
+      "fuabc": 3085899.09,
+      "sesaud": 599300.63,
+      "diferenca": -2486598.46,
+      "percentual_diff": -80.6
+    },
+    {
+      "categoria": "SERVIÇOS DE TERCEIROS",
+      "fuabc": 13583505.23,
+      "sesaud": 3412043.98,
+      "diferenca": -10171461.25,
+      "percentual_diff": -74.9
+    },
+    {
+      "categoria": "LOCAÇÃO",
+      "fuabc": 813390.0,
+      "sesaud": 96530.36,
+      "diferenca": -716859.64,
+      "percentual_diff": -88.1
+    },
+    {
+      "categoria": "INVESTIMENTOS",
+      "fuabc": 382950.0,
+      "sesaud": 1329727.83,
+      "diferenca": 946777.83,
+      "percentual_diff": 247.2
+    },
+    {
+      "categoria": "Combustível",
+      "fuabc": 500.0,
+      "sesaud": 43201.59,
+      "diferenca": 42701.59,
+      "percentual_diff": 8540.3
+    },
+    {
+      "categoria": "Utilidades, Energia, Água, coleta de lixo e internet",
+      "fuabc": 7000.0,
+      "sesaud": 547260.9,
+      "diferenca": 540260.9,
+      "percentual_diff": 7718.0
+    },
+    {
+      "categoria": "Despesas financeiras e bancárias",
+      "fuabc": 200.0,
+      "sesaud": 3410.29,
+      "diferenca": 3210.29,
+      "percentual_diff": 1605.1
+    },
+    {
+      "categoria": "Outras despesas",
+      "fuabc": 5500.0,
+      "sesaud": 413947.91,
+      "diferenca": 408447.91,
+      "percentual_diff": 7426.3
+    },
+    {
+      "categoria": "Despesas de Rateio",
+      "fuabc": 90000.0,
+      "sesaud": 9358526.35,
+      "diferenca": 9268526.35,
+      "percentual_diff": 10298.4
+    },
+    {
+      "categoria": "Apoio Técnico",
+      "fuabc": 0.0,
+      "sesaud": 411601.13,
+      "diferenca": 411601.13,
+      "percentual_diff": 0
+    },
+    {
+      "categoria": "Custas Processos Judiciais",
+      "fuabc": 3000.0,
+      "sesaud": 0.0,
+      "diferenca": -3000.0,
+      "percentual_diff": -100.0
+    },
+    {
+      "categoria": "Despesas Administrativas",
+      "fuabc": 1000.0,
+      "sesaud": 0.0,
+      "diferenca": -1000.0,
+      "percentual_diff": -100.0
+    }
+  ],
+  "atualizado_em": "27/11/2025 13:48:59",
+  "timestamp": "2025-11-27T13:48:59.366291"
 }
 
-json_str = json.dumps(dados_dashboard, ensure_ascii=False, indent=2)
-print(json_str)
