@@ -1,25 +1,14 @@
-import subprocess
-import os
 import json
 from datetime import datetime
 
 print("="*80)
-print("ATUALIZAR SESAUD-Orcamento")
+print("EXTRAIR JSON CORRETO")
 print("="*80 + "\n")
 
-repo_path = os.path.expanduser('~/SESAUD-Orcamento')
-os.chdir(repo_path)
-
-print("1. Verificando repositório...\n")
-
-resultado = subprocess.run(['git', 'remote', '-v'], capture_output=True, text=True)
-print(resultado.stdout)
-
-print("\n2. Criando dados CORRETOS...\n")
-
+# DADOS CORRETOS
 dados_raw = [
     ("RECURSOS HUMANOS", 14549944.75, 9358526.35),
-    ("PROCESSOS TRABALHISTAS", 0.00, 2944.00),
+    ("PROCESSOS TRABALHISTA", 0.00, 2944.00),
     ("MATERIAIS DE CONSUMO", 3085899.09, 599300.63),
     ("SERVIÇOS DE TERCEIROS", 13583505.23, 3412043.98),
     ("LOCAÇÃO", 813390.00, 96530.36),
@@ -68,64 +57,62 @@ dados_dashboard = {
     "timestamp": datetime.now().isoformat()
 }
 
-with open('data.json', 'w', encoding='utf-8') as f:
-    json.dump(dados_dashboard, f, ensure_ascii=False, indent=2)
-
-print(f"✅ data.json criado\n")
-
-print("3. Dados salvos:\n")
+print("1. JSON CORRETO GERADO\n")
 print(f"   Total FUABC: R$ {total_fuabc:,.2f}")
 print(f"   Total SESAUD: R$ {total_sesaud:,.2f}")
 print(f"   Categorias: {len(categorias)}\n")
 
-print("4. Aqui está o JSON para você COLAR NO GITHUB:\n")
+print("="*80)
+print("COPIE APENAS ISTO (O JSON PURO):")
 print("="*80 + "\n")
 
 json_str = json.dumps(dados_dashboard, ensure_ascii=False, indent=2)
 print(json_str)
 
 print("\n" + "="*80)
-print("COMO FAZER PUSH NO GITHUB WEB:")
+print("PASSOS PARA ATUALIZAR NO GITHUB:")
 print("="*80 + "\n")
 
-print(f"""
-PASSO 1: ABRIR O ARQUIVO NO GITHUB
+print("""
+PASSO 1: ABRIR data.json NO GITHUB
 
-Acesse:
-https://github.com/rtoledomota/SESAUD-Orcamento
+Clique aqui:
+https://github.com/rtoledomota/SESAUD-Orcamento/blob/main/data.json
 
-PASSO 2: ENCONTRAR O data.json
+PASSO 2: CLIQUE NO LÁPIS (EDIT)
 
-1. Procure pelo arquivo "data.json"
-2. Se não existe, clique "Add file" → "Create new file"
-3. Nome: data.json
+No canto superior direito, clique em ✏️ Edit
 
-PASSO 3: EDITAR (se existe)
+PASSO 3: APAGAR TUDO
 
-1. Clique no arquivo data.json
-2. Clique no lápis (✏️ Edit)
-3. Apague TUDO (Ctrl+A, depois Delete)
+Pressione: Ctrl + A (seleciona tudo)
+Pressione: Delete (apaga tudo)
 
 PASSO 4: COLAR O JSON
 
-1. Selecione TODO o JSON acima
-2. Copie (Ctrl+A depois Ctrl+C)
-3. Cole no GitHub (Ctrl+V)
+Acima, eu mostrei o JSON CORRETO.
+
+Faça isto:
+1. Selecione TODO o JSON acima (Ctrl+A)
+2. Copie (Ctrl+C)
+3. No GitHub, clique na caixa
+4. Cole (Ctrl+V)
 
 PASSO 5: COMMIT
 
-1. Scroll para baixo
-2. Clique "Commit changes"
-3. Deixe a mensagem padrão
-4. Clique "Commit" novamente
+Scroll para baixo
+Clique "Commit changes"
+Deixe a mensagem padrão
+Clique "Commit" novamente
 
 PRONTO! ✅
 
 Dashboard atualiza em 30 segundos!
 
-https://rtoledomota.github.io/SESAUD-Orcamento/
+Depois:
+1. Abra: https://rtoledomota.github.io/SESAUD-Orcamento/
+2. Pressione: Ctrl + Shift + R
+3. Me avisa se atualizou!
 
-Depois pressione Ctrl+Shift+R para atualizar!
-
-FACA AGORA E ME AVISA! 👇
+FACA AGORA! 👇
 """)
