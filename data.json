@@ -1,113 +1,13 @@
 {
   "resumo": {
-    "total_fuabc": 32522889.07,
-    "total_sesaud": 25577021.32,
-    "total_geral": 58099910.39,
-    "diferenca": -6945867.75,
-    "percentual_fuabc": 56.0,
-    "percentual_sesaud": 44.0,
-    "percentual_diff": -21.4
+    "total_fuabc": 0,
+    "total_sesaud": 0,
+    "total_geral": 0,
+    "percentual_fuabc": 0,
+    "percentual_sesaud": 0,
+    "diferenca": 0,
+    "percentual_diff": 0
   },
-  "categorias": [
-    {
-      "categoria": "RECURSOS HUMANOS",
-      "fuabc": 14549944.75,
-      "sesaud": 9358526.35,
-      "diferenca": -5191418.4,
-      "percentual_diff": -35.7
-    },
-    {
-      "categoria": "PROCESSOS TRABALHISTA",
-      "fuabc": 0.0,
-      "sesaud": 2944.0,
-      "diferenca": 2944.0,
-      "percentual_diff": 0
-    },
-    {
-      "categoria": "MATERIAIS DE CONSUMO",
-      "fuabc": 3085899.09,
-      "sesaud": 599300.63,
-      "diferenca": -2486598.46,
-      "percentual_diff": -80.6
-    },
-    {
-      "categoria": "SERVIÇOS DE TERCEIROS",
-      "fuabc": 13583505.23,
-      "sesaud": 3412043.98,
-      "diferenca": -10171461.25,
-      "percentual_diff": -74.9
-    },
-    {
-      "categoria": "LOCAÇÃO",
-      "fuabc": 813390.0,
-      "sesaud": 96530.36,
-      "diferenca": -716859.64,
-      "percentual_diff": -88.1
-    },
-    {
-      "categoria": "INVESTIMENTOS",
-      "fuabc": 382950.0,
-      "sesaud": 1329727.83,
-      "diferenca": 946777.83,
-      "percentual_diff": 247.2
-    },
-    {
-      "categoria": "Combustível",
-      "fuabc": 500.0,
-      "sesaud": 43201.59,
-      "diferenca": 42701.59,
-      "percentual_diff": 8540.3
-    },
-    {
-      "categoria": "Utilidades, Energia, Água, coleta de lixo e internet",
-      "fuabc": 7000.0,
-      "sesaud": 547260.9,
-      "diferenca": 540260.9,
-      "percentual_diff": 7718.0
-    },
-    {
-      "categoria": "Despesas financeiras e bancárias",
-      "fuabc": 200.0,
-      "sesaud": 3410.29,
-      "diferenca": 3210.29,
-      "percentual_diff": 1605.1
-    },
-    {
-      "categoria": "Outras despesas",
-      "fuabc": 5500.0,
-      "sesaud": 413947.91,
-      "diferenca": 408447.91,
-      "percentual_diff": 7426.3
-    },
-    {
-      "categoria": "Despesas de Rateio",
-      "fuabc": 90000.0,
-      "sesaud": 9358526.35,
-      "diferenca": 9268526.35,
-      "percentual_diff": 10298.4
-    },
-    {
-      "categoria": "Apoio Técnico",
-      "fuabc": 0.0,
-      "sesaud": 411601.13,
-      "diferenca": 411601.13,
-      "percentual_diff": 0
-    },
-    {
-      "categoria": "Custas Processos Judiciais",
-      "fuabc": 3000.0,
-      "sesaud": 0.0,
-      "diferenca": -3000.0,
-      "percentual_diff": -100.0
-    },
-    {
-      "categoria": "Despesas Administrativas",
-      "fuabc": 1000.0,
-      "sesaud": 0.0,
-      "diferenca": -1000.0,
-      "percentual_diff": -100.0
-    }
-  ],
-  "atualizado_em": "27/11/2025 14:09:59",
-  "timestamp": "2025-11-27T14:09:59.382699"
+  "categorias": [],
+  "atualizado_em": "27/11/2025, 12:12:08"
 }
