@@ -339,15 +339,15 @@
         
         <!-- GRAFICOS -->
         <div class="secao-graficos">
-            <h2 class="secao-titulo">Analise Comparativa</h2>
+            <h2 class="secao-titulo">Analise Comparativa - Distribuicao Percentual</h2>
             
             <div class="graficos-grid">
                 <div class="grafico-item">
-                    <div class="grafico-titulo">Distribuicao SESAUD 2026</div>
+                    <div class="grafico-titulo">Distribuicao SESAUD 2026 (%)</div>
                     <canvas id="grafico1"></canvas>
                 </div>
                 <div class="grafico-item">
-                    <div class="grafico-titulo">Distribuicao Fundacao ABC</div>
+                    <div class="grafico-titulo">Distribuicao Fundacao ABC (%)</div>
                     <canvas id="grafico2"></canvas>
                 </div>
             </div>
@@ -374,22 +374,30 @@
             </div>
         </div>
         
-        <!-- ACOES -->
+        <!-- ACOES - RESUMO -->
         <div class="secao-acoes">
-            <h2 class="secao-titulo">Acesse as Planilhas Detalhadas</h2>
-            <p>Clique nos botoes abaixo para abrir as planilhas completas com todos os dados discriminados:</p>
+            <h2 class="secao-titulo">📋 Planilha Resumo</h2>
+            <p>Visualize a previsao orcamentaria consolidada com analise comparativa:</p>
             
             <div class="botoes-container">
                 <a href="https://docs.google.com/spreadsheets/d/15SkL0lR1fYjIztMD9L_PmsP7G0jLXyKS5DPUMIFQzlU/edit?gid=0#gid=0" target="_blank" class="botao botao-resumo">
-                    <span class="icon">📋</span> Planilha Resumo
+                    <span class="icon">📊</span> Abrir Planilha Resumo
                 </a>
-                
+            </div>
+        </div>
+        
+        <!-- ACOES - ORCAMENTOS SEPARADOS -->
+        <div class="secao-acoes">
+            <h2 class="secao-titulo">💼 Orcamentos Discriminados</h2>
+            <p>Clique para visualizar o orcamento detalhado de cada instituicao:</p>
+            
+            <div class="botoes-container">
                 <a href="https://docs.google.com/spreadsheets/d/1qaD0tXbkMLknsErp1DZqZpV_d1v0xt-BZPv67Ll9sjs/edit?usp=sharing" target="_blank" class="botao botao-sesaud">
-                    <span class="icon">🏥</span> Orcamento SESAUD Detalhado
+                    <span class="icon">🏥</span> Orcamento SESAUD 2026
                 </a>
                 
                 <a href="https://docs.google.com/spreadsheets/d/1sHEbqiyigNxVs35vKxIzcNaDFoop7OdJdnabiGUb7VM/edit?usp=sharing" target="_blank" class="botao botao-fuabc">
-                    <span class="icon">💼</span> Orcamento FUABC Detalhado
+                    <span class="icon">💼</span> Orcamento FUABC 2026
                 </a>
             </div>
         </div>
@@ -456,22 +464,47 @@
             `;
         }
         
-        // GRAFICOS
+        // GRAFICOS COM PERCENTUAIS NAS PIZZAS
         function criarGraficos() {
             const categorias = [];
             const sesaud = [];
             const fuabc = [];
             const cores = ['#667eea', '#764ba2', '#f093fb', '#4facfe', '#00f2fe', '#43e97b', '#fa709a', '#fee140', '#30cfd0', '#330867', '#ec008c', '#a8edea', '#ffd89b', '#19547b'];
             
-            let index = 0;
+            let totalSESAUD = 0;
+            let totalFUABC = 0;
+            
             for (const [categoria, valores] of Object.entries(dados)) {
+                totalSESAUD += valores.SESAUD;
+                totalFUABC += valores.FUABC;
                 let nomeCurto = categoria;
                 if (categoria.length > 20) nomeCurto = categoria.substring(0, 17) + '...';
                 categorias.push(nomeCurto);
                 sesaud.push(valores.SESAUD);
                 fuabc.push(valores.FUABC);
-                index++;
             }
+            
+            // Plugin para mostrar percentual nas pizzas
+            const percentualPlugin = {
+                id: 'percentualLabel',
+                afterDatasetsDraw(chart) {
+                    const { ctx, data, chartInstance: { scales } } = chart;
+                    data.datasets.forEach((dataset, i) => {
+                        const meta = chart.getDatasetMeta(i);
+                        meta.data.forEach((datapoint, index) => {
+                            const { x, y } = datapoint.tooltipPosition();
+                            const total = dataset.data.reduce((a, b) => a + b, 0);
+                            const percentual = ((dataset.data[index] / total) * 100).toFixed(1);
+                            
+                            ctx.fillStyle = 'white';
+                            ctx.font = 'bold 12px Arial';
+                            ctx.textAlign = 'center';
+                            ctx.textBaseline = 'middle';
+                            ctx.fillText(percentual + '%', x, y);
+                        });
+                    });
+                }
+            };
             
             // Pizza SESAUD
             new Chart(document.getElementById('grafico1'), {
@@ -485,8 +518,20 @@
                 },
                 options: {
                     responsive: true,
-                    plugins: { legend: { position: 'bottom', labels: { font: { size: 10 } } } }
-                }
+                    plugins: {
+                        legend: { position: 'bottom', labels: { font: { size: 10 } } },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                    const percentual = ((context.parsed / total) * 100).toFixed(1);
+                                    return context.label + ': ' + percentual + '%';
+                                }
+                            }
+                        }
+                    }
+                },
+                plugins: [percentualPlugin]
             });
             
             // Pizza FUABC
@@ -501,8 +546,20 @@
                 },
                 options: {
                     responsive: true,
-                    plugins: { legend: { position: 'bottom', labels: { font: { size: 10 } } } }
-                }
+                    plugins: {
+                        legend: { position: 'bottom', labels: { font: { size: 10 } } },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                    const percentual = ((context.parsed / total) * 100).toFixed(1);
+                                    return context.label + ': ' + percentual + '%';
+                                }
+                            }
+                        }
+                    }
+                },
+                plugins: [percentualPlugin]
             });
             
             // Barras Comparativo
