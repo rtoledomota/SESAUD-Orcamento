@@ -1,0 +1,131 @@
+import subprocess
+import os
+import json
+from datetime import datetime
+
+print("="*80)
+print("ATUALIZAR SESAUD-Orcamento")
+print("="*80 + "\n")
+
+repo_path = os.path.expanduser('~/SESAUD-Orcamento')
+os.chdir(repo_path)
+
+print("1. Verificando repositório...\n")
+
+resultado = subprocess.run(['git', 'remote', '-v'], capture_output=True, text=True)
+print(resultado.stdout)
+
+print("\n2. Criando dados CORRETOS...\n")
+
+dados_raw = [
+    ("RECURSOS HUMANOS", 14549944.75, 9358526.35),
+    ("PROCESSOS TRABALHISTAS", 0.00, 2944.00),
+    ("MATERIAIS DE CONSUMO", 3085899.09, 599300.63),
+    ("SERVIÇOS DE TERCEIROS", 13583505.23, 3412043.98),
+    ("LOCAÇÃO", 813390.00, 96530.36),
+    ("INVESTIMENTOS", 382950.00, 1329727.83),
+    ("Combustível", 500.00, 43201.59),
+    ("Utilidades, Energia, Água, coleta de lixo e internet", 7000.00, 547260.90),
+    ("Despesas financeiras e bancárias", 200.00, 3410.29),
+    ("Outras despesas", 5500.00, 413947.91),
+    ("Despesas de Rateio", 90000.00, 9358526.35),
+    ("Apoio Técnico", 0.00, 411601.13),
+    ("Custas Processos Judiciais", 3000.00, 0.00),
+    ("Despesas Administrativas", 1000.00, 0.00),
+]
+
+categorias = []
+total_fuabc = 0
+total_sesaud = 0
+
+for categoria, fuabc, sesaud in dados_raw:
+    categorias.append({
+        "categoria": categoria,
+        "fuabc": round(fuabc, 2),
+        "sesaud": round(sesaud, 2),
+        "diferenca": round(sesaud - fuabc, 2),
+        "percentual_diff": round(((sesaud - fuabc) / fuabc * 100) if fuabc > 0 else 0, 1)
+    })
+    total_fuabc += fuabc
+    total_sesaud += sesaud
+
+total_geral = total_fuabc + total_sesaud
+percentual_fuabc = round((total_fuabc / total_geral * 100), 1)
+percentual_sesaud = round((total_sesaud / total_geral * 100), 1)
+
+dados_dashboard = {
+    "resumo": {
+        "total_fuabc": round(total_fuabc, 2),
+        "total_sesaud": round(total_sesaud, 2),
+        "total_geral": round(total_geral, 2),
+        "diferenca": round(total_sesaud - total_fuabc, 2),
+        "percentual_fuabc": percentual_fuabc,
+        "percentual_sesaud": percentual_sesaud,
+        "percentual_diff": round(((total_sesaud - total_fuabc) / total_fuabc * 100), 1)
+    },
+    "categorias": categorias,
+    "atualizado_em": datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
+    "timestamp": datetime.now().isoformat()
+}
+
+with open('data.json', 'w', encoding='utf-8') as f:
+    json.dump(dados_dashboard, f, ensure_ascii=False, indent=2)
+
+print(f"✅ data.json criado\n")
+
+print("3. Dados salvos:\n")
+print(f"   Total FUABC: R$ {total_fuabc:,.2f}")
+print(f"   Total SESAUD: R$ {total_sesaud:,.2f}")
+print(f"   Categorias: {len(categorias)}\n")
+
+print("4. Aqui está o JSON para você COLAR NO GITHUB:\n")
+print("="*80 + "\n")
+
+json_str = json.dumps(dados_dashboard, ensure_ascii=False, indent=2)
+print(json_str)
+
+print("\n" + "="*80)
+print("COMO FAZER PUSH NO GITHUB WEB:")
+print("="*80 + "\n")
+
+print(f"""
+PASSO 1: ABRIR O ARQUIVO NO GITHUB
+
+Acesse:
+https://github.com/rtoledomota/SESAUD-Orcamento
+
+PASSO 2: ENCONTRAR O data.json
+
+1. Procure pelo arquivo "data.json"
+2. Se não existe, clique "Add file" → "Create new file"
+3. Nome: data.json
+
+PASSO 3: EDITAR (se existe)
+
+1. Clique no arquivo data.json
+2. Clique no lápis (✏️ Edit)
+3. Apague TUDO (Ctrl+A, depois Delete)
+
+PASSO 4: COLAR O JSON
+
+1. Selecione TODO o JSON acima
+2. Copie (Ctrl+A depois Ctrl+C)
+3. Cole no GitHub (Ctrl+V)
+
+PASSO 5: COMMIT
+
+1. Scroll para baixo
+2. Clique "Commit changes"
+3. Deixe a mensagem padrão
+4. Clique "Commit" novamente
+
+PRONTO! ✅
+
+Dashboard atualiza em 30 segundos!
+
+https://rtoledomota.github.io/SESAUD-Orcamento/
+
+Depois pressione Ctrl+Shift+R para atualizar!
+
+FACA AGORA E ME AVISA! 👇
+""")
