@@ -2,597 +2,621 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Orcamento - Analise Comparativa</title>
+    <title>Dashboard Orçamento - SESAUD / FUABC</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
+        /* Estilos Gerais */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0f3460 0%, #1a5f7a 100%); /* Gradiente azul marinho */
+            color: #333;
             min-height: 100vh;
             padding: 20px;
-            color: #333;
         }
-        
+
         .container {
             max-width: 1400px;
             margin: 0 auto;
         }
-        
-        /* HEADER */
+
+        /* Cabeçalho */
         header {
             background: white;
-            padding: 50px 40px;
-            border-radius: 15px;
-            margin-bottom: 40px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             text-align: center;
         }
-        
-        header .emoji {
-            font-size: 64px;
-            margin-bottom: 15px;
-        }
-        
+
         header h1 {
-            color: #667eea;
-            font-size: 48px;
+            color: #0f3460;
             margin-bottom: 10px;
-            font-weight: 700;
+            font-size: 2.5em;
         }
-        
+
         header p {
             color: #666;
-            font-size: 18px;
-            margin-bottom: 5px;
+            font-size: 1.1em;
         }
-        
-        .data-atualizacao {
-            color: #999;
-            font-size: 13px;
-            margin-top: 10px;
+
+        /* Abas de Navegação */
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            background: white;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            flex-wrap: wrap;
         }
-        
-        /* CARDS RESUMO */
-        .resumo-executivo {
+
+        .tab-btn {
+            padding: 12px 30px;
+            border: none;
+            background: #e0e0e0;
+            color: #333;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn:hover {
+            background: #0f3460;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .tab-btn.active {
+            background: #0f3460;
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Cards de Resumo */
+        .cards-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin-bottom: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
         }
-        
+
         .card {
             background: white;
-            padding: 35px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border-left: 5px solid #0f3460; /* Borda corporativa */
         }
-        
+
         .card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
         }
-        
+
         .card-label {
-            color: #667eea;
-            font-size: 12px;
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 10px;
+            font-weight: 600;
             text-transform: uppercase;
-            font-weight: 700;
             letter-spacing: 1px;
-            margin-bottom: 12px;
         }
-        
+
         .card-valor {
-            font-size: 36px;
-            font-weight: 700;
-            color: #1a1a1a;
-            margin-bottom: 8px;
+            font-size: 1.8em;
+            color: #0f3460;
+            font-weight: bold;
+            margin-bottom: 5px;
         }
-        
+
         .card-subtitulo {
-            font-size: 13px;
+            font-size: 1em;
             color: #999;
-            line-height: 1.5;
         }
-        
-        .card.destaque {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+
+        /* Tabelas */
+        .tables-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
         }
-        
-        .card.destaque .card-label {
-            color: rgba(255,255,255,0.8);
-        }
-        
-        .card.destaque .card-valor {
-            color: white;
-        }
-        
-        .card.destaque .card-subtitulo {
-            color: rgba(255,255,255,0.8);
-        }
-        
-        /* GRAFICOS */
-        .secao-graficos {
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
             background: white;
-            padding: 40px;
-            border-radius: 12px;
-            margin-bottom: 40px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-        
-        .secao-titulo {
-            color: #667eea;
-            font-size: 26px;
-            font-weight: 700;
-            margin-bottom: 30px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #f0f0f0;
+
+        table thead {
+            background: #0f3460; /* Cor corporativa */
+            color: white;
         }
-        
-        .graficos-grid {
+
+        table th {
+            padding: 18px;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 2px solid #1a5f7a; /* Tom de azul mais claro */
+        }
+
+        table td {
+            padding: 15px 18px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        table tbody tr:hover {
+            background: #f5f5f5;
+            transition: background 0.2s ease;
+        }
+
+        table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .valor {
+            color: #0f3460;
+            font-weight: 600;
+        }
+
+        /* Gráficos */
+        .charts-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
             gap: 30px;
             margin-bottom: 30px;
         }
-        
-        .grafico-item {
-            background: #f9f9f9;
-            padding: 20px;
-            border-radius: 10px;
-        }
-        
-        .grafico-titulo {
-            font-size: 16px;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 15px;
-        }
-        
-        /* TABELA RESUMO */
-        .tabela-resumo {
-            margin-top: 30px;
-            overflow-x: auto;
-        }
-        
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        
-        th {
-            background: #f5f5f5;
-            padding: 15px;
-            text-align: left;
-            border-bottom: 2px solid #ddd;
-            font-weight: 600;
-            color: #333;
-            font-size: 14px;
-        }
-        
-        td {
-            padding: 12px 15px;
-            border-bottom: 1px solid #eee;
-            font-size: 14px;
-        }
-        
-        tr:hover {
-            background: #f9f9f9;
-        }
-        
-        .numero {
-            text-align: right;
-            font-weight: 600;
-            color: #667eea;
-        }
-        
-        .percentual {
-            background: linear-gradient(90deg, #667eea, #764ba2);
-            color: white;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            display: inline-block;
-        }
-        
-        /* BOTOES ACAO */
-        .secao-acoes {
+
+        .chart-box {
             background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .chart-box h3 {
+            color: #0f3460;
+            margin-bottom: 20px;
+            font-size: 1.3em;
+        }
+
+        /* Mensagens de Status */
+        .loading {
+            text-align: center;
+            color: white;
+            font-size: 1.2em;
             padding: 40px;
-            border-radius: 12px;
-            margin-bottom: 40px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            text-align: center;
         }
-        
-        .botoes-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
-        }
-        
-        .botao {
-            padding: 20px 30px;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-decoration: none;
-            display: inline-block;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-        
-        .botao-resumo {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+
+        .error {
+            background: #ff6b6b;
             color: white;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
         }
-        
-        .botao-resumo:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(79, 172, 254, 0.4);
-        }
-        
-        .botao-sesaud {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-        
-        .botao-sesaud:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
-        }
-        
-        .botao-fuabc {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            color: white;
-        }
-        
-        .botao-fuabc:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(245, 87, 108, 0.4);
-        }
-        
-        .icon {
-            margin-right: 10px;
-        }
-        
-        /* FOOTER */
+
+        /* Rodapé */
         footer {
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
             text-align: center;
-            color: #999;
-            font-size: 13px;
+            color: white;
             margin-top: 40px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            padding: 20px;
+            font-size: 0.9em;
         }
-        
-        /* RESPONSIVE */
+
+        /* Responsividade */
         @media (max-width: 768px) {
-            header h1 { font-size: 32px; }
-            .card-valor { font-size: 28px; }
-            .graficos-grid { grid-template-columns: 1fr; }
-            .botoes-container { grid-template-columns: 1fr; }
+            .cards-container {
+                grid-template-columns: 1fr;
+            }
+
+            .charts-container {
+                grid-template-columns: 1fr;
+            }
+
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+
+            .tab-btn {
+                width: 100%;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- HEADER -->
         <header>
-            <div class="emoji">📊</div>
-            <h1>Dashboard Orcamentario 2026</h1>
-            <p>Analise Comparativa: Fundacao ABC vs SESAUD</p>
-            <div class="data-atualizacao">Ultima atualizacao: 27 de Novembro de 2025</div>
+            <h1>📊 Dashboard Orçamentário</h1>
+            <p>SESAUD & FUABC - Análise Comparativa</p>
         </header>
-        
-        <!-- RESUMO EXECUTIVO -->
-        <div class="resumo-executivo">
-            <div class="card destaque">
-                <div class="card-label">🏥 Total SESAUD 2026</div>
-                <div class="card-valor">R$ 86.049.393</div>
-                <div class="card-subtitulo">Orcamento Total SESAUD para 2026</div>
-            </div>
-            
-            <div class="card">
-                <div class="card-label">💼 Total Fundacao ABC</div>
-                <div class="card-valor">R$ 32.522.889</div>
-                <div class="card-subtitulo">Orcamento Total FUABC para 2026</div>
-            </div>
-            
-            <div class="card">
-                <div class="card-label">📈 Diferenca</div>
-                <div class="card-valor">R$ 53.526.504</div>
-                <div class="card-subtitulo">SESAUD acima de 164,5%</div>
-            </div>
-            
-            <div class="card">
-                <div class="card-label">👥 Principal Gasto (SESAUD)</div>
-                <div class="card-valor">Recursos Humanos</div>
-                <div class="card-subtitulo">R$ 9.358.526,35 (36,6%)</div>
-            </div>
-            
-            <div class="card">
-                <div class="card-label">👥 Principal Gasto (FUABC)</div>
-                <div class="card-valor">Recursos Humanos</div>
-                <div class="card-subtitulo">R$ 14.549.945 (44,7%)</div>
-            </div>
-            
-            <div class="card">
-                <div class="card-label">📊 Total Categorias</div>
-                <div class="card-valor">14</div>
-                <div class="card-subtitulo">Categorias de despesas analisadas</div>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="abrirAba('resumo', this)">📋 Resumo</button>
+            <button class="tab-btn" onclick="abrirAba('sesaud', this)">🏥 Orçamento SESAUD</button>
+            <button class="tab-btn" onclick="abrirAba('fuabc', this)">🏢 Orçamento FUABC</button>
+            <button class="tab-btn" onclick="abrirAba('comparativo', this)">📈 Comparativo</button>
+        </div>
+
+        <!-- ABA: RESUMO -->
+        <div id="resumo" class="tab-content active">
+            <div id="resumo-conteudo">
+                <div class="loading">Carregando dados...</div>
             </div>
         </div>
-        
-        <!-- GRAFICOS -->
-        <div class="secao-graficos">
-            <h2 class="secao-titulo">Analise Comparativa - Distribuicao Percentual</h2>
-            
-            <div class="graficos-grid">
-                <div class="grafico-item">
-                    <div class="grafico-titulo">Distribuicao SESAUD 2026 (%)</div>
-                    <canvas id="grafico1"></canvas>
-                </div>
-                <div class="grafico-item">
-                    <div class="grafico-titulo">Distribuicao Fundacao ABC (%)</div>
-                    <canvas id="grafico2"></canvas>
-                </div>
-            </div>
-            
-            <div class="grafico-item" style="margin-bottom: 20px;">
-                <div class="grafico-titulo">Comparacao por Categoria (Valores em R$ Milhoes)</div>
-                <canvas id="grafico3" style="max-height: 400px;"></canvas>
-            </div>
-            
-            <!-- TABELA RESUMO -->
-            <div class="tabela-resumo">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Categoria</th>
-                            <th class="numero">SESAUD 2026</th>
-                            <th class="numero">Fundacao ABC</th>
-                            <th class="numero">Diferenca</th>
-                            <th class="numero">% SESAUD</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tabelaBody"></tbody>
-                </table>
+
+        <!-- ABA: SESAUD -->
+        <div id="sesaud" class="tab-content">
+            <div id="sesaud-conteudo">
+                <div class="loading">Carregando dados...</div>
             </div>
         </div>
-        
-        <!-- ACOES - RESUMO -->
-        <div class="secao-acoes">
-            <h2 class="secao-titulo">📋 Planilha Resumo</h2>
-            <p>Visualize a previsao orcamentaria consolidada com analise comparativa:</p>
-            
-            <div class="botoes-container">
-                <a href="https://docs.google.com/spreadsheets/d/15SkL0lR1fYjIztMD9L_PmsP7G0jLXyKS5DPUMIFQzlU/edit?gid=0#gid=0" target="_blank" class="botao botao-resumo">
-                    <span class="icon">📊</span> Abrir Planilha Resumo
-                </a>
+
+        <!-- ABA: FUABC -->
+        <div id="fuabc" class="tab-content">
+            <div id="fuabc-conteudo">
+                <div class="loading">Carregando dados...</div>
             </div>
         </div>
-        
-        <!-- ACOES - ORCAMENTOS SEPARADOS -->
-        <div class="secao-acoes">
-            <h2 class="secao-titulo">💼 Orcamentos Discriminados</h2>
-            <p>Clique para visualizar o orcamento detalhado de cada instituicao:</p>
-            
-            <div class="botoes-container">
-                <a href="https://docs.google.com/spreadsheets/d/1qaD0tXbkMLknsErp1DZqZpV_d1v0xt-BZPv67Ll9sjs/edit?usp=sharing" target="_blank" class="botao botao-sesaud">
-                    <span class="icon">🏥</span> Orcamento SESAUD 2026
-                </a>
-                
-                <a href="https://docs.google.com/spreadsheets/d/1sHEbqiyigNxVs35vKxIzcNaDFoop7OdJdnabiGUb7VM/edit?usp=sharing" target="_blank" class="botao botao-fuabc">
-                    <span class="icon">💼</span> Orcamento FUABC 2026
-                </a>
+
+        <!-- ABA: COMPARATIVO -->
+        <div id="comparativo" class="tab-content">
+            <div id="comparativo-conteudo">
+                <div class="loading">Carregando dados...</div>
             </div>
         </div>
+
+        <footer>
+            <p>Dashboard atualizado automaticamente • Última sincronização: <span id="hora-atualizacao">--</span></p>
+        </footer>
     </div>
-    
-    <footer>
-        <p>Dashboard Orcamentario 2026 | Analise Comparativa | Fundacao ABC vs SESAUD</p>
-    </footer>
 
     <script>
-        const dados = {
-            "RECURSOS HUMANOS": { "SESAUD": 78980441.62, "FUABC": 14549944.75 },
-            "PROCESSOS TRABALHISTAS": { "SESAUD": 2944.00, "FUABC": 0.00 },
-            "MATERIAIS DE CONSUMO": { "SESAUD": 599300.63, "FUABC": 3085899.09 },
-            "SERVICOS DE TERCEIROS": { "SESAUD": 3952043.98, "FUABC": 13583505.23 },
-            "LOCACAO": { "SESAUD": 96530.36, "FUABC": 813390.00 },
-            "INVESTIMENTOS": { "SESAUD": 1410311.79, "FUABC": 382950.00 },
-            "Combustivel": { "SESAUD": 43201.59, "FUABC": 500.00 },
-            "Utilidades, Energia, Agua": { "SESAUD": 547260.90, "FUABC": 7000.00 },
-            "Despesas financeiras": { "SESAUD": 0.00, "FUABC": 200.00 },
-            "Outras despesas": { "SESAUD": 367402.46, "FUABC": 5500.00 },
-            "Despesas de Rateio": { "SESAUD": 0.00, "FUABC": 90000.00 },
-            "Apoio Tecnico": { "SESAUD": 0.00, "FUABC": 0.00 },
-            "Custas Processos": { "SESAUD": 0.00, "FUABC": 3000.00 },
-            "Despesas Administrativas": { "SESAUD": 49955.74, "FUABC": 1000.00 }
-        };
-        
-        function formatarMoeda(valor) {
-            return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(valor);
+        // ============================================================================
+        // CONFIGURACAO DE DADOS
+        // ============================================================================
+        const DATA_SOURCE_URL = "https://raw.githubusercontent.com/rtoledomota/SESAUD-Orcamento/main/data.json";
+        let chartInstances = {}; // Para armazenar instâncias de gráficos e destruí-las antes de recriar
+
+        // ============================================================================
+        // FUNCOES PRINCIPAIS
+        // ============================================================================
+
+        function abrirAba(abaId, clickedButton) {
+            // Esconder todas as abas
+            document.querySelectorAll('.tab-content').forEach(aba => {
+                aba.classList.remove('active');
+            });
+
+            // Remover classe active de todos os botões
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Mostrar aba selecionada
+            document.getElementById(abaId).classList.add('active');
+
+            // Adicionar classe active ao botão clicado
+            if (clickedButton) {
+                clickedButton.classList.add('active');
+            }
+
+            // Carregar dados (garante que os dados são carregados ao mudar de aba)
+            carregarDados();
         }
-        
-        // TABELA
-        function criarTabela() {
-            const tbody = document.getElementById('tabelaBody');
-            let totalSESAUD = 0;
-            let totalFUABC = 0;
-            
-            for (const [categoria, valores] of Object.entries(dados)) {
-                totalSESAUD += valores.SESAUD;
-                totalFUABC += valores.FUABC;
+
+        async function carregarDados() {
+            try {
+                const response = await fetch(DATA_SOURCE_URL + '?t=' + new Date().getTime()); // Adiciona timestamp para evitar cache
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const dados = await response.json();
+
+                // Atualizar hora no rodapé
+                document.getElementById('hora-atualizacao').textContent = dados.atualizado_em;
+
+                // Preencher abas ativas
+                const activeTabId = document.querySelector('.tab-content.active').id;
                 
-                const diferenca = valores.SESAUD - valores.FUABC;
-                const percentual = ((valores.SESAUD / (valores.SESAUD + valores.FUABC)) * 100).toFixed(1);
-                
-                tbody.innerHTML += `
+                // Destruir gráficos antigos antes de recriar
+                Object.values(chartInstances).forEach(chart => chart.destroy());
+                chartInstances = {};
+
+                preencherResumo(dados);
+                preencherSesaud(dados);
+                preencherFuabc(dados);
+                preencherComparativo(dados);
+
+            } catch (erro) {
+                console.error('Erro ao carregar dados:', erro);
+                document.getElementById('resumo-conteudo').innerHTML = '<div class="error">❌ Erro ao carregar dados. Verifique a conexão ou a URL do JSON.</div>';
+                document.getElementById('sesaud-conteudo').innerHTML = '<div class="error">❌ Erro ao carregar dados.</div>';
+                document.getElementById('fuabc-conteudo').innerHTML = '<div class="error">❌ Erro ao carregar dados.</div>';
+                document.getElementById('comparativo-conteudo').innerHTML = '<div class="error">❌ Erro ao carregar dados.</div>';
+            }
+        }
+
+        function preencherResumo(dados) {
+            const html = `
+                <div class="cards-container">
+                    <div class="card">
+                        <div class="card-label">💰 Total FUABC</div>
+                        <div class="card-valor">R$ ${formatarMoeda(dados.resumo.total_fuabc)}</div>
+                        <div class="card-subtitulo">${dados.resumo.percentual_fuabc}% do total</div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-label">🏥 Total SESAUD</div>
+                        <div class="card-valor">R$ ${formatarMoeda(dados.resumo.total_sesaud)}</div>
+                        <div class="card-subtitulo">${dados.resumo.percentual_sesaud}% do total</div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-label">📊 TOTAL GERAL</div>
+                        <div class="card-valor">R$ ${formatarMoeda(dados.resumo.total_geral)}</div>
+                        <div class="card-subtitulo">Soma de ambas instituições</div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-label">📈 Diferença</div>
+                        <div class="card-valor">R$ ${formatarMoeda(dados.resumo.diferenca)}</div>
+                        <div class="card-subtitulo">${dados.resumo.percentual_diff}% a mais na SESAUD</div>
+                    </div>
+                </div>
+
+                <div class="charts-container">
+                    <div class="chart-box">
+                        <h3>📊 Distribuição Total</h3>
+                        <canvas id="chartResumo"></canvas>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('resumo-conteudo').innerHTML = html;
+
+            // Renderizar gráfico apenas se a aba estiver ativa
+            if (document.getElementById('resumo').classList.contains('active')) {
+                setTimeout(() => {
+                    const ctx = document.getElementById('chartResumo');
+                    if (ctx) { // Verifica se o canvas existe
+                        chartInstances.chartResumo = new Chart(ctx.getContext('2d'), {
+                            type: 'doughnut',
+                            data: {
+                                labels: ['FUABC', 'SESAUD'],
+                                datasets: [{
+                                    data: [dados.resumo.total_fuabc, dados.resumo.total_sesaud],
+                                    backgroundColor: ['#0f3460', '#1a5f7a'],
+                                    borderColor: ['white'],
+                                    borderWidth: 2
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: true,
+                                plugins: {
+                                    legend: {
+                                        position: 'bottom',
+                                        labels: {
+                                            font: { size: 14 },
+                                            padding: 20
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                    }
+                }, 100);
+            }
+        }
+
+        function preencherSesaud(dados) {
+            let html = '<h2 style="color: white; margin-bottom: 20px;">🏥 Orçamento SESAUD</h2>';
+            html += '<table>';
+            html += '<thead><tr><th>Categoria</th><th>Valor</th><th>% do Total</th></tr></thead>';
+            html += '<tbody>';
+
+            dados.categorias.forEach(cat => {
+                const percentual = ((cat.sesaud / dados.resumo.total_sesaud) * 100).toFixed(1);
+                html += `
                     <tr>
-                        <td>${categoria}</td>
-                        <td class="numero">${formatarMoeda(valores.SESAUD)}</td>
-                        <td class="numero">${formatarMoeda(valores.FUABC)}</td>
-                        <td class="numero">${formatarMoeda(diferenca)}</td>
-                        <td class="numero"><span class="percentual">${percentual}%</span></td>
+                        <td>${cat.categoria}</td>
+                        <td class="valor">R$ ${formatarMoeda(cat.sesaud)}</td>
+                        <td>${percentual}%</td>
                     </tr>
                 `;
-            }
-            
-            tbody.innerHTML += `
-                <tr style="background: #f5f5f5; font-weight: 700;">
-                    <td>TOTAL</td>
-                    <td class="numero">${formatarMoeda(totalSESAUD)}</td>
-                    <td class="numero">${formatarMoeda(totalFUABC)}</td>
-                    <td class="numero">${formatarMoeda(totalSESAUD - totalFUABC)}</td>
-                    <td class="numero"><span class="percentual">${((totalSESAUD / (totalSESAUD + totalFUABC)) * 100).toFixed(1)}%</span></td>
-                </tr>
+            });
+
+            html += '<tr style="background: #0f3460; color: white; font-weight: bold;">';
+            html += `<td>TOTAL</td><td>R$ ${formatarMoeda(dados.resumo.total_sesaud)}</td><td>100%</td>`;
+            html += '</tr>';
+            html += '</tbody></table>';
+
+            document.getElementById('sesaud-conteudo').innerHTML = html;
+        }
+
+        function preencherFuabc(dados) {
+            let html = '<h2 style="color: white; margin-bottom: 20px;">🏢 Orçamento FUABC</h2>';
+            html += '<table>';
+            html += '<thead><tr><th>Categoria</th><th>Valor</th><th>% do Total</th></tr></thead>';
+            html += '<tbody>';
+
+            dados.categorias.forEach(cat => {
+                const percentual = ((cat.fuabc / dados.resumo.total_fuabc) * 100).toFixed(1);
+                html += `
+                    <tr>
+                        <td>${cat.categoria}</td>
+                        <td class="valor">R$ ${formatarMoeda(cat.fuabc)}</td>
+                        <td>${percentual}%</td>
+                    </tr>
+                `;
+            });
+
+            html += '<tr style="background: #0f3460; color: white; font-weight: bold;">';
+            html += `<td>TOTAL</td><td>R$ ${formatarMoeda(dados.resumo.total_fuabc)}</td><td>100%</td>`;
+            html += '</tr>';
+            html += '</tbody></table>';
+
+            document.getElementById('fuabc-conteudo').innerHTML = html;
+        }
+
+        function preencherComparativo(dados) {
+            const html = `
+                <h2 style="color: white; margin-bottom: 20px;">📈 Comparativo</h2>
+                <div class="charts-container">
+                    <div class="chart-box">
+                        <h3>Comparação por Categoria</h3>
+                        <canvas id="chartComparacao"></canvas>
+                    </div>
+                    <div class="chart-box">
+                        <h3>% do Total (FUABC)</h3>
+                        <canvas id="chartFuabc"></canvas>
+                    </div>
+                    <div class="chart-box">
+                        <h3>% do Total (SESAUD)</h3>
+                        <canvas id="chartSesaud"></canvas>
+                    </div>
+                </div>
             `;
-        }
-        
-        // GRAFICOS COM PERCENTUAIS NAS PIZZAS
-        function criarGraficos() {
-            const categorias = [];
-            const sesaud = [];
-            const fuabc = [];
-            const cores = ['#667eea', '#764ba2', '#f093fb', '#4facfe', '#00f2fe', '#43e97b', '#fa709a', '#fee140', '#30cfd0', '#330867', '#ec008c', '#a8edea', '#ffd89b', '#19547b'];
-            
-            let totalSESAUD = 0;
-            let totalFUABC = 0;
-            
-            for (const [categoria, valores] of Object.entries(dados)) {
-                totalSESAUD += valores.SESAUD;
-                totalFUABC += valores.FUABC;
-                let nomeCurto = categoria;
-                if (categoria.length > 20) nomeCurto = categoria.substring(0, 17) + '...';
-                categorias.push(nomeCurto);
-                sesaud.push(valores.SESAUD);
-                fuabc.push(valores.FUABC);
-            }
-            
-            // Plugin para mostrar percentual nas pizzas
-            const percentualPlugin = {
-                id: 'percentualLabel',
-                afterDatasetsDraw(chart) {
-                    const { ctx, data, chartInstance: { scales } } = chart;
-                    data.datasets.forEach((dataset, i) => {
-                        const meta = chart.getDatasetMeta(i);
-                        meta.data.forEach((datapoint, index) => {
-                            const { x, y } = datapoint.tooltipPosition();
-                            const total = dataset.data.reduce((a, b) => a + b, 0);
-                            const percentual = ((dataset.data[index] / total) * 100).toFixed(1);
-                            
-                            ctx.fillStyle = 'white';
-                            ctx.font = 'bold 12px Arial';
-                            ctx.textAlign = 'center';
-                            ctx.textBaseline = 'middle';
-                            ctx.fillText(percentual + '%', x, y);
+
+            document.getElementById('comparativo-conteudo').innerHTML = html;
+
+            // Renderizar gráficos apenas se a aba estiver ativa
+            if (document.getElementById('comparativo').classList.contains('active')) {
+                setTimeout(() => {
+                    const categoriasLabels = dados.categorias.map(c => c.categoria.length > 20 ? c.categoria.substring(0, 17) + '...' : c.categoria);
+                    const pieColors = [
+                        '#0f3460', '#1a5f7a', '#2a7fa8', '#3a9fd6',
+                        '#4abfe4', '#5acff2', '#6adfff', '#7aeeff',
+                        '#8afeff', '#9affff', '#aaffff', '#bbffff',
+                        '#ccffff', '#ddffff', '#eeffff', '#fffeff'
+                    ];
+
+                    // Gráfico 1: Comparação (Barras Horizontais)
+                    const ctx1 = document.getElementById('chartComparacao');
+                    if (ctx1) {
+                        chartInstances.chartComparacao = new Chart(ctx1.getContext('2d'), {
+                            type: 'bar',
+                            data: {
+                                labels: categoriasLabels,
+                                datasets: [
+                                    {
+                                        label: 'FUABC',
+                                        data: dados.categorias.map(c => c.fuabc),
+                                        backgroundColor: '#0f3460'
+                                    },
+                                    {
+                                        label: 'SESAUD',
+                                        data: dados.categorias.map(c => c.sesaud),
+                                        backgroundColor: '#1a5f7a'
+                                    }
+                                ]
+                            },
+                            options: {
+                                responsive: true,
+                                indexAxis: 'y', // Barras horizontais
+                                plugins: {
+                                    legend: { position: 'bottom' }
+                                },
+                                scales: {
+                                    x: {
+                                        beginAtZero: true
+                                    }
+                                }
+                            }
                         });
-                    });
-                }
-            };
-            
-            // Pizza SESAUD
-            new Chart(document.getElementById('grafico1'), {
-                type: 'doughnut',
-                data: {
-                    labels: categorias,
-                    datasets: [{
-                        data: sesaud,
-                        backgroundColor: cores
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: { position: 'bottom', labels: { font: { size: 10 } } },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    const total = context.dataset.data.reduce((a, b) => a + b, 0);
-                                    const percentual = ((context.parsed / total) * 100).toFixed(1);
-                                    return context.label + ': ' + percentual + '%';
-                                }
+                    }
+
+                    // Gráfico 2: Pizza FUABC
+                    const ctx2 = document.getElementById('chartFuabc');
+                    if (ctx2) {
+                        chartInstances.chartFuabc = new Chart(ctx2.getContext('2d'), {
+                            type: 'pie',
+                            data: {
+                                labels: categoriasLabels,
+                                datasets: [{
+                                    data: dados.categorias.map(c => c.fuabc),
+                                    backgroundColor: pieColors
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                plugins: { legend: { position: 'right' } }
                             }
-                        }
+                        });
                     }
-                },
-                plugins: [percentualPlugin]
-            });
-            
-            // Pizza FUABC
-            new Chart(document.getElementById('grafico2'), {
-                type: 'doughnut',
-                data: {
-                    labels: categorias,
-                    datasets: [{
-                        data: fuabc,
-                        backgroundColor: cores
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: { position: 'bottom', labels: { font: { size: 10 } } },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    const total = context.dataset.data.reduce((a, b) => a + b, 0);
-                                    const percentual = ((context.parsed / total) * 100).toFixed(1);
-                                    return context.label + ': ' + percentual + '%';
-                                }
+
+                    // Gráfico 3: Pizza SESAUD
+                    const ctx3 = document.getElementById('chartSesaud');
+                    if (ctx3) {
+                        chartInstances.chartSesaud = new Chart(ctx3.getContext('2d'), {
+                            type: 'pie',
+                            data: {
+                                labels: categoriasLabels,
+                                datasets: [{
+                                    data: dados.categorias.map(c => c.sesaud),
+                                    backgroundColor: pieColors
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                plugins: { legend: { position: 'right' } }
                             }
-                        }
+                        });
                     }
-                },
-                plugins: [percentualPlugin]
-            });
-            
-            // Barras Comparativo
-            new Chart(document.getElementById('grafico3'), {
-                type: 'bar',
-                data: {
-                    labels: categorias,
-                    datasets: [
-                        {
-                            label: 'SESAUD 2026',
-                            data: sesaud,
-                            backgroundColor: '#667eea'
-                        },
-                        {
-                            label: 'Fundacao ABC',
-                            data: fuabc,
-                            backgroundColor: '#764ba2'
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    indexAxis: 'y',
-                    plugins: { legend: { position: 'bottom' } },
-                    scales: {
-                        x: { ticks: { callback: function(value) { return 'R$ ' + (value / 1000000).toFixed(0) + 'M'; } } }
-                    }
-                }
-            });
+                }, 100);
+            }
         }
-        
-        criarTabela();
-        setTimeout(criarGraficos, 100);
+
+        function formatarMoeda(valor) {
+            return valor.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        }
+
+        // ============================================================================
+        // INICIALIZAR DASHBOARD
+        // ============================================================================
+
+        // Carrega os dados e preenche a aba ativa ao carregar a página
+        document.addEventListener('DOMContentLoaded', () => {
+            carregarDados();
+            // Garante que o botão da aba "Resumo" esteja ativo ao carregar
+            document.querySelector('.tab-btn.active').classList.add('active');
+        });
+
+        // Recarregar a cada 5 minutos
+        setInterval(carregarDados, 5 * 60 * 1000);
     </script>
 </body>
 </html>
