@@ -6,7 +6,7 @@
     <title>Dashboard Orçamento - SESAUD / FUABC</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        /* Reset e Base */
+        /* Estilos Gerais */
         * {
             margin: 0;
             padding: 0;
@@ -20,22 +20,18 @@
             min-height: 100vh;
             padding: 20px;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
+            justify-content: center;
         }
 
-        /* Container Principal */
         .container {
             max-width: 1400px;
             width: 100%;
             margin: 0 auto;
-            background: none; /* Remove background do container para usar o do body */
-            box-shadow: none;
-            border-radius: 0;
-            padding: 0;
         }
 
-        /* Header */
+        /* Estilos do Cabeçalho */
         header {
             background: white;
             padding: 30px;
@@ -43,6 +39,7 @@
             margin-bottom: 30px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             text-align: center;
+            position: relative; /* Para posicionar o bem-vindo e sair */
         }
 
         header h1 {
@@ -56,7 +53,33 @@
             font-size: 1.1em;
         }
 
-        /* Tabs */
+        .user-info {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 0.9em;
+            color: #0f3460;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-info button {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8em;
+            transition: background 0.3s ease;
+        }
+
+        .user-info button:hover {
+            background: #c0392b;
+        }
+
+        /* Estilos das Abas */
         .tabs {
             display: flex;
             gap: 10px;
@@ -91,7 +114,6 @@
             color: white;
         }
 
-        /* Tab Content */
         .tab-content {
             display: none;
             animation: fadeIn 0.5s ease;
@@ -106,7 +128,7 @@
             to { opacity: 1; }
         }
 
-        /* Cards */
+        /* Estilos dos Cards */
         .cards-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -149,7 +171,7 @@
             color: #999;
         }
 
-        /* Tables */
+        /* Estilos das Tabelas */
         .tables-container {
             display: grid;
             grid-template-columns: 1fr;
@@ -196,7 +218,7 @@
             font-weight: 600;
         }
 
-        /* Charts */
+        /* Estilos dos Gráficos */
         .charts-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
@@ -217,7 +239,7 @@
             font-size: 1.3em;
         }
 
-        /* Loading/Error/Success Messages */
+        /* Mensagens de Status */
         .loading {
             text-align: center;
             color: white;
@@ -231,6 +253,7 @@
             padding: 15px;
             border-radius: 5px;
             margin-bottom: 20px;
+            text-align: center;
         }
 
         .success {
@@ -239,9 +262,10 @@
             padding: 15px;
             border-radius: 5px;
             margin-bottom: 20px;
+            text-align: center;
         }
 
-        /* Footer */
+        /* Estilos do Rodapé */
         footer {
             text-align: center;
             color: white;
@@ -250,7 +274,7 @@
             font-size: 0.9em;
         }
 
-        /* Login Form */
+        /* Estilos da Tela de Login */
         .login-container {
             background: white;
             padding: 40px;
@@ -267,47 +291,19 @@
             font-size: 2em;
         }
 
-        .login-form .input-group {
+        .login-container input[type="text"],
+        .login-container input[type="password"] {
+            width: calc(100% - 20px);
+            padding: 12px 10px;
             margin-bottom: 20px;
-            text-align: left;
-        }
-
-        .login-form label {
-            display: block;
-            margin-bottom: 8px;
-            color: #555;
-            font-weight: 600;
-        }
-
-        .login-form input[type="text"],
-        .login-form input[type="password"] {
-            width: 100%;
-            padding: 12px;
             border: 1px solid #ddd;
             border-radius: 5px;
             font-size: 1em;
-            transition: border-color 0.3s ease;
         }
 
-        .login-form input[type="text"]:focus,
-        .login-form input[type="password"]:focus {
-            border-color: #0f3460;
-            outline: none;
-        }
-
-        .login-form .remember-me {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .login-form .remember-me input[type="checkbox"] {
-            margin-right: 10px;
-        }
-
-        .login-form button {
+        .login-container button {
             width: 100%;
-            padding: 15px;
+            padding: 12px;
             background: #0f3460;
             color: white;
             border: none;
@@ -315,104 +311,89 @@
             font-size: 1.1em;
             font-weight: bold;
             cursor: pointer;
-            transition: background 0.3s ease, transform 0.2s ease;
-        }
-
-        .login-form button:hover {
-            background: #1a5f7a;
-            transform: translateY(-2px);
-        }
-
-        .login-error {
-            color: #ff6b6b;
-            margin-top: 15px;
-            font-weight: 600;
-        }
-
-        /* Dashboard Specific Styles */
-        #dashboard-view {
-            display: none; /* Hidden by default */
-        }
-
-        .user-info {
-            color: white;
-            font-size: 1em;
-            margin-left: auto;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .user-info button {
-            padding: 8px 15px;
-            background: #1a5f7a;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
             transition: background 0.3s ease;
         }
 
-        .user-info button:hover {
-            background: #0f3460;
+        .login-container button:hover {
+            background: #1a5f7a;
         }
 
-        /* Media Queries */
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .checkbox-container input[type="checkbox"] {
+            margin-right: 8px;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            margin-top: -10px;
+            margin-bottom: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+
+        /* Media Queries para Responsividade */
         @media (max-width: 768px) {
-            body {
-                padding: 10px;
+            .cards-container {
+                grid-template-columns: 1fr;
             }
+
+            .charts-container {
+                grid-template-columns: 1fr;
+            }
+
             header h1 {
                 font-size: 1.8em;
             }
+
             .tabs {
                 flex-direction: column;
             }
+
             .tab-btn {
                 width: 100%;
             }
-            .cards-container, .charts-container {
-                grid-template-columns: 1fr;
-            }
-            .login-container {
-                padding: 30px;
+
+            .user-info {
+                position: static;
+                margin-top: 15px;
+                justify-content: center;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Login View -->
-    <div id="login-view" class="login-container">
-        <h2>Login</h2>
-        <form id="login-form" class="login-form">
-            <div class="input-group">
-                <label for="username">Usuário</label>
-                <input type="text" id="username" required>
+    <!-- Tela de Login -->
+    <div id="login-screen" class="login-container" style="display: none;">
+        <h2>🔐 Login</h2>
+        <form id="login-form">
+            <input type="text" id="username" placeholder="Usuário" required>
+            <input type="password" id="password" placeholder="Senha" required>
+            <div class="checkbox-container">
+                <input type="checkbox" id="remember-me">
+                <label for="remember-me">Lembrar-me por 7 dias</label>
             </div>
-            <div class="input-group">
-                <label for="password">Senha</label>
-                <input type="password" id="password" required>
-            </div>
-            <div class="remember-me">
-                <input type="checkbox" id="rememberMe">
-                <label for="rememberMe">Lembrar-me por 7 dias</label>
-            </div>
-            <button type="submit">Entrar</button>
-            <p id="login-error" class="login-error" style="display: none;">Usuário ou senha incorretos.</p>
+            <div id="login-error" class="error-message" style="display: none;"></div>
+            <button type="submit">ENTRAR</button>
         </form>
     </div>
 
-    <!-- Dashboard View -->
-    <div id="dashboard-view" class="container">
+    <!-- Dashboard Principal -->
+    <div id="dashboard-screen" class="container" style="display: none;">
         <header>
-            <div style="display: flex; align-items: center; justify-content: center;">
-                <h1>📊 Dashboard Orçamentário</h1>
-                <div class="user-info">
-                    Bem-vindo(a), <span id="logged-in-username"></span>!
-                    <button onclick="logout()">Sair</button>
-                </div>
-            </div>
+            <h1>📊 Dashboard Orçamentário</h1>
             <p>SESAUD & FUABC - Análise Comparativa</p>
+            <div class="user-info">
+                Bem-vindo, <span id="logged-in-username"></span>!
+                <button onclick="logout()">Sair</button>
+            </div>
         </header>
 
         <div class="tabs">
@@ -449,118 +430,88 @@
 
     <script>
         // ============================================================================
-        // CONFIGURACAO DE AUTENTICACAO
-        // ============================================================================
-        const VALID_USERNAME = "teste";
-        // SHA-256 de "teste"
-        const VALID_PASSWORD_HASH = "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08";
-        const SESSION_EXPIRY_DAYS = 7; // Dias para a sessão expirar se "Lembrar-me" for marcado
-
-        // ============================================================================
-        // CONFIGURACAO DE DADOS
-        // ============================================================================
-        const DATA_URL = "https://raw.githubusercontent.com/rtoledomota/SESAUD-Orcamento/main/data.json";
-
-        // ============================================================================
-        // FUNCOES DE AUTENTICACAO
+        // CONFIGURACAO E AUTENTICACAO
         // ============================================================================
 
-        // Função para calcular SHA-256 (simples, para uso local)
-        async function sha256(message) {
-            const msgBuffer = new TextEncoder().encode(message);
-            const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
-            const hashArray = Array.from(new Uint8Array(hashBuffer));
-            const hexHash = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-            return hexHash;
-        }
+        const SHEET_ID = "15SkL0lR1fYjIztMD9L_PmsP7G0jLXyKS5DPUMIFQzlU";
+        const SHEET_NAME = "Folha1";
+        const GITHUB_DATA_URL = "https://raw.githubusercontent.com/rtoledomota/SESAUD-Orcamento/main/data.json";
 
-        async function handleLogin(event) {
+        // Usuários e senhas (senha em Base64)
+        const validUsers = {
+            'teste': 'dGVzdGU=' // Senha 'teste' em Base64
+        };
+
+        document.getElementById('login-form').addEventListener('submit', function(event) {
             event.preventDefault();
+            autenticar();
+        });
+
+        function autenticar() {
             const usernameInput = document.getElementById('username').value;
             const passwordInput = document.getElementById('password').value;
-            const rememberMe = document.getElementById('rememberMe').checked;
-            const loginError = document.getElementById('login-error');
+            const rememberMe = document.getElementById('remember-me').checked;
+            const errorMessage = document.getElementById('login-error');
 
-            const hashedPassword = await sha256(passwordInput);
+            // Criptografa a senha usando Base64 (conforme especificado)
+            const hashedPassword = btoa(passwordInput);
 
-            if (usernameInput === VALID_USERNAME && hashedPassword === VALID_PASSWORD_HASH) {
-                loginError.style.display = 'none';
-                localStorage.setItem('loggedIn', 'true');
-                localStorage.setItem('username', usernameInput);
-
-                if (rememberMe) {
-                    const expiryDate = new Date();
-                    expiryDate.setDate(expiryDate.getDate() + SESSION_EXPIRY_DAYS);
-                    localStorage.setItem('sessionExpiry', expiryDate.toISOString());
-                } else {
-                    // Session only for current browser session
-                    sessionStorage.setItem('loggedIn', 'true');
-                    sessionStorage.setItem('username', usernameInput);
-                }
-                
-                showDashboard();
+            if (validUsers[usernameInput] && validUsers[usernameInput] === hashedPassword) {
+                const expirationTime = rememberMe ? Date.now() + (7 * 24 * 60 * 60 * 1000) : Date.now() + (30 * 60 * 1000); // 7 dias ou 30 minutos
+                localStorage.setItem('usuario_logado', JSON.stringify({
+                    username: usernameInput,
+                    expires: expirationTime
+                }));
+                errorMessage.style.display = 'none';
+                checkLoginStatus(); // Redireciona para o dashboard
             } else {
-                loginError.style.display = 'block';
+                errorMessage.textContent = 'Usuário ou senha incorretos.';
+                errorMessage.style.display = 'block';
             }
         }
 
         function logout() {
-            localStorage.removeItem('loggedIn');
-            localStorage.removeItem('username');
-            localStorage.removeItem('sessionExpiry');
-            sessionStorage.removeItem('loggedIn');
-            sessionStorage.removeItem('username');
-            showLogin();
+            localStorage.removeItem('usuario_logado');
+            checkLoginStatus(); // Redireciona para a tela de login
         }
 
-        function checkAuth() {
-            const loggedInLocalStorage = localStorage.getItem('loggedIn');
-            const usernameLocalStorage = localStorage.getItem('username');
-            const sessionExpiry = localStorage.getItem('sessionExpiry');
+        function checkLoginStatus() {
+            const loggedInUser = localStorage.getItem('usuario_logado');
+            const loginScreen = document.getElementById('login-screen');
+            const dashboardScreen = document.getElementById('dashboard-screen');
 
-            const loggedInSessionStorage = sessionStorage.getItem('loggedIn');
-            const usernameSessionStorage = sessionStorage.getItem('username');
-
-            if (loggedInLocalStorage === 'true' && usernameLocalStorage && sessionExpiry) {
-                const expiryDate = new Date(sessionExpiry);
-                if (expiryDate > new Date()) {
-                    document.getElementById('logged-in-username').textContent = usernameLocalStorage;
-                    showDashboard();
-                    return;
+            if (loggedInUser) {
+                const userData = JSON.parse(loggedInUser);
+                if (userData.expires > Date.now()) {
+                    // Usuário logado e sessão válida
+                    loginScreen.style.display = 'none';
+                    dashboardScreen.style.display = 'block';
+                    document.getElementById('logged-in-username').textContent = userData.username;
+                    carregarDados(); // Carrega os dados do dashboard
+                    // Define o primeiro botão de aba como ativo e abre a aba de resumo
+                    const firstTabBtn = document.querySelector('.tab-btn');
+                    if (firstTabBtn) {
+                        firstTabBtn.classList.add('active');
+                        document.getElementById('resumo').classList.add('active');
+                    }
                 } else {
-                    // Session expired
-                    logout();
+                    // Sessão expirada
+                    localStorage.removeItem('usuario_logado');
+                    loginScreen.style.display = 'flex';
+                    dashboardScreen.style.display = 'none';
                 }
-            } else if (loggedInSessionStorage === 'true' && usernameSessionStorage) {
-                document.getElementById('logged-in-username').textContent = usernameSessionStorage;
-                showDashboard();
-                return;
+            } else {
+                // Não logado
+                loginScreen.style.display = 'flex';
+                dashboardScreen.style.display = 'none';
             }
-            showLogin();
-        }
-
-        function showLogin() {
-            document.getElementById('login-view').style.display = 'block';
-            document.getElementById('dashboard-view').style.display = 'none';
-        }
-
-        function showDashboard() {
-            document.getElementById('login-view').style.display = 'none';
-            document.getElementById('dashboard-view').style.display = 'block';
-            // Set username for dashboard
-            const username = localStorage.getItem('username') || sessionStorage.getItem('username');
-            if (username) {
-                document.getElementById('logged-in-username').textContent = username;
-            }
-            // Load data when dashboard is shown
-            carregarDados();
         }
 
         // ============================================================================
         // FUNCOES DO DASHBOARD
         // ============================================================================
 
-        function abrirAba(abaId, clickedButton) {
+        function abrirAba(abaId, element) {
             // Esconder todas as abas
             document.querySelectorAll('.tab-content').forEach(aba => {
                 aba.classList.remove('active');
@@ -575,14 +526,15 @@
             document.getElementById(abaId).classList.add('active');
 
             // Adicionar classe active ao botão clicado
-            if (clickedButton) {
-                clickedButton.classList.add('active');
+            if (element) {
+                element.classList.add('active');
             }
+            // Não precisa recarregar dados aqui, pois já são carregados no checkLoginStatus e setInterval
         }
 
         async function carregarDados() {
             try {
-                const response = await fetch(DATA_URL);
+                const response = await fetch(GITHUB_DATA_URL);
                 const dados = await response.json();
 
                 // Atualizar hora
@@ -596,7 +548,10 @@
 
             } catch (erro) {
                 console.error('Erro ao carregar dados:', erro);
-                document.getElementById('resumo-conteudo').innerHTML = '<div class="error">❌ Erro ao carregar dados. Tente novamente.</div>';
+                // Exibir erro apenas se o dashboard estiver visível
+                if (document.getElementById('dashboard-screen').style.display === 'block') {
+                    document.getElementById('resumo-conteudo').innerHTML = '<div class="error">❌ Erro ao carregar dados. Tente novamente.</div>';
+                }
             }
         }
 
@@ -639,32 +594,34 @@
             document.getElementById('resumo-conteudo').innerHTML = html;
 
             setTimeout(() => {
-                const ctx = document.getElementById('chartResumo').getContext('2d');
-                new Chart(ctx, {
-                    type: 'doughnut',
-                    data: {
-                        labels: ['FUABC', 'SESAUD'],
-                        datasets: [{
-                            data: [dados.resumo.total_fuabc, dados.resumo.total_sesaud],
-                            backgroundColor: ['#0f3460', '#1a5f7a'],
-                            borderColor: ['white'],
-                            borderWidth: 2
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: true,
-                        plugins: {
-                            legend: {
-                                position: 'bottom',
-                                labels: {
-                                    font: { size: 14 },
-                                    padding: 20
+                const ctx = document.getElementById('chartResumo');
+                if (ctx) { // Verifica se o canvas existe
+                    new Chart(ctx.getContext('2d'), {
+                        type: 'doughnut',
+                        data: {
+                            labels: ['FUABC', 'SESAUD'],
+                            datasets: [{
+                                data: [dados.resumo.total_fuabc, dados.resumo.total_sesaud],
+                                backgroundColor: ['#0f3460', '#1a5f7a'],
+                                borderColor: ['white'],
+                                borderWidth: 2
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: true,
+                            plugins: {
+                                legend: {
+                                    position: 'bottom',
+                                    labels: {
+                                        font: { size: 14 },
+                                        padding: 20
+                                    }
                                 }
                             }
                         }
-                    }
-                });
+                    });
+                }
             }, 100);
         }
 
@@ -741,76 +698,82 @@
 
             setTimeout(() => {
                 // Gráfico 1: Comparação
-                const ctx1 = document.getElementById('chartComparacao').getContext('2d');
-                new Chart(ctx1, {
-                    type: 'bar',
-                    data: {
-                        labels: dados.categorias.map(c => c.categoria.substring(0, 20)),
-                        datasets: [
-                            {
-                                label: 'FUABC',
-                                data: dados.categorias.map(c => c.fuabc),
-                                backgroundColor: '#0f3460'
-                            },
-                            {
-                                label: 'SESAUD',
-                                data: dados.categorias.map(c => c.sesaud),
-                                backgroundColor: '#1a5f7a'
+                const ctx1 = document.getElementById('chartComparacao');
+                if (ctx1) {
+                    new Chart(ctx1.getContext('2d'), {
+                        type: 'bar',
+                        data: {
+                            labels: dados.categorias.map(c => c.categoria.substring(0, 20)),
+                            datasets: [
+                                {
+                                    label: 'FUABC',
+                                    data: dados.categorias.map(c => c.fuabc),
+                                    backgroundColor: '#0f3460'
+                                },
+                                {
+                                    label: 'SESAUD',
+                                    data: dados.categorias.map(c => c.sesaud),
+                                    backgroundColor: '#1a5f7a'
+                                }
+                            ]
+                        },
+                        options: {
+                            responsive: true,
+                            indexAxis: 'y',
+                            plugins: {
+                                legend: { position: 'bottom' }
                             }
-                        ]
-                    },
-                    options: {
-                        responsive: true,
-                        indexAxis: 'y',
-                        plugins: {
-                            legend: { position: 'bottom' }
                         }
-                    }
-                });
+                    });
+                }
 
                 // Gráfico 2: Pizza FUABC
-                const ctx2 = document.getElementById('chartFuabc').getContext('2d');
-                new Chart(ctx2, {
-                    type: 'pie',
-                    data: {
-                        labels: dados.categorias.map(c => c.categoria.substring(0, 15)),
-                        datasets: [{
-                            data: dados.categorias.map(c => c.fuabc),
-                            backgroundColor: [
-                                '#0f3460', '#1a5f7a', '#2a7fa8', '#3a9fd6',
-                                '#4abfe4', '#5acff2', '#6adfff', '#7aeeff',
-                                '#8afeff', '#9affff', '#aaffff', '#bbffff',
-                                '#ccffff', '#ddffff'
-                            ]
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        plugins: { legend: { position: 'right' } }
-                    }
-                });
+                const ctx2 = document.getElementById('chartFuabc');
+                if (ctx2) {
+                    new Chart(ctx2.getContext('2d'), {
+                        type: 'pie',
+                        data: {
+                            labels: dados.categorias.map(c => c.categoria.substring(0, 15)),
+                            datasets: [{
+                                data: dados.categorias.map(c => c.fuabc),
+                                backgroundColor: [
+                                    '#0f3460', '#1a5f7a', '#2a7fa8', '#3a9fd6',
+                                    '#4abfe4', '#5acff2', '#6adfff', '#7aeeff',
+                                    '#8afeff', '#9affff', '#aaffff', '#bbffff',
+                                    '#ccffff', '#ddffff'
+                                ]
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: { legend: { position: 'right' } }
+                        }
+                    });
+                }
 
                 // Gráfico 3: Pizza SESAUD
-                const ctx3 = document.getElementById('chartSesaud').getContext('2d');
-                new Chart(ctx3, {
-                    type: 'pie',
-                    data: {
-                        labels: dados.categorias.map(c => c.categoria.substring(0, 15)),
-                        datasets: [{
-                            data: dados.categorias.map(c => c.sesaud),
-                            backgroundColor: [
-                                '#0f3460', '#1a5f7a', '#2a7fa8', '#3a9fd6',
-                                '#4abfe4', '#5acff2', '#6adfff', '#7aeeff',
-                                '#8afeff', '#9affff', '#aaffff', '#bbffff',
-                                '#ccffff', '#ddffff'
-                            ]
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        plugins: { legend: { position: 'right' } }
-                    }
-                });
+                const ctx3 = document.getElementById('chartSesaud');
+                if (ctx3) {
+                    new Chart(ctx3.getContext('2d'), {
+                        type: 'pie',
+                        data: {
+                            labels: dados.categorias.map(c => c.categoria.substring(0, 15)),
+                            datasets: [{
+                                data: dados.categorias.map(c => c.sesaud),
+                                backgroundColor: [
+                                    '#0f3460', '#1a5f7a', '#2a7fa8', '#3a9fd6',
+                                    '#4abfe4', '#5acff2', '#6adfff', '#7aeeff',
+                                    '#8afeff', '#9affff', '#aaffff', '#bbffff',
+                                    '#ccffff', '#ddffff'
+                                ]
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: { legend: { position: 'right' } }
+                        }
+                    });
+                }
             }, 100);
         }
 
@@ -822,16 +785,16 @@
         // INICIALIZAR
         // ============================================================================
 
-        document.addEventListener('DOMContentLoaded', () => {
-            checkAuth(); // Verifica autenticação ao carregar a página
-            document.getElementById('login-form').addEventListener('submit', handleLogin);
-            // Recarregar a cada 5 minutos (apenas se estiver logado)
-            setInterval(() => {
-                if (localStorage.getItem('loggedIn') === 'true' || sessionStorage.getItem('loggedIn') === 'true') {
-                    carregarDados();
-                }
-            }, 5 * 60 * 1000);
-        });
+        // Verifica o status de login ao carregar a página
+        checkLoginStatus();
+
+        // Recarrega os dados do dashboard a cada 5 minutos se estiver logado
+        setInterval(() => {
+            const loggedInUser = localStorage.getItem('usuario_logado');
+            if (loggedInUser && JSON.parse(loggedInUser).expires > Date.now()) {
+                carregarDados();
+            }
+        }, 5 * 60 * 1000);
     </script>
 </body>
 </html>
