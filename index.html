@@ -37,12 +37,18 @@
         header h1 {
             color: #0f3460;
             margin-bottom: 10px;
+            font-size: 2em;
+        }
+
+        header p {
+            color: #0f3460;
+            font-weight: bold;
+            margin-bottom: 10px;
         }
 
         .data-atualizacao {
             color: #666;
             font-size: 14px;
-            margin-top: 10px;
         }
 
         .tabs {
@@ -180,7 +186,7 @@
     <div class="container">
         <header>
             <h1>📊 Dashboard Orçamento</h1>
-            <p style="color: #0f3460; font-weight: bold;">SESAUD / FUABC</p>
+            <p>SESAUD / FUABC</p>
             <p class="data-atualizacao" id="data-atualizacao">Carregando...</p>
         </header>
 
@@ -192,18 +198,22 @@
         </div>
 
         <div id="sesaud" class="tab-content active">
+            <h2>Orçamento SESAUD</h2>
             <div id="sesaud-conteudo" class="carregando">Carregando dados...</div>
         </div>
 
         <div id="fuabc" class="tab-content">
+            <h2>Orçamento FUABC</h2>
             <div id="fuabc-conteudo" class="carregando">Carregando dados...</div>
         </div>
 
         <div id="comparativo" class="tab-content">
+            <h2>Comparativo</h2>
             <div id="comparativo-conteudo" class="carregando">Carregando dados...</div>
         </div>
 
         <div id="resumo" class="tab-content">
+            <h2>Resumo Geral</h2>
             <div id="resumo-conteudo" class="carregando">Carregando dados...</div>
         </div>
     </div>
@@ -233,8 +243,13 @@
         }
 
         function carregarDados() {
+            console.log('Iniciando carregamento de dados...');
+            
             fetch('https://raw.githubusercontent.com/rtoledomota/SESAUD-Orcamento/main/data.json')
-                .then(r => r.json())
+                .then(r => {
+                    console.log('Response status:', r.status);
+                    return r.json();
+                })
                 .then(dados => {
                     console.log('Dados carregados:', dados);
                     
@@ -256,8 +271,9 @@
         }
 
         function preencherSesaud(dados) {
+            console.log('Preenchendo SESAUD...');
             const despesas = dados.despesas || [];
-            let html = '<table><thead><tr><th>Categoria</th><th class="valor-moeda">SESAUD</th></tr></thead><tbody>';
+            let html = '<table><thead><tr><th>Categoria</th><th class="valor-moeda">Valor</th></tr></thead><tbody>';
             
             despesas.forEach(d => {
                 html += '<tr><td>' + d.categoria + '</td><td class="valor-moeda">' + formatarMoeda(d.sesaud) + '</td></tr>';
@@ -265,11 +281,13 @@
 
             html += '</tbody></table>';
             document.getElementById('sesaud-conteudo').innerHTML = html;
+            console.log('SESAUD preenchido com ' + despesas.length + ' itens');
         }
 
         function preencherFuabc(dados) {
+            console.log('Preenchendo FUABC...');
             const despesas = dados.despesas || [];
-            let html = '<table><thead><tr><th>Categoria</th><th class="valor-moeda">FUABC</th></tr></thead><tbody>';
+            let html = '<table><thead><tr><th>Categoria</th><th class="valor-moeda">Valor</th></tr></thead><tbody>';
             
             despesas.forEach(d => {
                 html += '<tr><td>' + d.categoria + '</td><td class="valor-moeda">' + formatarMoeda(d.fuabc) + '</td></tr>';
@@ -277,9 +295,11 @@
 
             html += '</tbody></table>';
             document.getElementById('fuabc-conteudo').innerHTML = html;
+            console.log('FUABC preenchido com ' + despesas.length + ' itens');
         }
 
         function preencherComparativo(dados) {
+            console.log('Preenchendo Comparativo...');
             const categorias = dados.categorias || [];
             
             const html = `
@@ -303,6 +323,12 @@
 
             setTimeout(() => {
                 try {
+                    // Destruir gráficos anteriores
+                    Object.values(charts).forEach(chart => {
+                        if (chart && chart.destroy) chart.destroy();
+                    });
+                    charts = {};
+
                     // Gráfico 1: Comparação
                     const ctx1 = document.getElementById('chartComparacao').getContext('2d');
                     charts.chartComparacao = new Chart(ctx1, {
@@ -370,6 +396,8 @@
                             plugins: { legend: { position: 'right' } }
                         }
                     });
+                    
+                    console.log('Gráficos criados com sucesso');
                 } catch(e) {
                     console.error('Erro ao criar gráficos:', e);
                 }
@@ -377,6 +405,7 @@
         }
 
         function preencherResumo(dados) {
+            console.log('Preenchendo Resumo...');
             const resumo = dados.resumo || {};
             
             let html = '<div class="resumo-grid">';
@@ -394,10 +423,11 @@
             
             html += '</div>';
             document.getElementById('resumo-conteudo').innerHTML = html;
+            console.log('Resumo preenchido');
         }
 
         // Carregar dados ao abrir a página
-        carregarDados();
+        window.addEventListener('load', carregarDados);
     </script>
 </body>
 </html>
