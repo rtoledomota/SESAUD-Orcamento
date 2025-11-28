@@ -119,15 +119,12 @@
         }
 
         function preencherFuabc(dados) {
-            console.log('Preenchendo FUABC...');
+            console.log('Preenchendo FUABC...', dados.despesas);
             const despesas = dados.despesas || [];
             let html = '<table><thead><tr><th>Categoria</th><th class="valor-moeda">Valor</th></tr></thead><tbody>';
-            despesas.forEach(function(d) {
-                html += '<tr><td>' + d.categoria + '</td><td class="valor-moeda">' + formatarMoeda(d.fuabc) + '</td></tr>';
-            });
+            despesas.forEach(function(d) { html += '<tr><td>' + d.categoria + '</td><td class="valor-moeda">' + formatarMoeda(d.fuabc) + '</td></tr>'; });
             html += '</tbody></table>';
             document.getElementById('fuabc-conteudo').innerHTML = html;
-            console.log('FUABC preenchido');
         }
 
         function preencherSesaud(dados) {
