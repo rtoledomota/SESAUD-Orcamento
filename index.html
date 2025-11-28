@@ -248,26 +248,44 @@
             fetch('https://raw.githubusercontent.com/rtoledomota/SESAUD-Orcamento/main/data.json')
                 .then(r => {
                     console.log('Response status:', r.status);
+                    if (!r.ok) throw new Error('Status ' + r.status);
                     return r.json();
                 })
                 .then(dados => {
                     console.log('Dados carregados:', dados);
+                    console.log('Despesas:', dados.despesas);
                     
                     // Atualizar data
                     document.getElementById('data-atualizacao').textContent = 
                         'Atualizado em: ' + (dados.atualizado_em || 'N/A');
 
-                    // Preencher abas
-                    preencherSesaud(dados);
-                    preencherFuabc(dados);
-                    preencherComparativo(dados);
-                    preencherResumo(dados);
+                    // Aguardar um pouco para garantir que o DOM está pronto
+                    setTimeout(() => {
+                        console.log('Preenchendo SESAUD...');
+                        preencherSesaud(dados);
+                        
+                        console.log('Preenchendo FUABC...');
+                        preencherFuabc(dados);
+                        
+                        console.log('Preenchendo Comparativo...');
+                        preencherComparativo(dados);
+                        
+                        console.log('Preenchendo Resumo...');
+                        preencherResumo(dados);
+                    }, 100);
                 })
                 .catch(erro => {
                     console.error('Erro ao carregar dados:', erro);
+                    console.error('Stack:', erro.stack);
                     document.getElementById('sesaud-conteudo').innerHTML = 
                         '<div class="erro">Erro ao carregar dados: ' + erro.message + '</div>';
-                });
+                    document.getElementById('fuabc-conteudo').innerHTML = 
+                        '<div class="erro">Erro ao carregar dados: ' + erro.message + '</div>';
+                    document.getElementById('comparativo-conteudo').innerHTML = 
+                        '<div class="erro">Erro ao carregar dados: ' + erro.message + '</div>';
+                    document.getElementById('resumo-conteudo').innerHTML = 
+                        '<div class="erro">Erro ao carregar dados: ' + erro.message + '</div>';
+                };
         }
 
         function preencherSesaud(dados) {
