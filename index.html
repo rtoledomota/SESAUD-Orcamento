@@ -150,11 +150,20 @@
                     console.log('Dados carregados:', dados);
                     document.getElementById('data-atualizacao').textContent = 'Atualizado em: ' + (dados.atualizado_em || 'N/A');
                     setTimeout(function() {
+                        console.log('Executando preenchimento após 500ms');
                         preencherResumo(dados);
                         preencherComparativo(dados);
                         preencherFuabc(dados);
                         preencherSesaud(dados);
-                    }, 100);
+                        
+                        setTimeout(function() {
+                            console.log('Verificando se elementos foram atualizados...');
+                            var fuabcElem = document.getElementById('fuabc-conteudo');
+                            var sesaudElem = document.getElementById('sesaud-conteudo');
+                            console.log('fuabc-conteudo innerHTML length:', fuabcElem.innerHTML.length);
+                            console.log('sesaud-conteudo innerHTML length:', sesaudElem.innerHTML.length);
+                        }, 100);
+                    }, 500);
                 })
                 .catch(function(erro) {
                     console.error('Erro:', erro);
