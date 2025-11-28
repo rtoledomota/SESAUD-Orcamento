@@ -191,20 +191,15 @@
         </header>
 
         <div class="tabs">
-            <button class="tab-btn active" onclick="abrirAba(event, 'sesaud')">💰 SESAUD</button>
-            <button class="tab-btn" onclick="abrirAba(event, 'fuabc')">💰 FUABC</button>
+            <button class="tab-btn active" onclick="abrirAba(event, 'resumo')">📋 Resumo</button>
             <button class="tab-btn" onclick="abrirAba(event, 'comparativo')">📈 Comparativo</button>
-            <button class="tab-btn" onclick="abrirAba(event, 'resumo')">📋 Resumo</button>
+            <button class="tab-btn" onclick="abrirAba(event, 'fuabc')">💰 FUABC</button>
+            <button class="tab-btn" onclick="abrirAba(event, 'sesaud')">💰 SESAUD</button>
         </div>
 
-        <div id="sesaud" class="tab-content active">
-            <h2>Orçamento SESAUD</h2>
-            <div id="sesaud-conteudo" class="carregando">Carregando dados...</div>
-        </div>
-
-        <div id="fuabc" class="tab-content">
-            <h2>Orçamento FUABC</h2>
-            <div id="fuabc-conteudo" class="carregando">Carregando dados...</div>
+        <div id="resumo" class="tab-content active">
+            <h2>Resumo Geral</h2>
+            <div id="resumo-conteudo" class="carregando">Carregando dados...</div>
         </div>
 
         <div id="comparativo" class="tab-content">
@@ -212,9 +207,14 @@
             <div id="comparativo-conteudo" class="carregando">Carregando dados...</div>
         </div>
 
-        <div id="resumo" class="tab-content">
-            <h2>Resumo Geral</h2>
-            <div id="resumo-conteudo" class="carregando">Carregando dados...</div>
+        <div id="fuabc" class="tab-content">
+            <h2>Orçamento FUABC</h2>
+            <div id="fuabc-conteudo" class="carregando">Carregando dados...</div>
+        </div>
+
+        <div id="sesaud" class="tab-content">
+            <h2>Orçamento SESAUD</h2>
+            <div id="sesaud-conteudo" class="carregando">Carregando dados...</div>
         </div>
     </div>
 
