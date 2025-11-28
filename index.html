@@ -32,26 +32,30 @@
         .chart-box h3 { margin-bottom: 20px; color: #0f3460; text-align: center; }
         .carregando { text-align: center; padding: 40px; color: white; font-size: 18px; }
         .erro { background: #ff6b6b; color: white; padding: 20px; border-radius: 10px; margin: 20px 0; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; background: white; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-radius: 8px; overflow: hidden; }
-        thead { background: linear-gradient(135deg, #0f3460 0%, #1a5f7a 100%); }
-        th { padding: 15px; text-align: left; border: none; font-weight: bold; color: white; }
-        td { padding: 12px 15px; border-bottom: 1px solid #e0e0e0; color: #333; background: white; }
-        tr:hover { background: #f9f9f9; }
-        .valor-moeda { text-align: right; font-weight: bold; color: #0f3460; }
-        tbody tr:last-child td { border-bottom: none; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background: #0f3460; color: white; font-weight: bold; }
+        tr:hover { background: #f5f5f5; }
+        .valor-moeda { text-align: right; font-weight: bold; }
         .comparativo-header { background: linear-gradient(135deg, #0f3460 0%, #1a5f7a 100%); padding: 20px; border-radius: 10px; margin-bottom: 30px; }
         .comparativo-resumo { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
         .resumo-item { background: white; padding: 20px; border-radius: 8px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
         .resumo-item h4 { color: #0f3460; margin-bottom: 10px; font-size: 14px; }
         .valor-grande { font-size: 24px; font-weight: bold; color: #0f3460; margin: 0; }
-        .tabela-comparativa { width: 100%; border-collapse: collapse; margin: 20px 0; background: white; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-radius: 8px; overflow: hidden; }
+        .tabela-comparativa-wrapper { overflow-x: auto; margin: 20px 0; }
+        .tabela-comparativa { width: 100%; border-collapse: collapse; background: white; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-radius: 8px; overflow: hidden; min-width: 600px; }
         .tabela-comparativa thead { background: linear-gradient(135deg, #0f3460 0%, #1a5f7a 100%); color: white; }
-        .tabela-comparativa th { padding: 15px; font-weight: bold; text-align: left; border: none; }
+        .tabela-comparativa th { padding: 12px; font-weight: bold; text-align: left; border: none; white-space: nowrap; font-size: 14px; }
         .tabela-comparativa th.valor-moeda { text-align: right; }
-        .tabela-comparativa td { padding: 12px 15px; border-bottom: 1px solid #e0e0e0; }
+        .tabela-comparativa td { padding: 10px 12px; border-bottom: 1px solid #e0e0e0; color: #333; font-size: 14px; }
         .tabela-comparativa tr:hover { background: #f9f9f9; }
         .tabela-comparativa .positivo { color: #27ae60; font-weight: bold; }
         .tabela-comparativa .negativo { color: #e74c3c; font-weight: bold; }
+        .tabela-comparativa tbody tr:last-child td { border-bottom: none; }
+        @media (max-width: 768px) {
+            .tabela-comparativa th, .tabela-comparativa td { padding: 8px; font-size: 12px; }
+            .tabela-comparativa th { white-space: normal; }
+        }
     </style>
 </head>
 <body>
@@ -140,7 +144,7 @@
             html += '</div></div>';
             
             html += '<h3>Tabela Comparativa</h3>';
-            html += '<table class="tabela-comparativa"><thead><tr><th>Categoria</th><th class="valor-moeda">FUABC</th><th class="valor-moeda">SESAUD</th><th class="valor-moeda">Diferença</th><th class="valor-moeda">%</th></tr></thead><tbody>';
+            html += '<div class="tabela-comparativa-wrapper"><table class="tabela-comparativa"><thead><tr><th>Categoria</th><th class="valor-moeda">FUABC</th><th class="valor-moeda">SESAUD</th><th class="valor-moeda">Diferença</th><th class="valor-moeda">%</th></tr></thead><tbody>';
             
             for (var i = 0; i < categorias.length; i++) {
                 var cat = categorias[i];
@@ -156,7 +160,7 @@
                 html += '</tr>';
             }
             
-            html += '</tbody></table>';
+            html += '</tbody></table></div>';
             
             html += '<div class="charts-container"><div class="chart-box"><h3>📊 Comparação por Categoria</h3><canvas id="chartComparacao"></canvas></div><div class="chart-box"><h3>💰 Distribuição FUABC</h3><canvas id="chartFuabc"></canvas></div><div class="chart-box"><h3>💰 Distribuição SESAUD</h3><canvas id="chartSesaud"></canvas></div></div>';
             
