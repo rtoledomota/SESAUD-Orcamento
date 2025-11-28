@@ -119,23 +119,20 @@
         }
 
         function preencherFuabc(dados) {
-            console.log('=== FUABC DEBUG ===');
-            console.log('Dados recebidos:', dados);
-            console.log('Preenchendo FUABC...', dados.despesas);
+            console.log('Preenchendo FUABC...');
             const despesas = dados.despesas || [];
-            console.log('Despesas:', despesas);
-            console.log('Número de despesas:', despesas.length);
             let html = '<table><thead><tr><th>Categoria</th><th class="valor-moeda">Valor</th></tr></thead><tbody>';
-            despesas.forEach(function(d) { html += '<tr><td>' + d.categoria + '</td><td class="valor-moeda">' + formatarMoeda(d.fuabc) + '</td></tr>'; });
+            despesas.forEach(function(d) {
+                html += '<tr><td>' + d.categoria + '</td><td class="valor-moeda">' + formatarMoeda(d.fuabc) + '</td></tr>';
+            });
             html += '</tbody></table>';
             document.getElementById('fuabc-conteudo').innerHTML = html;
+            console.log('FUABC preenchido');
         }
 
         function preencherSesaud(dados) {
             console.log('Preenchendo SESAUD...', dados.despesas);
             const despesas = dados.despesas || [];
-            console.log('Despesas:', despesas);
-            console.log('Número de despesas:', despesas.length);
             let html = '<table><thead><tr><th>Categoria</th><th class="valor-moeda">Valor</th></tr></thead><tbody>';
             despesas.forEach(function(d) { html += '<tr><td>' + d.categoria + '</td><td class="valor-moeda">' + formatarMoeda(d.sesaud) + '</td></tr>'; });
             html += '</tbody></table>';
