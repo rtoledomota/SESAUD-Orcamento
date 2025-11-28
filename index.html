@@ -191,20 +191,15 @@
         </header>
 
         <div class="tabs">
-            <button class="tab-btn active" onclick="abrirAba(event, 'resumo')">📋 Resumo</button>
-            <button class="tab-btn" onclick="abrirAba(event, 'comparativo')">📈 Comparativo</button>
+            <button class="tab-btn active" onclick="abrirAba(event, 'sesaud')">💰 SESAUD</button>
             <button class="tab-btn" onclick="abrirAba(event, 'fuabc')">💰 FUABC</button>
-            <button class="tab-btn" onclick="abrirAba(event, 'sesaud')">💰 SESAUD</button>
+            <button class="tab-btn" onclick="abrirAba(event, 'comparativo')">📈 Comparativo</button>
+            <button class="tab-btn" onclick="abrirAba(event, 'resumo')">📋 Resumo</button>
         </div>
 
-        <div id="resumo" class="tab-content active">
-            <h2>Resumo Geral</h2>
-            <div id="resumo-conteudo" class="carregando">Carregando dados...</div>
-        </div>
-
-        <div id="comparativo" class="tab-content">
-            <h2>Comparativo</h2>
-            <div id="comparativo-conteudo" class="carregando">Carregando dados...</div>
+        <div id="sesaud" class="tab-content active">
+            <h2>Orçamento SESAUD</h2>
+            <div id="sesaud-conteudo" class="carregando">Carregando dados...</div>
         </div>
 
         <div id="fuabc" class="tab-content">
@@ -212,9 +207,14 @@
             <div id="fuabc-conteudo" class="carregando">Carregando dados...</div>
         </div>
 
-        <div id="sesaud" class="tab-content">
-            <h2>Orçamento SESAUD</h2>
-            <div id="sesaud-conteudo" class="carregando">Carregando dados...</div>
+        <div id="comparativo" class="tab-content">
+            <h2>Comparativo</h2>
+            <div id="comparativo-conteudo" class="carregando">Carregando dados...</div>
+        </div>
+
+        <div id="resumo" class="tab-content">
+            <h2>Resumo Geral</h2>
+            <div id="resumo-conteudo" class="carregando">Carregando dados...</div>
         </div>
     </div>
 
@@ -229,20 +229,185 @@
         }
 
         function abrirAba(event, nome) {
-            document.querySelectorAll('.tab-content').forEach(function(aba) {
+            // Esconder todas as abas
+            document.querySelectorAll('.tab-content').forEach(aba => {
                 aba.classList.remove('active');
             });
-            document.querySelectorAll('.tab-btn').forEach(function(btn) {
+            document.querySelectorAll('.tab-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
 
+            // Mostrar aba selecionada
             document.getElementById(nome).classList.add('active');
             event.target.classList.add('active');
+        }
+
+        function carregarDados() {
+            console.log('Iniciando carregamento de dados...');
+            
+            fetch('https://raw.githubusercontent.com/rtoledomota/SESAUD-Orcamento/main/data.json')
+                .then(r => {
+                    console.log('Response status:', r.status);
+                    return r.json();
+                })
+                .then(dados => {
+                    console.log('Dados carregados:', dados);
+                    
+                    // Atualizar data
+                    document.getElementById('data-atualizacao').textContent = 
+                        'Atualizado em: ' + (dados.atualizado_em || 'N/A');
+
+                    // Preencher abas
+                    preencherSesaud(dados);
+                    preencherFuabc(dados);
+                    preencherComparativo(dados);
+                    preencherResumo(dados);
+                })
+                .catch(erro => {
+                    console.error('Erro ao carregar dados:', erro);
+                    document.getElementById('sesaud-conteudo').innerHTML = 
+                        '<div class="erro">Erro ao carregar dados: ' + erro.message + '</div>';
+                });
+        }
+
+        function preencherSesaud(dados) {
+            console.log('Preenchendo SESAUD...');
+            const despesas = dados.despesas || [];
+            let html = '<table><thead><tr><th>Categoria</th><th class="valor-moeda">Valor</th></tr></thead><tbody>';
+            
+            despesas.forEach(d => {
+                html += '<tr><td>' + d.categoria + '</td><td class="valor-moeda">' + formatarMoeda(d.sesaud) + '</td></tr>';
+            });
+
+            html += '</tbody></table>';
+            document.getElementById('sesaud-conteudo').innerHTML = html;
+            console.log('SESAUD preenchido com ' + despesas.length + ' itens');
+        }
+
+        function preencherFuabc(dados) {
+            console.log('Preenchendo FUABC...');
+            const despesas = dados.despesas || [];
+            let html = '<table><thead><tr><th>Categoria</th><th class="valor-moeda">Valor</th></tr></thead><tbody>';
+            
+            despesas.forEach(d => {
+                html += '<tr><td>' + d.categoria + '</td><td class="valor-moeda">' + formatarMoeda(d.fuabc) + '</td></tr>';
+            });
+
+            html += '</tbody></table>';
+            document.getElementById('fuabc-conteudo').innerHTML = html;
+            console.log('FUABC preenchido com ' + despesas.length + ' itens');
+        }
+
+        function preencherComparativo(dados) {
+            console.log('Preenchendo Comparativo...');
+            const categorias = dados.categorias || [];
+            
+            const html = `
+                <div class="charts-container">
+                    <div class="chart-box">
+                        <h3>Comparação por Categoria</h3>
+                        <canvas id="chartComparacao"></canvas>
+                    </div>
+                    <div class="chart-box">
+                        <h3>% do Total (FUABC)</h3>
+                        <canvas id="chartFuabc"></canvas>
+                    </div>
+                    <div class="chart-box">
+                        <h3>% do Total (SESAUD)</h3>
+                        <canvas id="chartSesaud"></canvas>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('comparativo-conteudo').innerHTML = html;
+
+            setTimeout(() => {
+                try {
+                    // Destruir gráficos anteriores
+                    Object.values(charts).forEach(chart => {
+                        if (chart && chart.destroy) chart.destroy();
+                    });
+                    charts = {};
+
+                    // Gráfico 1: Comparação
+                    const ctx1 = document.getElementById('chartComparacao').getContext('2d');
+                    charts.chartComparacao = new Chart(ctx1, {
+                        type: 'bar',
+                        data: {
+                            labels: categorias.map(c => c.categoria.substring(0, 20)),
+                            datasets: [
+                                {
+                                    label: 'FUABC',
+                                    data: categorias.map(c => c.fuabc),
+                                    backgroundColor: '#0f3460'
+                                },
+                                {
+                                    label: 'SESAUD',
+                                    data: categorias.map(c => c.sesaud),
+                                    backgroundColor: '#1a5f7a'
+                                }
+                            ]
+                        },
+                        options: {
+                            responsive: true,
+                            indexAxis: 'y',
+                            plugins: {
+                                legend: { position: 'bottom' }
+                            }
+                        }
+                    });
+
+                    // Gráfico 2: Pizza FUABC
+                    const ctx2 = document.getElementById('chartFuabc').getContext('2d');
+                    charts.chartFuabc = new Chart(ctx2, {
+                        type: 'pie',
+                        data: {
+                            labels: categorias.map(c => c.categoria.substring(0, 15)),
+                            datasets: [{
+                                data: categorias.map(c => c.fuabc),
+                                backgroundColor: [
+                                    '#0f3460', '#1a5f7a', '#2a7fa8', '#3a9fd6',
+                                    '#4abfe4', '#5acff2', '#6adfff'
+                                ]
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: { legend: { position: 'right' } }
+                        }
+                    });
+
+                    // Gráfico 3: Pizza SESAUD
+                    const ctx3 = document.getElementById('chartSesaud').getContext('2d');
+                    charts.chartSesaud = new Chart(ctx3, {
+                        type: 'pie',
+                        data: {
+                            labels: categorias.map(c => c.categoria.substring(0, 15)),
+                            datasets: [{
+                                data: categorias.map(c => c.sesaud),
+                                backgroundColor: [
+                                    '#0f3460', '#1a5f7a', '#2a7fa8', '#3a9fd6',
+                                    '#4abfe4', '#5acff2', '#6adfff'
+                                ]
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: { legend: { position: 'right' } }
+                        }
+                    });
+                    
+                    console.log('Gráficos criados com sucesso');
+                } catch(e) {
+                    console.error('Erro ao criar gráficos:', e);
+                }
+            }, 100);
         }
 
         function preencherResumo(dados) {
             console.log('Preenchendo Resumo...');
             const resumo = dados.resumo || {};
+            
             let html = '<div class="resumo-grid">';
             
             for (let chave in resumo) {
@@ -261,150 +426,7 @@
             console.log('Resumo preenchido');
         }
 
-        function preencherComparativo(dados) {
-            console.log('Preenchendo Comparativo...');
-            const categorias = dados.categorias || [];
-            
-            const html = '<div class="charts-container"><div class="chart-box"><h3>Comparação por Categoria</h3><canvas id="chartComparacao"></canvas></div><div class="chart-box"><h3>% do Total (FUABC)</h3><canvas id="chartFuabc"></canvas></div><div class="chart-box"><h3>% do Total (SESAUD)</h3><canvas id="chartSesaud"></canvas></div></div>';
-
-            document.getElementById('comparativo-conteudo').innerHTML = html;
-
-            setTimeout(function() {
-                try {
-                    Object.values(charts).forEach(function(chart) {
-                        if (chart && chart.destroy) {
-                            chart.destroy();
-                        }
-                    });
-                    charts = {};
-
-                    var ctx1 = document.getElementById('chartComparacao').getContext('2d');
-                    charts.chartComparacao = new Chart(ctx1, {
-                        type: 'bar',
-                        data: {
-                            labels: categorias.map(function(c) { return c.categoria.substring(0, 20); }),
-                            datasets: [
-                                {
-                                    label: 'FUABC',
-                                    data: categorias.map(function(c) { return c.fuabc; }),
-                                    backgroundColor: '#0f3460'
-                                },
-                                {
-                                    label: 'SESAUD',
-                                    data: categorias.map(function(c) { return c.sesaud; }),
-                                    backgroundColor: '#1a5f7a'
-                                }
-                            ]
-                        },
-                        options: {
-                            responsive: true,
-                            indexAxis: 'y',
-                            plugins: {
-                                legend: { position: 'bottom' }
-                            }
-                        }
-                    });
-
-                    var ctx2 = document.getElementById('chartFuabc').getContext('2d');
-                    charts.chartFuabc = new Chart(ctx2, {
-                        type: 'pie',
-                        data: {
-                            labels: categorias.map(function(c) { return c.categoria.substring(0, 15); }),
-                            datasets: [{
-                                data: categorias.map(function(c) { return c.fuabc; }),
-                                backgroundColor: ['#0f3460', '#1a5f7a', '#2a7fa8', '#3a9fd6', '#4abfe4', '#5acff2', '#6adfff']
-                            }]
-                        },
-                        options: {
-                            responsive: true,
-                            plugins: { legend: { position: 'right' } }
-                        }
-                    });
-
-                    var ctx3 = document.getElementById('chartSesaud').getContext('2d');
-                    charts.chartSesaud = new Chart(ctx3, {
-                        type: 'pie',
-                        data: {
-                            labels: categorias.map(function(c) { return c.categoria.substring(0, 15); }),
-                            datasets: [{
-                                data: categorias.map(function(c) { return c.sesaud; }),
-                                backgroundColor: ['#0f3460', '#1a5f7a', '#2a7fa8', '#3a9fd6', '#4abfe4', '#5acff2', '#6adfff']
-                            }]
-                        },
-                        options: {
-                            responsive: true,
-                            plugins: { legend: { position: 'right' } }
-                        }
-                    });
-                    
-                    console.log('Gráficos criados');
-                } catch(e) {
-                    console.error('Erro ao criar gráficos:', e);
-                }
-            }, 100);
-        }
-
-        function preencherFuabc(dados) {
-            console.log('Preenchendo FUABC...');
-            const despesas = dados.despesas || [];
-            let html = '<table><thead><tr><th>Categoria</th><th class="valor-moeda">Valor</th></tr></thead><tbody>';
-            
-            despesas.forEach(function(d) {
-                html += '<tr><td>' + d.categoria + '</td><td class="valor-moeda">' + formatarMoeda(d.fuabc) + '</td></tr>';
-            });
-
-            html += '</tbody></table>';
-            document.getElementById('fuabc-conteudo').innerHTML = html;
-            console.log('FUABC preenchido');
-        }
-
-        function preencherSesaud(dados) {
-            console.log('Preenchendo SESAUD...');
-            const despesas = dados.despesas || [];
-            let html = '<table><thead><tr><th>Categoria</th><th class="valor-moeda">Valor</th></tr></thead><tbody>';
-            
-            despesas.forEach(function(d) {
-                html += '<tr><td>' + d.categoria + '</td><td class="valor-moeda">' + formatarMoeda(d.sesaud) + '</td></tr>';
-            });
-
-            html += '</tbody></table>';
-            document.getElementById('sesaud-conteudo').innerHTML = html;
-            console.log('SESAUD preenchido');
-        }
-
-        function carregarDados() {
-            console.log('Iniciando carregamento...');
-            
-            fetch('https://raw.githubusercontent.com/rtoledomota/SESAUD-Orcamento/main/data.json')
-                .then(function(r) {
-                    console.log('Status:', r.status);
-                    if (!r.ok) {
-                        throw new Error('Erro ' + r.status);
-                    }
-                    return r.json();
-                })
-                .then(function(dados) {
-                    console.log('Dados:', dados);
-                    
-                    document.getElementById('data-atualizacao').textContent = 'Atualizado em: ' + (dados.atualizado_em || 'N/A');
-
-                    setTimeout(function() {
-                        preencherResumo(dados);
-                        preencherComparativo(dados);
-                        preencherFuabc(dados);
-                        preencherSesaud(dados);
-                    }, 100);
-                })
-                .catch(function(erro) {
-                    console.error('Erro:', erro);
-                    var msg = '<div class="erro">Erro: ' + erro.message + '</div>';
-                    document.getElementById('resumo-conteudo').innerHTML = msg;
-                    document.getElementById('comparativo-conteudo').innerHTML = msg;
-                    document.getElementById('fuabc-conteudo').innerHTML = msg;
-                    document.getElementById('sesaud-conteudo').innerHTML = msg;
-                });
-        }
-
+        // Carregar dados ao abrir a página
         window.addEventListener('load', carregarDados);
     </script>
 </body>
