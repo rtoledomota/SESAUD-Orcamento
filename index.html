@@ -72,74 +72,144 @@
     </div>
 
     <script>
-        let charts = {};
+        var charts = {};
 
         function formatarMoeda(valor) {
             return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(valor);
         }
 
         function abrirAba(event, nome) {
-            document.querySelectorAll('.tab-content').forEach(function(aba) { aba.classList.remove('active'); });
-            document.querySelectorAll('.tab-btn').forEach(function(btn) { btn.classList.remove('active'); });
+            var abas = document.querySelectorAll('.tab-content');
+            for (var i = 0; i < abas.length; i++) {
+                abas[i].classList.remove('active');
+            }
+            var botoes = document.querySelectorAll('.tab-btn');
+            for (var i = 0; i < botoes.length; i++) {
+                botoes[i].classList.remove('active');
+            }
             document.getElementById(nome).classList.add('active');
             event.target.classList.add('active');
         }
 
         function preencherResumo(dados) {
             console.log('Preenchendo Resumo...');
-            const resumo = dados.resumo || {};
-            let html = '<div class="resumo-grid">';
-            for (let chave in resumo) {
-                let label = chave.replace(/_/g, ' ').toUpperCase();
-                let valor = resumo[chave];
-                let valorFormatado = typeof valor === 'number' ? formatarMoeda(valor) : valor;
+            var resumo = dados.resumo || {};
+            var html = '<div class="resumo-grid">';
+            for (var chave in resumo) {
+                var label = chave.replace(/_/g, ' ').toUpperCase();
+                var valor = resumo[chave];
+                var valorFormatado = typeof valor === 'number' ? formatarMoeda(valor) : valor;
                 html += '<div class="resumo-card"><h3>' + label + '</h3><div class="valor">' + valorFormatado + '</div></div>';
             }
             html += '</div>';
             document.getElementById('resumo-conteudo').innerHTML = html;
+            console.log('Resumo preenchido');
         }
 
         function preencherComparativo(dados) {
             console.log('Preenchendo Comparativo...');
-            const categorias = dados.categorias || [];
-            const html = '<div class="charts-container"><div class="chart-box"><h3>Comparação</h3><canvas id="chartComparacao"></canvas></div><div class="chart-box"><h3>FUABC %</h3><canvas id="chartFuabc"></canvas></div><div class="chart-box"><h3>SESAUD %</h3><canvas id="chartSesaud"></canvas></div></div>';
+            var categorias = dados.categorias || [];
+            var html = '<div class="charts-container"><div class="chart-box"><h3>Comparação</h3><canvas id="chartComparacao"></canvas></div><div class="chart-box"><h3>FUABC %</h3><canvas id="chartFuabc"></canvas></div><div class="chart-box"><h3>SESAUD %</h3><canvas id="chartSesaud"></canvas></div></div>';
             document.getElementById('comparativo-conteudo').innerHTML = html;
             setTimeout(function() {
                 try {
-                    Object.values(charts).forEach(function(c) { if (c && c.destroy) c.destroy(); });
+                    for (var chave in charts) {
+                        if (charts[chave] && charts[chave].destroy) {
+                            charts[chave].destroy();
+                        }
+                    }
                     charts = {};
+                    
                     var ctx1 = document.getElementById('chartComparacao').getContext('2d');
-                    charts.comp = new Chart(ctx1, { type: 'bar', data: { labels: categorias.map(function(c) { return c.categoria.substring(0, 20); }), datasets: [{ label: 'FUABC', data: categorias.map(function(c) { return c.fuabc; }), backgroundColor: '#0f3460' }, { label: 'SESAUD', data: categorias.map(function(c) { return c.sesaud; }), backgroundColor: '#1a5f7a' }] }, options: { responsive: true, indexAxis: 'y', plugins: { legend: { position: 'bottom' } } } });
+                    var labels1 = categorias.map(function(c) { return c.categoria.substring(0, 20); });
+                    var data1fuabc = categorias.map(function(c) { return c.fuabc; });
+                    var data1sesaud = categorias.map(function(c) { return c.sesaud; });
+                    
+                    charts.comp = new Chart(ctx1, {
+                        type: 'bar',
+                        data: {
+                            labels: labels1,
+                            datasets: [
+                                { label: 'FUABC', data: data1fuabc, backgroundColor: '#0f3460' },
+                                { label: 'SESAUD', data: data1sesaud, backgroundColor: '#1a5f7a' }
+                            ]
+                        },
+                        options: { responsive: true, indexAxis: 'y', plugins: { legend: { position: 'bottom' } } }
+                    });
+                    
                     var ctx2 = document.getElementById('chartFuabc').getContext('2d');
-                    charts.fuabc = new Chart(ctx2, { type: 'pie', data: { labels: categorias.map(function(c) { return c.categoria.substring(0, 15); }), datasets: [{ data: categorias.map(function(c) { return c.fuabc; }), backgroundColor: ['#0f3460', '#1a5f7a', '#2a7fa8', '#3a9fd6', '#4abfe4', '#5acff2', '#6adfff'] }] }, options: { responsive: true, plugins: { legend: { position: 'right' } } } });
+                    var labels2 = categorias.map(function(c) { return c.categoria.substring(0, 15); });
+                    var dataFuabc = categorias.map(function(c) { return c.fuabc; });
+                    
+                    charts.fuabc = new Chart(ctx2, {
+                        type: 'pie',
+                        data: {
+                            labels: labels2,
+                            datasets: [{ data: dataFuabc, backgroundColor: ['#0f3460', '#1a5f7a', '#2a7fa8', '#3a9fd6', '#4abfe4', '#5acff2', '#6adfff'] }]
+                        },
+                        options: { responsive: true, plugins: { legend: { position: 'right' } } }
+                    });
+                    
                     var ctx3 = document.getElementById('chartSesaud').getContext('2d');
-                    charts.sesaud = new Chart(ctx3, { type: 'pie', data: { labels: categorias.map(function(c) { return c.categoria.substring(0, 15); }), datasets: [{ data: categorias.map(function(c) { return c.sesaud; }), backgroundColor: ['#0f3460', '#1a5f7a', '#2a7fa8', '#3a9fd6', '#4abfe4', '#5acff2', '#6adfff'] }] }, options: { responsive: true, plugins: { legend: { position: 'right' } } } });
-                } catch(e) { console.error('Erro gráficos:', e); }
+                    var dataSesaud = categorias.map(function(c) { return c.sesaud; });
+                    
+                    charts.sesaud = new Chart(ctx3, {
+                        type: 'pie',
+                        data: {
+                            labels: labels2,
+                            datasets: [{ data: dataSesaud, backgroundColor: ['#0f3460', '#1a5f7a', '#2a7fa8', '#3a9fd6', '#4abfe4', '#5acff2', '#6adfff'] }]
+                        },
+                        options: { responsive: true, plugins: { legend: { position: 'right' } } }
+                    });
+                    console.log('Gráficos criados');
+                } catch (e) {
+                    console.error('Erro gráficos:', e);
+                }
             }, 100);
         }
 
         function preencherFuabc(dados) {
-            console.log('Preenchendo FUABC...', dados.despesas);
-            const despesas = dados.despesas || [];
-            let html = '<table><thead><tr><th>Categoria</th><th class="valor-moeda">Valor</th></tr></thead><tbody>';
-            despesas.forEach(function(d) { html += '<tr><td>' + d.categoria + '</td><td class="valor-moeda">' + formatarMoeda(d.fuabc) + '</td></tr>'; });
+            console.log('Preenchendo FUABC...');
+            console.log('Dados:', dados);
+            var despesas = dados.despesas || [];
+            console.log('Despesas FUABC:', despesas.length);
+            var html = '<table><thead><tr><th>Categoria</th><th class="valor-moeda">Valor</th></tr></thead><tbody>';
+            for (var i = 0; i < despesas.length; i++) {
+                var d = despesas[i];
+                console.log('Item ' + i + ':', d.categoria, d.fuabc);
+                html += '<tr><td>' + d.categoria + '</td><td class="valor-moeda">' + formatarMoeda(d.fuabc) + '</td></tr>';
+            }
             html += '</tbody></table>';
+            console.log('HTML gerado (primeiros 200 chars):', html.substring(0, 200));
             document.getElementById('fuabc-conteudo').innerHTML = html;
+            console.log('FUABC preenchido');
         }
 
         function preencherSesaud(dados) {
-            console.log('Preenchendo SESAUD...', dados.despesas);
-            const despesas = dados.despesas || [];
-            let html = '<table><thead><tr><th>Categoria</th><th class="valor-moeda">Valor</th></tr></thead><tbody>';
-            despesas.forEach(function(d) { html += '<tr><td>' + d.categoria + '</td><td class="valor-moeda">' + formatarMoeda(d.sesaud) + '</td></tr>'; });
+            console.log('Preenchendo SESAUD...');
+            console.log('Dados:', dados);
+            var despesas = dados.despesas || [];
+            console.log('Despesas SESAUD:', despesas.length);
+            var html = '<table><thead><tr><th>Categoria</th><th class="valor-moeda">Valor</th></tr></thead><tbody>';
+            for (var i = 0; i < despesas.length; i++) {
+                var d = despesas[i];
+                console.log('Item ' + i + ':', d.categoria, d.sesaud);
+                html += '<tr><td>' + d.categoria + '</td><td class="valor-moeda">' + formatarMoeda(d.sesaud) + '</td></tr>';
+            }
             html += '</tbody></table>';
+            console.log('HTML gerado (primeiros 200 chars):', html.substring(0, 200));
             document.getElementById('sesaud-conteudo').innerHTML = html;
+            console.log('SESAUD preenchido');
         }
 
         function carregarDados() {
             console.log('Carregando dados...');
             fetch('https://raw.githubusercontent.com/rtoledomota/SESAUD-Orcamento/main/data.json')
-                .then(function(r) { if (!r.ok) throw new Error('Erro ' + r.status); return r.json(); })
+                .then(function(r) {
+                    console.log('Status:', r.status);
+                    if (!r.ok) throw new Error('Erro ' + r.status);
+                    return r.json();
+                })
                 .then(function(dados) {
                     console.log('Dados carregados:', dados);
                     document.getElementById('data-atualizacao').textContent = 'Atualizado em: ' + (dados.atualizado_em || 'N/A');
