@@ -37,6 +37,19 @@
         th { background: #0f3460; color: white; font-weight: bold; }
         tr:hover { background: #f5f5f5; }
         .valor-moeda { text-align: right; font-weight: bold; }
+        .comparativo-header { background: linear-gradient(135deg, #0f3460 0%, #1a5f7a 100%); padding: 20px; border-radius: 10px; margin-bottom: 30px; }
+        .comparativo-resumo { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+        .resumo-item { background: white; padding: 20px; border-radius: 8px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .resumo-item h4 { color: #0f3460; margin-bottom: 10px; font-size: 14px; }
+        .valor-grande { font-size: 24px; font-weight: bold; color: #0f3460; margin: 0; }
+        .tabela-comparativa { width: 100%; border-collapse: collapse; margin: 20px 0; background: white; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-radius: 8px; overflow: hidden; }
+        .tabela-comparativa thead { background: linear-gradient(135deg, #0f3460 0%, #1a5f7a 100%); color: white; }
+        .tabela-comparativa th { padding: 15px; font-weight: bold; text-align: left; border: none; }
+        .tabela-comparativa th.valor-moeda { text-align: right; }
+        .tabela-comparativa td { padding: 12px 15px; border-bottom: 1px solid #e0e0e0; }
+        .tabela-comparativa tr:hover { background: #f9f9f9; }
+        .tabela-comparativa .positivo { color: #27ae60; font-weight: bold; }
+        .tabela-comparativa .negativo { color: #e74c3c; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -110,7 +123,41 @@
 
         function preencherComparativo(dados) {
             var categorias = dados.categorias || [];
-            var html = '<div class="charts-container"><div class="chart-box"><h3>Comparação</h3><canvas id="chartComparacao"></canvas></div><div class="chart-box"><h3>FUABC %</h3><canvas id="chartFuabc"></canvas></div><div class="chart-box"><h3>SESAUD %</h3><canvas id="chartSesaud"></canvas></div></div>';
+            var totalFuabc = 0;
+            var totalSesaud = 0;
+            for (var i = 0; i < categorias.length; i++) {
+                totalFuabc += categorias[i].fuabc;
+                totalSesaud += categorias[i].sesaud;
+            }
+            
+            var html = '<div class="comparativo-header">';
+            html += '<div class="comparativo-resumo">';
+            html += '<div class="resumo-item"><h4>Total FUABC</h4><p class="valor-grande">' + formatarMoeda(totalFuabc) + '</p></div>';
+            html += '<div class="resumo-item"><h4>Total SESAUD</h4><p class="valor-grande">' + formatarMoeda(totalSesaud) + '</p></div>';
+            html += '<div class="resumo-item"><h4>Diferença</h4><p class="valor-grande">' + formatarMoeda(totalFuabc - totalSesaud) + '</p></div>';
+            html += '</div></div>';
+            
+            html += '<h3>Tabela Comparativa</h3>';
+            html += '<table class="tabela-comparativa"><thead><tr><th>Categoria</th><th class="valor-moeda">FUABC</th><th class="valor-moeda">SESAUD</th><th class="valor-moeda">Diferença</th><th class="valor-moeda">%</th></tr></thead><tbody>';
+            
+            for (var i = 0; i < categorias.length; i++) {
+                var cat = categorias[i];
+                var diff = cat.fuabc - cat.sesaud;
+                var pct = totalSesaud > 0 ? ((cat.fuabc - cat.sesaud) / cat.sesaud * 100).toFixed(1) : 0;
+                var classe = diff > 0 ? 'positivo' : 'negativo';
+                html += '<tr>';
+                html += '<td><strong>' + cat.categoria + '</strong></td>';
+                html += '<td class="valor-moeda">' + formatarMoeda(cat.fuabc) + '</td>';
+                html += '<td class="valor-moeda">' + formatarMoeda(cat.sesaud) + '</td>';
+                html += '<td class="valor-moeda ' + classe + '">' + formatarMoeda(diff) + '</td>';
+                html += '<td class="valor-moeda ' + classe + '">' + pct + '%</td>';
+                html += '</tr>';
+            }
+            
+            html += '</tbody></table>';
+            
+            html += '<div class="charts-container"><div class="chart-box"><h3>📊 Comparação por Categoria</h3><canvas id="chartComparacao"></canvas></div><div class="chart-box"><h3>💰 Distribuição FUABC</h3><canvas id="chartFuabc"></canvas></div><div class="chart-box"><h3>💰 Distribuição SESAUD</h3><canvas id="chartSesaud"></canvas></div></div>';
+            
             document.getElementById('comparativo-conteudo').innerHTML = html;
             setTimeout(function() {
                 try {
@@ -123,7 +170,7 @@
                     var data1f = [];
                     var data1s = [];
                     for (var i = 0; i < categorias.length; i++) {
-                        labels1.push(categorias[i].categoria.substring(0, 20));
+                        labels1.push(categorias[i].categoria.substring(0, 25));
                         data1f.push(categorias[i].fuabc);
                         data1s.push(categorias[i].sesaud);
                     }
@@ -132,39 +179,61 @@
                         data: {
                             labels: labels1,
                             datasets: [
-                                { label: 'FUABC', data: data1f, backgroundColor: '#0f3460' },
-                                { label: 'SESAUD', data: data1s, backgroundColor: '#1a5f7a' }
+                                { label: 'FUABC', data: data1f, backgroundColor: '#0f3460', borderColor: '#0a1f3f', borderWidth: 2 },
+                                { label: 'SESAUD', data: data1s, backgroundColor: '#1a5f7a', borderColor: '#0f3460', borderWidth: 2 }
                             ]
                         },
-                        options: { responsive: true, indexAxis: 'y', plugins: { legend: { position: 'bottom' } } }
+                        options: { 
+                            responsive: true, 
+                            indexAxis: 'y', 
+                            plugins: { 
+                                legend: { position: 'top' },
+                                tooltip: { callbacks: { label: function(context) { return context.dataset.label + ': ' + formatarMoeda(context.parsed.x); } } }
+                            },
+                            scales: { x: { beginAtZero: true } }
+                        }
                     });
                     var ctx2 = document.getElementById('chartFuabc').getContext('2d');
                     var labels2 = [];
                     var dataF = [];
+                    var coresFuabc = ['#0f3460', '#1a5f7a', '#2a7fa8', '#3a9fd6', '#4abfe4', '#5acff2', '#6adfff'];
                     for (var i = 0; i < categorias.length; i++) {
-                        labels2.push(categorias[i].categoria.substring(0, 15));
+                        labels2.push(categorias[i].categoria.substring(0, 12));
                         dataF.push(categorias[i].fuabc);
                     }
                     charts.fuabc = new Chart(ctx2, {
-                        type: 'pie',
+                        type: 'doughnut',
                         data: {
                             labels: labels2,
-                            datasets: [{ data: dataF, backgroundColor: ['#0f3460', '#1a5f7a', '#2a7fa8', '#3a9fd6', '#4abfe4', '#5acff2', '#6adfff'] }]
+                            datasets: [{ data: dataF, backgroundColor: coresFuabc.slice(0, categorias.length), borderColor: 'white', borderWidth: 2 }]
                         },
-                        options: { responsive: true, plugins: { legend: { position: 'right' } } }
+                        options: { 
+                            responsive: true, 
+                            plugins: { 
+                                legend: { position: 'bottom' },
+                                tooltip: { callbacks: { label: function(context) { var total = context.dataset.data.reduce(function(a, b) { return a + b; }, 0); var pct = ((context.parsed / total) * 100).toFixed(1); return formatarMoeda(context.parsed) + ' (' + pct + '%)'; } } }
+                            }
+                        }
                     });
                     var ctx3 = document.getElementById('chartSesaud').getContext('2d');
                     var dataS = [];
+                    var coresSesaud = ['#1a5f7a', '#2a7fa8', '#3a9fd6', '#4abfe4', '#5acff2', '#6adfff', '#7aefff'];
                     for (var i = 0; i < categorias.length; i++) {
                         dataS.push(categorias[i].sesaud);
                     }
                     charts.sesaud = new Chart(ctx3, {
-                        type: 'pie',
+                        type: 'doughnut',
                         data: {
                             labels: labels2,
-                            datasets: [{ data: dataS, backgroundColor: ['#0f3460', '#1a5f7a', '#2a7fa8', '#3a9fd6', '#4abfe4', '#5acff2', '#6adfff'] }]
+                            datasets: [{ data: dataS, backgroundColor: coresSesaud.slice(0, categorias.length), borderColor: 'white', borderWidth: 2 }]
                         },
-                        options: { responsive: true, plugins: { legend: { position: 'right' } } }
+                        options: { 
+                            responsive: true, 
+                            plugins: { 
+                                legend: { position: 'bottom' },
+                                tooltip: { callbacks: { label: function(context) { var total = context.dataset.data.reduce(function(a, b) { return a + b; }, 0); var pct = ((context.parsed / total) * 100).toFixed(1); return formatarMoeda(context.parsed) + ' (' + pct + '%)'; } } }
+                            }
+                        }
                     });
                 } catch (e) {
                     console.error('Erro gráficos:', e);
