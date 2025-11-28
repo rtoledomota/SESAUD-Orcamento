@@ -208,21 +208,41 @@
         }
 
         function carregarDados() {
-            fetch('https://raw.githubusercontent.com/rtoledomota/SESAUD-Orcamento/main/data.json?t=20251128144840')
+            console.log('=== CARREGARDADOS INICIADA ===');
+            fetch('https://raw.githubusercontent.com/rtoledomota/SESAUD-Orcamento/main/data.json')
                 .then(function(r) {
+                    console.log('FETCH respondeu com status:', r.status);
                     if (!r.ok) throw new Error('Erro ' + r.status);
                     return r.json();
                 })
                 .then(function(dados) {
+                    console.log('=== DADOS RECEBIDOS ===');
+                    console.log('dados:', dados);
+                    console.log('typeof dados:', typeof dados);
+                    console.log('dados.despesas:', dados.despesas);
                     document.getElementById('data-atualizacao').textContent = 'Atualizado em: ' + (dados.atualizado_em || 'N/A');
+                    console.log('Iniciando setTimeout 500ms...');
                     setTimeout(function() {
+                        console.log('DENTRO DO SETTIMEOUT 500MS');
+                        console.log('Chamando preencherResumo...');
                         preencherResumo(dados);
+                        console.log('preencherResumo concluída');
+                        console.log('Chamando preencherComparativo...');
                         preencherComparativo(dados);
+                        console.log('preencherComparativo concluída');
+                        console.log('Chamando preencherFuabc...');
                         preencherFuabc(dados);
+                        console.log('preencherFuabc concluída');
+                        console.log('Chamando preencherSesaud...');
                         preencherSesaud(dados);
+                        console.log('preencherSesaud concluída');
+                        console.log('=== TODAS AS FUNÇÕES EXECUTADAS ===');
                     }, 500);
                 })
                 .catch(function(erro) {
+                    console.error('=== ERRO NO FETCH ===');
+                    console.error('erro.message:', erro.message);
+                    console.error('erro:', erro);
                     var msg = '<div class="erro">Erro: ' + erro.message + '</div>';
                     document.getElementById('resumo-conteudo').innerHTML = msg;
                     document.getElementById('comparativo-conteudo').innerHTML = msg;
@@ -231,7 +251,11 @@
                 });
         }
 
-        window.addEventListener('load', carregarDados);
+        console.log('Script carregado - aguardando load...');
+        window.addEventListener('load', function() {
+            console.log('Window LOAD disparado');
+            carregarDados();
+        });
     </script>
 </body>
 </html>
