@@ -1,6 +1,6 @@
 {
-  "atualizado_em": "28/11/2025 às 13:24:53",
-  "despesas": [
+  "atualizado_em": "28/11/2025 às 13:28:16",
+  "categorias": [
     {
       "categoria": "FOLHA",
       "fuabc": 15979374.38,
@@ -43,10 +43,7 @@
     "total_geral": 51448379.0,
     "percentual_fuabc": 81.63,
     "percentual_sesaud": 18.37,
-    "TOTAL": 51448379.0,
-    "ORÇAMENTO ANUAL 2026": 551236772.0,
-    "ORÇAMENTO MENSAL": 45936397.67,
-    "DIFERENÇA - SUPERAVIT/DEFICIT": -5511981.33,
-    "TOTAL DE DESPESAS": 51448379.0
+    "diferenca": 32543047.02,
+    "percentual_diff": 344.27
   }
 }
