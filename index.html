@@ -191,20 +191,15 @@
         </header>
 
         <div class="tabs">
-            <button class="tab-btn active" onclick="abrirAba(event, 'resumo')">📋 Resumo</button>
-            <button class="tab-btn" onclick="abrirAba(event, 'comparativo')">📈 Comparativo</button>
+            <button class="tab-btn active" onclick="abrirAba(event, 'sesaud')">💰 SESAUD</button>
             <button class="tab-btn" onclick="abrirAba(event, 'fuabc')">💰 FUABC</button>
-            <button class="tab-btn" onclick="abrirAba(event, 'sesaud')">💰 SESAUD</button>
+            <button class="tab-btn" onclick="abrirAba(event, 'comparativo')">📈 Comparativo</button>
+            <button class="tab-btn" onclick="abrirAba(event, 'resumo')">📋 Resumo</button>
         </div>
 
-        <div id="resumo" class="tab-content active">
-            <h2>Resumo Geral</h2>
-            <div id="resumo-conteudo" class="carregando">Carregando dados...</div>
-        </div>
-
-        <div id="comparativo" class="tab-content">
-            <h2>Comparativo</h2>
-            <div id="comparativo-conteudo" class="carregando">Carregando dados...</div>
+        <div id="sesaud" class="tab-content active">
+            <h2>Orçamento SESAUD</h2>
+            <div id="sesaud-conteudo" class="carregando">Carregando dados...</div>
         </div>
 
         <div id="fuabc" class="tab-content">
@@ -212,9 +207,14 @@
             <div id="fuabc-conteudo" class="carregando">Carregando dados...</div>
         </div>
 
-        <div id="sesaud" class="tab-content">
-            <h2>Orçamento SESAUD</h2>
-            <div id="sesaud-conteudo" class="carregando">Carregando dados...</div>
+        <div id="comparativo" class="tab-content">
+            <h2>Comparativo</h2>
+            <div id="comparativo-conteudo" class="carregando">Carregando dados...</div>
+        </div>
+
+        <div id="resumo" class="tab-content">
+            <h2>Resumo Geral</h2>
+            <div id="resumo-conteudo" class="carregando">Carregando dados...</div>
         </div>
     </div>
 
@@ -248,44 +248,26 @@
             fetch('https://raw.githubusercontent.com/rtoledomota/SESAUD-Orcamento/main/data.json')
                 .then(r => {
                     console.log('Response status:', r.status);
-                    if (!r.ok) throw new Error('Status ' + r.status);
                     return r.json();
                 })
                 .then(dados => {
                     console.log('Dados carregados:', dados);
-                    console.log('Despesas:', dados.despesas);
                     
                     // Atualizar data
                     document.getElementById('data-atualizacao').textContent = 
                         'Atualizado em: ' + (dados.atualizado_em || 'N/A');
 
-                    // Aguardar um pouco para garantir que o DOM está pronto
-                    setTimeout(() => {
-                        console.log('Preenchendo SESAUD...');
-                        preencherSesaud(dados);
-                        
-                        console.log('Preenchendo FUABC...');
-                        preencherFuabc(dados);
-                        
-                        console.log('Preenchendo Comparativo...');
-                        preencherComparativo(dados);
-                        
-                        console.log('Preenchendo Resumo...');
-                        preencherResumo(dados);
-                    }, 100);
+                    // Preencher abas
+                    preencherSesaud(dados);
+                    preencherFuabc(dados);
+                    preencherComparativo(dados);
+                    preencherResumo(dados);
                 })
                 .catch(erro => {
                     console.error('Erro ao carregar dados:', erro);
-                    console.error('Stack:', erro.stack);
                     document.getElementById('sesaud-conteudo').innerHTML = 
                         '<div class="erro">Erro ao carregar dados: ' + erro.message + '</div>';
-                    document.getElementById('fuabc-conteudo').innerHTML = 
-                        '<div class="erro">Erro ao carregar dados: ' + erro.message + '</div>';
-                    document.getElementById('comparativo-conteudo').innerHTML = 
-                        '<div class="erro">Erro ao carregar dados: ' + erro.message + '</div>';
-                    document.getElementById('resumo-conteudo').innerHTML = 
-                        '<div class="erro">Erro ao carregar dados: ' + erro.message + '</div>';
-                };
+                });
         }
 
         function preencherSesaud(dados) {
