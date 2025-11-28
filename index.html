@@ -303,7 +303,7 @@
 
         async function carregarDados() {
             try {
-                const response = await fetch('https://raw.githubusercontent.com/rtoledomota/SESAUD-Orcamento/main/data.json');
+                const response = await fetch('https://cdn.jsdelivr.net/gh/rtoledomota/SESAUD-Orcamento@main/data.json');
                 const dados = await response.json();
 
                 document.getElementById('hora-atualizacao').textContent = dados.atualizado_em;
@@ -405,8 +405,10 @@
             html += '<thead><tr><th>Categoria</th><th>Valor</th><th>% do Total</th></tr></thead>';
             html += '<tbody>';
 
-            dados.categorias.forEach(cat => {
-                const percentual = ((cat.sesaud / dados.resumo.total_sesaud) * 100).toFixed(1);
+            const total_sesaud = dados.despesas.reduce((sum, d) => sum + d.sesaud, 0);
+
+            dados.despesas.forEach(cat => {
+                const percentual = ((cat.sesaud / total_sesaud) * 100).toFixed(1);
                 html += `
                     <tr>
                         <td>${cat.categoria}</td>
@@ -417,7 +419,7 @@
             });
 
             html += '<tr style="background: #0f3460; color: white; font-weight: bold;">';
-            html += `<td>TOTAL</td><td>R$ ${formatarMoeda(dados.resumo.total_sesaud)}</td><td>100%</td>`;
+            html += `<td>TOTAL</td><td>R$ ${formatarMoeda(total_sesaud)}</td><td>100%</td>`;
             html += '</tr>';
             html += '</tbody></table>';
 
@@ -430,8 +432,10 @@
             html += '<thead><tr><th>Categoria</th><th>Valor</th><th>% do Total</th></tr></thead>';
             html += '<tbody>';
 
-            dados.categorias.forEach(cat => {
-                const percentual = ((cat.fuabc / dados.resumo.total_fuabc) * 100).toFixed(1);
+            const total_fuabc = dados.despesas.reduce((sum, d) => sum + d.fuabc, 0);
+
+            dados.despesas.forEach(cat => {
+                const percentual = ((cat.fuabc / total_fuabc) * 100).toFixed(1);
                 html += `
                     <tr>
                         <td>${cat.categoria}</td>
@@ -442,7 +446,7 @@
             });
 
             html += '<tr style="background: #0f3460; color: white; font-weight: bold;">';
-            html += `<td>TOTAL</td><td>R$ ${formatarMoeda(dados.resumo.total_fuabc)}</td><td>100%</td>`;
+            html += `<td>TOTAL</td><td>R$ ${formatarMoeda(total_fuabc)}</td><td>100%</td>`;
             html += '</tr>';
             html += '</tbody></table>';
 
