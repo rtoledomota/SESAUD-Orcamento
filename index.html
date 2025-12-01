@@ -11,197 +11,275 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { font-size: 16px; }
-        body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            background: linear-gradient(135deg, #0f3460 0%, #1a5f7a 100%); 
-            color: #333; 
-            min-height: 100vh; 
+        html { font-size: 16px; scroll-behavior: smooth; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f3460 0%, #1a5f7a 100%);
+            color: #333;
+            min-height: 100vh;
             padding: 1rem;
+            transition: background-color 0.5s, color 0.5s;
         }
         .container { max-width: 1400px; margin: 0 auto; }
-        header { 
-            background: white; 
-            padding: 1.5rem; 
-            border-radius: 10px; 
-            margin-bottom: 1.5rem; 
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
-            text-align: center; 
+
+        body.dark-mode {
+            background: linear-gradient(135deg, #1a1a2e 0%, #0f0f1a 100%);
+            color: #e0e0e0;
         }
-        header h1 { color: #0f3460; margin-bottom: 0.5rem; font-size: 2rem; }
-        header p { color: #0f3460; font-weight: bold; margin-bottom: 0.5rem; }
-        .data-atualizacao { color: #666; font-size: 0.875rem; }
-        
-        .tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
-        .tab-btn { 
-            padding: 0.75rem 1rem; 
-            background: white; 
-            border: 2px solid #0f3460; 
-            color: #0f3460; 
-            cursor: pointer; 
-            border-radius: 5px; 
-            font-weight: bold; 
-            transition: all 0.3s;
+        body.dark-mode header { background: #2a2a4a; box-shadow: 0 4px 20px rgba(0, 255, 255, 0.2); }
+        body.dark-mode header h1, body.dark-mode header p { color: #00FFFF; }
+        body.dark-mode .data-atualizacao { color: #99FFFF; }
+        body.dark-mode .tab-btn { background: #3a3a5a; border-color: #00FFFF; color: #00FFFF; }
+        body.dark-mode .tab-btn.active { background: #00FFFF; color: #1a1a2e; }
+        body.dark-mode .tab-content { background: #2a2a4a; box-shadow: 0 4px 20px rgba(255, 0, 255, 0.2); }
+        body.dark-mode .resumo-card { background: linear-gradient(135deg, #00FFFF, #FF00FF); }
+        body.dark-mode .resumo-card h3, body.dark-mode .resumo-card .valor { color: #1a1a2e; }
+        body.dark-mode .chart-box { background: #2a2a4a; box-shadow: 0 4px 20px rgba(255, 255, 0, 0.2); }
+        body.dark-mode .chart-box h3 { color: #FFFF00; }
+        body.dark-mode table { background: #2a2a4a; box-shadow: 0 4px 20px rgba(0, 255, 0, 0.2); }
+        body.dark-mode thead { background: linear-gradient(135deg, #00FFFF, #FF00FF); }
+        body.dark-mode th { color: #1a1a2e; }
+        body.dark-mode td { color: #e0e0e0; background: #2a2a4a; border-bottom-color: #4a4a6a; }
+        body.dark-mode tr:hover { background: #3a3a5a; }
+
+        header {
+            background: linear-gradient(135deg, #0f3460 0%, #9b59b6 100%);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        header h1 { margin-bottom: 0.5rem; font-size: 2.5rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        header p { font-weight: bold; margin-bottom: 0.5rem; font-size: 1.2rem; }
+        .data-atualizacao { color: rgba(255,255,255,0.8); font-size: 0.9rem; }
+
+        .year-selector-container {
+            margin-bottom: 1.5rem;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+        }
+        .year-selector-container label { color: white; font-weight: bold; font-size: 1rem; }
+        #seletor-ano {
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            border: 2px solid white;
+            background: white;
+            color: #0f3460;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        #seletor-ano:hover { border-color: #e74c3c; box-shadow: 0 0 10px rgba(231, 76, 60, 0.5); }
+
+        .dark-mode-toggle {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.5rem 0.8rem;
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.5);
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .dark-mode-toggle:hover { background: rgba(255,255,255,0.4); transform: scale(1.1); }
+
+        .tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .tab-btn {
+            padding: 0.75rem 1.2rem;
+            background: white;
+            border: 2px solid #0f3460;
+            color: #0f3460;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: all 0.3s ease;
             flex: 1;
             min-width: 100px;
             text-align: center;
-            font-size: 0.875rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
-        .tab-btn.active { background: #0f3460; color: white; }
-        .tab-btn:hover { background: #1a5f7a; color: white; border-color: #1a5f7a; }
-        
-        .tab-content { 
-            display: none; 
-            background: white; 
-            padding: 1.5rem; 
-            border-radius: 10px; 
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
-            animation: fadeIn 0.3s;
+        .tab-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .tab-btn[data-tab="resumo"].active { background: #3498db; color: white; border-color: #3498db; }
+        .tab-btn[data-tab="comparativo"].active { background: #2ecc71; color: white; border-color: #2ecc71; }
+        .tab-btn[data-tab="fuabc"].active { background: #e67e22; color: white; border-color: #e67e22; }
+        .tab-btn[data-tab="sesaud"].active { background: #e74c3c; color: white; border-color: #e74c3c; }
+
+        .tab-content {
+            display: none;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            animation: fadeIn 0.5s ease-out;
         }
         .tab-content.active { display: block; }
-        
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        
-        .resumo-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
-            gap: 1rem; 
-            margin-bottom: 1.5rem; 
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        h2 { color: #0f3460; margin-bottom: 1.5rem; font-size: 1.8rem; text-align: center; }
+
+        .resumo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
         }
-        .resumo-card { 
-            background: linear-gradient(135deg, #0f3460 0%, #1a5f7a 100%); 
-            color: white; 
-            padding: 1rem; 
-            border-radius: 10px; 
-            text-align: center; 
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2); 
+        .resumo-card {
+            color: white;
+            padding: 1.2rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        .resumo-card h3 { font-size: 0.8rem; margin-bottom: 0.5rem; opacity: 0.9; }
-        .resumo-card .valor { font-size: 1.25rem; font-weight: bold; word-break: break-word; }
-        
-        .charts-container { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
-            gap: 1rem; 
+        .resumo-card:hover { transform: translateY(-5px) scale(1.02); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
+        .resumo-card h3 { font-size: 0.9rem; margin-bottom: 0.5rem; opacity: 0.9; text-transform: uppercase; letter-spacing: 0.5px; }
+        .resumo-card .valor { font-size: 1.6rem; font-weight: bold; word-break: break-word; }
+
+        .resumo-card:nth-child(1) { background: linear-gradient(45deg, #FF6B6B, #FFD93D); }
+        .resumo-card:nth-child(2) { background: linear-gradient(45deg, #6BCB77, #4D96FF); }
+        .resumo-card:nth-child(3) { background: linear-gradient(45deg, #9B59B6, #F39C12); }
+        .resumo-card:nth-child(4) { background: linear-gradient(45deg, #1ABC9C, #E74C3C); }
+
+        .charts-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
             margin-top: 1.5rem;
         }
-        .chart-box { 
-            background: white; 
-            padding: 1rem; 
-            border-radius: 10px; 
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: relative;
-            height: 400px;
+        .chart-box {
+            background: white;
+            padding: 1rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            height: 350px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        .chart-box h3 { margin-bottom: 1rem; color: #0f3460; text-align: center; font-size: 1rem; }
-        .chart-box canvas { max-width: 100%; height: auto; }
-        
-        .erro { background: #ff6b6b; color: white; padding: 1.5rem; border-radius: 10px; margin: 1rem 0; }
-        
-        .table-responsive-wrapper { 
-            overflow-x: auto; 
-            margin: 1rem 0; 
-            -webkit-overflow-scrolling: touch; 
+        .chart-box:hover { transform: translateY(-3px); box-shadow: 0 6px 18px rgba(0,0,0,0.15); }
+        .chart-box h3 { margin-bottom: 1rem; color: #0f3460; text-align: center; font-size: 1.1rem; }
+
+        .table-responsive-wrapper {
+            overflow-x: auto;
+            margin: 1rem 0;
+            -webkit-overflow-scrolling: touch;
             border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
-        
-        table { 
-            width: 100%; 
-            border-collapse: collapse; 
-            background: white; 
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1); 
-            border-radius: 8px; 
-            overflow: hidden;
-            min-width: 100%;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            min-width: 600px;
         }
         thead { background: linear-gradient(135deg, #0f3460 0%, #1a5f7a 100%); }
-        th { 
-            padding: 0.75rem; 
-            text-align: left; 
-            border: none; 
-            font-weight: bold; 
-            color: white; 
-            font-size: 0.875rem;
+        th {
+            padding: 0.8rem 1rem;
+            text-align: left;
+            border: none;
+            font-weight: bold;
+            color: white;
+            font-size: 0.9rem;
             white-space: nowrap;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
-        td { 
-            padding: 0.75rem; 
-            border-bottom: 1px solid #e0e0e0; 
-            color: #333; 
-            background: white; 
-            font-size: 0.875rem;
+        td {
+            padding: 0.7rem 1rem;
+            border-bottom: 1px solid #e0e0e0;
+            color: #333;
+            background: white;
+            font-size: 0.9rem;
         }
-        tr:hover { background: #f9f9f9; }
+        tbody tr:nth-child(odd) { background-color: #f8f8f8; }
+        tbody tr:nth-child(even) { background-color: #f0f0f0; }
+        tbody tr:hover { background: #e0f7fa; }
         .valor-moeda { text-align: right; font-weight: bold; color: #0f3460; }
         tbody tr:last-child td { border-bottom: none; }
-        
-        .comparativo-header { 
-            background: linear-gradient(135deg, #0f3460 0%, #1a5f7a 100%); 
-            padding: 1.5rem; 
-            border-radius: 10px; 
-            margin-bottom: 1.5rem; 
+
+        .comparativo-header {
+            background: linear-gradient(135deg, #0f3460 0%, #1a5f7a 100%);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
-        .comparativo-resumo { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 
-            gap: 1rem; 
+        .comparativo-resumo {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
         }
-        .resumo-item { 
-            background: white; 
-            padding: 1rem; 
-            border-radius: 8px; 
-            text-align: center; 
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1); 
+        .resumo-item {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
         }
-        .resumo-item h4 { color: #0f3460; margin-bottom: 0.5rem; font-size: 0.75rem; }
-        .valor-grande { font-size: 1.25rem; font-weight: bold; color: #0f3460; margin: 0; }
-        
+        .resumo-item:hover { transform: translateY(-3px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        .resumo-item h4 { color: #0f3460; margin-bottom: 0.5rem; font-size: 0.8rem; text-transform: uppercase; }
+        .valor-grande { font-size: 1.5rem; font-weight: bold; color: #0f3460; margin: 0; }
+
         .positivo { color: #27ae60; font-weight: bold; }
         .negativo { color: #e74c3c; font-weight: bold; }
-        
-        h2 { color: #0f3460; margin-bottom: 1.5rem; font-size: 1.5rem; }
-        
-        /* MOBILE - até 600px */
+        .erro { background: #e74c3c; color: white; padding: 1.5rem; border-radius: 10px; margin: 1rem 0; }
+
+        footer {
+            margin-top: 2rem;
+            padding: 1rem;
+            text-align: center;
+            color: rgba(255,255,255,0.7);
+            font-size: 0.85rem;
+            background: rgba(0,0,0,0.2);
+            border-radius: 10px;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+        }
+
         @media (max-width: 600px) {
             html { font-size: 14px; }
             body { padding: 0.75rem; }
             header { padding: 1rem; margin-bottom: 1rem; }
-            header h1 { font-size: 1.5rem; }
+            header h1 { font-size: 1.8rem; }
             .tabs { flex-direction: column; gap: 0.5rem; margin-bottom: 1rem; }
-            .tab-btn { min-width: auto; flex-basis: 100%; }
-            .tab-content { padding: 1rem; }
-            .resumo-grid { grid-template-columns: 1fr; gap: 0.75rem; margin-bottom: 1rem; }
-            .resumo-card { padding: 0.75rem; }
-            .resumo-card h3 { font-size: 0.75rem; margin-bottom: 0.3rem; }
-            .resumo-card .valor { font-size: 1rem; }
-            .charts-container { grid-template-columns: 1fr; gap: 0.75rem; margin-top: 1rem; }
-            .chart-box { padding: 0.75rem; height: 300px; }
-            .chart-box h3 { font-size: 0.9rem; margin-bottom: 0.75rem; }
-            table { font-size: 0.75rem; }
-            th, td { padding: 0.5rem; }
-            .comparativo-header { padding: 1rem; margin-bottom: 1rem; }
-            .comparativo-resumo { grid-template-columns: 1fr; gap: 0.75rem; }
-            .resumo-item { padding: 0.75rem; }
-            .resumo-item h4 { font-size: 0.7rem; margin-bottom: 0.3rem; }
-            .valor-grande { font-size: 1rem; }
-            h2 { font-size: 1.25rem; margin-bottom: 1rem; }
+            .tab-btn { min-width: auto; flex-basis: 100%; font-size: 0.8rem; }
+            .resumo-grid { grid-template-columns: 1fr; gap: 0.75rem; }
+            .charts-container { grid-template-columns: 1fr; gap: 0.75rem; }
+            .chart-box { height: 280px; }
+            table { font-size: 0.8rem; }
         }
-        
-        /* TABLET - 601px a 1023px */
+
         @media (min-width: 601px) and (max-width: 1023px) {
-            html { font-size: 15px; }
-            body { padding: 1rem; }
-            .resumo-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
-            .charts-container { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
-            .chart-box { height: 350px; }
-            .comparativo-resumo { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+            .resumo-grid { grid-template-columns: repeat(2, 1fr); }
+            .charts-container { grid-template-columns: repeat(2, 1fr); }
         }
-        
-        /* DESKTOP - acima de 1024px */
+
         @media (min-width: 1024px) {
-            .tabs { flex-wrap: nowrap; }
-            .tab-btn { flex: 1; }
-            .resumo-grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
             .charts-container { grid-template-columns: repeat(3, 1fr); }
             .chart-box { height: 400px; }
         }
@@ -210,24 +288,24 @@
 <body>
     <div class="container">
         <header>
+            <button class="dark-mode-toggle" onclick="toggleDarkMode()">💡</button>
             <h1>📊 Dashboard Orçamento</h1>
             <p>SESAUD / FUABC</p>
+            <div class="year-selector-container">
+                <label for="seletor-ano">Selecione o ano:</label>
+                <select id="seletor-ano" onchange="mudarAno(this.value)">
+                    <option value="2025">2025 - Realizado</option>
+                    <option value="2026">2026 - Projeção</option>
+                </select>
+            </div>
             <p class="data-atualizacao" id="data-atualizacao">Carregando...</p>
         </header>
 
-        <div style="margin-bottom: 1.5rem; text-align: center;">
-            <label style="color: white; font-weight: bold; font-size: 1rem; margin-right: 1rem;">Selecione o ano:</label>
-            <select id="seletor-ano" onchange="mudarAno(this.value)" style="padding: 0.5rem 1rem; border-radius: 5px; border: 2px solid white; background: white; color: #0f3460; font-weight: bold; cursor: pointer; font-size: 1rem;">
-                <option value="2025">2025 - Realizado</option>
-                <option value="2026">2026 - Projeção</option>
-            </select>
-        </div>
-
         <div class="tabs">
-            <button class="tab-btn active" onclick="abrirAba(event, 'resumo')">📋 Resumo</button>
-            <button class="tab-btn" onclick="abrirAba(event, 'comparativo')">📈 Comparativo</button>
-            <button class="tab-btn" onclick="abrirAba(event, 'fuabc')">💰 FUABC</button>
-            <button class="tab-btn" onclick="abrirAba(event, 'sesaud')">💰 SESAUD</button>
+            <button class="tab-btn active" data-tab="resumo" onclick="abrirAba(event, 'resumo')">📋 Resumo</button>
+            <button class="tab-btn" data-tab="comparativo" onclick="abrirAba(event, 'comparativo')">📈 Comparativo</button>
+            <button class="tab-btn" data-tab="fuabc" onclick="abrirAba(event, 'fuabc')">💰 FUABC</button>
+            <button class="tab-btn" data-tab="sesaud" onclick="abrirAba(event, 'sesaud')">💰 SESAUD</button>
         </div>
 
         <div id="resumo" class="tab-content active">
@@ -251,8 +329,13 @@
         </div>
     </div>
 
+    <footer>
+        <p>&copy; 2025 Dashboard Orçamento SESAUD / FUABC. Todos os direitos reservados.</p>
+    </footer>
+
     <script>
         var charts = {};
+        var vibrantChartColors = ['#FF6B6B', '#6BCB77', '#4D96FF', '#9B59B6', '#F39C12', '#1ABC9C', '#E74C3C', '#FFD93D'];
 
         function formatarMoeda(valor) {
             return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(valor);
@@ -271,11 +354,13 @@
         function preencherResumo(dados) {
             var resumo = dados.resumo || {};
             var html = '<div class="resumo-grid">';
+            var cardIndex = 0;
             for (var chave in resumo) {
                 var label = chave.replace(/_/g, ' ').toUpperCase();
                 var valor = resumo[chave];
                 var valorFormatado = typeof valor === 'number' ? formatarMoeda(valor) : valor;
                 html += '<div class="resumo-card"><h3>' + label + '</h3><div class="valor">' + valorFormatado + '</div></div>';
+                cardIndex++;
             }
             html += '</div>';
             document.getElementById('resumo-conteudo').innerHTML = html;
@@ -285,25 +370,25 @@
             var categorias = dados.categorias || [];
             var totalFuabc = 0, totalSesaud = 0;
             categorias.forEach(cat => { totalFuabc += cat.fuabc; totalSesaud += cat.sesaud; });
-            
+
             var html = '<div class="comparativo-header"><div class="comparativo-resumo">';
             html += '<div class="resumo-item"><h4>Total FUABC</h4><p class="valor-grande">' + formatarMoeda(totalFuabc) + '</p></div>';
             html += '<div class="resumo-item"><h4>Total SESAUD</h4><p class="valor-grande">' + formatarMoeda(totalSesaud) + '</p></div>';
             html += '<div class="resumo-item"><h4>Diferença</h4><p class="valor-grande">' + formatarMoeda(totalFuabc - totalSesaud) + '</p></div>';
             html += '</div></div><h3>Tabela Comparativa</h3>';
             html += '<div class="table-responsive-wrapper"><table><thead><tr><th>Categoria</th><th class="valor-moeda">FUABC</th><th class="valor-moeda">SESAUD</th><th class="valor-moeda">Diferença</th><th class="valor-moeda">%</th></tr></thead><tbody>';
-            
+
             categorias.forEach(cat => {
                 var diff = cat.fuabc - cat.sesaud;
                 var pct = cat.sesaud > 0 ? ((diff / cat.sesaud) * 100).toFixed(1) : 0;
                 var classe = diff > 0 ? 'positivo' : 'negativo';
                 html += '<tr><td><strong>' + cat.categoria + '</strong></td><td class="valor-moeda">' + formatarMoeda(cat.fuabc) + '</td><td class="valor-moeda">' + formatarMoeda(cat.sesaud) + '</td><td class="valor-moeda ' + classe + '">' + formatarMoeda(diff) + '</td><td class="valor-moeda ' + classe + '">' + pct + '%</td></tr>';
             });
-            
+
             html += '</tbody></table></div><div class="charts-container"><div class="chart-box"><h3>📊 Comparação</h3><canvas id="chartComparacao"></canvas></div><div class="chart-box"><h3>💰 FUABC</h3><canvas id="chartFuabc"></canvas></div><div class="chart-box"><h3>💰 SESAUD</h3><canvas id="chartSesaud"></canvas></div></div>';
-            
+
             document.getElementById('comparativo-conteudo').innerHTML = html;
-            
+
             for (var key in charts) { if (charts[key]) charts[key].destroy(); }
             charts = {};
 
@@ -315,29 +400,29 @@
                         data: {
                             labels: categorias.map(c => c.categoria.substring(0, 20)),
                             datasets: [
-                                { label: 'FUABC', data: categorias.map(c => c.fuabc), backgroundColor: '#0f3460' },
-                                { label: 'SESAUD', data: categorias.map(c => c.sesaud), backgroundColor: '#1a5f7a' }
+                                { label: 'FUABC', data: categorias.map(c => c.fuabc), backgroundColor: '#FF6B6B' },
+                                { label: 'SESAUD', data: categorias.map(c => c.sesaud), backgroundColor: '#6BCB77' }
                             ]
                         },
                         options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y', plugins: { legend: { position: 'top' } } }
                     });
-                    
+
                     var ctx2 = document.getElementById('chartFuabc').getContext('2d');
                     charts.fuabc = new Chart(ctx2, {
                         type: 'doughnut',
                         data: {
                             labels: categorias.map(c => c.categoria.substring(0, 12)),
-                            datasets: [{ data: categorias.map(c => c.fuabc), backgroundColor: ['#0f3460', '#1a5f7a', '#2a7fa8', '#3a9fd6', '#4abfe4', '#5acff2', '#6adfff'] }]
+                            datasets: [{ data: categorias.map(c => c.fuabc), backgroundColor: vibrantChartColors }]
                         },
                         options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
                     });
-                    
+
                     var ctx3 = document.getElementById('chartSesaud').getContext('2d');
                     charts.sesaud = new Chart(ctx3, {
                         type: 'doughnut',
                         data: {
                             labels: categorias.map(c => c.categoria.substring(0, 12)),
-                            datasets: [{ data: categorias.map(c => c.sesaud), backgroundColor: ['#1a5f7a', '#2a7fa8', '#3a9fd6', '#4abfe4', '#5acff2', '#6adfff', '#7aefff'] }]
+                            datasets: [{ data: categorias.map(c => c.sesaud), backgroundColor: ['#4D96FF', '#9B59B6', '#F39C12', '#1ABC9C', '#E74C3C', '#FFD93D', '#FF7F50'] }]
                         },
                         options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
                     });
@@ -360,7 +445,6 @@
         }
 
         function mudarAno(ano) {
-            var anoAtual = window.dashboardCompleto.ano_ativo;
             window.dashboardCompleto.ano_ativo = ano;
             var dados = window.dashboardCompleto[ano];
             document.getElementById('data-atualizacao').textContent = 'Atualizado em: ' + (dados.atualizado_em || 'N/A');
@@ -375,7 +459,9 @@
                 .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
                 .then(dados => {
                     window.dashboardCompleto = dados;
-                    window.dashboardData = dados[dados.ano_ativo];
+                    var initialYear = dados.ano_ativo || '2025';
+                    document.getElementById('seletor-ano').value = initialYear;
+                    window.dashboardData = dados[initialYear];
                     document.getElementById('data-atualizacao').textContent = 'Atualizado em: ' + (window.dashboardData.atualizado_em || 'N/A');
                     setTimeout(() => { preencherResumo(window.dashboardData); preencherComparativo(window.dashboardData); preencherFuabc(window.dashboardData); preencherSesaud(window.dashboardData); }, 300);
                 })
@@ -386,6 +472,18 @@
                     document.getElementById('fuabc-conteudo').innerHTML = msg;
                     document.getElementById('sesaud-conteudo').innerHTML = msg;
                 });
+        }
+
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            localStorage.setItem('dark-mode', document.body.classList.contains('dark-mode'));
+            if (document.getElementById('comparativo').classList.contains('active') && window.dashboardData) {
+                preencherComparativo(window.dashboardData);
+            }
+        }
+
+        if (localStorage.getItem('dark-mode') === 'true') {
+            document.body.classList.add('dark-mode');
         }
 
         window.addEventListener('load', carregarDados);
