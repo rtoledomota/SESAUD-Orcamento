@@ -215,6 +215,14 @@
             <p class="data-atualizacao" id="data-atualizacao">Carregando...</p>
         </header>
 
+        <div style="margin-bottom: 1.5rem; text-align: center;">
+            <label style="color: white; font-weight: bold; font-size: 1rem; margin-right: 1rem;">Selecione o ano:</label>
+            <select id="seletor-ano" onchange="mudarAno(this.value)" style="padding: 0.5rem 1rem; border-radius: 5px; border: 2px solid white; background: white; color: #0f3460; font-weight: bold; cursor: pointer; font-size: 1rem;">
+                <option value="2025">2025 - Realizado</option>
+                <option value="2026">2026 - Projeção</option>
+            </select>
+        </div>
+
         <div class="tabs">
             <button class="tab-btn active" onclick="abrirAba(event, 'resumo')">📋 Resumo</button>
             <button class="tab-btn" onclick="abrirAba(event, 'comparativo')">📈 Comparativo</button>
@@ -351,13 +359,25 @@
             document.getElementById('sesaud-conteudo').innerHTML = html;
         }
 
+        function mudarAno(ano) {
+            var anoAtual = window.dashboardCompleto.ano_ativo;
+            window.dashboardCompleto.ano_ativo = ano;
+            var dados = window.dashboardCompleto[ano];
+            document.getElementById('data-atualizacao').textContent = 'Atualizado em: ' + (dados.atualizado_em || 'N/A');
+            preencherResumo(dados);
+            preencherComparativo(dados);
+            preencherFuabc(dados);
+            preencherSesaud(dados);
+        }
+
         function carregarDados() {
             fetch('https://raw.githubusercontent.com/rtoledomota/SESAUD-Orcamento/main/data.json', { cache: 'no-store' })
                 .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
                 .then(dados => {
-                    window.dashboardData = dados;
-                    document.getElementById('data-atualizacao').textContent = 'Atualizado em: ' + (dados.atualizado_em || 'N/A');
-                    setTimeout(() => { preencherResumo(dados); preencherComparativo(dados); preencherFuabc(dados); preencherSesaud(dados); }, 300);
+                    window.dashboardCompleto = dados;
+                    window.dashboardData = dados[dados.ano_ativo];
+                    document.getElementById('data-atualizacao').textContent = 'Atualizado em: ' + (window.dashboardData.atualizado_em || 'N/A');
+                    setTimeout(() => { preencherResumo(window.dashboardData); preencherComparativo(window.dashboardData); preencherFuabc(window.dashboardData); preencherSesaud(window.dashboardData); }, 300);
                 })
                 .catch(e => {
                     var msg = '<div class="erro">❌ Erro: ' + e.message + '</div>';
