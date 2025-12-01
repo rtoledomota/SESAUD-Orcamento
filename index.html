@@ -155,7 +155,8 @@
         .resumo-card:nth-child(1) { background: linear-gradient(135deg, #3498db 0%, #2980b9 100%); }
         .resumo-card:nth-child(2) { background: linear-gradient(135deg, #27ae60 0%, #229954 100%); }
         .resumo-card:nth-child(3) { background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); }
-        .resumo-card:nth-child(4) { background: linear-gradient(135deg, #8e44ad 0%, #714091 100%); }
+        .resumo-card:nth-child(4) { display: none; }
+        .resumo-item:nth-child(3) { display: none; }
 
         .charts-container {
             display: grid;
@@ -418,15 +419,15 @@
             var html = '<div class="comparativo-header"><div class="comparativo-resumo">';
             html += '<div class="resumo-item"><h4>Total FUABC</h4><p class="valor-grande">' + formatarMoeda(totalFuabc) + '</p></div>';
             html += '<div class="resumo-item"><h4>Total SESAUD</h4><p class="valor-grande">' + formatarMoeda(totalSesaud) + '</p></div>';
-            html += '<div class="resumo-item"><h4>Diferença</h4><p class="valor-grande">' + formatarMoeda(totalFuabc - totalSesaud) + '</p></div>';
+            // Card de diferença removido
             html += '</div></div><h3>Detalhamento por Categoria</h3>';
-            html += '<div class="table-responsive-wrapper"><table><thead><tr><th>Categoria</th><th class="valor-moeda">FUABC</th><th class="valor-moeda">SESAUD</th><th class="valor-moeda">Diferença</th><th class="valor-moeda">Variação %</th></tr></thead><tbody>';
+            html += '<div class="table-responsive-wrapper"><table><thead><tr><th>Categoria</th><th class="valor-moeda">FUABC</th><th class="valor-moeda">SESAUD</th><th class="valor-moeda">Variação %</th></tr></thead><tbody>';
 
             categorias.forEach(cat => {
                 var diff = cat.fuabc - cat.sesaud;
                 var pct = cat.sesaud > 0 ? ((diff / cat.sesaud) * 100).toFixed(1) : 0;
                 var classe = diff > 0 ? 'positivo' : 'negativo';
-                html += '<tr><td><strong>' + cat.categoria + '</strong></td><td class="valor-moeda">' + formatarMoeda(cat.fuabc) + '</td><td class="valor-moeda">' + formatarMoeda(cat.sesaud) + '</td><td class="valor-moeda ' + classe + '">' + formatarMoeda(diff) + '</td><td class="valor-moeda ' + classe + '">' + pct + '%</td></tr>';
+                html += '<tr><td><strong>' + cat.categoria + '</strong></td><td class="valor-moeda">' + formatarMoeda(cat.fuabc) + '</td><td class="valor-moeda">' + formatarMoeda(cat.sesaud) + '</td><td class="valor-moeda ' + classe + '">' + pct + '%</td></tr>';
             });
 
             html += '</tbody></table></div><div class="charts-container"><div class="chart-box"><h3>Comparação Geral</h3><canvas id="chartComparacao"></canvas></div><div class="chart-box"><h3>Distribuição FUABC</h3><canvas id="chartFuabc"></canvas></div><div class="chart-box"><h3>Distribuição SESAUD</h3><canvas id="chartSesaud"></canvas></div></div>';
