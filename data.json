@@ -1,84 +1,93 @@
 {
-  "atualizado_em": "28/11/2025 às 13:30:43",
+  "atualizado_em": "01/12/2025 às 14:30",
   "despesas": [
     {
-      "categoria": "FOLHA",
-      "fuabc": 15979374.38,
+      "categoria": "RECURSOS HUMANOS",
+      "fuabc": 15415513.5,
       "sesaud": 6616449.07
     },
     {
-      "categoria": "PROC. TRABALHISTA",
-      "fuabc": 78881.08,
+      "categoria": "PROCESSOS TRABALHISTAS",
+      "fuabc": 84890.27,
       "sesaud": 2024.0
     },
     {
-      "categoria": "MAT/MED/CONSUMO",
-      "fuabc": 4218090.06,
+      "categoria": "MATERIAIS DE CONSUMO",
+      "fuabc": 3888891.54,
       "sesaud": 329615.34
     },
     {
-      "categoria": "MANUTENÇÃO/REFORMAS",
-      "fuabc": 1301434.22,
-      "sesaud": 0
+      "categoria": "MANUTENÇÃO E REFORMAS",
+      "fuabc": 1316264.15,
+      "sesaud": 731350.3
     },
     {
       "categoria": "SERVIÇOS MÉDICOS",
-      "fuabc": 8237466.26,
-      "sesaud": 0
+      "fuabc": 6776884.98,
+      "sesaud": 0.0
     },
     {
-      "categoria": "SRVIÇOS DE TERCEIROS",
-      "fuabc": 12173592.99,
-      "sesaud": 2201708.42
+      "categoria": "SERVIÇOS DE TERCEIROS",
+      "fuabc": 10939718.04,
+      "sesaud": 2628002.26
+    },
+    {
+      "categoria": "INVESTIMENTOS",
+      "fuabc": 111842.68,
+      "sesaud": 0.0
     },
     {
       "categoria": "OUTROS GASTOS",
-      "fuabc": 6874.02,
-      "sesaud": 302869.16
+      "fuabc": 111094.32,
+      "sesaud": 326630.03
     }
   ],
   "categorias": [
     {
-      "categoria": "FOLHA",
-      "fuabc": 15979374.38,
+      "categoria": "RECURSOS HUMANOS",
+      "fuabc": 15415513.5,
       "sesaud": 6616449.07
     },
     {
-      "categoria": "PROC. TRABALHISTA",
-      "fuabc": 78881.08,
+      "categoria": "PROCESSOS TRABALHISTAS",
+      "fuabc": 84890.27,
       "sesaud": 2024.0
     },
     {
-      "categoria": "MAT/MED/CONSUMO",
-      "fuabc": 4218090.06,
+      "categoria": "MATERIAIS DE CONSUMO",
+      "fuabc": 3888891.54,
       "sesaud": 329615.34
     },
     {
-      "categoria": "MANUTENÇÃO/REFORMAS",
-      "fuabc": 1301434.22,
-      "sesaud": 0
+      "categoria": "MANUTENÇÃO E REFORMAS",
+      "fuabc": 1316264.15,
+      "sesaud": 731350.3
     },
     {
       "categoria": "SERVIÇOS MÉDICOS",
-      "fuabc": 8237466.26,
-      "sesaud": 0
+      "fuabc": 6776884.98,
+      "sesaud": 0.0
     },
     {
-      "categoria": "SRVIÇOS DE TERCEIROS",
-      "fuabc": 12173592.99,
-      "sesaud": 2201708.42
+      "categoria": "SERVIÇOS DE TERCEIROS",
+      "fuabc": 10939718.04,
+      "sesaud": 2628002.26
+    },
+    {
+      "categoria": "INVESTIMENTOS",
+      "fuabc": 111842.68,
+      "sesaud": 0.0
     },
     {
       "categoria": "OUTROS GASTOS",
-      "fuabc": 6874.02,
-      "sesaud": 302869.16
+      "fuabc": 111094.32,
+      "sesaud": 326630.03
     }
   ],
   "resumo": {
-    "TOTAL": 41995713.01,
-    "ORÇAMENTO ANUAL 2026": 551236772.0,
-    "ORÇAMENTO MENSAL": 45936397.67,
-    "DIFERENÇA - SUPERAVIT/DEFICIT": -5511981.33,
-    "TOTAL DE DESPESAS": 32522889.07
+    "total_fuabc": 38645099.48,
+    "total_sesaud": 10634071.01,
+    "total_geral": 49279170.49,
+    "diferenca": 28011028.47
   }
 }
