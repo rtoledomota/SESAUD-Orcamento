@@ -471,6 +471,7 @@
 
     <script>
         var charts = {};
+        window.dashboardCompleto = null; // Global variable to store all data
 
         function formatarMoeda(valor) {
             return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(valor);
@@ -481,28 +482,45 @@
             document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
             document.getElementById(nome).classList.add('active');
             event.currentTarget.classList.add('active');
+            // Re-render charts if switching to comparativo tab and data is available
             if (nome === 'comparativo' && window.dashboardData) {
                 setTimeout(() => preencherComparativo(window.dashboardData), 100);
             }
         }
 
         function preencherResumo(dados) {
-            var resumo = dados.resumo || {};
+            var resumoConteudo = document.getElementById('resumo-conteudo');
+            if (!dados || !dados.resumo) {
+                resumoConteudo.innerHTML = '<div class="erro">Dados de resumo não disponíveis para este período.</div>';
+                return;
+            }
+
+            var resumo = dados.resumo;
             var html = '<div class="resumo-grid">';
             for (var chave in resumo) {
-                if (chave === 'diferenca') continue;
-
+                if (chave === 'diferenca') continue; // Assuming 'diferenca' is not a card
                 var label = chave.replace(/_/g, ' ').toUpperCase();
                 var valor = resumo[chave];
                 var valorFormatado = typeof valor === 'number' ? formatarMoeda(valor) : valor;
                 html += '<div class="resumo-card"><h3>' + label + '</h3><div class="valor">' + valorFormatado + '</div></div>';
             }
             html += '</div>';
-            document.getElementById('resumo-conteudo').innerHTML = html;
+            resumoConteudo.innerHTML = html;
         }
 
         function preencherComparativo(dados) {
-            var categorias = dados.categorias || [];
+            var comparativoConteudo = document.getElementById('comparativo-conteudo');
+            if (!dados || !dados.categorias || !Array.isArray(dados.categorias)) {
+                comparativoConteudo.innerHTML = '<div class="erro">Dados comparativos não disponíveis para este período.</div>';
+                return;
+            }
+
+            var categorias = dados.categorias;
+            if (categorias.length === 0) {
+                comparativoConteudo.innerHTML = '<div class="erro">Nenhuma categoria encontrada para comparação neste período.</div>';
+                return;
+            }
+
             var totalFuabc = 0, totalSesaud = 0;
             categorias.forEach(cat => { totalFuabc += cat.fuabc; totalSesaud += cat.sesaud; });
 
@@ -515,82 +533,128 @@
 
             categorias.forEach(cat => {
                 var diff = cat.fuabc - cat.sesaud;
-                var pct = cat.sesaud > 0 ? ((diff / cat.sesaud) * 100).toFixed(1) : 0;
-                var classe = diff > 0 ? 'positivo' : 'negativo';
+                var pct = cat.sesaud !== 0 ? ((diff / cat.sesaud) * 100).toFixed(1) : (diff === 0 ? '0.0' : 'N/A');
+                var classe = diff > 0 ? 'positivo' : (diff < 0 ? 'negativo' : '');
                 html += '<tr><td><strong>' + cat.categoria + '</strong></td><td class="valor-moeda">' + formatarMoeda(cat.fuabc) + '</td><td class="valor-moeda">' + formatarMoeda(cat.sesaud) + '</td><td class="valor-moeda ' + classe + '\">' + formatarMoeda(diff) + '</td><td class="valor-moeda ' + classe + '\">' + pct + '%</td></tr>';
             });
 
             html += '</tbody></table></div><div class="charts-container"><div class="chart-box"><h3>Comparação Geral</h3><canvas id="chartComparacao"></canvas></div><div class="chart-box"><h3>Distribuição FUABC</h3><canvas id="chartFuabc"></canvas></div><div class="chart-box"><h3>Distribuição SESAUD</h3><canvas id="chartSesaud"></canvas></div></div>';
 
-            document.getElementById('comparativo-conteudo').innerHTML = html;
+            comparativoConteudo.innerHTML = html;
 
+            // Destroy existing charts before creating new ones
             for (var key in charts) { if (charts[key]) charts[key].destroy(); }
             charts = {};
 
             setTimeout(function() {
                 try {
-                    var ctx1 = document.getElementById('chartComparacao').getContext('2d');
-                    charts.comp = new Chart(ctx1, {
-                        type: 'bar',
-                        data: {
-                            labels: categorias.map(c => c.categoria.substring(0, 20)),
-                            datasets: [
-                                { label: 'FUABC', data: categorias.map(c => c.fuabc), backgroundColor: '#3498db', borderColor: '#2980b9', borderWidth: 1 },
-                                { label: 'SESAUD', data: categorias.map(c => c.sesaud), backgroundColor: '#27ae60', borderColor: '#229954', borderWidth: 1 }
-                            ]
-                        },
-                        options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y', plugins: { legend: { position: 'top' } } }
-                    });
+                    var ctx1 = document.getElementById('chartComparacao');
+                    if (ctx1) {
+                        charts.comp = new Chart(ctx1.getContext('2d'), {
+                            type: 'bar',
+                            data: {
+                                labels: categorias.map(c => c.categoria.substring(0, 20)),
+                                datasets: [
+                                    { label: 'FUABC', data: categorias.map(c => c.fuabc), backgroundColor: '#3498db', borderColor: '#2980b9', borderWidth: 1 },
+                                    { label: 'SESAUD', data: categorias.map(c => c.sesaud), backgroundColor: '#27ae60', borderColor: '#229954', borderWidth: 1 }
+                                ]
+                            },
+                            options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y', plugins: { legend: { position: 'top' } } }
+                        });
+                    }
 
-                    var ctx2 = document.getElementById('chartFuabc').getContext('2d');
-                    charts.fuabc = new Chart(ctx2, {
-                        type: 'doughnut',
-                        data: {
-                            labels: categorias.map(c => c.categoria.substring(0, 12)),
-                            datasets: [{ data: categorias.map(c => c.fuabc), backgroundColor: ['#3498db', '#2980b9', '#1abc9c', '#16a085', '#e74c3c', '#c0392b', '#f39c12', '#d68910'] }]
-                        },
-                        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
-                    });
+                    var ctx2 = document.getElementById('chartFuabc');
+                    if (ctx2) {
+                        charts.fuabc = new Chart(ctx2.getContext('2d'), {
+                            type: 'doughnut',
+                            data: {
+                                labels: categorias.map(c => c.categoria.substring(0, 12)),
+                                datasets: [{ data: categorias.map(c => c.fuabc), backgroundColor: ['#3498db', '#2980b9', '#1abc9c', '#16a085', '#e74c3c', '#c0392b', '#f39c12', '#d68910'] }]
+                            },
+                            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
+                        });
+                    }
 
-                    var ctx3 = document.getElementById('chartSesaud').getContext('2d');
-                    charts.sesaud = new Chart(ctx3, {
-                        type: 'doughnut',
-                        data: {
-                            labels: categorias.map(c => c.categoria.substring(0, 12)),
-                            datasets: [{ data: categorias.map(c => c.sesaud), backgroundColor: ['#27ae60', '#229954', '#1abc9c', '#16a085', '#3498db', '#2980b9', '#f39c12', '#d68910'] }]
-                        },
-                        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
-                    });
-                } catch (e) { console.error('Erro gráficos:', e); }
+                    var ctx3 = document.getElementById('chartSesaud');
+                    if (ctx3) {
+                        charts.sesaud = new Chart(ctx3.getContext('2d'), {
+                            type: 'doughnut',
+                            data: {
+                                labels: categorias.map(c => c.categoria.substring(0, 12)),
+                                datasets: [{ data: categorias.map(c => c.sesaud), backgroundColor: ['#27ae60', '#229954', '#1abc9c', '#16a085', '#3498db', '#2980b9', '#f39c12', '#d68910'] }]
+                            },
+                            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
+                        });
+                    }
+                } catch (e) { console.error('Erro ao renderizar gráficos:', e); }
             }, 100);
         }
 
         function preencherFuabc(dados) {
+            var fuabcConteudo = document.getElementById('fuabc-conteudo');
+            if (!dados || !dados.despesas || !Array.isArray(dados.despesas)) {
+                fuabcConteudo.innerHTML = '<div class="erro">Dados de despesas FUABC não disponíveis para este período.</div>';
+                return;
+            }
             var html = '<div class="table-responsive-wrapper"><table><thead><tr><th>Categoria</th><th class="valor-moeda">Valor</th></tr></thead><tbody>';
             dados.despesas.forEach(d => html += '<tr><td>' + d.categoria + '</td><td class="valor-moeda">' + formatarMoeda(d.fuabc) + '</td></tr>');
             html += '</tbody></table></div>';
-            document.getElementById('fuabc-conteudo').innerHTML = html;
+            fuabcConteudo.innerHTML = html;
         }
 
         function preencherSesaud(dados) {
+            var sesaudConteudo = document.getElementById('sesaud-conteudo');
+            if (!dados || !dados.despesas || !Array.isArray(dados.despesas)) {
+                sesaudConteudo.innerHTML = '<div class="erro">Dados de despesas SESAUD não disponíveis para este período.</div>';
+                return;
+            }
             var html = '<div class="table-responsive-wrapper"><table><thead><tr><th>Categoria</th><th class="valor-moeda">Valor</th></tr></thead><tbody>';
             dados.despesas.forEach(d => html += '<tr><td>' + d.categoria + '</td><td class="valor-moeda">' + formatarMoeda(d.sesaud) + '</td></tr>');
             html += '</tbody></table></div>';
-            document.getElementById('sesaud-conteudo').innerHTML = html;
+            sesaudConteudo.innerHTML = html;
         }
 
         function mudarAno(ano) {
-            window.dashboardCompleto.ano_ativo = ano;
-            var dados = window.dashboardCompleto[ano];
-            document.getElementById('data-atualizacao').textContent = 'Atualizado em: ' + (dados.atualizado_em || 'N/A');
-            preencherResumo(dados);
-            preencherComparativo(dados);
-            preencherFuabc(dados);
-            preencherSesaud(dados);
+            // Destroy existing charts to prevent issues if new data is invalid or not rendered
+            for (var key in charts) { if (charts[key]) charts[key].destroy(); }
+            charts = {};
+
+            var dadosAno = window.dashboardCompleto ? window.dashboardCompleto[ano] : null;
+            var dataAtualizacaoElement = document.getElementById('data-atualizacao');
+            var contentAreas = ['resumo-conteudo', 'comparativo-conteudo', 'fuabc-conteudo', 'sesaud-conteudo'];
+
+            if (!dadosAno) {
+                var msg = '<div class="erro">Dados não disponíveis para o ano ' + ano + '.</div>';
+                contentAreas.forEach(id => {
+                    var el = document.getElementById(id);
+                    if (el) el.innerHTML = msg;
+                });
+                dataAtualizacaoElement.textContent = 'Dados não disponíveis para ' + ano;
+                // Clear window.dashboardData if no data for the selected year
+                window.dashboardData = null; 
+                return;
+            }
+
+            // Update the global dashboardData for the currently selected year
+            window.dashboardData = dadosAno;
+
+            dataAtualizacaoElement.textContent = 'Atualizado em: ' + (dadosAno.atualizado_em || 'N/A');
+
+            // Call rendering functions
+            preencherResumo(dadosAno);
+            // Only pre-render comparativo if it's the active tab, otherwise it will be rendered on tab switch
+            if (document.getElementById('comparativo').classList.contains('active')) {
+                preencherComparativo(dadosAno);
+            } else {
+                // If not active, clear content to avoid showing old data if user switches later
+                document.getElementById('comparativo-conteudo').innerHTML = '';
+            }
+            preencherFuabc(dadosAno);
+            preencherSesaud(dadosAno);
         }
 
         function carregarDados() {
-            var timestamp = Math.floor(Date.now() / (5 * 60 * 1000));
+            var timestamp = Math.floor(Date.now() / (5 * 60 * 1000)); // Cache buster a cada 5 minutos
             var urlComTimestamp = 'https://raw.githubusercontent.com/rtoledomota/SESAUD-Orcamento/main/data.json?bust=' + timestamp;
             
             fetch(urlComTimestamp, { 
@@ -600,22 +664,41 @@
                     'Pragma': 'no-cache'
                 }
             })
-                .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
-                .then(dados => {
-                    window.dashboardCompleto = dados;
-                    var initialYear = dados.ano_ativo || '2025';
-                    document.getElementById('seletor-ano').value = initialYear;
-                    window.dashboardData = dados[initialYear];
-                    document.getElementById('data-atualizacao').textContent = 'Atualizado em: ' + (window.dashboardData.atualizado_em || 'N/A');
-                    setTimeout(() => { preencherResumo(window.dashboardData); preencherComparativo(window.dashboardData); preencherFuabc(window.dashboardData); preencherSesaud(window.dashboardData); }, 300);
-                })
-                .catch(e => {
-                    var msg = '<div class="erro">Erro ao carregar dados: ' + e.message + '</div>';
-                    document.getElementById('resumo-conteudo').innerHTML = msg;
-                    document.getElementById('comparativo-conteudo').innerHTML = msg;
-                    document.getElementById('fuabc-conteudo').innerHTML = msg;
-                    document.getElementById('sesaud-conteudo').innerHTML = msg;
-                });
+            .then(r => { 
+                if (!r.ok) throw new Error('HTTP ' + r.status + ' - ' + r.statusText); 
+                return r.json(); 
+            })
+            .then(dadosCompletos => {
+                window.dashboardCompleto = dadosCompletos;
+                
+                // Determine the initial year to display
+                var seletorAno = document.getElementById('seletor-ano');
+                var initialYear = seletorAno.value; 
+
+                // If the currently selected year in the dropdown has no data, try the one specified in JSON
+                if (!window.dashboardCompleto[initialYear]) { 
+                    initialYear = window.dashboardCompleto.ano_ativo || '2025';
+                    // Update dropdown to reflect the year that will be displayed
+                    if (seletorAno.querySelector('option[value="' + initialYear + '"]')) {
+                        seletorAno.value = initialYear; 
+                    } else {
+                        // Fallback if even ano_ativo is not a valid option
+                        initialYear = seletorAno.options[0].value;
+                        seletorAno.value = initialYear;
+                    }
+                }
+
+                // Call mudarAno to render the initial view based on the determined year
+                mudarAno(initialYear);
+            })
+            .catch(e => {
+                var msg = '<div class="erro">Erro ao carregar dados: ' + e.message + '. Verifique a URL do JSON ou o formato dos dados.</div>';
+                document.getElementById('data-atualizacao').textContent = 'Erro ao carregar dados';
+                document.getElementById('resumo-conteudo').innerHTML = msg;
+                document.getElementById('comparativo-conteudo').innerHTML = msg;
+                document.getElementById('fuabc-conteudo').innerHTML = msg;
+                document.getElementById('sesaud-conteudo').innerHTML = msg;
+            });
         }
 
         function toggleDarkMode() {
@@ -623,10 +706,12 @@
             localStorage.setItem('dark-mode', document.body.classList.contains('dark-mode'));
         }
 
+        // Apply dark mode preference on load
         if (localStorage.getItem('dark-mode') === 'true') {
             document.body.classList.add('dark-mode');
         }
 
+        // Load data when the window is fully loaded
         window.addEventListener('load', carregarDados);
     </script>
 </body>
