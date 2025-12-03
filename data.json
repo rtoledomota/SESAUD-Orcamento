@@ -1,139 +1,128 @@
 {
-  "anos": [
-    "GERAL"
-  ],
-  "ano_ativo": "GERAL",
-  "GERAL": {
-    "atualizado_em": "03/12/2025 ?s 11:58:14",
-    "despesas": [
-      {
-        "categoria": "RECURSOS HUMANOS",
-        "fuabc": 0,
-        "sesaud": 0
-      },
-      {
-        "categoria": "PROCESSOS TRABALHISTAS",
-        "fuabc": 0,
-        "sesaud": 0
-      },
-      {
-        "categoria": "MATERIAIS DE CONSUMO",
-        "fuabc": 0,
-        "sesaud": 0
-      },
-      {
-        "categoria": "MANUTEN??O E REFORMAS",
-        "fuabc": 0,
-        "sesaud": 0
-      },
-      {
-        "categoria": "SERVI?OS M?DICOS",
-        "fuabc": 0,
-        "sesaud": 0
-      },
-      {
-        "categoria": "SERVI?OS DE TERCEIROS",
-        "fuabc": 0,
-        "sesaud": 0
-      },
-      {
-        "categoria": "INVESTIMENTOS",
-        "fuabc": 0,
-        "sesaud": 0
-      },
-      {
-        "categoria": "OUTROS GASTOS",
-        "fuabc": 0,
-        "sesaud": 0
-      },
-      {
-        "categoria": "TOTAL DE DESPESAS",
-        "fuabc": 0,
-        "sesaud": 0
-      },
-      {
-        "categoria": "OR?AMENTO ANUAL 2026",
-        "fuabc": 0,
-        "sesaud": 0
-      },
-      {
-        "categoria": "OR?AMENTO MENSAL",
-        "fuabc": 0,
-        "sesaud": 0
-      },
-      {
-        "categoria": "DEFICIT/SUPERAVIT",
-        "fuabc": 0,
-        "sesaud": 0
+  "atualizado_em": "2025-03-12",
+  "anos": {
+    "2025": {
+      "tipo": "realizado",
+      "descricao": "2025 - Média de Execução (Jan a Out)",
+      "orcamento_anual": 0,
+      "orcamento_mensal": 0,
+      "linhas": [
+        {
+          "categoria": "RECURSOS HUMANOS",
+          "fuabc_mensal": 15415513.50,
+          "sesaud_mensal": 6616449.07,
+          "geral": 22031962.57
+        },
+        {
+          "categoria": "PROCESSOS TRABALHISTAS",
+          "fuabc_mensal": 84890.27,
+          "sesaud_mensal": 2024.00,
+          "geral": 86914.27
+        },
+        {
+          "categoria": "MATERIAIS DE CONSUMO",
+          "fuabc_mensal": 3888891.54,
+          "sesaud_mensal": 329615.34,
+          "geral": 4218506.88
+        },
+        {
+          "categoria": "MANUTENÇÃO E REFORMAS",
+          "fuabc_mensal": 1316264.15,
+          "sesaud_mensal": 731350.30,
+          "geral": 2047614.45
+        },
+        {
+          "categoria": "SERVIÇOS MÉDICOS",
+          "fuabc_mensal": 6776884.98,
+          "sesaud_mensal": 0,
+          "geral": 6776884.98
+        },
+        {
+          "categoria": "SERVIÇOS DE TERCEIROS",
+          "fuabc_mensal": 10939718.04,
+          "sesaud_mensal": 2628002.26,
+          "geral": 13567720.31
+        },
+        {
+          "categoria": "INVESTIMENTOS",
+          "fuabc_mensal": 111842.68,
+          "sesaud_mensal": 0,
+          "geral": 111842.68
+        },
+        {
+          "categoria": "OUTROS GASTOS",
+          "fuabc_mensal": 111094.32,
+          "sesaud_mensal": 326630.03,
+          "geral": 437724.35
+        }
+      ],
+      "totais": {
+        "fuabc_mensal": 38645099.48,
+        "sesaud_mensal": 10634071.01,
+        "geral": 49279170.49
       }
-    ],
-    "categorias": [
-      {
-        "categoria": "RECURSOS HUMANOS",
-        "fuabc": 0,
-        "sesaud": 0
+    },
+    "2026": {
+      "tipo": "projecao",
+      "descricao": "2026 - Projeção",
+      "orcamento_anual": 551236772.00,
+      "orcamento_mensal": 45936397.67,
+      "linhas": [
+        {
+          "categoria": "RECURSOS HUMANOS",
+          "fuabc_mensal": 15979374.38,
+          "sesaud_mensal": 6616449.07,
+          "geral": 22595823.44
+        },
+        {
+          "categoria": "PROCESSOS TRABALHISTAS",
+          "fuabc_mensal": 78881.08,
+          "sesaud_mensal": 2024.00,
+          "geral": 80905.08
+        },
+        {
+          "categoria": "MATERIAIS DE CONSUMO",
+          "fuabc_mensal": 4218090.06,
+          "sesaud_mensal": 329615.34,
+          "geral": 4547705.40
+        },
+        {
+          "categoria": "MANUTENÇÃO E REFORMAS",
+          "fuabc_mensal": 1301434.22,
+          "sesaud_mensal": 731350.30,
+          "geral": 2032784.52
+        },
+        {
+          "categoria": "SERVIÇOS MÉDICOS",
+          "fuabc_mensal": 8665085.19,
+          "sesaud_mensal": 0,
+          "geral": 8665085.19
+        },
+        {
+          "categoria": "SERVIÇOS DE TERCEIROS",
+          "fuabc_mensal": 13601991.28,
+          "sesaud_mensal": 2628002.26,
+          "geral": 16229993.55
+        },
+        {
+          "categoria": "INVESTIMENTOS",
+          "fuabc_mensal": 203082.50,
+          "sesaud_mensal": 0,
+          "geral": 203082.50
+        },
+        {
+          "categoria": "OUTROS GASTOS",
+          "fuabc_mensal": 124262.02,
+          "sesaud_mensal": 326630.03,
+          "geral": 450892.05
+        }
+      ],
+      "totais": {
+        "fuabc_mensal": 44172200.73,
+        "sesaud_mensal": 10634071.01,
+        "geral": 54806271.73
       },
-      {
-        "categoria": "PROCESSOS TRABALHISTAS",
-        "fuabc": 0,
-        "sesaud": 0
-      },
-      {
-        "categoria": "MATERIAIS DE CONSUMO",
-        "fuabc": 0,
-        "sesaud": 0
-      },
-      {
-        "categoria": "MANUTEN??O E REFORMAS",
-        "fuabc": 0,
-        "sesaud": 0
-      },
-      {
-        "categoria": "SERVI?OS M?DICOS",
-        "fuabc": 0,
-        "sesaud": 0
-      },
-      {
-        "categoria": "SERVI?OS DE TERCEIROS",
-        "fuabc": 0,
-        "sesaud": 0
-      },
-      {
-        "categoria": "INVESTIMENTOS",
-        "fuabc": 0,
-        "sesaud": 0
-      },
-      {
-        "categoria": "OUTROS GASTOS",
-        "fuabc": 0,
-        "sesaud": 0
-      },
-      {
-        "categoria": "TOTAL DE DESPESAS",
-        "fuabc": 0,
-        "sesaud": 0
-      },
-      {
-        "categoria": "OR?AMENTO ANUAL 2026",
-        "fuabc": 0,
-        "sesaud": 0
-      },
-      {
-        "categoria": "OR?AMENTO MENSAL",
-        "fuabc": 0,
-        "sesaud": 0
-      },
-      {
-        "categoria": "DEFICIT/SUPERAVIT",
-        "fuabc": 0,
-        "sesaud": 0
-      }
-    ],
-    "resumo": {
-      "total_fuabc": 0,
-      "total_sesaud": 0,
-      "total_geral": 0,
-      "diferenca": 0
+      "deficit": -8869874.06
     }
   }
 }
