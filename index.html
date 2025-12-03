@@ -10,6 +10,7 @@
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75'>📊</text></svg>">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1"></script>
     <style>
+        /* Base Styles */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { font-size: 16px; scroll-behavior: smooth; }
         body {
@@ -18,9 +19,11 @@
             color: #2c3e50;
             min-height: 100vh;
             padding: 1.5rem;
+            transition: background 0.3s ease, color 0.3s ease;
         }
         .container { max-width: 1400px; margin: 0 auto; width: 100%; }
 
+        /* Header */
         header {
             background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
             padding: 2rem;
@@ -36,6 +39,7 @@
         .data-atualizacao { color: rgba(255,255,255,0.8); font-size: 0.9rem; margin-top: 0.5rem; }
         .fonte-dados { color: rgba(255,255,255,0.7); font-size: 0.85rem; margin-top: 0.3rem; }
 
+        /* Dark Mode Toggle */
         .dark-mode-toggle {
             position: absolute;
             top: 1.5rem;
@@ -56,6 +60,7 @@
         }
         .dark-mode-toggle:hover { background: rgba(255,255,255,0.25); }
 
+        /* Year Selector */
         .year-selector-container {
             margin-bottom: 2rem;
             text-align: center;
@@ -79,6 +84,7 @@
         }
         #seletor-ano:hover { border-color: #2980b9; box-shadow: 0 0 8px rgba(52, 152, 219, 0.3); }
 
+        /* Tabs */
         .tabs {
             display: flex;
             gap: 0.8rem;
@@ -110,6 +116,7 @@
             box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
         }
 
+        /* Tab Content */
         .tab-content {
             display: none;
             background: white;
@@ -123,6 +130,7 @@
 
         h2 { color: #2c3e50; margin-bottom: 1.5rem; font-size: 1.8rem; text-align: center; font-weight: 600; }
 
+        /* Resumo Cards */
         .resumo-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -153,14 +161,14 @@
         .resumo-card h3 { font-size: 0.85rem; margin-bottom: 0.8rem; opacity: 0.95; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
         .resumo-card .valor { font-size: 1.6rem; font-weight: 700; word-break: break-word; letter-spacing: -0.5px; }
 
-        .resumo-card.fuabc { background: linear-gradient(135deg, #3498db 0%, #2980b9 100%); }
-        .resumo-card.sesaud { background: linear-gradient(135deg, #27ae60 0%, #229954 100%); }
-        .resumo-card.geral { background: linear-gradient(135deg, #8e44ad 0%, #714091 100%); }
-        .resumo-card.orcamento { background: linear-gradient(135deg, #f39c12 0%, #d68910 100%); }
+        .resumo-card.total-fuabc { background: linear-gradient(135deg, #3498db 0%, #2980b9 100%); }
+        .resumo-card.total-sesaud { background: linear-gradient(135deg, #27ae60 0%, #229954 100%); }
+        .resumo-card.total-geral { background: linear-gradient(135deg, #8e44ad 0%, #714091 100%); }
+        .resumo-card.orcamento-anual { background: linear-gradient(135deg, #f39c12 0%, #d68910 100%); }
+        .resumo-card.orcamento-mensal { background: linear-gradient(135deg, #e67e22 0%, #cf6a1d 100%); }
         .resumo-card.deficit { background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); }
-        .resumo-card.deficit .valor { color: white; } /* Ensure deficit value is white */
 
-
+        /* Charts */
         .charts-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -186,6 +194,7 @@
         .chart-box:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
         .chart-box h3 { margin-bottom: 1rem; color: #2c3e50; text-align: center; font-size: 1.1rem; font-weight: 600; }
 
+        /* Tables */
         .table-responsive-wrapper {
             overflow-x: auto;
             margin: 1rem 0;
@@ -223,6 +232,7 @@
         .valor-moeda { text-align: right; font-weight: 600; color: #2c3e50; }
         tbody tr:last-child td { border-bottom: none; }
 
+        /* Comparative Summary */
         .comparativo-header {
             background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
             padding: 2rem;
@@ -250,11 +260,13 @@
         .resumo-item h4 { color: #2c3e50; margin-bottom: 0.8rem; font-size: 0.8rem; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px; }
         .valor-grande { font-size: 1.5rem; font-weight: 700; color: #2c3e50; margin: 0; }
 
+        /* Status Messages */
         .positivo { color: #27ae60; font-weight: 700; }
         .negativo { color: #e74c3c; font-weight: 700; }
         .erro { background: #fadbd8; color: #922b21; padding: 1.5rem; border-radius: 8px; margin: 1rem 0; border-left: 4px solid #e74c3c; }
         .sucesso { background: #d5f4e6; color: #0b5345; padding: 1.5rem; border-radius: 8px; margin: 1rem 0; border-left: 4px solid #27ae60; }
 
+        /* Footer */
         footer {
             margin-top: 3rem;
             padding: 1.5rem;
@@ -269,17 +281,20 @@
         /* Dark Mode */
         body.dark-mode { background: #1a1a1a; color: #ecf0f1; }
         body.dark-mode header { background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); }
-        body.dark-mode .tab-content, body.dark-mode .chart-box, body.dark-mode table, body.dark-mode .resumo-item { background: #2d2d2d; }
+        body.dark-mode .tab-content, body.dark-mode .chart-box, body.dark-mode table, body.dark-mode .resumo-item, body.dark-mode footer { background: #2d2d2d; }
         body.dark-mode h2, body.dark-mode h3, body.dark-mode h4 { color: #ecf0f1; }
         body.dark-mode th { background: #1a1a1a; }
         body.dark-mode td { color: #ecf0f1; border-bottom-color: #404040; background: #2d2d2d; }
         body.dark-mode tbody tr:nth-child(odd) { background-color: #333333; }
         body.dark-mode tbody tr:hover { background: #3a3a3a; }
         body.dark-mode .valor-moeda, body.dark-mode .valor-grande { color: #ecf0f1; }
-        body.dark-mode footer { background: #2d2d2d; color: #95a5a6; }
         body.dark-mode .year-selector-container label { color: #ecf0f1; }
         body.dark-mode #seletor-ano { background: #2d2d2d; color: #ecf0f1; border-color: #3498db; }
+        body.dark-mode .tab-btn { background: #2d2d2d; color: #ecf0f1; border-color: #404040; }
+        body.dark-mode .tab-btn:hover { background: #3a3a3a; border-color: #555; }
+        body.dark-mode .tab-btn.active { background: #3498db; color: white; border-color: #3498db; }
 
+        /* Media Queries */
         @media (max-width: 480px) {
             html { font-size: 12px; }
             body { padding: 0.75rem; }
@@ -328,7 +343,7 @@
             .tab-btn { padding: 0.65rem 1rem; font-size: 0.8rem; min-width: 100px; }
             .tab-content { padding: 1.3rem; }
             h2 { font-size: 1.5rem; margin-bottom: 1.2rem; }
-            .resumo-grid { grid-template-columns: repeat(3, 1fr); gap: 0.9rem; margin-bottom: 1.2rem; }
+            .resumo-grid { grid-template-columns: repeat(2, 1fr); gap: 0.9rem; margin-bottom: 1.2rem; }
             .resumo-card { padding: 1rem; }
             .resumo-card h3 { font-size: 0.8rem; margin-bottom: 0.6rem; }
             .resumo-card .valor { font-size: 1.3rem; }
@@ -338,7 +353,7 @@
             table { min-width: 380px; font-size: 0.8rem; }
             th, td { padding: 0.6rem 0.8rem; }
             .comparativo-header { padding: 1.3rem; margin-bottom: 1.2rem; }
-            .comparativo-resumo { grid-template-columns: 1fr; gap: 0.9rem; }
+            .comparativo-resumo { grid-template-columns: repeat(2, 1fr); gap: 0.9rem; }
             .resumo-item { padding: 1rem; }
             .resumo-item h4 { font-size: 0.75rem; margin-bottom: 0.5rem; }
             .valor-grande { font-size: 1.3rem; }
@@ -450,7 +465,7 @@
         </div>
 
         <div id="resumo" class="tab-content active">
-            <h2>Resumo Geral <span id="resumo-ano-label"></span></h2>
+            <h2>Resumo <span id="resumo-ano-label"></span></h2>
             <div id="resumo-conteudo"></div>
         </div>
 
@@ -460,7 +475,7 @@
         </div>
 
         <div id="comparativo" class="tab-content">
-            <h2>Análise Comparativa 2025 vs 2026</h2>
+            <h2>Análise Comparativa (2025 vs 2026)</h2>
             <div id="comparativo-conteudo"></div>
         </div>
     </div>
@@ -471,182 +486,227 @@
 
     <script>
         var charts = {};
-        var allData = {}; // Conterá a estrutura { anos: { '2025': {...}, '2026': {...} } }
-        var fonteFonte = [];
-        var currentYear = '';
+        var allDashboardData = {}; // Stores all data from data.json
+        var currentYearData = null; // Stores data for the currently selected year
+        var dataLoadSource = ''; // To show where data was loaded from
 
+        // Helper function to format currency
         function formatarMoeda(valor) {
-            if (typeof valor !== 'number') return 'R$ 0,00';
+            if (typeof valor !== 'number' || isNaN(valor)) {
+                return 'R$ 0,00'; // Default for invalid numbers
+            }
             return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(valor);
         }
 
+        // Tab switching logic
         function abrirAba(event, nome) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
             document.getElementById(nome).classList.add('active');
             event.currentTarget.classList.add('active');
 
-            // Renderizar conteúdo da aba ativa
-            if (currentYear && allData.anos && allData.anos[currentYear]) {
-                var dadosAno = allData.anos[currentYear];
-                if (nome === 'resumo') preencherResumo(dadosAno);
-                else if (nome === 'tabela-completa') preencherTabelaCompleta(dadosAno);
-                else if (nome === 'comparativo') preencherComparativo(allData.anos['2025'], allData.anos['2026']); // Sempre compara 2025 e 2026
+            // Re-render charts if on comparative tab
+            if (nome === 'comparativo' && allDashboardData.anos && allDashboardData.anos['2025'] && allDashboardData.anos['2026']) {
+                setTimeout(() => preencherComparativo(allDashboardData.anos['2025'], allDashboardData.anos['2026']), 100);
             }
         }
 
+        // Populates the "Resumo" tab
         function preencherResumo(dadosAno) {
-            document.getElementById('resumo-ano-label').textContent = dadosAno.descricao;
-            var html = '<div class="resumo-grid">';
+            const resumoConteudo = document.getElementById('resumo-conteudo');
+            const resumoAnoLabel = document.getElementById('resumo-ano-label');
+            resumoAnoLabel.textContent = dadosAno.descricao || '';
 
-            if (dadosAno.totais) {
-                html += '<div class="resumo-card fuabc"><h3>Total FUABC</h3><div class="valor">' + formatarMoeda(dadosAno.totais.fuabc_mensal) + '</div></div>';
-                html += '<div class="resumo-card sesaud"><h3>Total SESAUD</h3><div class="valor">' + formatarMoeda(dadosAno.totais.sesaud_mensal) + '</div></div>';
-                html += '<div class="resumo-card geral"><h3>Total Geral</h3><div class="valor">' + formatarMoeda(dadosAno.totais.geral) + '</div></div>';
-            } else {
-                html += '<div class="erro">Totais não disponíveis para este ano.</div>';
-            }
-
-            if (dadosAno.tipo === 'projecao') { // Apenas para 2026
-                html += '<div class="resumo-card orcamento"><h3>Orçamento Anual</h3><div class="valor">' + formatarMoeda(dadosAno.orcamento_anual) + '</div></div>';
-                html += '<div class="resumo-card orcamento"><h3>Orçamento Mensal</h3><div class="valor">' + formatarMoeda(dadosAno.orcamento_mensal) + '</div></div>';
-                var deficitClass = dadosAno.deficit < 0 ? 'deficit' : 'sucesso';
-                html += '<div class="resumo-card ' + deficitClass + '"><h3>DÉFICIT / SUPERÁVIT</h3><div class="valor">' + formatarMoeda(dadosAno.deficit) + '</div></div>';
-            }
-            html += '</div>';
-            document.getElementById('resumo-conteudo').innerHTML = html;
-        }
-
-        function preencherTabelaCompleta(dadosAno) {
-            document.getElementById('tabela-ano-label').textContent = dadosAno.descricao;
-            if (!dadosAno || !dadosAno.linhas || dadosAno.linhas.length === 0) {
-                document.getElementById('tabela-completa-conteudo').innerHTML = '<div class="erro">Dados detalhados não disponíveis para este ano.</div>';
+            if (!dadosAno || !dadosAno.totais) {
+                resumoConteudo.innerHTML = '<div class="erro">Dados de resumo não disponíveis para este ano.</div>';
                 return;
             }
 
-            var html = '<div class="table-responsive-wrapper"><table><thead><tr><th>Categoria</th><th class="valor-moeda">FUABC Mensal</th><th class="valor-moeda">SESAUD Mensal</th><th class="valor-moeda">Geral</th><th class="valor-moeda">% do Total</th></tr></thead><tbody>';
-            var totalGeralAno = dadosAno.totais ? dadosAno.totais.geral : 0;
+            let html = '<div class="resumo-grid">';
+
+            // Totais
+            html += `<div class="resumo-card total-fuabc"><h3>TOTAL FUABC</h3><div class="valor">${formatarMoeda(dadosAno.totais.fuabc_mensal)}</div></div>`;
+            html += `<div class="resumo-card total-sesaud"><h3>TOTAL SESAUD</h3><div class="valor">${formatarMoeda(dadosAno.totais.sesaud_mensal)}</div></div>`;
+            html += `<div class="resumo-card total-geral"><h3>TOTAL GERAL</h3><div class="valor">${formatarMoeda(dadosAno.totais.geral)}</div></div>`;
+
+            // Specifics for 2026 (or any year with these fields)
+            if (dadosAno.orcamento_anual !== undefined) {
+                html += `<div class="resumo-card orcamento-anual"><h3>ORÇAMENTO ANUAL</h3><div class="valor">${formatarMoeda(dadosAno.orcamento_anual)}</div></div>`;
+            }
+            if (dadosAno.orcamento_mensal !== undefined) {
+                html += `<div class="resumo-card orcamento-mensal"><h3>ORÇAMENTO MENSAL</h3><div class="valor">${formatarMoeda(dadosAno.orcamento_mensal)}</div></div>`;
+            }
+            if (dadosAno.deficit !== undefined) {
+                const deficitClass = dadosAno.deficit < 0 ? 'negativo' : 'positivo';
+                html += `<div class="resumo-card deficit"><h3>DÉFICIT</h3><div class="valor ${deficitClass}">${formatarMoeda(dadosAno.deficit)}</div></div>`;
+            }
+
+            html += '</div>';
+            resumoConteudo.innerHTML = html;
+        }
+
+        // Populates the "Tabela Completa" tab
+        function preencherTabelaCompleta(dadosAno) {
+            const tabelaConteudo = document.getElementById('tabela-completa-conteudo');
+            const tabelaAnoLabel = document.getElementById('tabela-ano-label');
+            tabelaAnoLabel.textContent = dadosAno.descricao || '';
+
+            if (!dadosAno || !dadosAno.linhas || dadosAno.linhas.length === 0) {
+                tabelaConteudo.innerHTML = '<div class="erro">Dados detalhados não disponíveis para este ano.</div>';
+                return;
+            }
+
+            let html = '<div class="table-responsive-wrapper"><table><thead><tr><th>Categoria</th><th class="valor-moeda">FUABC Mensal</th><th class="valor-moeda">SESAUD Mensal</th><th class="valor-moeda">Geral</th></tr></thead><tbody>';
 
             dadosAno.linhas.forEach(linha => {
-                var percent = totalGeralAno > 0 ? ((linha.geral / totalGeralAno) * 100).toFixed(1) : 0;
-                html += '<tr><td><strong>' + (linha.categoria || 'N/A') + '</strong></td><td class="valor-moeda">' + formatarMoeda(linha.fuabc_mensal) + '</td><td class="valor-moeda">' + formatarMoeda(linha.sesaud_mensal) + '</td><td class="valor-moeda">' + formatarMoeda(linha.geral) + '</td><td class="valor-moeda">' + percent + '%</td></tr>';
+                html += `<tr>
+                            <td><strong>${linha.categoria || 'N/A'}</strong></td>
+                            <td class="valor-moeda">${formatarMoeda(linha.fuabc_mensal)}</td>
+                            <td class="valor-moeda">${formatarMoeda(linha.sesaud_mensal)}</td>
+                            <td class="valor-moeda">${formatarMoeda(linha.geral)}</td>
+                         </tr>`;
             });
 
-            if (dadosAno.totais) {
-                html += '<tr style="font-weight: bold; background-color: #e0e0e0;"><td>TOTAL DE DESPESAS</td><td class="valor-moeda">' + formatarMoeda(dadosAno.totais.fuabc_mensal) + '</td><td class="valor-moeda">' + formatarMoeda(dadosAno.totais.sesaud_mensal) + '</td><td class="valor-moeda">' + formatarMoeda(dadosAno.totais.geral) + '</td><td class="valor-moeda">100%</td></tr>';
-            }
+            // Add totals row
+            html += `<tr style="font-weight: bold; background-color: #e0e0e0;">
+                        <td>TOTAL</td>
+                        <td class="valor-moeda">${formatarMoeda(dadosAno.totais.fuabc_mensal)}</td>
+                        <td class="valor-moeda">${formatarMoeda(dadosAno.totais.sesaud_mensal)}</td>
+                        <td class="valor-moeda">${formatarMoeda(dadosAno.totais.geral)}</td>
+                     </tr>`;
 
             html += '</tbody></table></div>';
-            document.getElementById('tabela-completa-conteudo').innerHTML = html;
+            tabelaConteudo.innerHTML = html;
         }
 
+        // Populates the "Comparativo" tab
         function preencherComparativo(dados2025, dados2026) {
-                document.getElementById('comparativo-conteudo').innerHTML = '<div class="erro">Dados de 2025 e/ou 2026 não disponíveis para comparação.</div>';
+            const comparativoConteudo = document.getElementById('comparativo-conteudo');
+                comparativoConteudo.innerHTML = '<div class="erro">Dados de 2025 e 2026 são necessários para o comparativo.</div>';
                 return;
             }
 
-            var categorias2025 = dados2025.linhas.map(l => l.categoria);
-            var categorias2026 = dados2026.linhas.map(l => l.categoria);
-            var categoriasUnicas = [...new Set([...categorias2025, ...categorias2026])];
+            // Combine categories and ensure all are present in both years for comparison
+            const allCategories = [...new Set([...dados2025.linhas.map(l => l.categoria), ...dados2026.linhas.map(l => l.categoria)])];
+            
+            const fuabc2025 = allCategories.map(cat => (dados2025.linhas.find(l => l.categoria === cat) || { fuabc_mensal: 0 }).fuabc_mensal);
+            const sesaud2025 = allCategories.map(cat => (dados2025.linhas.find(l => l.categoria === cat) || { sesaud_mensal: 0 }).sesaud_mensal);
+            const geral2025 = allCategories.map(cat => (dados2025.linhas.find(l => l.categoria === cat) || { geral: 0 }).geral);
 
-            var fuabc2025 = categoriasUnicas.map(cat => (dados2025.linhas.find(l => l.categoria === cat) || { fuabc_mensal: 0 }).fuabc_mensal);
-            var sesaud2025 = categoriasUnicas.map(cat => (dados2025.linhas.find(l => l.categoria === cat) || { sesaud_mensal: 0 }).sesaud_mensal);
-            var geral2025 = categoriasUnicas.map(cat => (dados2025.linhas.find(l => l.categoria === cat) || { geral: 0 }).geral);
+            const fuabc2026 = allCategories.map(cat => (dados2026.linhas.find(l => l.categoria === cat) || { fuabc_mensal: 0 }).fuabc_mensal);
+            const sesaud2026 = allCategories.map(cat => (dados2026.linhas.find(l => l.categoria === cat) || { sesaud_mensal: 0 }).sesaud_mensal);
+            const geral2026 = allCategories.map(cat => (dados2026.linhas.find(l => l.categoria === cat) || { geral: 0 }).geral);
 
-            var fuabc2026 = categoriasUnicas.map(cat => (dados2026.linhas.find(l => l.categoria === cat) || { fuabc_mensal: 0 }).fuabc_mensal);
-            var sesaud2026 = categoriasUnicas.map(cat => (dados2026.linhas.find(l => l.categoria === cat) || { sesaud_mensal: 0 }).sesaud_mensal);
-            var geral2026 = categoriasUnicas.map(cat => (dados2026.linhas.find(l => l.categoria === cat) || { geral: 0 }).geral);
+            let html = `
+                <div class="comparativo-header">
+                    <div class="comparativo-resumo">
+                        <div class="resumo-item"><h4>TOTAL GERAL 2025</h4><p class="valor-grande">${formatarMoeda(dados2025.totais.geral)}</p></div>
+                        <div class="resumo-item"><h4>TOTAL GERAL 2026</h4><p class="valor-grande">${formatarMoeda(dados2026.totais.geral)}</p></div>
+                        <div class="resumo-item"><h4>DIFERENÇA GERAL</h4><p class="valor-grande">${formatarMoeda(dados2026.totais.geral - dados2025.totais.geral)}</p></div>
+                    </div>
+                </div>
+                <div class="charts-container">
+                    <div class="chart-box">
+                        <h3>Comparativo Geral por Categoria</h3>
+                        <canvas id="chartComparativoGeral"></canvas>
+                    </div>
+                    <div class="chart-box">
+                        <h3>Comparativo FUABC por Categoria</h3>
+                        <canvas id="chartComparativoFuabc"></canvas>
+                    </div>
+                    <div class="chart-box">
+                        <h3>Comparativo SESAUD por Categoria</h3>
+                        <canvas id="chartComparativoSesaud"></canvas>
+                    </div>
+                </div>
+            `;
+            comparativoConteudo.innerHTML = html;
 
-            var html = '<div class="charts-container">';
-            html += '<div class="chart-box"><h3>Comparativo Geral por Categoria</h3><canvas id="chartComparacaoGeral"></canvas></div>';
-            html += '<div class="chart-box"><h3>Distribuição FUABC 2025 vs 2026</h3><canvas id="chartFuabcComparacao"></canvas></div>';
-            html += '<div class="chart-box"><h3>Distribuição SESAUD 2025 vs 2026</h3><canvas id="chartSesaudComparacao"></canvas></div>';
-            html += '</div>';
-            document.getElementById('comparativo-conteudo').innerHTML = html;
-
-            for (var key in charts) { if (charts[key]) charts[key].destroy(); }
+            // Destroy existing charts before creating new ones
+            for (const key in charts) {
+                if (charts[key]) charts[key].destroy();
+            }
             charts = {};
 
-            setTimeout(function() {
+            setTimeout(() => {
                 try {
-                    // Comparativo Geral por Categoria (Barra)
-                    var ctx1 = document.getElementById('chartComparacaoGeral').getContext('2d');
-                    charts.compGeral = new Chart(ctx1, {
+                    // Chart 1: Comparativo Geral
+                    const ctxGeral = document.getElementById('chartComparativoGeral').getContext('2d');
+                    charts.comparativoGeral = new Chart(ctxGeral, {
                         type: 'bar',
                         data: {
-                            labels: categoriasUnicas.map(c => c.substring(0, 20)),
+                            labels: allCategories.map(c => c.substring(0, 20)),
                             datasets: [
-                                { label: 'Geral 2025', data: geral2025, backgroundColor: '#8e44ad', borderColor: '#714091', borderWidth: 1 },
-                                { label: 'Geral 2026', data: geral2026, backgroundColor: '#3498db', borderColor: '#2980b9', borderWidth: 1 }
+                                { label: '2025 Geral', data: geral2025, backgroundColor: '#8e44ad', borderColor: '#714091', borderWidth: 1 },
+                                { label: '2026 Geral', data: geral2026, backgroundColor: '#34495e', borderColor: '#2c3e50', borderWidth: 1 }
                             ]
                         },
-                        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'top' } } }
+                        options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y', plugins: { legend: { position: 'top' } } }
                     });
 
-                    // Distribuição FUABC 2025 vs 2026 (Pizza)
-                    var ctx2 = document.getElementById('chartFuabcComparacao').getContext('2d');
-                    charts.fuabcComp = new Chart(ctx2, {
-                        type: 'doughnut',
+                    // Chart 2: Comparativo FUABC
+                    const ctxFuabc = document.getElementById('chartComparativoFuabc').getContext('2d');
+                    charts.comparativoFuabc = new Chart(ctxFuabc, {
+                        type: 'bar',
                         data: {
-                            labels: ['FUABC 2025', 'FUABC 2026'],
-                            datasets: [{
-                                data: [dados2025.totais.fuabc_mensal, dados2026.totais.fuabc_mensal],
-                                backgroundColor: ['#3498db', '#2980b9']
-                            }]
+                            labels: allCategories.map(c => c.substring(0, 20)),
+                            datasets: [
+                                { label: '2025 FUABC', data: fuabc2025, backgroundColor: '#3498db', borderColor: '#2980b9', borderWidth: 1 },
+                                { label: '2026 FUABC', data: fuabc2026, backgroundColor: '#1abc9c', borderColor: '#16a085', borderWidth: 1 }
+                            ]
                         },
-                        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
+                        options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y', plugins: { legend: { position: 'top' } } }
                     });
 
-                    // Distribuição SESAUD 2025 vs 2026 (Pizza)
-                    var ctx3 = document.getElementById('chartSesaudComparacao').getContext('2d');
-                    charts.sesaudComp = new Chart(ctx3, {
-                        type: 'doughnut',
+                    // Chart 3: Comparativo SESAUD
+                    const ctxSesaud = document.getElementById('chartComparativoSesaud').getContext('2d');
+                    charts.comparativoSesaud = new Chart(ctxSesaud, {
+                        type: 'bar',
                         data: {
-                            labels: ['SESAUD 2025', 'SESAUD 2026'],
-                            datasets: [{
-                                data: [dados2025.totais.sesaud_mensal, dados2026.totais.sesaud_mensal],
-                                backgroundColor: ['#27ae60', '#229954']
-                            }]
+                            labels: allCategories.map(c => c.substring(0, 20)),
+                            datasets: [
+                                { label: '2025 SESAUD', data: sesaud2025, backgroundColor: '#e74c3c', borderColor: '#c0392b', borderWidth: 1 },
+                                { label: '2026 SESAUD', data: sesaud2026, backgroundColor: '#f39c12', borderColor: '#d68910', borderWidth: 1 }
+                            ]
                         },
-                        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
+                        options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y', plugins: { legend: { position: 'top' } } }
                     });
 
-                } catch (e) { console.error('Erro ao criar gráficos comparativos:', e); }
+                } catch (e) {
+                    console.error('Erro ao criar gráficos comparativos:', e);
+                }
             }, 100);
         }
 
+        // Main function to change year and update all content
         function mudarAno(ano) {
             console.log('Mudando para ano:', ano);
-            currentYear = ano;
-            if (!ano || !allData.anos || !allData.anos[ano]) {
+            if (!ano || !allDashboardData.anos || !allDashboardData.anos[ano]) {
                 console.error('Dados não encontrados para o ano:', ano);
-                document.getElementById('resumo-conteudo').innerHTML = '<div class="erro">Dados não disponíveis para o ano ' + ano + '</div>';
-                document.getElementById('tabela-completa-conteudo').innerHTML = '<div class="erro">Dados não disponíveis para o ano ' + ano + '</div>';
-                document.getElementById('comparativo-conteudo').innerHTML = '<div class="erro">Dados não disponíveis para o ano ' + ano + '</div>';
-                document.getElementById('data-atualizacao').textContent = 'Erro ao carregar dados';
+                document.getElementById('resumo-conteudo').innerHTML = `<div class="erro">Dados não disponíveis para o ano ${ano}.</div>`;
+                document.getElementById('tabela-completa-conteudo').innerHTML = `<div class="erro">Dados não disponíveis para o ano ${ano}.</div>`;
+                document.getElementById('resumo-ano-label').textContent = ano;
+                document.getElementById('tabela-ano-label').textContent = ano;
                 return;
             }
-            var dadosAno = allData.anos[ano];
-            document.getElementById('data-atualizacao').textContent = 'Atualizado em: ' + (allData.atualizado_em || 'N/A');
+            currentYearData = allDashboardData.anos[ano];
+            document.getElementById('data-atualizacao').textContent = 'Atualizado em: ' + (allDashboardData.atualizado_em || 'N/A');
 
-            // Renderizar a aba ativa
-            var activeTab = document.querySelector('.tab-btn.active');
-            if (activeTab) {
-                abrirAba(null, activeTab.id.replace('-btn', ''));
-            } else {
-                // Se nenhuma aba estiver ativa, ativar a primeira (Resumo)
-                document.querySelector('.tab-btn').click();
-            }
+            preencherResumo(currentYearData);
+            preencherTabelaCompleta(currentYearData);
+            // Comparativo tab is handled by its own tab click or initial load
         }
 
+        // Function to fetch JSON with CORS proxy and cache busting
         function carregarJSON(url, nomeArquivo) {
             return new Promise((resolve, reject) => {
-                var timestamp = Math.floor(Date.now() / (60 * 1000)); // Cache buster a cada 1 minuto
-                var urlComTimestamp = url + '?bust=' + timestamp;
+                // Cache buster a cada 1 minuto
+                const timestamp = Math.floor(Date.now() / (60 * 1000)); 
+                const urlWithBuster = url + '?bust=' + timestamp;
 
-                var urls = [
-                    'https://corsproxy.io/?' + urlComTimestamp,
-                    urlComTimestamp // Tentar URL direta como fallback
+                const urls = [
+                    'https://corsproxy.io/?' + urlWithBuster, // Primary: CORS proxy
+                    urlWithBuster // Fallback: Direct raw.githubusercontent (might be blocked)
                 ];
 
                 function tentarProxima(index) {
@@ -655,84 +715,95 @@
                         return;
                     }
 
-                    console.log('Tentando carregar:', urls[index]);
-                    fetch(urls[index], { cache: 'no-store', headers: { 'Cache-Control': 'no-cache, no-store, must-revalidate' } })
-                        .then(r => {
-                            if (!r.ok) throw new Error('HTTP ' + r.status + ' - ' + r.statusText);
-                            return r.json();
-                        })
-                        .then(dados => {
-                            console.log('✅ Sucesso com:', urls[index]);
-                            fonteFonte.push(nomeArquivo + ' (' + urls[index].split('?')[0].substring(0, 40) + '...)');
-                            resolve(dados);
-                        })
-                        .catch(e => {
-                            console.log('❌ Falha:', urls[index], e.message);
-                            tentarProxima(index + 1);
-                        });
+                    console.log(`Tentando carregar ${nomeArquivo} de: ${urls[index]}`);
+                    fetch(urls[index], { 
+                        cache: 'no-store', // Always try to get fresh data
+                        headers: { 
+                            'Cache-Control': 'no-cache, no-store, must-revalidate',
+                            'Pragma': 'no-cache'
+                        }
+                    })
+                    .then(r => {
+                        if (!r.ok) throw new Error(`HTTP ${r.status} - ${r.statusText}`);
+                        return r.json();
+                    })
+                    .then(dados => {
+                        console.log(`✅ Sucesso ao carregar ${nomeArquivo} de: ${urls[index]}`);
+                        dataLoadSource = urls[index]; // Store the successful URL
+                        resolve(dados);
+                    })
+                    .catch(e => {
+                        console.log(`❌ Falha ao carregar ${nomeArquivo} de: ${urls[index]} - ${e.message}`);
+                        tentarProxima(index + 1); // Try next URL
+                    });
                 }
                 tentarProxima(0);
             });
         }
 
-        function inicializarDashboard() {
+        // Main data loading and initialization
+        function carregarDados() {
             console.log('Iniciando carregamento de dados...');
-            var jsonUrl = 'https://raw.githubusercontent.com/rtoledomota/SESAUD-Orcamento/main/data.json';
+            const dataJsonUrl = 'https://raw.githubusercontent.com/rtoledomota/SESAUD-Orcamento/main/data.json';
 
-            carregarJSON(jsonUrl, 'data.json')
-            .then(dados => {
-                if (!dados || !dados.anos) {
-                    throw new Error('Estrutura JSON inválida: "anos" não encontrado.');
-                }
-                allData = dados;
+            carregarJSON(dataJsonUrl, 'data.json')
+                .then(dados => {
+                    allDashboardData = dados;
+                    
+                    // Populate year selector
+                    const seletor = document.getElementById('seletor-ano');
+                    seletor.innerHTML = ''; // Clear existing options
+                    const anosDisponiveis = Object.keys(allDashboardData.anos || {}).sort();
+                    
+                    if (anosDisponiveis.length === 0) {
+                        seletor.innerHTML = '<option value="">Nenhum ano disponível</option>';
+                        document.getElementById('resumo-conteudo').innerHTML = '<div class="erro">Nenhum dado de ano encontrado no JSON.</div>';
+                        return;
+                    }
 
-                // Preencher dropdown
-                var seletor = document.getElementById('seletor-ano');
-                seletor.innerHTML = '';
-                var anosDisponiveis = Object.keys(allData.anos).sort();
-                anosDisponiveis.forEach(ano => {
-                    var opt = document.createElement('option');
-                    opt.value = ano;
-                    opt.textContent = allData.anos[ano].descricao || ano;
-                    seletor.appendChild(opt);
+                    anosDisponiveis.forEach(ano => {
+                        const opt = document.createElement('option');
+                        opt.value = ano;
+                        opt.textContent = allDashboardData.anos[ano].descricao || ano;
+                        seletor.appendChild(opt);
+                    });
+
+                    // Set initial selected year (e.g., 2025 or the first available)
+                    const initialYear = allDashboardData.ano_ativo && anosDisponiveis.includes(allDashboardData.ano_ativo) 
+                                        ? allDashboardData.ano_ativo 
+                                        : anosDisponiveis[0];
+                    seletor.value = initialYear;
+
+                    // Update source display
+                    document.getElementById('fonte-dados').textContent = 'Fonte dos dados: ' + dataLoadSource;
+
+                    // Load data for the initial year
+                    mudarAno(initialYear);
+                })
+                .catch(e => {
+                    console.error('Erro fatal ao carregar data.json:', e);
+                    document.getElementById('data-atualizacao').textContent = 'Erro ao carregar dados';
+                    document.getElementById('resumo-conteudo').innerHTML = `<div class="erro">Erro ao carregar dados do dashboard: ${e}. Verifique o arquivo data.json.</div>`;
+                    document.getElementById('tabela-completa-conteudo').innerHTML = `<div class="erro">Erro ao carregar dados do dashboard: ${e}. Verifique o arquivo data.json.</div>`;
                 });
-
-                // Selecionar o primeiro ano disponível ou o ano ativo do JSON
-                var anoInicial = allData.ano_ativo || anosDisponiveis[0];
-                if (anosDisponiveis.includes(anoInicial)) {
-                    seletor.value = anoInicial;
-                } else if (anosDisponiveis.length > 0) {
-                    seletor.value = anosDisponiveis[0];
-                } else {
-                    seletor.innerHTML = '<option value="">Nenhum ano disponível</option>';
-                }
-
-                document.getElementById('fonte-dados').textContent = 'Fonte: ' + fonteFonte.join(' | ');
-
-                mudarAno(seletor.value);
-            })
-            .catch(e => {
-                console.error('Erro geral ao carregar dashboard:', e);
-                document.getElementById('resumo-conteudo').innerHTML = '<div class="erro">Erro ao carregar dados do dashboard: ' + e.message + '. Verifique o arquivo data.json e sua estrutura.</div>';
-                document.getElementById('tabela-completa-conteudo').innerHTML = '<div class="erro">Erro ao carregar dados do dashboard: ' + e.message + '. Verifique o arquivo data.json e sua estrutura.</div>';
-                document.getElementById('comparativo-conteudo').innerHTML = '<div class="erro">Erro ao carregar dados do dashboard: ' + e.message + '. Verifique o arquivo data.json e sua estrutura.</div>';
-                document.getElementById('data-atualizacao').textContent = 'Erro ao carregar dados';
-            });
         }
 
+        // Dark mode toggle
         function toggleDarkMode() {
             document.body.classList.toggle('dark-mode');
             localStorage.setItem('dark-mode', document.body.classList.contains('dark-mode'));
         }
 
+        // Apply dark mode preference on load
         if (localStorage.getItem('dark-mode') === 'true') {
             document.body.classList.add('dark-mode');
         }
 
-        window.addEventListener('load', inicializarDashboard);
+        // Initial data load on window load
+        window.addEventListener('load', carregarDados);
 
-        // Recarregar dados a cada 1 minuto
-        setInterval(inicializarDashboard, 60 * 1000);
+        // Reload data every 1 minute (60,000 ms)
+        setInterval(carregarDados, 60 * 1000);
     </script>
 </body>
 </html>
