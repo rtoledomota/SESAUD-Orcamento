@@ -65,7 +65,7 @@
             gap: 1rem;
             flex-wrap: wrap;
         }
-        .year-selector-container label { color: #ecf0f1; font-weight: 600; font-size: 1rem; }
+        .year-selector-container label { color: white; font-weight: 600; font-size: 1rem; }
         #seletor-ano {
             padding: 0.6rem 1.2rem;
             border-radius: 6px;
@@ -153,10 +153,13 @@
         .resumo-card h3 { font-size: 0.85rem; margin-bottom: 0.8rem; opacity: 0.95; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
         .resumo-card .valor { font-size: 1.6rem; font-weight: 700; word-break: break-word; letter-spacing: -0.5px; }
 
-        .resumo-card:nth-child(1) { background: linear-gradient(135deg, #3498db 0%, #2980b9 100%); }
-        .resumo-card:nth-child(2) { background: linear-gradient(135deg, #27ae60 0%, #229954 100%); }
-        .resumo-card:nth-child(3) { background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); }
-        .resumo-card:nth-child(4) { background: linear-gradient(135deg, #8e44ad 0%, #714091 100%); }
+        .resumo-card.fuabc { background: linear-gradient(135deg, #3498db 0%, #2980b9 100%); }
+        .resumo-card.sesaud { background: linear-gradient(135deg, #27ae60 0%, #229954 100%); }
+        .resumo-card.geral { background: linear-gradient(135deg, #8e44ad 0%, #714091 100%); }
+        .resumo-card.orcamento { background: linear-gradient(135deg, #f39c12 0%, #d68910 100%); }
+        .resumo-card.deficit { background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); }
+        .resumo-card.deficit .valor { color: white; } /* Ensure deficit value is white */
+
 
         .charts-container {
             display: grid;
@@ -442,29 +445,23 @@
 
         <div class="tabs">
             <button class="tab-btn active" onclick="abrirAba(event, 'resumo')">Resumo</button>
+            <button class="tab-btn" onclick="abrirAba(event, 'tabela-completa')">Tabela Completa</button>
             <button class="tab-btn" onclick="abrirAba(event, 'comparativo')">Comparativo</button>
-            <button class="tab-btn" onclick="abrirAba(event, 'fuabc')">FUABC</button>
-            <button class="tab-btn" onclick="abrirAba(event, 'sesaud')">SESAUD</button>
         </div>
 
         <div id="resumo" class="tab-content active">
-            <h2>Resumo Geral</h2>
+            <h2>Resumo Geral <span id="resumo-ano-label"></span></h2>
             <div id="resumo-conteudo"></div>
         </div>
 
+        <div id="tabela-completa" class="tab-content">
+            <h2>Tabela Completa <span id="tabela-ano-label"></span></h2>
+            <div id="tabela-completa-conteudo"></div>
+        </div>
+
         <div id="comparativo" class="tab-content">
-            <h2>Análise Comparativa</h2>
+            <h2>Análise Comparativa 2025 vs 2026</h2>
             <div id="comparativo-conteudo"></div>
-        </div>
-
-        <div id="fuabc" class="tab-content">
-            <h2>Orçamento FUABC</h2>
-            <div id="fuabc-conteudo"></div>
-        </div>
-
-        <div id="sesaud" class="tab-content">
-            <h2>Orçamento SESAUD</h2>
-            <div id="sesaud-conteudo"></div>
         </div>
     </div>
 
@@ -474,11 +471,13 @@
 
     <script>
         var charts = {};
-        var allData = {};
+        var allData = {}; // Conterá a estrutura { anos: { '2025': {...}, '2026': {...} } }
         var fonteFonte = [];
+        var currentYear = '';
 
         function formatarMoeda(valor) {
-            return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(valor || 0);
+            if (typeof valor !== 'number') return 'R$ 0,00';
+            return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(valor);
         }
 
         function abrirAba(event, nome) {
@@ -486,109 +485,83 @@
             document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
             document.getElementById(nome).classList.add('active');
             event.currentTarget.classList.add('active');
-            // Re-render charts if on comparative tab
-            if (nome === 'comparativo' && allData[document.getElementById('seletor-ano').value]) {
-                setTimeout(() => preencherComparativo(allData[document.getElementById('seletor-ano').value]), 100);
+
+            // Renderizar conteúdo da aba ativa
+            if (currentYear && allData.anos && allData.anos[currentYear]) {
+                var dadosAno = allData.anos[currentYear];
+                if (nome === 'resumo') preencherResumo(dadosAno);
+                else if (nome === 'tabela-completa') preencherTabelaCompleta(dadosAno);
+                else if (nome === 'comparativo') preencherComparativo(allData.anos['2025'], allData.anos['2026']); // Sempre compara 2025 e 2026
             }
         }
 
-        function processarDados(rawData, ano) {
-            let processed = {
-                atualizado_em: new Date().toLocaleString('pt-BR'),
-                resumo: {
-                    receita_total: 0,
-                    despesa_total: 0,
-                    saldo: 0,
-                    orcamento_anual: 0,
-                    orcamento_mensal: 0
-                },
-                categorias: [],
-                despesas: []
-            };
-
-            if (Array.isArray(rawData)) {
-                console.log(`Processando dados para ${ano}: Formato Array.`);
-                let totalFuabc = 0;
-                let totalSesaud = 0;
-
-                rawData.forEach(item => {
-                    const categoria = item.Categoria || 'Desconhecido';
-                    const fuabc = parseFloat(item.FUABC) || 0;
-                    const sesaud = parseFloat(item.SESAUD) || 0;
-
-                    totalFuabc += fuabc;
-                    totalSesaud += sesaud;
-
-                    processed.categorias.push({ categoria, fuabc, sesaud });
-
-                    // Specific items for resumo
-                    if (categoria.includes('ORÇAMENTO ANUAL')) {
-                        processed.resumo.orcamento_anual = fuabc;
-                    }
-                    if (categoria.includes('ORÇAMENTO MENSAL')) {
-                        processed.resumo.orcamento_mensal = fuabc;
-                    }
-                });
-
-                processed.resumo.receita_total = totalFuabc;
-                processed.resumo.despesa_total = totalSesaud;
-                processed.resumo.saldo = totalFuabc - totalSesaud;
-                processed.despesas = [...processed.categorias]; // Copy for despesas tab
-
-            } else if (typeof rawData === 'object' && rawData !== null) {
-                console.log(`Processando dados para ${ano}: Formato Objeto.`);
-                processed = { ...rawData }; // Assume it's already in the correct format
-                // Ensure default values if properties are missing
-                processed.resumo = processed.resumo || { receita_total: 0, despesa_total: 0, saldo: 0, orcamento_anual: 0, orcamento_mensal: 0 };
-                processed.categorias = processed.categorias || [];
-                processed.despesas = processed.despesas || [];
-                processed.atualizado_em = rawData.atualizado_em || new Date().toLocaleString('pt-BR');
-            } else {
-                console.error(`Formato de dados inválido para ${ano}:`, rawData);
-                return null;
-            }
-            return processed;
-        }
-
-        function preencherResumo(dados) {
-            if (!dados || !dados.resumo) {
-                document.getElementById('resumo-conteudo').innerHTML = '<div class="erro">Dados de resumo não disponíveis.</div>';
-                return;
-            }
-            var resumo = dados.resumo;
+        function preencherResumo(dadosAno) {
+            document.getElementById('resumo-ano-label').textContent = dadosAno.descricao;
             var html = '<div class="resumo-grid">';
-            html += '<div class="resumo-card"><h3>Receita Total</h3><div class="valor">' + formatarMoeda(resumo.receita_total) + '</div></div>';
-            html += '<div class="resumo-card"><h3>Despesa Total</h3><div class="valor">' + formatarMoeda(resumo.despesa_total) + '</div></div>';
-            html += '<div class="resumo-card"><h3>Saldo</h3><div class="valor">' + formatarMoeda(resumo.saldo) + '</div></div>';
-            html += '<div class="resumo-card"><h3>Orçamento Anual</h3><div class="valor">' + formatarMoeda(resumo.orcamento_anual) + '</div></div>';
+
+            if (dadosAno.totais) {
+                html += '<div class="resumo-card fuabc"><h3>Total FUABC</h3><div class="valor">' + formatarMoeda(dadosAno.totais.fuabc_mensal) + '</div></div>';
+                html += '<div class="resumo-card sesaud"><h3>Total SESAUD</h3><div class="valor">' + formatarMoeda(dadosAno.totais.sesaud_mensal) + '</div></div>';
+                html += '<div class="resumo-card geral"><h3>Total Geral</h3><div class="valor">' + formatarMoeda(dadosAno.totais.geral) + '</div></div>';
+            } else {
+                html += '<div class="erro">Totais não disponíveis para este ano.</div>';
+            }
+
+            if (dadosAno.tipo === 'projecao') { // Apenas para 2026
+                html += '<div class="resumo-card orcamento"><h3>Orçamento Anual</h3><div class="valor">' + formatarMoeda(dadosAno.orcamento_anual) + '</div></div>';
+                html += '<div class="resumo-card orcamento"><h3>Orçamento Mensal</h3><div class="valor">' + formatarMoeda(dadosAno.orcamento_mensal) + '</div></div>';
+                var deficitClass = dadosAno.deficit < 0 ? 'deficit' : 'sucesso';
+                html += '<div class="resumo-card ' + deficitClass + '"><h3>DÉFICIT / SUPERÁVIT</h3><div class="valor">' + formatarMoeda(dadosAno.deficit) + '</div></div>';
+            }
             html += '</div>';
             document.getElementById('resumo-conteudo').innerHTML = html;
         }
 
-        function preencherComparativo(dados) {
-            if (!dados || !dados.categorias || dados.categorias.length === 0) {
-                document.getElementById('comparativo-conteudo').innerHTML = '<div class="erro">Dados de comparativo não disponíveis.</div>';
+        function preencherTabelaCompleta(dadosAno) {
+            document.getElementById('tabela-ano-label').textContent = dadosAno.descricao;
+            if (!dadosAno || !dadosAno.linhas || dadosAno.linhas.length === 0) {
+                document.getElementById('tabela-completa-conteudo').innerHTML = '<div class="erro">Dados detalhados não disponíveis para este ano.</div>';
                 return;
             }
-            var categorias = dados.categorias;
-            var totalFuabc = 0, totalSesaud = 0;
-            categorias.forEach(cat => { totalFuabc += (cat.fuabc || 0); totalSesaud += (cat.sesaud || 0); });
 
-            var html = '<div class="comparativo-header"><div class="comparativo-resumo">';
-            html += '<div class="resumo-item"><h4>Total FUABC</h4><p class="valor-grande">' + formatarMoeda(totalFuabc) + '</p></div>';
-            html += '<div class="resumo-item"><h4>Total SESAUD</h4><p class="valor-grande">' + formatarMoeda(totalSesaud) + '</p></div>';
-            html += '<div class="resumo-item"><h4>Diferença</h4><p class="valor-grande">' + formatarMoeda(totalFuabc - totalSesaud) + '</p></div>';
-            html += '</div></div><h3>Detalhamento por Categoria</h3>';
-            html += '<div class="table-responsive-wrapper"><table><thead><tr><th>Categoria</th><th class="valor-moeda">FUABC</th><th class="valor-moeda">SESAUD</th><th class="valor-moeda">Diferença</th><th class="valor-moeda">Variação %</th></tr></thead><tbody>';
+            var html = '<div class="table-responsive-wrapper"><table><thead><tr><th>Categoria</th><th class="valor-moeda">FUABC Mensal</th><th class="valor-moeda">SESAUD Mensal</th><th class="valor-moeda">Geral</th><th class="valor-moeda">% do Total</th></tr></thead><tbody>';
+            var totalGeralAno = dadosAno.totais ? dadosAno.totais.geral : 0;
 
-            categorias.forEach(cat => {
-                var diff = (cat.fuabc || 0) - (cat.sesaud || 0);
-                var pct = (cat.sesaud || 0) !== 0 ? ((diff / (cat.sesaud || 0)) * 100).toFixed(1) : 0;
-                var classe = diff > 0 ? 'positivo' : (diff < 0 ? 'negativo' : '');
+            dadosAno.linhas.forEach(linha => {
+                var percent = totalGeralAno > 0 ? ((linha.geral / totalGeralAno) * 100).toFixed(1) : 0;
+                html += '<tr><td><strong>' + (linha.categoria || 'N/A') + '</strong></td><td class="valor-moeda">' + formatarMoeda(linha.fuabc_mensal) + '</td><td class="valor-moeda">' + formatarMoeda(linha.sesaud_mensal) + '</td><td class="valor-moeda">' + formatarMoeda(linha.geral) + '</td><td class="valor-moeda">' + percent + '%</td></tr>';
             });
 
-            html += '</tbody></table></div><div class="charts-container"><div class="chart-box"><h3>Comparação Geral</h3><canvas id="chartComparacao"></canvas></div><div class="chart-box"><h3>Distribuição FUABC</h3><canvas id="chartFuabc"></canvas></div><div class="chart-box"><h3>Distribuição SESAUD</h3><canvas id="chartSesaud"></canvas></div></div>';
+            if (dadosAno.totais) {
+                html += '<tr style="font-weight: bold; background-color: #e0e0e0;"><td>TOTAL DE DESPESAS</td><td class="valor-moeda">' + formatarMoeda(dadosAno.totais.fuabc_mensal) + '</td><td class="valor-moeda">' + formatarMoeda(dadosAno.totais.sesaud_mensal) + '</td><td class="valor-moeda">' + formatarMoeda(dadosAno.totais.geral) + '</td><td class="valor-moeda">100%</td></tr>';
+            }
 
+            html += '</tbody></table></div>';
+            document.getElementById('tabela-completa-conteudo').innerHTML = html;
+        }
+
+        function preencherComparativo(dados2025, dados2026) {
+                document.getElementById('comparativo-conteudo').innerHTML = '<div class="erro">Dados de 2025 e/ou 2026 não disponíveis para comparação.</div>';
+                return;
+            }
+
+            var categorias2025 = dados2025.linhas.map(l => l.categoria);
+            var categorias2026 = dados2026.linhas.map(l => l.categoria);
+            var categoriasUnicas = [...new Set([...categorias2025, ...categorias2026])];
+
+            var fuabc2025 = categoriasUnicas.map(cat => (dados2025.linhas.find(l => l.categoria === cat) || { fuabc_mensal: 0 }).fuabc_mensal);
+            var sesaud2025 = categoriasUnicas.map(cat => (dados2025.linhas.find(l => l.categoria === cat) || { sesaud_mensal: 0 }).sesaud_mensal);
+            var geral2025 = categoriasUnicas.map(cat => (dados2025.linhas.find(l => l.categoria === cat) || { geral: 0 }).geral);
+
+            var fuabc2026 = categoriasUnicas.map(cat => (dados2026.linhas.find(l => l.categoria === cat) || { fuabc_mensal: 0 }).fuabc_mensal);
+            var sesaud2026 = categoriasUnicas.map(cat => (dados2026.linhas.find(l => l.categoria === cat) || { sesaud_mensal: 0 }).sesaud_mensal);
+            var geral2026 = categoriasUnicas.map(cat => (dados2026.linhas.find(l => l.categoria === cat) || { geral: 0 }).geral);
+
+            var html = '<div class="charts-container">';
+            html += '<div class="chart-box"><h3>Comparativo Geral por Categoria</h3><canvas id="chartComparacaoGeral"></canvas></div>';
+            html += '<div class="chart-box"><h3>Distribuição FUABC 2025 vs 2026</h3><canvas id="chartFuabcComparacao"></canvas></div>';
+            html += '<div class="chart-box"><h3>Distribuição SESAUD 2025 vs 2026</h3><canvas id="chartSesaudComparacao"></canvas></div>';
+            html += '</div>';
             document.getElementById('comparativo-conteudo').innerHTML = html;
 
             for (var key in charts) { if (charts[key]) charts[key].destroy(); }
@@ -596,92 +569,84 @@
 
             setTimeout(function() {
                 try {
-                    var ctx1 = document.getElementById('chartComparacao').getContext('2d');
-                    charts.comp = new Chart(ctx1, {
+                    // Comparativo Geral por Categoria (Barra)
+                    var ctx1 = document.getElementById('chartComparacaoGeral').getContext('2d');
+                    charts.compGeral = new Chart(ctx1, {
                         type: 'bar',
                         data: {
-                            labels: categorias.map(c => (c.categoria || 'N/A').substring(0, 20)),
+                            labels: categoriasUnicas.map(c => c.substring(0, 20)),
                             datasets: [
-                                { label: 'FUABC', data: categorias.map(c => c.fuabc || 0), backgroundColor: '#3498db', borderColor: '#2980b9', borderWidth: 1 },
-                                { label: 'SESAUD', data: categorias.map(c => c.sesaud || 0), backgroundColor: '#27ae60', borderColor: '#229954', borderWidth: 1 }
+                                { label: 'Geral 2025', data: geral2025, backgroundColor: '#8e44ad', borderColor: '#714091', borderWidth: 1 },
+                                { label: 'Geral 2026', data: geral2026, backgroundColor: '#3498db', borderColor: '#2980b9', borderWidth: 1 }
                             ]
                         },
-                        options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y', plugins: { legend: { position: 'top' } } }
+                        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'top' } } }
                     });
 
-                    var ctx2 = document.getElementById('chartFuabc').getContext('2d');
-                    charts.fuabc = new Chart(ctx2, {
+                    // Distribuição FUABC 2025 vs 2026 (Pizza)
+                    var ctx2 = document.getElementById('chartFuabcComparacao').getContext('2d');
+                    charts.fuabcComp = new Chart(ctx2, {
                         type: 'doughnut',
                         data: {
-                            labels: categorias.map(c => (c.categoria || 'N/A').substring(0, 12)),
-                            datasets: [{ data: categorias.map(c => c.fuabc || 0), backgroundColor: ['#3498db', '#2980b9', '#1abc9c', '#16a085', '#e74c3c', '#c0392b', '#f39c12', '#d68910'] }]
+                            labels: ['FUABC 2025', 'FUABC 2026'],
+                            datasets: [{
+                                data: [dados2025.totais.fuabc_mensal, dados2026.totais.fuabc_mensal],
+                                backgroundColor: ['#3498db', '#2980b9']
+                            }]
                         },
                         options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
                     });
 
-                    var ctx3 = document.getElementById('chartSesaud').getContext('2d');
-                    charts.sesaud = new Chart(ctx3, {
+                    // Distribuição SESAUD 2025 vs 2026 (Pizza)
+                    var ctx3 = document.getElementById('chartSesaudComparacao').getContext('2d');
+                    charts.sesaudComp = new Chart(ctx3, {
                         type: 'doughnut',
                         data: {
-                            labels: categorias.map(c => (c.categoria || 'N/A').substring(0, 12)),
-                            datasets: [{ data: categorias.map(c => c.sesaud || 0), backgroundColor: ['#27ae60', '#229954', '#1abc9c', '#16a085', '#3498db', '#2980b9', '#f39c12', '#d68910'] }]
+                            labels: ['SESAUD 2025', 'SESAUD 2026'],
+                            datasets: [{
+                                data: [dados2025.totais.sesaud_mensal, dados2026.totais.sesaud_mensal],
+                                backgroundColor: ['#27ae60', '#229954']
+                            }]
                         },
                         options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
                     });
-                } catch (e) { console.error('Erro ao criar gráficos:', e); }
+
+                } catch (e) { console.error('Erro ao criar gráficos comparativos:', e); }
             }, 100);
-        }
-
-        function preencherFuabc(dados) {
-            if (!dados || !dados.despesas || dados.despesas.length === 0) {
-                document.getElementById('fuabc-conteudo').innerHTML = '<div class="erro">Dados de FUABC não disponíveis.</div>';
-                return;
-            }
-            var html = '<div class="table-responsive-wrapper"><table><thead><tr><th>Categoria</th><th class="valor-moeda">Valor</th></tr></thead><tbody>';
-            dados.despesas.forEach(d => html += '<tr><td>' + (d.categoria || 'N/A') + '</td><td class="valor-moeda">' + formatarMoeda(d.fuabc || 0) + '</td></tr>');
-            html += '</tbody></table></div>';
-            document.getElementById('fuabc-conteudo').innerHTML = html;
-        }
-
-        function preencherSesaud(dados) {
-            if (!dados || !dados.despesas || dados.despesas.length === 0) {
-                document.getElementById('sesaud-conteudo').innerHTML = '<div class="erro">Dados de SESAUD não disponíveis.</div>';
-                return;
-            }
-            var html = '<div class="table-responsive-wrapper"><table><thead><tr><th>Categoria</th><th class="valor-moeda">Valor</th></tr></thead><tbody>';
-            dados.despesas.forEach(d => html += '<tr><td>' + (d.categoria || 'N/A') + '</td><td class="valor-moeda">' + formatarMoeda(d.sesaud || 0) + '</td></tr>');
-            html += '</tbody></table></div>';
-            document.getElementById('sesaud-conteudo').innerHTML = html;
         }
 
         function mudarAno(ano) {
             console.log('Mudando para ano:', ano);
-            if (!ano || !allData[ano]) {
+            currentYear = ano;
+            if (!ano || !allData.anos || !allData.anos[ano]) {
                 console.error('Dados não encontrados para o ano:', ano);
-                document.getElementById('resumo-conteudo').innerHTML = '<div class="erro">Dados não disponíveis para o ano ' + ano + '.</div>';
-                document.getElementById('comparativo-conteudo').innerHTML = '<div class="erro">Dados não disponíveis para o ano ' + ano + '.</div>';
-                document.getElementById('fuabc-conteudo').innerHTML = '<div class="erro">Dados não disponíveis para o ano ' + ano + '.</div>';
-                document.getElementById('sesaud-conteudo').innerHTML = '<div class="erro">Dados não disponíveis para o ano ' + ano + '.</div>';
-                document.getElementById('data-atualizacao').textContent = 'Dados não disponíveis';
+                document.getElementById('resumo-conteudo').innerHTML = '<div class="erro">Dados não disponíveis para o ano ' + ano + '</div>';
+                document.getElementById('tabela-completa-conteudo').innerHTML = '<div class="erro">Dados não disponíveis para o ano ' + ano + '</div>';
+                document.getElementById('comparativo-conteudo').innerHTML = '<div class="erro">Dados não disponíveis para o ano ' + ano + '</div>';
+                document.getElementById('data-atualizacao').textContent = 'Erro ao carregar dados';
                 return;
             }
-            var dados = allData[ano];
-            document.getElementById('data-atualizacao').textContent = 'Atualizado em: ' + (dados.atualizado_em || 'N/A');
-            preencherResumo(dados);
-            preencherComparativo(dados);
-            preencherFuabc(dados);
-            preencherSesaud(dados);
+            var dadosAno = allData.anos[ano];
+            document.getElementById('data-atualizacao').textContent = 'Atualizado em: ' + (allData.atualizado_em || 'N/A');
+
+            // Renderizar a aba ativa
+            var activeTab = document.querySelector('.tab-btn.active');
+            if (activeTab) {
+                abrirAba(null, activeTab.id.replace('-btn', ''));
+            } else {
+                // Se nenhuma aba estiver ativa, ativar a primeira (Resumo)
+                document.querySelector('.tab-btn').click();
+            }
         }
 
-        function carregarJSON(url, nomeArquivo, ano) {
+        function carregarJSON(url, nomeArquivo) {
             return new Promise((resolve, reject) => {
-                // Cache buster for 5 minutes
-                var timestamp = Math.floor(Date.now() / (5 * 60 * 1000));
-                var bustUrl = url + '?bust=' + timestamp;
+                var timestamp = Math.floor(Date.now() / (60 * 1000)); // Cache buster a cada 1 minuto
+                var urlComTimestamp = url + '?bust=' + timestamp;
 
                 var urls = [
-                    'https://corsproxy.io/?' + bustUrl, // CORS proxy first
-                    bustUrl // Direct raw.githubusercontent.com (might be blocked)
+                    'https://corsproxy.io/?' + urlComTimestamp,
+                    urlComTimestamp // Tentar URL direta como fallback
                 ];
 
                 function tentarProxima(index) {
@@ -690,78 +655,68 @@
                         return;
                     }
 
-                    console.log(`Tentando carregar ${nomeArquivo} de:`, urls[index]);
+                    console.log('Tentando carregar:', urls[index]);
                     fetch(urls[index], { cache: 'no-store', headers: { 'Cache-Control': 'no-cache, no-store, must-revalidate' } })
                         .then(r => {
                             if (!r.ok) throw new Error('HTTP ' + r.status + ' - ' + r.statusText);
                             return r.json();
                         })
-                        .then(rawData => {
-                            console.log(`✅ Sucesso ao carregar ${nomeArquivo} de:`, urls[index]);
-                            fonteFonte.push(`${nomeArquivo} (${ano}) - ${urls[index].substring(0, 40)}...`);
-                            resolve(processarDados(rawData, ano));
+                        .then(dados => {
+                            console.log('✅ Sucesso com:', urls[index]);
+                            fonteFonte.push(nomeArquivo + ' (' + urls[index].split('?')[0].substring(0, 40) + '...)');
+                            resolve(dados);
                         })
                         .catch(e => {
-                            console.log(`❌ Falha ao carregar ${nomeArquivo} de:`, urls[index], e.message);
+                            console.log('❌ Falha:', urls[index], e.message);
                             tentarProxima(index + 1);
                         });
                 }
-
                 tentarProxima(0);
             });
         }
 
-        function carregarDados() {
+        function inicializarDashboard() {
             console.log('Iniciando carregamento de dados...');
-            var url2025 = 'https://raw.githubusercontent.com/rtoledomota/SESAUD-Orcamento/main/data.json';
-            var url2026 = 'https://raw.githubusercontent.com/rtoledomota/SESAUD-Orcamento/main/orcamento_2026.json';
+            var jsonUrl = 'https://raw.githubusercontent.com/rtoledomota/SESAUD-Orcamento/main/data.json';
 
-            Promise.all([
-                carregarJSON(url2025, 'data.json', '2025').catch(e => { console.error('Erro ao carregar 2025:', e); return null; }),
-                carregarJSON(url2026, 'orcamento_2026.json', '2026').catch(e => { console.error('Erro ao carregar 2026:', e); return null; })
-            ])
-            .then(resultados => {
-                var dados2025 = resultados[0];
-                var dados2026 = resultados[1];
-
-                if (dados2025) {
-                    allData['2025'] = dados2025;
+            carregarJSON(jsonUrl, 'data.json')
+            .then(dados => {
+                if (!dados || !dados.anos) {
+                    throw new Error('Estrutura JSON inválida: "anos" não encontrado.');
                 }
-                if (dados2026) {
-                    allData['2026'] = dados2026;
-                }
-
-                if (Object.keys(allData).length === 0) {
-                    document.getElementById('resumo-conteudo').innerHTML = '<div class="erro">Nenhum arquivo JSON foi carregado. Verifique as URLs e CORS.</div>';
-                    document.getElementById('data-atualizacao').textContent = 'Erro ao carregar dados';
-                    return;
-                }
+                allData = dados;
 
                 // Preencher dropdown
                 var seletor = document.getElementById('seletor-ano');
                 seletor.innerHTML = '';
-                var anosDisponiveis = Object.keys(allData).sort();
+                var anosDisponiveis = Object.keys(allData.anos).sort();
                 anosDisponiveis.forEach(ano => {
                     var opt = document.createElement('option');
                     opt.value = ano;
-                    opt.textContent = ano;
+                    opt.textContent = allData.anos[ano].descricao || ano;
                     seletor.appendChild(opt);
                 });
 
-                // Selecionar o primeiro ano disponível
-                if (anosDisponiveis.length > 0) {
+                // Selecionar o primeiro ano disponível ou o ano ativo do JSON
+                var anoInicial = allData.ano_ativo || anosDisponiveis[0];
+                if (anosDisponiveis.includes(anoInicial)) {
+                    seletor.value = anoInicial;
+                } else if (anosDisponiveis.length > 0) {
                     seletor.value = anosDisponiveis[0];
-                    mudarAno(anosDisponiveis[0]);
                 } else {
-                    document.getElementById('resumo-conteudo').innerHTML = '<div class="erro">Nenhum ano disponível para exibição.</div>';
+                    seletor.innerHTML = '<option value="">Nenhum ano disponível</option>';
                 }
 
-                // Atualizar fonte dos dados
                 document.getElementById('fonte-dados').textContent = 'Fonte: ' + fonteFonte.join(' | ');
+
+                mudarAno(seletor.value);
             })
             .catch(e => {
-                console.error('Erro geral no carregamento de dados:', e);
-                document.getElementById('resumo-conteudo').innerHTML = '<div class="erro">Erro ao carregar dados: ' + e + '</div>';
+                console.error('Erro geral ao carregar dashboard:', e);
+                document.getElementById('resumo-conteudo').innerHTML = '<div class="erro">Erro ao carregar dados do dashboard: ' + e.message + '. Verifique o arquivo data.json e sua estrutura.</div>';
+                document.getElementById('tabela-completa-conteudo').innerHTML = '<div class="erro">Erro ao carregar dados do dashboard: ' + e.message + '. Verifique o arquivo data.json e sua estrutura.</div>';
+                document.getElementById('comparativo-conteudo').innerHTML = '<div class="erro">Erro ao carregar dados do dashboard: ' + e.message + '. Verifique o arquivo data.json e sua estrutura.</div>';
+                document.getElementById('data-atualizacao').textContent = 'Erro ao carregar dados';
             });
         }
 
@@ -774,7 +729,10 @@
             document.body.classList.add('dark-mode');
         }
 
-        window.addEventListener('load', carregarDados);
+        window.addEventListener('load', inicializarDashboard);
+
+        // Recarregar dados a cada 1 minuto
+        setInterval(inicializarDashboard, 60 * 1000);
     </script>
 </body>
 </html>
