@@ -490,9 +490,8 @@
             var resumo = dados.resumo || {};
             var html = '<div class="resumo-grid">';
             for (var chave in resumo) {
-                // Pular a chave "diferenca"
                 if (chave === 'diferenca') continue;
-                
+
                 var label = chave.replace(/_/g, ' ').toUpperCase();
                 var valor = resumo[chave];
                 var valorFormatado = typeof valor === 'number' ? formatarMoeda(valor) : valor;
@@ -518,7 +517,7 @@
                 var diff = cat.fuabc - cat.sesaud;
                 var pct = cat.sesaud > 0 ? ((diff / cat.sesaud) * 100).toFixed(1) : 0;
                 var classe = diff > 0 ? 'positivo' : 'negativo';
-                html += '<tr><td><strong>' + cat.categoria + '</strong></td><td class="valor-moeda">' + formatarMoeda(cat.fuabc) + '</td><td class="valor-moeda">' + formatarMoeda(cat.sesaud) + '</td><td class="valor-moeda ' + classe + '">' + formatarMoeda(diff) + '</td><td class="valor-moeda ' + classe + '">' + pct + '%</td></tr>';
+                html += '<tr><td><strong>' + cat.categoria + '</strong></td><td class="valor-moeda">' + formatarMoeda(cat.fuabc) + '</td><td class="valor-moeda">' + formatarMoeda(cat.sesaud) + '</td><td class="valor-moeda ' + classe + '\">' + formatarMoeda(diff) + '</td><td class="valor-moeda ' + classe + '\">' + pct + '%</td></tr>';
             });
 
             html += '</tbody></table></div><div class="charts-container"><div class="chart-box"><h3>Comparação Geral</h3><canvas id="chartComparacao"></canvas></div><div class="chart-box"><h3>Distribuição FUABC</h3><canvas id="chartFuabc"></canvas></div><div class="chart-box"><h3>Distribuição SESAUD</h3><canvas id="chartSesaud"></canvas></div></div>';
@@ -591,7 +590,16 @@
         }
 
         function carregarDados() {
-            fetch('https://raw.githubusercontent.com/rtoledomota/SESAUD-Orcamento/main/data.json', { cache: 'no-store' })
+            var timestamp = Math.floor(Date.now() / (5 * 60 * 1000));
+            var urlComTimestamp = 'https://raw.githubusercontent.com/rtoledomota/SESAUD-Orcamento/main/data.json?bust=' + timestamp;
+            
+            fetch(urlComTimestamp, { 
+                cache: 'no-store',
+                headers: { 
+                    'Cache-Control': 'no-cache, no-store, must-revalidate',
+                    'Pragma': 'no-cache'
+                }
+            })
                 .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
                 .then(dados => {
                     window.dashboardCompleto = dados;
