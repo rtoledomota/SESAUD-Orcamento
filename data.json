@@ -7,7 +7,7 @@
   ],
   "ano_ativo": "GERAL",
   "GERAL": {
-    "atualizado_em": "01/12/2025 ?s 11:59:05",
+    "atualizado_em": "03/12/2025 ?s 11:19:01",
     "despesas": [
       {
         "categoria": "OR?AMENTO",
@@ -17,47 +17,47 @@
       {
         "categoria": "RECURSOS HUMANOS",
         "fuabc": 0,
-        "sesaud": 6616449.066000001
+        "sesaud": 0
       },
       {
         "categoria": "PROCESSOS TRABALHISTAS",
-        "fuabc": 84890.27111111111,
-        "sesaud": 2024
+        "fuabc": 0,
+        "sesaud": 0
       },
       {
         "categoria": "MATERIAIS DE CONSUMO",
-        "fuabc": 3888891.5355555555,
-        "sesaud": 329615.343
+        "fuabc": 0,
+        "sesaud": 0
       },
       {
         "categoria": "MANUTEN??O E REFORMAS",
-        "fuabc": 1316264.148888889,
-        "sesaud": 731350.3
+        "fuabc": 0,
+        "sesaud": 0
       },
       {
         "categoria": "SERVI?OS M?DICOS",
-        "fuabc": 6776884.984444445,
+        "fuabc": 0,
         "sesaud": 0
       },
       {
         "categoria": "SERVI?OS DE TERCEIROS",
-        "fuabc": 10939718.044444444,
-        "sesaud": 2628002.264
+        "fuabc": 0,
+        "sesaud": 0
       },
       {
         "categoria": "INVESTIMENTOS",
-        "fuabc": 111842.68,
+        "fuabc": 0,
         "sesaud": 0
       },
       {
         "categoria": "OUTROS GASTOS",
-        "fuabc": 111094.31555555556,
-        "sesaud": 326630.03199999995
+        "fuabc": 0,
+        "sesaud": 0
       },
       {
         "categoria": "TOTAL DE DESPESAS",
         "fuabc": 0,
-        "sesaud": 10634071.005
+        "sesaud": 0
       },
       {
         "categoria": "SERVI?OS NOVOS 2025 (A PARTIR DE NOV)",
@@ -154,47 +154,47 @@
       {
         "categoria": "RECURSOS HUMANOS",
         "fuabc": 0,
-        "sesaud": 6616449.066000001
+        "sesaud": 0
       },
       {
         "categoria": "PROCESSOS TRABALHISTAS",
-        "fuabc": 84890.27111111111,
-        "sesaud": 2024
+        "fuabc": 0,
+        "sesaud": 0
       },
       {
         "categoria": "MATERIAIS DE CONSUMO",
-        "fuabc": 3888891.5355555555,
-        "sesaud": 329615.343
+        "fuabc": 0,
+        "sesaud": 0
       },
       {
         "categoria": "MANUTEN??O E REFORMAS",
-        "fuabc": 1316264.148888889,
-        "sesaud": 731350.3
+        "fuabc": 0,
+        "sesaud": 0
       },
       {
         "categoria": "SERVI?OS M?DICOS",
-        "fuabc": 6776884.984444445,
+        "fuabc": 0,
         "sesaud": 0
       },
       {
         "categoria": "SERVI?OS DE TERCEIROS",
-        "fuabc": 10939718.044444444,
-        "sesaud": 2628002.264
+        "fuabc": 0,
+        "sesaud": 0
       },
       {
         "categoria": "INVESTIMENTOS",
-        "fuabc": 111842.68,
+        "fuabc": 0,
         "sesaud": 0
       },
       {
         "categoria": "OUTROS GASTOS",
-        "fuabc": 111094.31555555556,
-        "sesaud": 326630.03199999995
+        "fuabc": 0,
+        "sesaud": 0
       },
       {
         "categoria": "TOTAL DE DESPESAS",
         "fuabc": 0,
-        "sesaud": 10634071.005
+        "sesaud": 0
       },
       {
         "categoria": "SERVI?OS NOVOS 2025 (A PARTIR DE NOV)",
@@ -283,14 +283,14 @@
       }
     ],
     "resumo": {
-      "total_fuabc": 23231610.98,
-      "total_sesaud": 29127548.34,
-      "total_geral": 52359159.32,
-      "diferenca": -5895937.359999999
+      "total_fuabc": 2025,
+      "total_sesaud": 7859406.33,
+      "total_geral": 7861431.33,
+      "diferenca": -7857381.33
     }
   },
   "MARISA": {
-    "atualizado_em": "01/12/2025 ?s 11:59:05",
+    "atualizado_em": "03/12/2025 ?s 11:19:01",
     "despesas": [
       {
         "categoria": "DESCRI??O",
@@ -1693,7 +1693,7 @@
     }
   },
   "ROSI": {
-    "atualizado_em": "01/12/2025 ?s 11:59:06",
+    "atualizado_em": "03/12/2025 ?s 11:19:01",
     "despesas": [
       {
         "categoria": "OR?AMENTO",
@@ -3996,7 +3996,7 @@
     }
   },
   "MARISA NOVO": {
-    "atualizado_em": "01/12/2025 ?s 11:59:06",
+    "atualizado_em": "03/12/2025 ?s 11:19:02",
     "despesas": [
       {
         "categoria": "OR?AMENTO",
