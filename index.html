@@ -10,6 +10,7 @@
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75'>📊</text></svg>">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1"></script>
     <style>
+        /* Reset e Base */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { font-size: 16px; scroll-behavior: smooth; }
         body {
@@ -21,6 +22,7 @@
         }
         .container { max-width: 1400px; margin: 0 auto; width: 100%; }
 
+        /* Header */
         header {
             background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
             padding: 2rem;
@@ -36,6 +38,7 @@
         .data-atualizacao { color: rgba(255,255,255,0.8); font-size: 0.9rem; margin-top: 0.5rem; }
         .fonte-dados { color: rgba(255,255,255,0.7); font-size: 0.85rem; margin-top: 0.3rem; }
 
+        /* Dark Mode Toggle */
         .dark-mode-toggle {
             position: absolute;
             top: 1.5rem;
@@ -56,6 +59,7 @@
         }
         .dark-mode-toggle:hover { background: rgba(255,255,255,0.25); }
 
+        /* Year Selector */
         .year-selector-container {
             margin-bottom: 2rem;
             text-align: center;
@@ -79,6 +83,7 @@
         }
         #seletor-ano:hover { border-color: #2980b9; box-shadow: 0 0 8px rgba(52, 152, 219, 0.3); }
 
+        /* Tabs */
         .tabs {
             display: flex;
             gap: 0.8rem;
@@ -110,6 +115,7 @@
             box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
         }
 
+        /* Tab Content */
         .tab-content {
             display: none;
             background: white;
@@ -121,9 +127,11 @@
         .tab-content.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
+        /* Headings */
         h2 { color: #2c3e50; margin-bottom: 1.5rem; font-size: 1.8rem; text-align: center; font-weight: 600; }
         h3 { color: #2c3e50; margin: 1.5rem 0 1rem 0; font-size: 1.3rem; font-weight: 600; }
 
+        /* Resumo Cards */
         .resumo-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -159,6 +167,7 @@
         .resumo-card:nth-child(3) { background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); }
         .resumo-card:nth-child(4) { background: linear-gradient(135deg, #8e44ad 0%, #714091 100%); }
 
+        /* Charts */
         .charts-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -184,6 +193,7 @@
         .chart-box:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
         .chart-box h3 { margin-bottom: 1rem; color: #2c3e50; text-align: center; font-size: 1.1rem; font-weight: 600; margin-top: 0; }
 
+        /* Tables */
         .table-responsive-wrapper {
             overflow-x: auto;
             margin: 1rem 0;
@@ -203,7 +213,7 @@
             text-align: left;
             border: none;
             font-weight: 600;
-            color: white;
+            color: #ffffff !important; /* CORRIGIDO: Fonte BRANCA para cabeçalho */
             font-size: 0.9rem;
             white-space: nowrap;
             text-transform: uppercase;
@@ -221,6 +231,33 @@
         .valor-moeda { text-align: right; font-weight: 600; color: #2c3e50; }
         tbody tr:last-child td { border-bottom: none; }
 
+        /* Accordion Styles */
+        .accordion-row {
+            cursor: pointer;
+            user-select: none;
+            background: #2c3e50 !important; /* Linha preta */
+            color: white !important;
+            font-weight: 600 !important;
+        }
+        .accordion-row:hover { background: #34495e !important; }
+        .accordion-row td { color: white !important; font-weight: 600; }
+        .accordion-row .toggle-icon { display: inline-block; margin-right: 0.5rem; transition: transform 0.3s; }
+        .accordion-row.expanded .toggle-icon { transform: rotate(90deg); }
+
+        .accordion-item {
+            display: none;
+        }
+        .accordion-item.show {
+            display: table-row;
+        }
+        .accordion-item td:first-child {
+            padding-left: 2rem;
+            color: #3498db; /* Linha azul */
+            font-weight: 500;
+        }
+        .accordion-item td { background: #f0f8ff; } /* Fundo claro para subitens */
+
+        /* Novos Serviços */
         .servicos-lista {
             background: white;
             padding: 1.5rem;
@@ -262,9 +299,11 @@
         .total-item h4 { font-size: 0.85rem; opacity: 0.9; margin-bottom: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; }
         .total-item .valor { font-size: 1.5rem; font-weight: 700; }
 
+        /* Mensagens de Erro/Sucesso */
         .erro { background: #fadbd8; color: #922b21; padding: 1.5rem; border-radius: 8px; margin: 1rem 0; border-left: 4px solid #e74c3c; }
         .sucesso { background: #d5f4e6; color: #0b5345; padding: 1.5rem; border-radius: 8px; margin: 1rem 0; border-left: 4px solid #27ae60; }
 
+        /* Footer */
         footer {
             margin-top: 3rem;
             padding: 1.5rem;
@@ -281,10 +320,11 @@
         body.dark-mode header { background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); }
         body.dark-mode .tab-content, body.dark-mode .chart-box, body.dark-mode table, body.dark-mode .servicos-lista { background: #2d2d2d; }
         body.dark-mode h2, body.dark-mode h3, body.dark-mode h4 { color: #ecf0f1; }
-        body.dark-mode th { background: #1a1a1a; color: white; }
+        body.dark-mode th { background: #1a1a1a; color: #ffffff !important; }
         body.dark-mode td { color: #ecf0f1; border-bottom-color: #404040; background: #2d2d2d; }
         body.dark-mode tbody tr:nth-child(odd) { background-color: #333333; }
         body.dark-mode tbody tr:hover { background: #3a3a3a; }
+        body.dark-mode .accordion-item td { background: #1a1a1a; }
         body.dark-mode .valor-moeda { color: #ecf0f1; }
         body.dark-mode footer { background: #2d2d2d; color: #95a5a6; }
         body.dark-mode .year-selector-container label { color: #ecf0f1; }
@@ -295,7 +335,7 @@
         body.dark-mode .total-item { background: rgba(255,255,255,0.1); color: #ecf0f1; }
         body.dark-mode .resumo-totais { background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); }
 
-        /* Mobile (até 480px) */
+        /* Responsividade Mobile (até 480px) */
         @media (max-width: 480px) {
             html { font-size: 12px; }
             body { padding: 0.75rem; }
@@ -335,7 +375,7 @@
             footer { padding: 0.6rem; font-size: 0.65rem; margin-top: 0.8rem; }
         }
 
-        /* Tablet (481px - 800px) */
+        /* Responsividade Tablet (481px - 800px) */
         @media (min-width: 481px) and (max-width: 800px) {
             html { font-size: 14px; }
             body { padding: 1rem; }
@@ -370,7 +410,7 @@
             footer { padding: 0.9rem; font-size: 0.8rem; margin-top: 1rem; }
         }
 
-        /* Desktop (801px+) */
+        /* Responsividade Desktop (801px+) */
         @media (min-width: 801px) {
             html { font-size: 16px; }
             body { padding: 1.5rem; }
@@ -454,7 +494,9 @@
 
     <script>
         var charts = {};
-        var allData = {};
+        var allData = {}; // Dados gerais por ano (Resumo, Novos Serviços)
+        var sesaudDetalhadoData = {}; // Dados detalhados SESAUD
+        var fuabcDetalhadoData = {}; // Dados detalhados FUABC
 
         function formatarMoeda(valor) {
             return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(valor);
@@ -465,6 +507,16 @@
             document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
             document.getElementById(nome).classList.add('active');
             event.currentTarget.classList.add('active');
+        }
+
+        function toggleAccordion(element) {
+            var groupId = element.getAttribute('data-group');
+            var items = document.querySelectorAll('[data-group-parent="' + groupId + '"]');
+            
+            element.classList.toggle('expanded');
+            items.forEach(item => {
+                item.classList.toggle('show');
+            });
         }
 
         function preencherResumo(dados) {
@@ -561,82 +613,97 @@
             document.getElementById('novos-servicos-conteudo').innerHTML = html;
         }
 
-        function preencherSESAUDDetalhado(dados) {
-            if (!dados || !dados.recursos_humanos) {
-                document.getElementById('sesaud-detalhado-conteudo').innerHTML = '<div class="erro">Dados de SESAUD não disponíveis</div>';
+        function preencherSESAUDDetalhado(dadosAno) {
+            if (!dadosAno || !dadosAno.length) {
+                document.getElementById('sesaud-detalhado-conteudo').innerHTML = '<div class="erro">Dados de SESAUD detalhado não disponíveis para este ano.</div>';
                 return;
             }
 
             var html = '<div class="table-responsive-wrapper"><table><thead><tr><th>Categoria</th><th class="valor-moeda">Valor</th></tr></thead><tbody>';
             
-            var items = [
-                { label: 'RECURSOS HUMANOS', valor: dados.recursos_humanos },
-                { label: 'INDENIZAÇÕES TRABALHISTAS', valor: dados.indenizacoes_trabalhistas },
-                { label: 'VENCIMENTO PREFEITURA - FOLHA', valor: dados.vencimento_prefeitura },
-                { label: 'PROGRAMA - MAIS MÉDICOS', valor: dados.programa_mais_medicos },
-                { label: 'TARIFAS BANCÁRIAS', valor: dados.tarifas_bancarias },
-                { label: 'GRATIFICAÇÃO SUS', valor: dados.gratificacao_sus },
-                { label: 'PENSÕES - GRATIF. SUS', valor: dados.pensoes_gratif_sus },
-                { label: 'INSS PREF', valor: dados.inss_pref },
-                { label: 'FGTS PREF', valor: dados.fgts_pref },
-                { label: 'NOTRE DAME INTERMEDICA', valor: dados.notre_dame_intermedica },
-                { label: 'PROCESSOS TRABALHISTAS', valor: dados.processos_trabalhistas },
-                { label: 'MATERIAIS DE CONSUMO', valor: dados.materiais_consumo },
-                { label: 'SERVIÇOS DE TERCEIROS', valor: dados.servicos_terceiros },
-                { label: 'OUTROS GASTOS', valor: dados.outros_gastos }
-            ];
-
-            items.forEach(item => {
-                html += '<tr>';
-                html += '<td>' + item.label + '</td>';
-                html += '<td class="valor-moeda">' + formatarMoeda(item.valor || 0) + '</td>';
+            dadosAno.forEach((grupo, index) => {
+                var groupId = 'sesaud-grupo-' + index;
+                html += '<tr class="accordion-row" data-group="' + groupId + '" onclick="toggleAccordion(this)">';
+                html += '<td><span class="toggle-icon">▶</span>' + grupo.grupo + '</td>';
+                html += '<td class="valor-moeda">' + formatarMoeda(grupo.valor_total || 0) + '</td>';
                 html += '</tr>';
+
+                if (grupo.subitens && grupo.subitens.length > 0) {
+                    grupo.subitens.forEach(subitem => {
+                        html += '<tr class="accordion-item" data-group-parent="' + groupId + '">';
+                        html += '<td>' + subitem.item + '</td>';
+                        html += '<td class="valor-moeda">' + formatarMoeda(subitem.valor || 0) + '</td>';
+                        html += '</tr>';
+                    });
+                }
             });
 
+            // Adicionar total geral do SESAUD Detalhado
+            var totalGeralSESAUD = sesaudDetalhadoData.total_geral || 0;
             html += '<tr style="background: #ecf0f1; font-weight: bold;">';
-            html += '<td>TOTAL</td>';
-            html += '<td class="valor-moeda">' + formatarMoeda(dados.total || 0) + '</td>';
+            html += '<td>TOTAL GERAL SESAUD</td>';
+            html += '<td class="valor-moeda">' + formatarMoeda(totalGeralSESAUD) + '</td>';
             html += '</tr>';
 
             html += '</tbody></table></div>';
             document.getElementById('sesaud-detalhado-conteudo').innerHTML = html;
         }
 
-        function preencherFUABCDetalhado(dados2025, dados2026) {
-            if (!dados2025) {
-                document.getElementById('fuabc-detalhado-conteudo').innerHTML = '<div class="erro">Dados de FUABC não disponíveis</div>';
+        function preencherFUABCDetalhado(dadosAno2025, dadosAno2026) {
+            if (!dadosAno2025 || !dadosAno2025.length) {
+                document.getElementById('fuabc-detalhado-conteudo').innerHTML = '<div class="erro">Dados de FUABC detalhado não disponíveis para 2025.</div>';
                 return;
             }
 
             var html = '<div class="table-responsive-wrapper"><table><thead><tr><th>Categoria</th><th class="valor-moeda">2025</th><th class="valor-moeda">2026</th><th class="valor-moeda">Variação</th></tr></thead><tbody>';
             
-            var items = [
-                { label: 'RECURSOS HUMANOS', valor2025: dados2025.recursos_humanos, valor2026: dados2026 ? dados2026.recursos_humanos : 0 },
-                { label: 'PROCESSOS TRABALHISTAS', valor2025: dados2025.processos_trabalhistas, valor2026: dados2026 ? dados2026.processos_trabalhistas : 0 },
-                { label: 'MATERIAIS DE CONSUMO', valor2025: dados2025.materiais_consumo, valor2026: dados2026 ? dados2026.materiais_consumo : 0 },
-                { label: 'SERVIÇOS DE TERCEIROS', valor2025: dados2025.servicos_terceiros, valor2026: dados2026 ? dados2026.servicos_terceiros : 0 },
-                { label: 'INVESTIMENTOS', valor2025: dados2025.investimentos, valor2026: dados2026 ? dados2026.investimentos : 0 },
-                { label: 'OUTROS GASTOS', valor2025: dados2025.outros_gastos, valor2026: dados2026 ? dados2026.outros_gastos : 0 }
-            ];
+            dadosAno2025.forEach((grupo2025, index) => {
+                var grupo2026 = dadosAno2026 ? dadosAno2026[index] : null; // Tenta encontrar o grupo correspondente em 2026
+                var groupId = 'fuabc-grupo-' + index;
 
-            items.forEach(item => {
-                var variacao = (item.valor2026 || 0) - (item.valor2025 || 0);
-                var corVariacao = variacao >= 0 ? '#27ae60' : '#e74c3c';
-                
-                html += '<tr>';
-                html += '<td>' + item.label + '</td>';
-                html += '<td class="valor-moeda">' + formatarMoeda(item.valor2025 || 0) + '</td>';
-                html += '<td class="valor-moeda">' + formatarMoeda(item.valor2026 || 0) + '</td>';
-                html += '<td class="valor-moeda" style="color: ' + corVariacao + '; font-weight: bold;">' + formatarMoeda(variacao) + '</td>';
+                var valorTotal2025 = grupo2025.valor_total || 0;
+                var valorTotal2026 = grupo2026 ? (grupo2026.valor_total || 0) : 0;
+                var variacaoGrupo = valorTotal2026 - valorTotal2025;
+                var corVariacaoGrupo = variacaoGrupo >= 0 ? '#27ae60' : '#e74c3c';
+
+                html += '<tr class="accordion-row" data-group="' + groupId + '" onclick="toggleAccordion(this)">';
+                html += '<td><span class="toggle-icon">▶</span>' + grupo2025.grupo + '</td>';
+                html += '<td class="valor-moeda">' + formatarMoeda(valorTotal2025) + '</td>';
+                html += '<td class="valor-moeda">' + formatarMoeda(valorTotal2026) + '</td>';
+                html += '<td class="valor-moeda" style="color: ' + corVariacaoGrupo + '; font-weight: bold;">' + formatarMoeda(variacaoGrupo) + '</td>';
                 html += '</tr>';
+
+                var subitens2025 = grupo2025.subitens || [];
+                var subitens2026 = grupo2026 ? (grupo2026.subitens || []) : [];
+
+                // Para cada subitem em 2025, tente encontrar o correspondente em 2026
+                subitens2025.forEach(subitem2025 => {
+                    var subitem2026 = subitens2026.find(s => s.item === subitem2025.item) || { valor: 0 };
+                    var valorSub2025 = subitem2025.valor || 0;
+                    var valorSub2026 = subitem2026.valor || 0;
+                    var variacaoSub = valorSub2026 - valorSub2025;
+                    var corVariacaoSub = variacaoSub >= 0 ? '#27ae60' : '#e74c3c';
+
+                    html += '<tr class="accordion-item" data-group-parent="' + groupId + '">';
+                    html += '<td>' + subitem2025.item + '</td>';
+                    html += '<td class="valor-moeda">' + formatarMoeda(valorSub2025) + '</td>';
+                    html += '<td class="valor-moeda">' + formatarMoeda(valorSub2026) + '</td>';
+                    html += '<td class="valor-moeda" style="color: ' + corVariacaoSub + ';">' + formatarMoeda(variacaoSub) + '</td>';
+                    html += '</tr>';
+                });
             });
 
+            // Adicionar totais gerais FUABC
+            var totalGeralFUABC2025 = fuabcDetalhadoData.total_geral_2025 || 0;
+            var totalGeralFUABC2026 = fuabcDetalhadoData.total_geral_2026 || 0;
+            var variacaoTotalGeral = totalGeralFUABC2026 - totalGeralFUABC2025;
+            var corVariacaoTotalGeral = variacaoTotalGeral >= 0 ? '#27ae60' : '#e74c3c';
+
             html += '<tr style="background: #ecf0f1; font-weight: bold;">';
-            html += '<td>TOTAL</td>';
-            html += '<td class="valor-moeda">' + formatarMoeda(dados2025.total || 0) + '</td>';
-            html += '<td class="valor-moeda">' + formatarMoeda((dados2026 ? dados2026.total : 0) || 0) + '</td>';
-            var totalVariacao = ((dados2026 ? dados2026.total : 0) || 0) - (dados2025.total || 0);
-            html += '<td class="valor-moeda" style="color: ' + (totalVariacao >= 0 ? '#27ae60' : '#e74c3c') + ';">' + formatarMoeda(totalVariacao) + '</td>';
+            html += '<td>TOTAL GERAL FUABC</td>';
+            html += '<td class="valor-moeda">' + formatarMoeda(totalGeralFUABC2025) + '</td>';
+            html += '<td class="valor-moeda">' + formatarMoeda(totalGeralFUABC2026) + '</td>';
+            html += '<td class="valor-moeda" style="color: ' + corVariacaoTotalGeral + ';">' + formatarMoeda(variacaoTotalGeral) + '</td>';
             html += '</tr>';
 
             html += '</tbody></table></div>';
@@ -654,24 +721,29 @@
                 return;
             }
 
-            var dados = allData[ano];
-            document.getElementById('data-atualizacao').textContent = 'Atualizado em: ' + (dados.atualizado_em || 'N/A');
+            var dadosAnoAtual = allData[ano];
+            document.getElementById('data-atualizacao').textContent = 'Atualizado em: ' + (dadosAnoAtual.atualizado_em || 'N/A');
             
-            preencherResumo(dados);
+            preencherResumo(dadosAnoAtual);
             
-            if (dados.novos_servicos) {
-                preencherNovosServicos(dados);
+            if (dadosAnoAtual.novos_servicos) {
+                preencherNovosServicos(dadosAnoAtual);
+            } else {
+                document.getElementById('novos-servicos-conteudo').innerHTML = '<div class="erro">Dados de novos serviços não disponíveis para o ano ' + ano + '</div>';
             }
 
-            var sesaudDetalhado = window.sesaudDetalhado ? window.sesaudDetalhado[ano] : null;
-            if (sesaudDetalhado) {
-                preencherSESAUDDetalhado(sesaudDetalhado);
+            // Preencher SESAUD Detalhado (sempre para 2025, pois o JSON só tem 2025)
+            if (sesaudDetalhadoData['2025']) {
+                preencherSESAUDDetalhado(sesaudDetalhadoData['2025']);
+            } else {
+                document.getElementById('sesaud-detalhado-conteudo').innerHTML = '<div class="erro">Dados de SESAUD detalhado não disponíveis.</div>';
             }
 
-            var fuabcDetalhado2025 = window.fuabcDetalhado ? window.fuabcDetalhado['2025'] : null;
-            var fuabcDetalhado2026 = window.fuabcDetalhado ? window.fuabcDetalhado['2026'] : null;
-            if (fuabcDetalhado2025) {
-                preencherFUABCDetalhado(fuabcDetalhado2025, fuabcDetalhado2026);
+            // Preencher FUABC Detalhado (comparativo 2025 vs 2026)
+            if (fuabcDetalhadoData['2025'] && fuabcDetalhadoData['2026']) {
+                preencherFUABCDetalhado(fuabcDetalhadoData['2025'], fuabcDetalhadoData['2026']);
+            } else {
+                document.getElementById('fuabc-detalhado-conteudo').innerHTML = '<div class="erro">Dados de FUABC detalhado (2025 e 2026) não disponíveis.</div>';
             }
         }
 
@@ -705,11 +777,11 @@
                         }
 
                         if (dados.sesaud_detalhado) {
-                            window.sesaudDetalhado = dados.sesaud_detalhado;
+                            sesaudDetalhadoData = dados.sesaud_detalhado;
                         }
 
                         if (dados.fuabc_detalhado) {
-                            window.fuabcDetalhado = dados.fuabc_detalhado;
+                            fuabcDetalhadoData = dados.fuabc_detalhado;
                         }
 
                         if (Object.keys(allData).length === 0) {
@@ -728,10 +800,10 @@
                             seletor.appendChild(opt);
                         });
 
-                        seletor.value = anos[0];
+                        seletor.value = anos[0]; // Seleciona o primeiro ano por padrão
                         document.getElementById('data-atualizacao').textContent = 'Atualizado em: ' + (dados.atualizado_em || 'N/A');
                         
-                        mudarAno(anos[0]);
+                        mudarAno(anos[0]); // Carrega os dados do primeiro ano
                     })
                     .catch(e => {
                         console.log('❌ Falha:', urls[index], e.message);
@@ -751,7 +823,7 @@
             document.body.classList.add('dark-mode');
         }
 
-        setInterval(carregarJSON, 60000);
+        setInterval(carregarJSON, 60000); // Atualiza a cada 1 minuto
         window.addEventListener('load', carregarJSON);
     </script>
 </body>
