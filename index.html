@@ -10,7 +10,6 @@
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75'>📊</text></svg>">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1"></script>
     <style>
-        /* Reset e Base */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { font-size: 16px; scroll-behavior: smooth; }
         body {
@@ -19,11 +18,9 @@
             color: #2c3e50;
             min-height: 100vh;
             padding: 1.5rem;
-            transition: background 0.3s ease, color 0.3s ease;
         }
         .container { max-width: 1400px; margin: 0 auto; width: 100%; }
 
-        /* Header */
         header {
             background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
             padding: 2rem;
@@ -39,7 +36,6 @@
         .data-atualizacao { color: rgba(255,255,255,0.8); font-size: 0.9rem; margin-top: 0.5rem; }
         .fonte-dados { color: rgba(255,255,255,0.7); font-size: 0.85rem; margin-top: 0.3rem; }
 
-        /* Dark Mode Toggle */
         .dark-mode-toggle {
             position: absolute;
             top: 1.5rem;
@@ -60,7 +56,6 @@
         }
         .dark-mode-toggle:hover { background: rgba(255,255,255,0.25); }
 
-        /* Year Selector */
         .year-selector-container {
             margin-bottom: 2rem;
             text-align: center;
@@ -70,7 +65,7 @@
             gap: 1rem;
             flex-wrap: wrap;
         }
-        .year-selector-container label { color: white; font-weight: 600; font-size: 1rem; }
+        .year-selector-container label { color: #2c3e50; font-weight: 600; font-size: 1rem; }
         #seletor-ano {
             padding: 0.6rem 1.2rem;
             border-radius: 6px;
@@ -84,7 +79,6 @@
         }
         #seletor-ano:hover { border-color: #2980b9; box-shadow: 0 0 8px rgba(52, 152, 219, 0.3); }
 
-        /* Tabs */
         .tabs {
             display: flex;
             gap: 0.8rem;
@@ -102,9 +96,9 @@
             font-weight: 600;
             transition: all 0.3s ease;
             flex: 1;
-            min-width: 120px;
+            min-width: 100px;
             text-align: center;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
@@ -116,7 +110,6 @@
             box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
         }
 
-        /* Tab Content */
         .tab-content {
             display: none;
             background: white;
@@ -129,8 +122,8 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         h2 { color: #2c3e50; margin-bottom: 1.5rem; font-size: 1.8rem; text-align: center; font-weight: 600; }
+        h3 { color: #2c3e50; margin: 1.5rem 0 1rem 0; font-size: 1.3rem; font-weight: 600; }
 
-        /* Resumo Cards */
         .resumo-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -161,15 +154,11 @@
         .resumo-card h3 { font-size: 0.85rem; margin-bottom: 0.8rem; opacity: 0.95; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
         .resumo-card .valor { font-size: 1.6rem; font-weight: 700; word-break: break-word; letter-spacing: -0.5px; }
 
-        .resumo-card.fuabc { background: linear-gradient(135deg, #3498db 0%, #2980b9 100%); }
-        .resumo-card.sesaud { background: linear-gradient(135deg, #27ae60 0%, #229954 100%); }
-        .resumo-card.geral { background: linear-gradient(135deg, #8e44ad 0%, #714091 100%); }
-        .resumo-card.orcamento { background: linear-gradient(135deg, #f39c12 0%, #d68910 100%); }
-        .resumo-card.deficit { background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); }
-        .resumo-card.superavit { background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%); }
+        .resumo-card:nth-child(1) { background: linear-gradient(135deg, #3498db 0%, #2980b9 100%); }
+        .resumo-card:nth-child(2) { background: linear-gradient(135deg, #27ae60 0%, #229954 100%); }
+        .resumo-card:nth-child(3) { background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); }
+        .resumo-card:nth-child(4) { background: linear-gradient(135deg, #8e44ad 0%, #714091 100%); }
 
-
-        /* Charts */
         .charts-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -193,9 +182,8 @@
         .chart-box:nth-child(2) { border-top-color: #27ae60; }
         .chart-box:nth-child(3) { border-top-color: #e74c3c; }
         .chart-box:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
-        .chart-box h3 { margin-bottom: 1rem; color: #2c3e50; text-align: center; font-size: 1.1rem; font-weight: 600; }
+        .chart-box h3 { margin-bottom: 1rem; color: #2c3e50; text-align: center; font-size: 1.1rem; font-weight: 600; margin-top: 0; }
 
-        /* Tables */
         .table-responsive-wrapper {
             overflow-x: auto;
             margin: 1rem 0;
@@ -209,7 +197,7 @@
             background: white;
             min-width: 600px;
         }
-        thead { background: #34495e; }
+        thead { background: #2c3e50; }
         th {
             padding: 1rem;
             text-align: left;
@@ -233,41 +221,50 @@
         .valor-moeda { text-align: right; font-weight: 600; color: #2c3e50; }
         tbody tr:last-child td { border-bottom: none; }
 
-        /* Comparativo Header */
-        .comparativo-header {
-            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-            padding: 2rem;
-            border-radius: 8px;
-            margin-bottom: 2rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        .comparativo-resumo {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 1.5rem;
-        }
-        .resumo-item {
+        .servicos-lista {
             background: white;
             padding: 1.5rem;
             border-radius: 8px;
-            text-align: center;
+            margin-bottom: 1.5rem;
             box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            transition: transform 0.3s ease;
-            border-left: 4px solid #3498db;
         }
-        .resumo-item:nth-child(2) { border-left-color: #27ae60; }
-        .resumo-item:nth-child(3) { border-left-color: #e74c3c; }
-        .resumo-item:hover { transform: translateY(-3px); box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
-        .resumo-item h4 { color: #2c3e50; margin-bottom: 0.8rem; font-size: 0.8rem; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px; }
-        .valor-grande { font-size: 1.5rem; font-weight: 700; color: #2c3e50; margin: 0; }
+        .servicos-lista h4 { color: #3498db; margin-bottom: 1rem; font-weight: 600; font-size: 1.1rem; }
+        .servicos-lista ul { list-style: none; }
+        .servicos-lista li {
+            padding: 0.8rem;
+            border-left: 4px solid #3498db;
+            margin-bottom: 0.5rem;
+            background: #f8f9fa;
+            border-radius: 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .servicos-lista li .servico-nome { flex: 1; font-weight: 500; }
+        .servicos-lista li .servico-valor { color: #27ae60; font-weight: 700; }
 
-        /* Status Messages */
-        .positivo { color: #27ae60; font-weight: 700; }
-        .negativo { color: #e74c3c; font-weight: 700; }
+        .resumo-totais {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+            border-radius: 8px;
+        }
+        .total-item {
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            background: rgba(0,0,0,0.2);
+            border-radius: 6px;
+        }
+        .total-item h4 { font-size: 0.85rem; opacity: 0.9; margin-bottom: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        .total-item .valor { font-size: 1.5rem; font-weight: 700; }
+
         .erro { background: #fadbd8; color: #922b21; padding: 1.5rem; border-radius: 8px; margin: 1rem 0; border-left: 4px solid #e74c3c; }
         .sucesso { background: #d5f4e6; color: #0b5345; padding: 1.5rem; border-radius: 8px; margin: 1rem 0; border-left: 4px solid #27ae60; }
 
-        /* Footer */
         footer {
             margin-top: 3rem;
             padding: 1.5rem;
@@ -282,148 +279,111 @@
         /* Dark Mode */
         body.dark-mode { background: #1a1a1a; color: #ecf0f1; }
         body.dark-mode header { background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); }
-        body.dark-mode .tab-content, body.dark-mode .chart-box, body.dark-mode table, body.dark-mode .resumo-item { background: #2d2d2d; }
+        body.dark-mode .tab-content, body.dark-mode .chart-box, body.dark-mode table, body.dark-mode .servicos-lista { background: #2d2d2d; }
         body.dark-mode h2, body.dark-mode h3, body.dark-mode h4 { color: #ecf0f1; }
-        body.dark-mode th { background: #1a1a1a; }
+        body.dark-mode th { background: #1a1a1a; color: white; }
         body.dark-mode td { color: #ecf0f1; border-bottom-color: #404040; background: #2d2d2d; }
         body.dark-mode tbody tr:nth-child(odd) { background-color: #333333; }
         body.dark-mode tbody tr:hover { background: #3a3a3a; }
-        body.dark-mode .valor-moeda, body.dark-mode .valor-grande { color: #ecf0f1; }
+        body.dark-mode .valor-moeda { color: #ecf0f1; }
         body.dark-mode footer { background: #2d2d2d; color: #95a5a6; }
         body.dark-mode .year-selector-container label { color: #ecf0f1; }
         body.dark-mode #seletor-ano { background: #2d2d2d; color: #ecf0f1; border-color: #3498db; }
+        body.dark-mode .servicos-lista h4 { color: #3498db; }
+        body.dark-mode .servicos-lista li { background: #333333; border-left-color: #3498db; color: #ecf0f1; }
+        body.dark-mode .servicos-lista li .servico-valor { color: #27ae60; }
+        body.dark-mode .total-item { background: rgba(255,255,255,0.1); color: #ecf0f1; }
+        body.dark-mode .resumo-totais { background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); }
 
-        /* Media Queries */
+        /* Mobile (até 480px) */
         @media (max-width: 480px) {
             html { font-size: 12px; }
             body { padding: 0.75rem; }
-            header { padding: 1.2rem 0.8rem; margin-bottom: 0.8rem; }
-            header h1 { font-size: 1.6rem; margin-bottom: 0.3rem; }
-            header p { font-size: 0.9rem; margin-bottom: 0.3rem; }
-            .dark-mode-toggle { width: 36px; height: 36px; top: 0.8rem; right: 0.8rem; font-size: 1rem; }
-            .year-selector-container { flex-direction: column; gap: 0.4rem; margin-bottom: 1rem; }
-            .year-selector-container label { font-size: 0.9rem; }
-            #seletor-ano { padding: 0.5rem 0.8rem; font-size: 0.9rem; width: 100%; max-width: 180px; }
-            .data-atualizacao { font-size: 0.8rem; margin-top: 0.3rem; }
-            .fonte-dados { font-size: 0.75rem; margin-top: 0.2rem; }
-            .tabs { gap: 0.4rem; margin-bottom: 0.8rem; }
-            .tab-btn { padding: 0.5rem 0.7rem; font-size: 0.7rem; min-width: 75px; flex: 1; }
-            .tab-content { padding: 1rem; }
-            h2 { font-size: 1.2rem; margin-bottom: 0.8rem; }
-            .resumo-grid { grid-template-columns: 1fr; gap: 0.8rem; margin-bottom: 1rem; }
+            header { padding: 1rem 0.8rem; margin-bottom: 0.8rem; }
+            header h1 { font-size: 1.4rem; margin-bottom: 0.2rem; }
+            header p { font-size: 0.85rem; margin-bottom: 0.2rem; }
+            .dark-mode-toggle { width: 36px; height: 36px; top: 0.8rem; right: 0.8rem; font-size: 0.9rem; }
+            .data-atualizacao { font-size: 0.75rem; margin-top: 0.2rem; }
+            .fonte-dados { font-size: 0.7rem; margin-top: 0.1rem; }
+            .year-selector-container { gap: 0.4rem; margin-bottom: 0.8rem; }
+            .year-selector-container label { font-size: 0.8rem; }
+            #seletor-ano { padding: 0.4rem 0.6rem; font-size: 0.8rem; width: 100%; max-width: 150px; }
+            .tabs { gap: 0.3rem; margin-bottom: 0.8rem; }
+            .tab-btn { padding: 0.4rem 0.5rem; font-size: 0.6rem; min-width: 50px; flex: 1; }
+            .tab-content { padding: 0.8rem; }
+            h2 { font-size: 1rem; margin-bottom: 0.6rem; }
+            h3 { font-size: 0.95rem; margin: 1rem 0 0.6rem 0; }
+            .resumo-grid { grid-template-columns: 1fr; gap: 0.6rem; margin-bottom: 0.8rem; }
             .resumo-card { padding: 0.8rem; border-radius: 6px; }
-            .resumo-card h3 { font-size: 0.7rem; margin-bottom: 0.4rem; }
-            .resumo-card .valor { font-size: 1.2rem; }
-            .charts-container { grid-template-columns: 1fr; gap: 0.8rem; margin-top: 1rem; }
-            .chart-box { height: 220px; padding: 0.8rem; border-radius: 6px; border-top-width: 3px; }
-            .chart-box h3 { font-size: 0.9rem; margin-bottom: 0.6rem; }
-            table { min-width: 280px; font-size: 0.75rem; }
+            .resumo-card h3 { font-size: 0.65rem; margin-bottom: 0.3rem; }
+            .resumo-card .valor { font-size: 1rem; }
+            .charts-container { grid-template-columns: 1fr; gap: 0.6rem; margin-top: 0.8rem; }
+            .chart-box { height: 200px; padding: 0.6rem; border-radius: 6px; border-top-width: 3px; }
+            .chart-box h3 { font-size: 0.8rem; margin-bottom: 0.4rem; }
+            table { min-width: 280px; font-size: 0.7rem; }
             thead { background: #2c3e50; }
-            th, td { padding: 0.5rem 0.6rem; }
-            .comparativo-header { padding: 1rem; margin-bottom: 1rem; }
-            .comparativo-resumo { grid-template-columns: 1fr; gap: 0.8rem; }
-            .resumo-item { padding: 0.8rem; border-left-width: 3px; }
-            .resumo-item h4 { font-size: 0.7rem; margin-bottom: 0.4rem; }
-            .valor-grande { font-size: 1.2rem; }
-            .table-responsive-wrapper { margin: 0.8rem 0; border-radius: 6px; }
-            footer { padding: 0.8rem; font-size: 0.7rem; margin-top: 1rem; }
+            th { padding: 0.4rem 0.5rem; font-size: 0.65rem; }
+            td { padding: 0.4rem 0.5rem; font-size: 0.7rem; }
+            .table-responsive-wrapper { margin: 0.6rem 0; border-radius: 6px; }
+            .servicos-lista { padding: 0.8rem; margin-bottom: 0.8rem; }
+            .servicos-lista h4 { font-size: 0.9rem; margin-bottom: 0.6rem; }
+            .servicos-lista li { padding: 0.6rem; font-size: 0.75rem; }
+            .resumo-totais { gap: 0.6rem; padding: 0.8rem; margin-top: 0.8rem; }
+            .total-item { padding: 0.6rem; }
+            .total-item h4 { font-size: 0.7rem; margin-bottom: 0.5rem; }
+            .total-item .valor { font-size: 1rem; }
+            footer { padding: 0.6rem; font-size: 0.65rem; margin-top: 0.8rem; }
         }
 
-        @media (min-width: 481px) and (max-width: 600px) {
-            html { font-size: 13px; }
+        /* Tablet (481px - 800px) */
+        @media (min-width: 481px) and (max-width: 800px) {
+            html { font-size: 14px; }
             body { padding: 1rem; }
             header { padding: 1.3rem; margin-bottom: 1.2rem; }
             header h1 { font-size: 1.8rem; }
-            header p { font-size: 1rem; }
+            header p { font-size: 0.95rem; }
             .dark-mode-toggle { width: 38px; height: 38px; }
-            .year-selector-container { gap: 0.8rem; margin-bottom: 1.2rem; }
-            #seletor-ano { padding: 0.5rem 1rem; font-size: 0.95rem; }
-            .tabs { gap: 0.5rem; margin-bottom: 1.2rem; }
-            .tab-btn { padding: 0.65rem 1rem; font-size: 0.8rem; min-width: 100px; }
-            .tab-content { padding: 1.3rem; }
-            h2 { font-size: 1.5rem; margin-bottom: 1.2rem; }
-            .resumo-grid { grid-template-columns: repeat(3, 1fr); gap: 0.9rem; margin-bottom: 1.2rem; }
+            .year-selector-container { gap: 0.6rem; margin-bottom: 1.2rem; }
+            #seletor-ano { padding: 0.5rem 0.9rem; font-size: 0.9rem; }
+            .tabs { gap: 0.5rem; margin-bottom: 1.2rem; flex-wrap: wrap; }
+            .tab-btn { padding: 0.6rem 1rem; font-size: 0.75rem; min-width: 80px; }
+            .tab-content { padding: 1.2rem; }
+            h2 { font-size: 1.4rem; margin-bottom: 1rem; }
+            h3 { font-size: 1.1rem; margin: 1.2rem 0 0.8rem 0; }
+            .resumo-grid { grid-template-columns: repeat(2, 1fr); gap: 0.8rem; margin-bottom: 1rem; }
             .resumo-card { padding: 1rem; }
-            .resumo-card h3 { font-size: 0.8rem; margin-bottom: 0.6rem; }
-            .resumo-card .valor { font-size: 1.3rem; }
-            .charts-container { grid-template-columns: 1fr; gap: 0.9rem; margin-top: 1.2rem; }
-            .chart-box { height: 280px; padding: 0.9rem; }
-            .chart-box h3 { font-size: 0.95rem; margin-bottom: 0.8rem; }
-            table { min-width: 380px; font-size: 0.8rem; }
-            th, td { padding: 0.6rem 0.8rem; }
-            .comparativo-header { padding: 1.3rem; margin-bottom: 1.2rem; }
-            .comparativo-resumo { grid-template-columns: 1fr; gap: 0.9rem; }
-            .resumo-item { padding: 1rem; }
-            .resumo-item h4 { font-size: 0.75rem; margin-bottom: 0.5rem; }
-            .valor-grande { font-size: 1.3rem; }
+            .resumo-card h3 { font-size: 0.8rem; margin-bottom: 0.5rem; }
+            .resumo-card .valor { font-size: 1.2rem; }
+            .charts-container { grid-template-columns: 1fr; gap: 0.8rem; margin-top: 1rem; }
+            .chart-box { height: 260px; padding: 0.9rem; }
+            .chart-box h3 { font-size: 0.9rem; margin-bottom: 0.6rem; }
+            table { min-width: 400px; font-size: 0.85rem; }
+            th { padding: 0.7rem 0.8rem; font-size: 0.8rem; }
+            td { padding: 0.6rem 0.8rem; font-size: 0.8rem; }
+            .servicos-lista { padding: 1rem; margin-bottom: 1rem; }
+            .servicos-lista h4 { font-size: 1rem; margin-bottom: 0.8rem; }
+            .servicos-lista li { padding: 0.7rem; font-size: 0.8rem; }
+            .resumo-totais { gap: 1rem; padding: 1rem; margin-top: 1rem; }
+            .total-item { padding: 0.8rem; }
+            .total-item h4 { font-size: 0.75rem; margin-bottom: 0.6rem; }
+            .total-item .valor { font-size: 1.2rem; }
+            footer { padding: 0.9rem; font-size: 0.8rem; margin-top: 1rem; }
         }
 
-        @media (min-width: 601px) and (max-width: 800px) {
-            html { font-size: 15px; }
-            body { padding: 1.2rem; }
-            header { padding: 1.5rem; margin-bottom: 1.5rem; }
-            header h1 { font-size: 2.2rem; }
-            .year-selector-container { margin-bottom: 1.5rem; }
-            .tabs { gap: 0.7rem; margin-bottom: 1.5rem; }
-            .tab-btn { padding: 0.7rem 1.2rem; font-size: 0.9rem; }
-            .tab-content { padding: 1.5rem; }
-            h2 { font-size: 1.6rem; margin-bottom: 1.5rem; }
-            .resumo-grid { grid-template-columns: repeat(3, 1fr); gap: 1.2rem; margin-bottom: 1.5rem; }
-            .resumo-card { padding: 1.2rem; }
-            .resumo-card h3 { font-size: 0.85rem; margin-bottom: 0.7rem; }
-            .resumo-card .valor { font-size: 1.4rem; }
-            .charts-container { grid-template-columns: repeat(2, 1fr); gap: 1.2rem; margin-top: 1.5rem; }
-            .chart-box { height: 340px; padding: 1.2rem; }
-            .chart-box h3 { font-size: 1rem; margin-bottom: 1rem; }
-            table { min-width: auto; font-size: 0.9rem; }
-            th, td { padding: 0.7rem 0.9rem; }
-            .comparativo-header { padding: 1.5rem; margin-bottom: 1.5rem; }
-            .comparativo-resumo { grid-template-columns: repeat(2, 1fr); gap: 1.2rem; }
-            .resumo-item { padding: 1.2rem; }
-            .resumo-item h4 { font-size: 0.8rem; margin-bottom: 0.6rem; }
-            .valor-grande { font-size: 1.4rem; }
-        }
-
-        @media (min-width: 801px) and (max-width: 1024px) {
-            html { font-size: 16px; }
-            body { padding: 1.5rem; }
-            header { padding: 1.8rem; margin-bottom: 1.8rem; }
-            header h1 { font-size: 2.4rem; }
-            header p { font-size: 1.15rem; }
-            .year-selector-container { margin-bottom: 1.8rem; }
-            .tabs { gap: 0.8rem; margin-bottom: 1.8rem; }
-            .tab-btn { padding: 0.8rem 1.3rem; font-size: 0.95rem; }
-            .tab-content { padding: 1.8rem; }
-            h2 { font-size: 1.7rem; margin-bottom: 1.8rem; }
-            .resumo-grid { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 1.8rem; }
-            .resumo-card { padding: 1.3rem; }
-            .resumo-card h3 { font-size: 0.9rem; margin-bottom: 0.8rem; }
-            .resumo-card .valor { font-size: 1.5rem; }
-            .charts-container { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 1.8rem; }
-            .chart-box { height: 360px; padding: 1.3rem; }
-            .chart-box h3 { font-size: 1.05rem; margin-bottom: 1rem; }
-            table { min-width: auto; font-size: 0.95rem; }
-            th, td { padding: 0.8rem 1rem; }
-            .comparativo-header { padding: 1.8rem; margin-bottom: 1.8rem; }
-            .comparativo-resumo { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
-            .resumo-item { padding: 1.3rem; }
-            .resumo-item h4 { font-size: 0.85rem; margin-bottom: 0.7rem; }
-            .valor-grande { font-size: 1.5rem; }
-        }
-
-        @media (min-width: 1025px) {
+        /* Desktop (801px+) */
+        @media (min-width: 801px) {
             html { font-size: 16px; }
             body { padding: 1.5rem; }
             header { padding: 2rem; margin-bottom: 2rem; }
             header h1 { font-size: 2.5rem; }
-            header p { font-size: 1.2rem; }
-            .dark-mode-toggle { width: 40px; height: 40px; }
+            header p { font-size: 1.1rem; }
             .year-selector-container { margin-bottom: 2rem; }
-            .tabs { flex-wrap: nowrap; gap: 0.8rem; margin-bottom: 2rem; }
-            .tab-btn { flex: 1; padding: 0.75rem 1.5rem; font-size: 0.9rem; }
+            .tabs { gap: 0.8rem; margin-bottom: 2rem; flex-wrap: nowrap; }
+            .tab-btn { padding: 0.75rem 1.5rem; font-size: 0.9rem; flex: 1; min-width: auto; }
             .tab-content { padding: 2rem; }
-            h2 { font-size: 1.8rem; margin-bottom: 2rem; }
-            .resumo-grid { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 2rem; }
+            h2 { font-size: 1.8rem; margin-bottom: 1.5rem; }
+            h3 { font-size: 1.3rem; margin: 1.5rem 0 1rem 0; }
+            .resumo-grid { grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-bottom: 2rem; }
             .resumo-card { padding: 1.5rem; }
             .resumo-card h3 { font-size: 0.9rem; margin-bottom: 0.8rem; }
             .resumo-card .valor { font-size: 1.6rem; }
@@ -431,13 +391,16 @@
             .chart-box { height: 400px; padding: 1.5rem; }
             .chart-box h3 { font-size: 1.1rem; margin-bottom: 1rem; }
             table { font-size: 0.9rem; }
-            th, td { padding: 1rem; }
-            .comparativo-header { padding: 2rem; margin-bottom: 2rem; }
-            .comparativo-resumo { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
-            .resumo-item { padding: 1.5rem; }
-            .resumo-item h4 { font-size: 0.8rem; margin-bottom: 0.8rem; }
-            .valor-grande { font-size: 1.5rem; }
-            footer { padding: 1.5rem; font-size: 0.9rem; }
+            th { padding: 1rem; font-size: 0.9rem; }
+            td { padding: 1rem; font-size: 0.9rem; }
+            .servicos-lista { padding: 1.5rem; margin-bottom: 1.5rem; }
+            .servicos-lista h4 { font-size: 1.1rem; margin-bottom: 1rem; }
+            .servicos-lista li { padding: 0.8rem; font-size: 0.9rem; }
+            .resumo-totais { gap: 1.5rem; padding: 1.5rem; margin-top: 2rem; }
+            .total-item { padding: 1rem; }
+            .total-item h4 { font-size: 0.85rem; margin-bottom: 0.8rem; }
+            .total-item .valor { font-size: 1.5rem; }
+            footer { padding: 1.5rem; font-size: 0.9rem; margin-top: 2rem; }
         }
     </style>
 </head>
@@ -454,13 +417,14 @@
                 </select>
             </div>
             <p class="data-atualizacao" id="data-atualizacao">Carregando dados...</p>
-            <p class="fonte-dados" id="fonte-dados"></p>
+            <p class="fonte-dados" id="fonte-dados">Fonte: GitHub Pages</p>
         </header>
 
         <div class="tabs">
             <button class="tab-btn active" onclick="abrirAba(event, 'resumo')">Resumo</button>
-            <button class="tab-btn" onclick="abrirAba(event, 'tabela-completa')">Tabela Completa</button>
-            <button class="tab-btn" onclick="abrirAba(event, 'comparativo')">Comparativo</button>
+            <button class="tab-btn" onclick="abrirAba(event, 'novos-servicos')">Novos Serviços</button>
+            <button class="tab-btn" onclick="abrirAba(event, 'sesaud-detalhado')">SESAUD Detalhado</button>
+            <button class="tab-btn" onclick="abrirAba(event, 'fuabc-detalhado')">FUABC Detalhado</button>
         </div>
 
         <div id="resumo" class="tab-content active">
@@ -468,14 +432,19 @@
             <div id="resumo-conteudo"></div>
         </div>
 
-        <div id="tabela-completa" class="tab-content">
-            <h2>Detalhamento por Categoria</h2>
-            <div id="tabela-completa-conteudo"></div>
+        <div id="novos-servicos" class="tab-content">
+            <h2>Novos Serviços</h2>
+            <div id="novos-servicos-conteudo"></div>
         </div>
 
-        <div id="comparativo" class="tab-content">
-            <h2>Análise Comparativa</h2>
-            <div id="comparativo-conteudo"></div>
+        <div id="sesaud-detalhado" class="tab-content">
+            <h2>SESAUD - Detalhado</h2>
+            <div id="sesaud-detalhado-conteudo"></div>
+        </div>
+
+        <div id="fuabc-detalhado" class="tab-content">
+            <h2>FUABC - Detalhado</h2>
+            <div id="fuabc-detalhado-conteudo"></div>
         </div>
     </div>
 
@@ -486,245 +455,291 @@
     <script>
         var charts = {};
         var allData = {};
-        var fonteFonte = [];
-        var updateInterval; // Variável para armazenar o ID do setInterval
 
         function formatarMoeda(valor) {
-            if (typeof valor !== 'number') return 'R$ 0,00'; // Garante que o valor é um número
             return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(valor);
         }
 
         function abrirAba(event, nome) {
-            document.querySelectorAll('.tab-content').forEach(function(el) { el.classList.remove('active'); });
-            document.querySelectorAll('.tab-btn').forEach(function(el) { el.classList.remove('active'); });
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
             document.getElementById(nome).classList.add('active');
             event.currentTarget.classList.add('active');
-            // Redesenha gráficos se a aba comparativo for aberta
-            if (nome === 'comparativo' && allData[document.getElementById('seletor-ano').value]) {
-                preencherComparativo(allData[document.getElementById('seletor-ano').value]);
-            }
         }
 
         function preencherResumo(dados) {
-            if (!dados || !dados.totais) {
-                document.getElementById('resumo-conteudo').innerHTML = '<div class="erro">Dados de resumo não disponíveis para este ano.</div>';
+            if (!dados || !dados.linhas) {
+                document.getElementById('resumo-conteudo').innerHTML = '<div class="erro">Dados não disponíveis</div>';
                 return;
             }
 
             var html = '<div class="resumo-grid">';
+            
+            if (dados.totais) {
+                html += '<div class="resumo-card"><h3>Total FUABC</h3><div class="valor">' + formatarMoeda(dados.totais.fuabc_mensal || 0) + '</div></div>';
+                html += '<div class="resumo-card"><h3>Total SESAUD</h3><div class="valor">' + formatarMoeda(dados.totais.sesaud_mensal || 0) + '</div></div>';
+                html += '<div class="resumo-card"><h3>Total Geral</h3><div class="valor">' + formatarMoeda(dados.totais.geral || 0) + '</div></div>';
+            }
 
-            // Cards de Totais
-            html += '<div class="resumo-card fuabc"><h3>FUABC Mensal</h3><div class="valor">' + formatarMoeda(dados.totais.fuabc_mensal) + '</div></div>';
-            html += '<div class="resumo-card sesaud"><h3>SESAUD Mensal</h3><div class="valor">' + formatarMoeda(dados.totais.sesaud_mensal) + '</div></div>';
-            html += '<div class="resumo-card geral"><h3>Total Geral Mensal</h3><div class="valor">' + formatarMoeda(dados.totais.geral) + '</div></div>';
-
-            // Cards específicos para 2026 (Projeção)
-            if (dados.tipo === 'projecao') {
-                html += '<div class="resumo-card orcamento"><h3>Orçamento Anual</h3><div class="valor">' + formatarMoeda(dados.orcamento_anual) + '</div></div>';
-                html += '<div class="resumo-card orcamento"><h3>Orçamento Mensal</h3><div class="valor">' + formatarMoeda(dados.orcamento_mensal) + '</div></div>';
-                
-                var deficitClass = (dados.deficit < 0) ? 'deficit' : 'superavit';
-                html += '<div class="resumo-card ' + deficitClass + '"><h3>Déficit/Superávit Mensal</h3><div class="valor">' + formatarMoeda(dados.deficit) + '</div></div>';
+            if (dados.orcamento_anual && dados.orcamento_anual > 0) {
+                html += '<div class="resumo-card"><h3>Orçamento Mensal</h3><div class="valor">' + formatarMoeda(dados.orcamento_mensal) + '</div></div>';
             }
 
             html += '</div>';
-            document.getElementById('resumo-conteudo').innerHTML = html;
-        }
 
-        function preencherTabelaCompleta(dados) {
-            if (!dados || !dados.linhas) {
-                document.getElementById('tabela-completa-conteudo').innerHTML = '<div class="erro">Dados de detalhamento não disponíveis para este ano.</div>';
-                return;
-            }
-
-            var html = '<div class="table-responsive-wrapper"><table><thead><tr><th>Categoria</th><th class="valor-moeda">FUABC Mensal</th><th class="valor-moeda">SESAUD Mensal</th><th class="valor-moeda">Total Geral</th></tr></thead><tbody>';
-
-            dados.linhas.forEach(function(linha) {
-                html += '<tr><td><strong>' + (linha.categoria || 'N/A') + '</strong></td>';
-                html += '<td class="valor-moeda">' + formatarMoeda(linha.fuabc_mensal) + '</td>';
-                html += '<td class="valor-moeda">' + formatarMoeda(linha.sesaud_mensal) + '</td>';
-                html += '<td class="valor-moeda">' + formatarMoeda(linha.geral) + '</td></tr>';
+            html += '<h3>Tabela Comparativa por Categoria</h3>';
+            html += '<div class="table-responsive-wrapper"><table><thead><tr><th>Categoria</th><th class="valor-moeda">FUABC Mensal</th><th class="valor-moeda">SESAUD Mensal</th><th class="valor-moeda">Total</th></tr></thead><tbody>';
+            
+            dados.linhas.forEach(linha => {
+                html += '<tr>';
+                html += '<td>' + (linha.categoria || 'N/A') + '</td>';
+                html += '<td class="valor-moeda">' + formatarMoeda(linha.fuabc_mensal || 0) + '</td>';
+                html += '<td class="valor-moeda">' + formatarMoeda(linha.sesaud_mensal || 0) + '</td>';
+                html += '<td class="valor-moeda">' + formatarMoeda(linha.geral || 0) + '</td>';
+                html += '</tr>';
             });
 
-            // Linha de totais
             if (dados.totais) {
-                html += '<tr style="font-weight: bold; background-color: #e0e0e0;"><td>TOTAL DE DESPESAS</td>';
-                html += '<td class="valor-moeda">' + formatarMoeda(dados.totais.fuabc_mensal) + '</td>';
-                html += '<td class="valor-moeda">' + formatarMoeda(dados.totais.sesaud_mensal) + '</td>';
-                html += '<td class="valor-moeda">' + formatarMoeda(dados.totais.geral) + '</td></tr>';
+                html += '<tr style="background: #ecf0f1; font-weight: bold;">';
+                html += '<td>TOTAL</td>';
+                html += '<td class="valor-moeda">' + formatarMoeda(dados.totais.fuabc_mensal || 0) + '</td>';
+                html += '<td class="valor-moeda">' + formatarMoeda(dados.totais.sesaud_mensal || 0) + '</td>';
+                html += '<td class="valor-moeda">' + formatarMoeda(dados.totais.geral || 0) + '</td>';
+                html += '</tr>';
+            }
+
+            if (dados.orcamento_anual && dados.orcamento_anual > 0) {
+                html += '<tr style="background: #e8f4f8;">';
+                html += '<td><strong>Orçamento Mensal</strong></td>';
+                html += '<td class="valor-moeda" colspan="3"><strong>' + formatarMoeda(dados.orcamento_mensal) + '</strong></td>';
+                html += '</tr>';
+                
+                var deficit = dados.orcamento_mensal - (dados.totais.geral || 0);
+                var corDeficit = deficit >= 0 ? '#27ae60' : '#e74c3c';
+                html += '<tr style="background: ' + corDeficit + '20;">';
+                html += '<td><strong>Déficit/Superávit</strong></td>';
+                html += '<td class="valor-moeda" colspan="3"><strong style="color: ' + corDeficit + ';">' + formatarMoeda(deficit) + '</strong></td>';
+                html += '</tr>';
             }
 
             html += '</tbody></table></div>';
-            document.getElementById('tabela-completa-conteudo').innerHTML = html;
+            document.getElementById('resumo-conteudo').innerHTML = html;
         }
 
-        function preencherComparativo(dados) {
-            if (!dados || !dados.linhas) {
-                document.getElementById('comparativo-conteudo').innerHTML = '<div class="erro">Dados de comparativo não disponíveis para este ano.</div>';
+        function preencherNovosServicos(dados) {
+            if (!dados || !dados.novos_servicos) {
+                document.getElementById('novos-servicos-conteudo').innerHTML = '<div class="erro">Dados de novos serviços não disponíveis</div>';
                 return;
             }
 
-            var categorias = dados.linhas;
-            var totalFuabc = dados.totais.fuabc_mensal;
-            var totalSesaud = dados.totais.sesaud_mensal;
-            var totalGeral = dados.totais.geral;
+            var html = '';
 
-            var html = '<div class="comparativo-header"><div class="comparativo-resumo">';
-            html += '<div class="resumo-item"><h4>Total FUABC</h4><p class="valor-grande">' + formatarMoeda(totalFuabc) + '</p></div>';
-            html += '<div class="resumo-item"><h4>Total SESAUD</h4><p class="valor-grande">' + formatarMoeda(totalSesaud) + '</p></div>';
-            html += '<div class="resumo-item"><h4>Total Geral</h4><p class="valor-grande">' + formatarMoeda(totalGeral) + '</p></div>';
-            html += '</div></div>';
+            dados.novos_servicos.forEach(grupo => {
+                html += '<div class="servicos-lista">';
+                html += '<h4>' + grupo.periodo + '</h4>';
+                html += '<ul>';
+                
+                grupo.servicos.forEach(servico => {
+                    html += '<li>';
+                    html += '<span class="servico-nome">' + servico.nome + '</span>';
+                    html += '<span class="servico-valor">' + formatarMoeda(servico.valor) + '</span>';
+                    html += '</li>';
+                });
 
-            html += '<div class="charts-container">';
-            html += '<div class="chart-box"><h3>Comparação FUABC vs SESAUD</h3><canvas id="chartComparacao"></canvas></div>';
-            html += '<div class="chart-box"><h3>Distribuição FUABC</h3><canvas id="chartFuabc"></canvas></div>';
-            html += '<div class="chart-box"><h3>Distribuição SESAUD</h3><canvas id="chartSesaud"></canvas></div>';
-            html += '</div>';
+                html += '</ul>';
+                html += '</div>';
+            });
 
-            document.getElementById('comparativo-conteudo').innerHTML = html;
-
-            // Destruir gráficos existentes antes de criar novos
-            for (var key in charts) {
-                if (charts[key]) {
-                    charts[key].destroy();
-                }
+            if (dados.novos_servicos_totais) {
+                html += '<div class="resumo-totais">';
+                html += '<div class="total-item"><h4>Total Novos Mensal</h4><div class="valor">' + formatarMoeda(dados.novos_servicos_totais.mensal) + '</div></div>';
+                html += '<div class="total-item"><h4>Adequação Pronto Cardio</h4><div class="valor">' + formatarMoeda(dados.novos_servicos_totais.adequacao_pronto_cardio) + '</div></div>';
+                html += '<div class="total-item"><h4>Total Geral</h4><div class="valor">' + formatarMoeda(dados.novos_servicos_totais.total_geral) + '</div></div>';
+                html += '</div>';
             }
-            charts = {}; // Limpa o objeto de gráficos
 
-            setTimeout(function() {
-                try {
-                    var ctx1 = document.getElementById('chartComparacao').getContext('2d');
-                    charts.comp = new Chart(ctx1, {
-                        type: 'bar',
-                        data: {
-                            labels: categorias.map(function(c) { return (c.categoria || 'N/A').substring(0, 20); }),
-                            datasets: [
-                                { label: 'FUABC', data: categorias.map(function(c) { return c.fuabc_mensal || 0; }), backgroundColor: '#3498db', borderColor: '#2980b9', borderWidth: 1 },
-                                { label: 'SESAUD', data: categorias.map(function(c) { return c.sesaud_mensal || 0; }), backgroundColor: '#27ae60', borderColor: '#229954', borderWidth: 1 }
-                            ]
-                        },
-                        options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y', plugins: { legend: { position: 'top' } } }
-                    });
+            document.getElementById('novos-servicos-conteudo').innerHTML = html;
+        }
 
-                    var ctx2 = document.getElementById('chartFuabc').getContext('2d');
-                    charts.fuabc = new Chart(ctx2, {
-                        type: 'doughnut',
-                        data: {
-                            labels: categorias.map(function(c) { return (c.categoria || 'N/A').substring(0, 12); }),
-                            datasets: [{ data: categorias.map(function(c) { return c.fuabc_mensal || 0; }), backgroundColor: ['#3498db', '#2980b9', '#1abc9c', '#16a085', '#e74c3c', '#c0392b', '#f39c12', '#d68910', '#9b59b6', '#8e44ad'] }]
-                        },
-                        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
-                    });
+        function preencherSESAUDDetalhado(dados) {
+            if (!dados || !dados.recursos_humanos) {
+                document.getElementById('sesaud-detalhado-conteudo').innerHTML = '<div class="erro">Dados de SESAUD não disponíveis</div>';
+                return;
+            }
 
-                    var ctx3 = document.getElementById('chartSesaud').getContext('2d');
-                    charts.sesaud = new Chart(ctx3, {
-                        type: 'doughnut',
-                        data: {
-                            labels: categorias.map(function(c) { return (c.categoria || 'N/A').substring(0, 12); }),
-                            datasets: [{ data: categorias.map(function(c) { return c.sesaud_mensal || 0; }), backgroundColor: ['#27ae60', '#229954', '#1abc9c', '#16a085', '#3498db', '#2980b9', '#f39c12', '#d68910', '#9b59b6', '#8e44ad'] }]
-                        },
-                        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
-                    });
-                } catch (e) {
-                    console.error('Erro ao criar gráficos:', e);
-                }
-            }, 100);
+            var html = '<div class="table-responsive-wrapper"><table><thead><tr><th>Categoria</th><th class="valor-moeda">Valor</th></tr></thead><tbody>';
+            
+            var items = [
+                { label: 'RECURSOS HUMANOS', valor: dados.recursos_humanos },
+                { label: 'INDENIZAÇÕES TRABALHISTAS', valor: dados.indenizacoes_trabalhistas },
+                { label: 'VENCIMENTO PREFEITURA - FOLHA', valor: dados.vencimento_prefeitura },
+                { label: 'PROGRAMA - MAIS MÉDICOS', valor: dados.programa_mais_medicos },
+                { label: 'TARIFAS BANCÁRIAS', valor: dados.tarifas_bancarias },
+                { label: 'GRATIFICAÇÃO SUS', valor: dados.gratificacao_sus },
+                { label: 'PENSÕES - GRATIF. SUS', valor: dados.pensoes_gratif_sus },
+                { label: 'INSS PREF', valor: dados.inss_pref },
+                { label: 'FGTS PREF', valor: dados.fgts_pref },
+                { label: 'NOTRE DAME INTERMEDICA', valor: dados.notre_dame_intermedica },
+                { label: 'PROCESSOS TRABALHISTAS', valor: dados.processos_trabalhistas },
+                { label: 'MATERIAIS DE CONSUMO', valor: dados.materiais_consumo },
+                { label: 'SERVIÇOS DE TERCEIROS', valor: dados.servicos_terceiros },
+                { label: 'OUTROS GASTOS', valor: dados.outros_gastos }
+            ];
+
+            items.forEach(item => {
+                html += '<tr>';
+                html += '<td>' + item.label + '</td>';
+                html += '<td class="valor-moeda">' + formatarMoeda(item.valor || 0) + '</td>';
+                html += '</tr>';
+            });
+
+            html += '<tr style="background: #ecf0f1; font-weight: bold;">';
+            html += '<td>TOTAL</td>';
+            html += '<td class="valor-moeda">' + formatarMoeda(dados.total || 0) + '</td>';
+            html += '</tr>';
+
+            html += '</tbody></table></div>';
+            document.getElementById('sesaud-detalhado-conteudo').innerHTML = html;
+        }
+
+        function preencherFUABCDetalhado(dados2025, dados2026) {
+            if (!dados2025) {
+                document.getElementById('fuabc-detalhado-conteudo').innerHTML = '<div class="erro">Dados de FUABC não disponíveis</div>';
+                return;
+            }
+
+            var html = '<div class="table-responsive-wrapper"><table><thead><tr><th>Categoria</th><th class="valor-moeda">2025</th><th class="valor-moeda">2026</th><th class="valor-moeda">Variação</th></tr></thead><tbody>';
+            
+            var items = [
+                { label: 'RECURSOS HUMANOS', valor2025: dados2025.recursos_humanos, valor2026: dados2026 ? dados2026.recursos_humanos : 0 },
+                { label: 'PROCESSOS TRABALHISTAS', valor2025: dados2025.processos_trabalhistas, valor2026: dados2026 ? dados2026.processos_trabalhistas : 0 },
+                { label: 'MATERIAIS DE CONSUMO', valor2025: dados2025.materiais_consumo, valor2026: dados2026 ? dados2026.materiais_consumo : 0 },
+                { label: 'SERVIÇOS DE TERCEIROS', valor2025: dados2025.servicos_terceiros, valor2026: dados2026 ? dados2026.servicos_terceiros : 0 },
+                { label: 'INVESTIMENTOS', valor2025: dados2025.investimentos, valor2026: dados2026 ? dados2026.investimentos : 0 },
+                { label: 'OUTROS GASTOS', valor2025: dados2025.outros_gastos, valor2026: dados2026 ? dados2026.outros_gastos : 0 }
+            ];
+
+            items.forEach(item => {
+                var variacao = (item.valor2026 || 0) - (item.valor2025 || 0);
+                var corVariacao = variacao >= 0 ? '#27ae60' : '#e74c3c';
+                
+                html += '<tr>';
+                html += '<td>' + item.label + '</td>';
+                html += '<td class="valor-moeda">' + formatarMoeda(item.valor2025 || 0) + '</td>';
+                html += '<td class="valor-moeda">' + formatarMoeda(item.valor2026 || 0) + '</td>';
+                html += '<td class="valor-moeda" style="color: ' + corVariacao + '; font-weight: bold;">' + formatarMoeda(variacao) + '</td>';
+                html += '</tr>';
+            });
+
+            html += '<tr style="background: #ecf0f1; font-weight: bold;">';
+            html += '<td>TOTAL</td>';
+            html += '<td class="valor-moeda">' + formatarMoeda(dados2025.total || 0) + '</td>';
+            html += '<td class="valor-moeda">' + formatarMoeda((dados2026 ? dados2026.total : 0) || 0) + '</td>';
+            var totalVariacao = ((dados2026 ? dados2026.total : 0) || 0) - (dados2025.total || 0);
+            html += '<td class="valor-moeda" style="color: ' + (totalVariacao >= 0 ? '#27ae60' : '#e74c3c') + ';">' + formatarMoeda(totalVariacao) + '</td>';
+            html += '</tr>';
+
+            html += '</tbody></table></div>';
+            document.getElementById('fuabc-detalhado-conteudo').innerHTML = html;
         }
 
         function mudarAno(ano) {
             console.log('Mudando para ano:', ano);
-            if (!ano || !allData.anos || !allData.anos[ano]) {
-                console.error('Dados não encontrados para o ano:', ano);
-                var msg = '<div class="erro">Dados não disponíveis para o ano ' + ano + '.</div>';
-                document.getElementById('resumo-conteudo').innerHTML = msg;
-                document.getElementById('tabela-completa-conteudo').innerHTML = msg;
-                document.getElementById('comparativo-conteudo').innerHTML = msg;
-                document.getElementById('data-atualizacao').textContent = 'Dados não disponíveis';
+            
+            if (!ano || !allData[ano]) {
+                document.getElementById('resumo-conteudo').innerHTML = '<div class="erro">Dados não disponíveis para o ano ' + ano + '</div>';
+                document.getElementById('novos-servicos-conteudo').innerHTML = '<div class="erro">Dados não disponíveis para o ano ' + ano + '</div>';
+                document.getElementById('sesaud-detalhado-conteudo').innerHTML = '<div class="erro">Dados não disponíveis para o ano ' + ano + '</div>';
+                document.getElementById('fuabc-detalhado-conteudo').innerHTML = '<div class="erro">Dados não disponíveis para o ano ' + ano + '</div>';
                 return;
             }
-            var dadosDoAno = allData.anos[ano];
-            document.getElementById('data-atualizacao').textContent = 'Atualizado em: ' + (allData.atualizado_em || 'N/A');
-            document.getElementById('fonte-dados').textContent = 'Fonte: ' + fonteFonte.join(' | ');
 
-            preencherResumo(dadosDoAno);
-            preencherTabelaCompleta(dadosDoAno);
-            // A aba comparativo só é preenchida quando ativada para evitar renderização desnecessária
-            if (document.getElementById('comparativo').classList.contains('active')) {
-                preencherComparativo(dadosDoAno);
+            var dados = allData[ano];
+            document.getElementById('data-atualizacao').textContent = 'Atualizado em: ' + (dados.atualizado_em || 'N/A');
+            
+            preencherResumo(dados);
+            
+            if (dados.novos_servicos) {
+                preencherNovosServicos(dados);
+            }
+
+            var sesaudDetalhado = window.sesaudDetalhado ? window.sesaudDetalhado[ano] : null;
+            if (sesaudDetalhado) {
+                preencherSESAUDDetalhado(sesaudDetalhado);
+            }
+
+            var fuabcDetalhado2025 = window.fuabcDetalhado ? window.fuabcDetalhado['2025'] : null;
+            var fuabcDetalhado2026 = window.fuabcDetalhado ? window.fuabcDetalhado['2026'] : null;
+            if (fuabcDetalhado2025) {
+                preencherFUABCDetalhado(fuabcDetalhado2025, fuabcDetalhado2026);
             }
         }
 
-        function carregarJSON(url) {
-            return new Promise(function(resolve, reject) {
-                var timestamp = Math.floor(Date.now() / (60 * 1000)); // Cache buster a cada 1 minuto
-                var urls = [
-                    'https://corsproxy.io/?' + url + '?bust=' + timestamp, // CORS Proxy
-                    url + '?bust=' + timestamp // Direto (fallback)
-                ];
+        function carregarJSON() {
+            console.log('Iniciando carregamento de dados...');
+            
+            var urlBase = 'https://raw.githubusercontent.com/rtoledomota/SESAUD-Orcamento/main/data.json';
+            var urls = [
+                'https://corsproxy.io/?' + urlBase,
+                urlBase
+            ];
 
-                function tentarProxima(index) {
-                    if (index >= urls.length) {
-                        reject(new Error('Nenhuma URL funcionou para ' + url));
-                        return;
-                    }
-
-                    console.log('Tentando carregar:', urls[index]);
-                    fetch(urls[index], { cache: 'no-store', headers: { 'Cache-Control': 'no-cache, no-store, must-revalidate' } })
-                        .then(function(response) {
-                            if (!response.ok) {
-                                throw new Error('HTTP ' + response.status + ' - ' + response.statusText);
-                            }
-                            return response.json();
-                        })
-                        .then(function(data) {
-                            console.log('✅ Sucesso com:', urls[index]);
-                            fonteFonte.push(urls[index].substring(0, 40) + '...');
-                            resolve(data);
-                        })
-                        .catch(function(error) {
-                            console.log('❌ Falha:', urls[index], error.message);
-                            tentarProxima(index + 1);
-                        });
+            function tentarProxima(index) {
+                if (index >= urls.length) {
+                    console.error('Nenhuma URL funcionou');
+                    document.getElementById('resumo-conteudo').innerHTML = '<div class="erro">Erro ao carregar dados. Verifique a URL do JSON.</div>';
+                    return;
                 }
 
-                tentarProxima(0);
-            });
-        }
+                console.log('Tentando carregar:', urls[index]);
+                fetch(urls[index], { cache: 'no-store', headers: { 'Cache-Control': 'no-cache, no-store, must-revalidate' } })
+                    .then(r => {
+                        if (!r.ok) throw new Error('HTTP ' + r.status);
+                        return r.json();
+                    })
+                    .then(dados => {
+                        console.log('✅ Sucesso com:', urls[index]);
+                        
+                        if (dados.anos) {
+                            allData = dados.anos;
+                        }
 
-        function iniciarCarregamentoDados() {
-            console.log('Iniciando carregamento de dados...');
-            var dataJsonUrl = 'https://raw.githubusercontent.com/rtoledomota/SESAUD-Orcamento/main/data.json';
+                        if (dados.sesaud_detalhado) {
+                            window.sesaudDetalhado = dados.sesaud_detalhado;
+                        }
 
-            carregarJSON(dataJsonUrl)
-                .then(function(data) {
-                    allData = data;
-                    var seletorAno = document.getElementById('seletor-ano');
-                    seletorAno.innerHTML = ''; // Limpa opções existentes
+                        if (dados.fuabc_detalhado) {
+                            window.fuabcDetalhado = dados.fuabc_detalhado;
+                        }
 
-                    var anosDisponiveis = Object.keys(allData.anos || {}).sort();
-                    if (anosDisponiveis.length === 0) {
-                        throw new Error('Nenhum ano disponível no JSON.');
-                    }
+                        if (Object.keys(allData).length === 0) {
+                            document.getElementById('resumo-conteudo').innerHTML = '<div class="erro">Nenhum ano encontrado nos dados.</div>';
+                            return;
+                        }
 
-                    anosDisponiveis.forEach(function(ano) {
-                        var option = document.createElement('option');
-                        option.value = ano;
-                        option.textContent = ano + ' - ' + (allData.anos[ano].descricao || '');
-                        seletorAno.appendChild(option);
+                        var seletor = document.getElementById('seletor-ano');
+                        seletor.innerHTML = '';
+                        var anos = Object.keys(allData).sort();
+                        
+                        anos.forEach(ano => {
+                            var opt = document.createElement('option');
+                            opt.value = ano;
+                            opt.textContent = ano + ' - ' + (allData[ano].descricao || '');
+                            seletor.appendChild(opt);
+                        });
+
+                        seletor.value = anos[0];
+                        document.getElementById('data-atualizacao').textContent = 'Atualizado em: ' + (dados.atualizado_em || 'N/A');
+                        
+                        mudarAno(anos[0]);
+                    })
+                    .catch(e => {
+                        console.log('❌ Falha:', urls[index], e.message);
+                        tentarProxima(index + 1);
                     });
+            }
 
-                    // Seleciona o ano ativo definido no JSON ou o primeiro disponível
-                    seletorAno.value = allData.ano_ativo || anosDisponiveis[0];
-                    mudarAno(seletorAno.value);
-                })
-                .catch(function(error) {
-                    console.error('Erro geral ao carregar dados:', error);
-                    var msg = '<div class="erro">Erro ao carregar dados: ' + error.message + '. Verifique o arquivo data.json e a conexão.</div>';
-                    document.getElementById('resumo-conteudo').innerHTML = msg;
-                    document.getElementById('tabela-completa-conteudo').innerHTML = msg;
-                    document.getElementById('comparativo-conteudo').innerHTML = msg;
-                    document.getElementById('data-atualizacao').textContent = 'Erro ao carregar dados';
-                });
+            tentarProxima(0);
         }
 
         function toggleDarkMode() {
@@ -732,20 +747,12 @@
             localStorage.setItem('dark-mode', document.body.classList.contains('dark-mode'));
         }
 
-        // Inicializa Dark Mode se estiver salvo
         if (localStorage.getItem('dark-mode') === 'true') {
             document.body.classList.add('dark-mode');
         }
 
-        // Carrega dados na inicialização
-        window.addEventListener('load', function() {
-            iniciarCarregamentoDados();
-            // Configura atualização automática a cada 1 minuto
-            if (updateInterval) {
-                clearInterval(updateInterval); // Limpa qualquer intervalo anterior
-            }
-            updateInterval = setInterval(iniciarCarregamentoDados, 60 * 1000); // 1 minuto
-        });
+        setInterval(carregarJSON, 60000);
+        window.addEventListener('load', carregarJSON);
     </script>
 </body>
 </html>
