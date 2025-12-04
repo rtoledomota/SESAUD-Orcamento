@@ -124,7 +124,6 @@
             border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.08);
             animation: fadeIn 0.3s ease-out;
-            transition: background 0.3s ease, color 0.3s ease;
         }
         .tab-content.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
@@ -167,6 +166,8 @@
         .resumo-card.geral { background: linear-gradient(135deg, #8e44ad 0%, #714091 100%); }
         .resumo-card.orcamento { background: linear-gradient(135deg, #f39c12 0%, #d68910 100%); }
         .resumo-card.deficit { background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); }
+        .resumo-card.superavit { background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%); }
+
 
         /* Charts */
         .charts-container {
@@ -185,7 +186,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            transition: box-shadow 0.3s ease, background 0.3s ease;
+            transition: box-shadow 0.3s ease;
             border-top: 4px solid #bdc3c7;
         }
         .chart-box:nth-child(1) { border-top-color: #3498db; }
@@ -207,7 +208,6 @@
             border-collapse: collapse;
             background: white;
             min-width: 600px;
-            transition: background 0.3s ease;
         }
         thead { background: #34495e; }
         th {
@@ -227,14 +227,41 @@
             color: #2c3e50;
             background: white;
             font-size: 0.9rem;
-            transition: background 0.3s ease, color 0.3s ease;
         }
         tbody tr:nth-child(odd) { background-color: #f8f9fa; }
         tbody tr:hover { background: #eef2f7; }
         .valor-moeda { text-align: right; font-weight: 600; color: #2c3e50; }
         tbody tr:last-child td { border-bottom: none; }
 
-        /* Status */
+        /* Comparativo Header */
+        .comparativo-header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .comparativo-resumo {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+        }
+        .resumo-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+            border-left: 4px solid #3498db;
+        }
+        .resumo-item:nth-child(2) { border-left-color: #27ae60; }
+        .resumo-item:nth-child(3) { border-left-color: #e74c3c; }
+        .resumo-item:hover { transform: translateY(-3px); box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
+        .resumo-item h4 { color: #2c3e50; margin-bottom: 0.8rem; font-size: 0.8rem; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px; }
+        .valor-grande { font-size: 1.5rem; font-weight: 700; color: #2c3e50; margin: 0; }
+
+        /* Status Messages */
         .positivo { color: #27ae60; font-weight: 700; }
         .negativo { color: #e74c3c; font-weight: 700; }
         .erro { background: #fadbd8; color: #922b21; padding: 1.5rem; border-radius: 8px; margin: 1rem 0; border-left: 4px solid #e74c3c; }
@@ -250,17 +277,11 @@
             background: white;
             border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            transition: background 0.3s ease, color 0.3s ease;
         }
 
         /* Dark Mode */
         body.dark-mode { background: #1a1a1a; color: #ecf0f1; }
         body.dark-mode header { background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); }
-        body.dark-mode .year-selector-container label { color: #ecf0f1; }
-        body.dark-mode #seletor-ano { background: #2d2d2d; color: #ecf0f1; border-color: #3498db; }
-        body.dark-mode .tab-btn { background: #2d2d2d; border-color: #404040; color: #ecf0f1; }
-        body.dark-mode .tab-btn:hover { background: #3a3a3a; border-color: #555; }
-        body.dark-mode .tab-btn.active { background: #3498db; border-color: #3498db; }
         body.dark-mode .tab-content, body.dark-mode .chart-box, body.dark-mode table, body.dark-mode .resumo-item { background: #2d2d2d; }
         body.dark-mode h2, body.dark-mode h3, body.dark-mode h4 { color: #ecf0f1; }
         body.dark-mode th { background: #1a1a1a; }
@@ -269,6 +290,8 @@
         body.dark-mode tbody tr:hover { background: #3a3a3a; }
         body.dark-mode .valor-moeda, body.dark-mode .valor-grande { color: #ecf0f1; }
         body.dark-mode footer { background: #2d2d2d; color: #95a5a6; }
+        body.dark-mode .year-selector-container label { color: #ecf0f1; }
+        body.dark-mode #seletor-ano { background: #2d2d2d; color: #ecf0f1; border-color: #3498db; }
 
         /* Media Queries */
         @media (max-width: 480px) {
@@ -295,7 +318,13 @@
             .chart-box { height: 220px; padding: 0.8rem; border-radius: 6px; border-top-width: 3px; }
             .chart-box h3 { font-size: 0.9rem; margin-bottom: 0.6rem; }
             table { min-width: 280px; font-size: 0.75rem; }
+            thead { background: #2c3e50; }
             th, td { padding: 0.5rem 0.6rem; }
+            .comparativo-header { padding: 1rem; margin-bottom: 1rem; }
+            .comparativo-resumo { grid-template-columns: 1fr; gap: 0.8rem; }
+            .resumo-item { padding: 0.8rem; border-left-width: 3px; }
+            .resumo-item h4 { font-size: 0.7rem; margin-bottom: 0.4rem; }
+            .valor-grande { font-size: 1.2rem; }
             .table-responsive-wrapper { margin: 0.8rem 0; border-radius: 6px; }
             footer { padding: 0.8rem; font-size: 0.7rem; margin-top: 1rem; }
         }
@@ -313,7 +342,7 @@
             .tab-btn { padding: 0.65rem 1rem; font-size: 0.8rem; min-width: 100px; }
             .tab-content { padding: 1.3rem; }
             h2 { font-size: 1.5rem; margin-bottom: 1.2rem; }
-            .resumo-grid { grid-template-columns: repeat(2, 1fr); gap: 0.9rem; margin-bottom: 1.2rem; }
+            .resumo-grid { grid-template-columns: repeat(3, 1fr); gap: 0.9rem; margin-bottom: 1.2rem; }
             .resumo-card { padding: 1rem; }
             .resumo-card h3 { font-size: 0.8rem; margin-bottom: 0.6rem; }
             .resumo-card .valor { font-size: 1.3rem; }
@@ -322,6 +351,11 @@
             .chart-box h3 { font-size: 0.95rem; margin-bottom: 0.8rem; }
             table { min-width: 380px; font-size: 0.8rem; }
             th, td { padding: 0.6rem 0.8rem; }
+            .comparativo-header { padding: 1.3rem; margin-bottom: 1.2rem; }
+            .comparativo-resumo { grid-template-columns: 1fr; gap: 0.9rem; }
+            .resumo-item { padding: 1rem; }
+            .resumo-item h4 { font-size: 0.75rem; margin-bottom: 0.5rem; }
+            .valor-grande { font-size: 1.3rem; }
         }
 
         @media (min-width: 601px) and (max-width: 800px) {
@@ -343,6 +377,11 @@
             .chart-box h3 { font-size: 1rem; margin-bottom: 1rem; }
             table { min-width: auto; font-size: 0.9rem; }
             th, td { padding: 0.7rem 0.9rem; }
+            .comparativo-header { padding: 1.5rem; margin-bottom: 1.5rem; }
+            .comparativo-resumo { grid-template-columns: repeat(2, 1fr); gap: 1.2rem; }
+            .resumo-item { padding: 1.2rem; }
+            .resumo-item h4 { font-size: 0.8rem; margin-bottom: 0.6rem; }
+            .valor-grande { font-size: 1.4rem; }
         }
 
         @media (min-width: 801px) and (max-width: 1024px) {
@@ -365,6 +404,11 @@
             .chart-box h3 { font-size: 1.05rem; margin-bottom: 1rem; }
             table { min-width: auto; font-size: 0.95rem; }
             th, td { padding: 0.8rem 1rem; }
+            .comparativo-header { padding: 1.8rem; margin-bottom: 1.8rem; }
+            .comparativo-resumo { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+            .resumo-item { padding: 1.3rem; }
+            .resumo-item h4 { font-size: 0.85rem; margin-bottom: 0.7rem; }
+            .valor-grande { font-size: 1.5rem; }
         }
 
         @media (min-width: 1025px) {
@@ -379,7 +423,7 @@
             .tab-btn { flex: 1; padding: 0.75rem 1.5rem; font-size: 0.9rem; }
             .tab-content { padding: 2rem; }
             h2 { font-size: 1.8rem; margin-bottom: 2rem; }
-            .resumo-grid { grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-bottom: 2rem; }
+            .resumo-grid { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 2rem; }
             .resumo-card { padding: 1.5rem; }
             .resumo-card h3 { font-size: 0.9rem; margin-bottom: 0.8rem; }
             .resumo-card .valor { font-size: 1.6rem; }
@@ -388,6 +432,12 @@
             .chart-box h3 { font-size: 1.1rem; margin-bottom: 1rem; }
             table { font-size: 0.9rem; }
             th, td { padding: 1rem; }
+            .comparativo-header { padding: 2rem; margin-bottom: 2rem; }
+            .comparativo-resumo { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+            .resumo-item { padding: 1.5rem; }
+            .resumo-item h4 { font-size: 0.8rem; margin-bottom: 0.8rem; }
+            .valor-grande { font-size: 1.5rem; }
+            footer { padding: 1.5rem; font-size: 0.9rem; }
         }
     </style>
 </head>
@@ -414,17 +464,17 @@
         </div>
 
         <div id="resumo" class="tab-content active">
-            <h2>Resumo Geral <span id="resumo-ano-label"></span></h2>
+            <h2>Resumo Geral</h2>
             <div id="resumo-conteudo"></div>
         </div>
 
         <div id="tabela-completa" class="tab-content">
-            <h2>Detalhamento por Categoria <span id="tabela-ano-label"></span></h2>
+            <h2>Detalhamento por Categoria</h2>
             <div id="tabela-completa-conteudo"></div>
         </div>
 
         <div id="comparativo" class="tab-content">
-            <h2>Análise Comparativa 2025 vs 2026</h2>
+            <h2>Análise Comparativa</h2>
             <div id="comparativo-conteudo"></div>
         </div>
     </div>
@@ -436,243 +486,245 @@
     <script>
         var charts = {};
         var allData = {};
-        var fonteFonte = ''; // Armazena a fonte de onde os dados foram carregados
+        var fonteFonte = [];
+        var updateInterval; // Variável para armazenar o ID do setInterval
 
         function formatarMoeda(valor) {
-            if (typeof valor !== 'number' || isNaN(valor)) {
-                return 'R$ 0,00'; // Retorna um valor padrão para NaN ou não-números
-            }
+            if (typeof valor !== 'number') return 'R$ 0,00'; // Garante que o valor é um número
             return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(valor);
         }
 
         function abrirAba(event, nome) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(function(el) { el.classList.remove('active'); });
+            document.querySelectorAll('.tab-btn').forEach(function(el) { el.classList.remove('active'); });
             document.getElementById(nome).classList.add('active');
             event.currentTarget.classList.add('active');
-
-            // Destruir e recriar gráficos apenas quando a aba comparativo é aberta
-            if (nome === 'comparativo' && allData['2025'] && allData['2026']) {
-                setTimeout(() => preencherComparativo(allData['2025'], allData['2026']), 100);
-            } else {
-                for (var key in charts) { if (charts[key]) charts[key].destroy(); }
-                charts = {};
+            // Redesenha gráficos se a aba comparativo for aberta
+            if (nome === 'comparativo' && allData[document.getElementById('seletor-ano').value]) {
+                preencherComparativo(allData[document.getElementById('seletor-ano').value]);
             }
         }
 
-        function preencherResumo(dados, ano) {
+        function preencherResumo(dados) {
             if (!dados || !dados.totais) {
-                document.getElementById('resumo-conteudo').innerHTML = '<div class="erro">Dados de resumo não disponíveis para o ano ' + ano + '</div>';
+                document.getElementById('resumo-conteudo').innerHTML = '<div class="erro">Dados de resumo não disponíveis para este ano.</div>';
                 return;
             }
-            document.getElementById('resumo-ano-label').textContent = '(' + dados.descricao + ')';
 
             var html = '<div class="resumo-grid">';
-            html += '<div class="resumo-card fuabc"><h3>Total FUABC Mensal</h3><div class="valor">' + formatarMoeda(dados.totais.fuabc_mensal) + '</div></div>';
-            html += '<div class="resumo-card sesaud"><h3>Total SESAUD Mensal</h3><div class="valor">' + formatarMoeda(dados.totais.sesaud_mensal) + '</div></div>';
-            html += '<div class="resumo-card geral"><h3>Total GERAL Mensal</h3><div class="valor">' + formatarMoeda(dados.totais.geral) + '</div></div>';
 
-            if (ano === '2026') {
-                html += '<div class="resumo-card orcamento"><h3>Orçamento Anual 2026</h3><div class="valor">' + formatarMoeda(dados.orcamento_anual) + '</div></div>';
-                html += '<div class="resumo-card orcamento"><h3>Orçamento Mensal 2026</h3><div class="valor">' + formatarMoeda(dados.orcamento_mensal) + '</div></div>';
-                var deficitClass = (dados.deficit < 0) ? 'deficit' : 'sucesso'; // Usar 'sucesso' para positivo
-                html += '<div class="resumo-card ' + deficitClass + '"><h3>Déficit Mensal</h3><div class="valor">' + formatarMoeda(dados.deficit) + '</div></div>';
+            // Cards de Totais
+            html += '<div class="resumo-card fuabc"><h3>FUABC Mensal</h3><div class="valor">' + formatarMoeda(dados.totais.fuabc_mensal) + '</div></div>';
+            html += '<div class="resumo-card sesaud"><h3>SESAUD Mensal</h3><div class="valor">' + formatarMoeda(dados.totais.sesaud_mensal) + '</div></div>';
+            html += '<div class="resumo-card geral"><h3>Total Geral Mensal</h3><div class="valor">' + formatarMoeda(dados.totais.geral) + '</div></div>';
+
+            // Cards específicos para 2026 (Projeção)
+            if (dados.tipo === 'projecao') {
+                html += '<div class="resumo-card orcamento"><h3>Orçamento Anual</h3><div class="valor">' + formatarMoeda(dados.orcamento_anual) + '</div></div>';
+                html += '<div class="resumo-card orcamento"><h3>Orçamento Mensal</h3><div class="valor">' + formatarMoeda(dados.orcamento_mensal) + '</div></div>';
+                
+                var deficitClass = (dados.deficit < 0) ? 'deficit' : 'superavit';
+                html += '<div class="resumo-card ' + deficitClass + '"><h3>Déficit/Superávit Mensal</h3><div class="valor">' + formatarMoeda(dados.deficit) + '</div></div>';
             }
+
             html += '</div>';
             document.getElementById('resumo-conteudo').innerHTML = html;
         }
 
-        function preencherTabelaCompleta(dados, ano) {
-            if (!dados || !dados.linhas || dados.linhas.length === 0) {
-                document.getElementById('tabela-completa-conteudo').innerHTML = '<div class="erro">Dados detalhados não disponíveis para o ano ' + ano + '</div>';
+        function preencherTabelaCompleta(dados) {
+            if (!dados || !dados.linhas) {
+                document.getElementById('tabela-completa-conteudo').innerHTML = '<div class="erro">Dados de detalhamento não disponíveis para este ano.</div>';
                 return;
             }
-            document.getElementById('tabela-ano-label').textContent = '(' + dados.descricao + ')';
 
-            var html = '<div class="table-responsive-wrapper"><table><thead><tr><th>Categoria</th><th class="valor-moeda">FUABC Mensal</th><th class="valor-moeda">SESAUD Mensal</th><th class="valor-moeda">GERAL Mensal</th></tr></thead><tbody>';
+            var html = '<div class="table-responsive-wrapper"><table><thead><tr><th>Categoria</th><th class="valor-moeda">FUABC Mensal</th><th class="valor-moeda">SESAUD Mensal</th><th class="valor-moeda">Total Geral</th></tr></thead><tbody>';
 
-            dados.linhas.forEach(linha => {
-                html += '<tr><td><strong>' + (linha.categoria || 'N/A') + '</strong></td><td class="valor-moeda">' + formatarMoeda(linha.fuabc_mensal) + '</td><td class="valor-moeda">' + formatarMoeda(linha.sesaud_mensal) + '</td><td class="valor-moeda">' + formatarMoeda(linha.geral) + '</td></tr>';
+            dados.linhas.forEach(function(linha) {
+                html += '<tr><td><strong>' + (linha.categoria || 'N/A') + '</strong></td>';
+                html += '<td class="valor-moeda">' + formatarMoeda(linha.fuabc_mensal) + '</td>';
+                html += '<td class="valor-moeda">' + formatarMoeda(linha.sesaud_mensal) + '</td>';
+                html += '<td class="valor-moeda">' + formatarMoeda(linha.geral) + '</td></tr>';
             });
 
-            // Adicionar linha de totais
-            html += '<tr style="font-weight: bold; background-color: #f0f0f0;"><td>TOTAIS</td><td class="valor-moeda">' + formatarMoeda(dados.totais.fuabc_mensal) + '</td><td class="valor-moeda">' + formatarMoeda(dados.totais.sesaud_mensal) + '</td><td class="valor-moeda">' + formatarMoeda(dados.totais.geral) + '</td></tr>';
+            // Linha de totais
+            if (dados.totais) {
+                html += '<tr style="font-weight: bold; background-color: #e0e0e0;"><td>TOTAL DE DESPESAS</td>';
+                html += '<td class="valor-moeda">' + formatarMoeda(dados.totais.fuabc_mensal) + '</td>';
+                html += '<td class="valor-moeda">' + formatarMoeda(dados.totais.sesaud_mensal) + '</td>';
+                html += '<td class="valor-moeda">' + formatarMoeda(dados.totais.geral) + '</td></tr>';
+            }
 
             html += '</tbody></table></div>';
             document.getElementById('tabela-completa-conteudo').innerHTML = html;
         }
 
-        function preencherComparativo(dados2025, dados2026) {
-                document.getElementById('comparativo-conteudo').innerHTML = '<div class="erro">Dados de 2025 e/ou 2026 não disponíveis para comparação.</div>';
+        function preencherComparativo(dados) {
+            if (!dados || !dados.linhas) {
+                document.getElementById('comparativo-conteudo').innerHTML = '<div class="erro">Dados de comparativo não disponíveis para este ano.</div>';
                 return;
             }
 
-            for (var key in charts) { if (charts[key]) charts[key].destroy(); }
-            charts = {};
+            var categorias = dados.linhas;
+            var totalFuabc = dados.totais.fuabc_mensal;
+            var totalSesaud = dados.totais.sesaud_mensal;
+            var totalGeral = dados.totais.geral;
 
-            var categorias = dados2025.linhas.map(l => l.categoria);
-            var fuabc2025 = dados2025.linhas.map(l => l.fuabc_mensal);
-            var sesaud2025 = dados2025.linhas.map(l => l.sesaud_mensal);
-            var geral2025 = dados2025.linhas.map(l => l.geral);
+            var html = '<div class="comparativo-header"><div class="comparativo-resumo">';
+            html += '<div class="resumo-item"><h4>Total FUABC</h4><p class="valor-grande">' + formatarMoeda(totalFuabc) + '</p></div>';
+            html += '<div class="resumo-item"><h4>Total SESAUD</h4><p class="valor-grande">' + formatarMoeda(totalSesaud) + '</p></div>';
+            html += '<div class="resumo-item"><h4>Total Geral</h4><p class="valor-grande">' + formatarMoeda(totalGeral) + '</p></div>';
+            html += '</div></div>';
 
-            var fuabc2026 = dados2026.linhas.map(l => l.fuabc_mensal);
-            var sesaud2026 = dados2026.linhas.map(l => l.sesaud_mensal);
-            var geral2026 = dados2026.linhas.map(l => l.geral);
-
-            var html = '<div class="charts-container">';
-            html += '<div class="chart-box"><h3>FUABC Mensal (2025 vs 2026)</h3><canvas id="chartFuabcComparativo"></canvas></div>';
-            html += '<div class="chart-box"><h3>SESAUD Mensal (2025 vs 2026)</h3><canvas id="chartSesaudComparativo"></canvas></div>';
-            html += '<div class="chart-box"><h3>GERAL Mensal (2025 vs 2026)</h3><canvas id="chartGeralComparativo"></canvas></div>';
+            html += '<div class="charts-container">';
+            html += '<div class="chart-box"><h3>Comparação FUABC vs SESAUD</h3><canvas id="chartComparacao"></canvas></div>';
+            html += '<div class="chart-box"><h3>Distribuição FUABC</h3><canvas id="chartFuabc"></canvas></div>';
+            html += '<div class="chart-box"><h3>Distribuição SESAUD</h3><canvas id="chartSesaud"></canvas></div>';
             html += '</div>';
+
             document.getElementById('comparativo-conteudo').innerHTML = html;
+
+            // Destruir gráficos existentes antes de criar novos
+            for (var key in charts) {
+                if (charts[key]) {
+                    charts[key].destroy();
+                }
+            }
+            charts = {}; // Limpa o objeto de gráficos
 
             setTimeout(function() {
                 try {
-                    var ctx1 = document.getElementById('chartFuabcComparativo').getContext('2d');
-                    charts.fuabcComp = new Chart(ctx1, {
+                    var ctx1 = document.getElementById('chartComparacao').getContext('2d');
+                    charts.comp = new Chart(ctx1, {
                         type: 'bar',
                         data: {
-                            labels: categorias,
+                            labels: categorias.map(function(c) { return (c.categoria || 'N/A').substring(0, 20); }),
                             datasets: [
-                                { label: 'FUABC 2025', data: fuabc2025, backgroundColor: '#3498db', borderColor: '#2980b9', borderWidth: 1 },
-                                { label: 'FUABC 2026', data: fuabc2026, backgroundColor: '#85c1e9', borderColor: '#5dade2', borderWidth: 1 }
+                                { label: 'FUABC', data: categorias.map(function(c) { return c.fuabc_mensal || 0; }), backgroundColor: '#3498db', borderColor: '#2980b9', borderWidth: 1 },
+                                { label: 'SESAUD', data: categorias.map(function(c) { return c.sesaud_mensal || 0; }), backgroundColor: '#27ae60', borderColor: '#229954', borderWidth: 1 }
                             ]
                         },
-                        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'top' } } }
+                        options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y', plugins: { legend: { position: 'top' } } }
                     });
 
-                    var ctx2 = document.getElementById('chartSesaudComparativo').getContext('2d');
-                    charts.sesaudComp = new Chart(ctx2, {
-                        type: 'bar',
+                    var ctx2 = document.getElementById('chartFuabc').getContext('2d');
+                    charts.fuabc = new Chart(ctx2, {
+                        type: 'doughnut',
                         data: {
-                            labels: categorias,
-                            datasets: [
-                                { label: 'SESAUD 2025', data: sesaud2025, backgroundColor: '#27ae60', borderColor: '#229954', borderWidth: 1 },
-                                { label: 'SESAUD 2026', data: sesaud2026, backgroundColor: '#7dcea0', borderColor: '#58d683', borderWidth: 1 }
-                            ]
+                            labels: categorias.map(function(c) { return (c.categoria || 'N/A').substring(0, 12); }),
+                            datasets: [{ data: categorias.map(function(c) { return c.fuabc_mensal || 0; }), backgroundColor: ['#3498db', '#2980b9', '#1abc9c', '#16a085', '#e74c3c', '#c0392b', '#f39c12', '#d68910', '#9b59b6', '#8e44ad'] }]
                         },
-                        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'top' } } }
+                        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
                     });
 
-                    var ctx3 = document.getElementById('chartGeralComparativo').getContext('2d');
-                    charts.geralComp = new Chart(ctx3, {
-                        type: 'bar',
+                    var ctx3 = document.getElementById('chartSesaud').getContext('2d');
+                    charts.sesaud = new Chart(ctx3, {
+                        type: 'doughnut',
                         data: {
-                            labels: categorias,
-                            datasets: [
-                                { label: 'GERAL 2025', data: geral2025, backgroundColor: '#8e44ad', borderColor: '#714091', borderWidth: 1 },
-                                { label: 'GERAL 2026', data: geral2026, backgroundColor: '#bb8fce', borderColor: '#a569bd', borderWidth: 1 }
-                            ]
+                            labels: categorias.map(function(c) { return (c.categoria || 'N/A').substring(0, 12); }),
+                            datasets: [{ data: categorias.map(function(c) { return c.sesaud_mensal || 0; }), backgroundColor: ['#27ae60', '#229954', '#1abc9c', '#16a085', '#3498db', '#2980b9', '#f39c12', '#d68910', '#9b59b6', '#8e44ad'] }]
                         },
-                        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'top' } } }
+                        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
                     });
-
-                } catch (e) { console.error('Erro ao criar gráficos comparativos:', e); }
+                } catch (e) {
+                    console.error('Erro ao criar gráficos:', e);
+                }
             }, 100);
         }
 
         function mudarAno(ano) {
             console.log('Mudando para ano:', ano);
-            if (!ano || !allData.anos[ano]) {
+            if (!ano || !allData.anos || !allData.anos[ano]) {
                 console.error('Dados não encontrados para o ano:', ano);
-                document.getElementById('resumo-conteudo').innerHTML = '<div class="erro">Dados não disponíveis para o ano ' + ano + '</div>';
-                document.getElementById('tabela-completa-conteudo').innerHTML = '<div class="erro">Dados não disponíveis para o ano ' + ano + '</div>';
-                document.getElementById('comparativo-conteudo').innerHTML = '<div class="erro">Dados não disponíveis para o ano ' + ano + '</div>';
+                var msg = '<div class="erro">Dados não disponíveis para o ano ' + ano + '.</div>';
+                document.getElementById('resumo-conteudo').innerHTML = msg;
+                document.getElementById('tabela-completa-conteudo').innerHTML = msg;
+                document.getElementById('comparativo-conteudo').innerHTML = msg;
+                document.getElementById('data-atualizacao').textContent = 'Dados não disponíveis';
                 return;
             }
             var dadosDoAno = allData.anos[ano];
             document.getElementById('data-atualizacao').textContent = 'Atualizado em: ' + (allData.atualizado_em || 'N/A');
-            
-            preencherResumo(dadosDoAno, ano);
-            preencherTabelaCompleta(dadosDoAno, ano);
-            
-            // Se a aba comparativo estiver ativa, recarregar
+            document.getElementById('fonte-dados').textContent = 'Fonte: ' + fonteFonte.join(' | ');
+
+            preencherResumo(dadosDoAno);
+            preencherTabelaCompleta(dadosDoAno);
+            // A aba comparativo só é preenchida quando ativada para evitar renderização desnecessária
             if (document.getElementById('comparativo').classList.contains('active')) {
-                preencherComparativo(allData.anos['2025'], allData.anos['2026']);
+                preencherComparativo(dadosDoAno);
             }
         }
 
-        function carregarJSON(url, nomeArquivo) {
-            return new Promise((resolve, reject) => {
+        function carregarJSON(url) {
+            return new Promise(function(resolve, reject) {
+                var timestamp = Math.floor(Date.now() / (60 * 1000)); // Cache buster a cada 1 minuto
                 var urls = [
-                    'https://corsproxy.io/?' + url, // CORS Proxy
-                    url // Direto (pode ser bloqueado)
+                    'https://corsproxy.io/?' + url + '?bust=' + timestamp, // CORS Proxy
+                    url + '?bust=' + timestamp // Direto (fallback)
                 ];
 
                 function tentarProxima(index) {
                     if (index >= urls.length) {
-                        reject('Nenhuma URL funcionou para ' + nomeArquivo);
+                        reject(new Error('Nenhuma URL funcionou para ' + url));
                         return;
                     }
 
                     console.log('Tentando carregar:', urls[index]);
                     fetch(urls[index], { cache: 'no-store', headers: { 'Cache-Control': 'no-cache, no-store, must-revalidate' } })
-                        .then(r => {
-                            if (!r.ok) throw new Error('HTTP ' + r.status);
-                            return r.json();
+                        .then(function(response) {
+                            if (!response.ok) {
+                                throw new Error('HTTP ' + response.status + ' - ' + response.statusText);
+                            }
+                            return response.json();
                         })
-                        .then(dados => {
+                        .then(function(data) {
                             console.log('✅ Sucesso com:', urls[index]);
-                            fonteFonte = urls[index].substring(0, 40) + '...';
-                            resolve(dados);
+                            fonteFonte.push(urls[index].substring(0, 40) + '...');
+                            resolve(data);
                         })
-                        .catch(e => {
-                            console.log('❌ Falha:', urls[index], e.message);
+                        .catch(function(error) {
+                            console.log('❌ Falha:', urls[index], error.message);
                             tentarProxima(index + 1);
                         });
                 }
+
                 tentarProxima(0);
             });
         }
 
-        function carregarDados() {
+        function iniciarCarregamentoDados() {
             console.log('Iniciando carregamento de dados...');
-            var timestamp = Math.floor(Date.now() / (60 * 1000)); // Cache buster a cada 1 minuto
-            var dataJsonUrl = 'https://raw.githubusercontent.com/rtoledomota/SESAUD-Orcamento/main/data.json?bust=' + timestamp;
+            var dataJsonUrl = 'https://raw.githubusercontent.com/rtoledomota/SESAUD-Orcamento/main/data.json';
 
-            carregarJSON(dataJsonUrl, 'data.json')
-            .then(dados => {
-                if (!dados || !dados.anos) {
-                    throw new Error('Estrutura de dados inválida: "anos" não encontrado.');
-                }
-                allData = dados; // Armazena a estrutura completa do JSON
+            carregarJSON(dataJsonUrl)
+                .then(function(data) {
+                    allData = data;
+                    var seletorAno = document.getElementById('seletor-ano');
+                    seletorAno.innerHTML = ''; // Limpa opções existentes
 
-                // Preencher dropdown
-                var seletor = document.getElementById('seletor-ano');
-                seletor.innerHTML = '';
-                var anosDisponiveis = Object.keys(allData.anos).sort();
-                if (anosDisponiveis.length === 0) {
-                    seletor.innerHTML = '<option value="">Nenhum ano disponível</option>';
-                    document.getElementById('resumo-conteudo').innerHTML = '<div class="erro">Nenhum ano disponível nos dados.</div>';
-                    return;
-                }
+                    var anosDisponiveis = Object.keys(allData.anos || {}).sort();
+                    if (anosDisponiveis.length === 0) {
+                        throw new Error('Nenhum ano disponível no JSON.');
+                    }
 
-                anosDisponiveis.forEach(ano => {
-                    var opt = document.createElement('option');
-                    opt.value = ano;
-                    opt.textContent = allData.anos[ano].descricao || ano;
-                    seletor.appendChild(opt);
+                    anosDisponiveis.forEach(function(ano) {
+                        var option = document.createElement('option');
+                        option.value = ano;
+                        option.textContent = ano + ' - ' + (allData.anos[ano].descricao || '');
+                        seletorAno.appendChild(option);
+                    });
+
+                    // Seleciona o ano ativo definido no JSON ou o primeiro disponível
+                    seletorAno.value = allData.ano_ativo || anosDisponiveis[0];
+                    mudarAno(seletorAno.value);
+                })
+                .catch(function(error) {
+                    console.error('Erro geral ao carregar dados:', error);
+                    var msg = '<div class="erro">Erro ao carregar dados: ' + error.message + '. Verifique o arquivo data.json e a conexão.</div>';
+                    document.getElementById('resumo-conteudo').innerHTML = msg;
+                    document.getElementById('tabela-completa-conteudo').innerHTML = msg;
+                    document.getElementById('comparativo-conteudo').innerHTML = msg;
+                    document.getElementById('data-atualizacao').textContent = 'Erro ao carregar dados';
                 });
-
-                // Selecionar o ano inicial (pode ser definido no JSON ou o primeiro disponível)
-                var initialYear = allData.ano_ativo || anosDisponiveis[0];
-                if (anosDisponiveis.includes(initialYear)) {
-                    seletor.value = initialYear;
-                } else {
-                    seletor.value = anosDisponiveis[0];
-                    initialYear = anosDisponiveis[0];
-                }
-                
-                document.getElementById('fonte-dados').textContent = 'Fonte: ' + fonteFonte;
-                mudarAno(initialYear); // Carregar dados para o ano inicial
-            })
-            .catch(e => {
-                console.error('Erro ao carregar dados do dashboard:', e);
-                document.getElementById('data-atualizacao').textContent = 'Erro ao carregar dados';
-                document.getElementById('resumo-conteudo').innerHTML = '<div class="erro">Erro ao carregar dados: ' + e.message + '. Verifique o arquivo data.json e a conexão.</div>';
-                document.getElementById('tabela-completa-conteudo').innerHTML = '<div class="erro">Erro ao carregar dados: ' + e.message + '. Verifique o arquivo data.json e a conexão.</div>';
-                document.getElementById('comparativo-conteudo').innerHTML = '<div class="erro">Erro ao carregar dados: ' + e.message + '. Verifique o arquivo data.json e a conexão.</div>';
-            });
         }
 
         function toggleDarkMode() {
@@ -680,15 +732,19 @@
             localStorage.setItem('dark-mode', document.body.classList.contains('dark-mode'));
         }
 
-        // Carregar dark mode do localStorage
+        // Inicializa Dark Mode se estiver salvo
         if (localStorage.getItem('dark-mode') === 'true') {
             document.body.classList.add('dark-mode');
         }
 
-        // Carregar dados na inicialização e configurar atualização periódica
-        window.addEventListener('load', () => {
-            carregarDados();
-            setInterval(carregarDados, 60 * 1000); // Atualiza a cada 1 minuto
+        // Carrega dados na inicialização
+        window.addEventListener('load', function() {
+            iniciarCarregamentoDados();
+            // Configura atualização automática a cada 1 minuto
+            if (updateInterval) {
+                clearInterval(updateInterval); // Limpa qualquer intervalo anterior
+            }
+            updateInterval = setInterval(iniciarCarregamentoDados, 60 * 1000); // 1 minuto
         });
     </script>
 </body>
