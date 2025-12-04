@@ -1,5 +1,6 @@
 {
   "atualizado_em": "2025-03-12",
+  "ano_ativo": "2025",
   "anos": {
     "2025": {
       "tipo": "realizado",
@@ -122,7 +123,69 @@
         "sesaud_mensal": 10634071.01,
         "geral": 54806271.73
       },
-      "deficit": -8869874.06
+      "deficit": -8869874.06,
+      "novos_servicos": [
+        {
+          "periodo": "2025 (A partir de Nov)",
+          "servicos": [
+            { "nome": "Serviço de Fisioterapia e Assistência Social", "valor": 191200.00 },
+            { "nome": "Serviço de Regulação (NIR)", "valor": 116250.00 }
+          ]
+        },
+        {
+          "periodo": "2026",
+          "servicos": [
+            { "nome": "Telemedicina", "valor": 165000.00 },
+            { "nome": "Serviço de Hemodinâmica", "valor": 377621.66 },
+            { "nome": "Residência Terapêutica", "valor": 145070.45 },
+            { "nome": "CUIDAR - PCD", "valor": 0 }
+          ]
+        }
+      ],
+      "novos_servicos_totais": {
+        "mensal": 995142.11,
+        "adequacao_pronto_cardio": 2436990.00,
+        "total_geral": 3432132.11
+      }
+    }
+  },
+  "sesaud_detalhado": {
+    "2025": {
+      "recursos_humanos": 6616449.07,
+      "indenizacoes_trabalhistas": 25020.04,
+      "vencimento_prefeitura": 4811182.14,
+      "programa_mais_medicos": 12900.00,
+      "tarifas_bancarias": 775.54,
+      "gratificacao_sus": 296880.38,
+      "pensoes_gratif_sus": 479.33,
+      "inss_pref": 983944.34,
+      "fgts_pref": 303255.80,
+      "notre_dame_intermedica": 202288.27,
+      "processos_trabalhistas": 1619.20,
+      "materiais_consumo": 329615.34,
+      "servicos_terceiros": 3312660.87,
+      "outros_gastos": 326630.03,
+      "total": 10633666.21
+    }
+  },
+  "fuabc_detalhado": {
+    "2025": {
+      "recursos_humanos": 15519978.93,
+      "processos_trabalhistas": 81084.03,
+      "materiais_consumo": 3920961.07,
+      "servicos_terceiros": 19270730.55,
+      "investimentos": 83882.01,
+      "outros_gastos": 114709.55,
+      "total": 38991346.13
+    },
+    "2026": {
+      "recursos_humanos": 15979374.38,
+      "processos_trabalhistas": 78881.08,
+      "materiais_consumo": 4218090.06,
+      "servicos_terceiros": 23568510.69,
+      "investimentos": 203082.50,
+      "outros_gastos": 124262.02,
+      "total": 44172200.73
     }
   }
 }
