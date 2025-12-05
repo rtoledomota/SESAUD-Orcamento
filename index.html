@@ -399,14 +399,14 @@
         </header>
 
         <div class="tabs">
-            <button class="tab-btn active" onclick="abrirAba(event, 'resumo')">Resumo</button>
+            <button class="tab-btn active" onclick="abrirAba(event, 'resumo')">Resumo Geral</button>
             <button class="tab-btn" onclick="abrirAba(event, 'novos-servicos')">Novos Serviços</button>
             <button class="tab-btn" onclick="abrirAba(event, 'sesaud-detalhado')">SESAUD Detalhado</button>
             <button class="tab-btn" onclick="abrirAba(event, 'fuabc-detalhado')">FUABC Detalhado</button>
         </div>
 
         <div id="resumo" class="tab-content active">
-            <h2>Resumo Geral</h2>
+            <h2>Resumo Geral (2025/2026)</h2>
             <div id="resumo-conteudo"></div>
         </div>
 
@@ -476,19 +476,33 @@
                 return;
             }
 
-            var html = '<div class="resumo-grid">';
-            html += '<div class="resumo-card"><h3>Total Geral</h3><div class="valor">' + formatarMoeda(dados.total_geral || 0) + '</div></div>';
-            html += '<div class="resumo-card"><h3>FUABC</h3><div class="valor">' + formatarMoeda(dados.total_fuabc || 0) + '</div></div>';
-            html += '<div class="resumo-card"><h3>SESAUD</h3><div class="valor">' + formatarMoeda(dados.total_sesaud || 0) + '</div></div>';
-            html += '<div class="resumo-card"><h3>Orçamento Mensal</h3><div class="valor">' + formatarMoeda(dados.orcamento_mensal || 0) + '</div></div>';
-            html += '</div>';
+            var html = '<div class="table-responsive-wrapper"><table><thead><tr><th>ORÇAMENTO</th><th class="valor-moeda">2025 - MÉDIA DE EXECUÇÃO - JAN A OUT</th><th></th><th></th><th class="valor-moeda">2026 - PROJEÇÃO</th><th></th><th></th></tr></thead><tbody>';
+            html += '<tr><td></td><td>CUSTO MENSAL FUABC</td><td>CUSTO MENSAL SESAUD</td><td>GERAL</td><td>CUSTO MENSAL FUABC</td><td>CUSTO MENSAL SESAUD</td><td>GERAL</td></tr>';
 
-            html += '<div class="table-responsive-wrapper"><table><thead><tr><th>Categoria</th><th class="valor-moeda">Valor</th></tr></thead><tbody>';
-            for (var chave in dados) {
-                if (dados.hasOwnProperty(chave) && typeof dados[chave] === 'number' && chave !== 'total_geral' && chave !== 'total_fuabc' && chave !== 'total_sesaud' && chave !== 'orcamento_mensal') {
-                    html += '<tr><td>' + chave.replace(/_/g, ' ').toUpperCase() + '</td><td class="valor-moeda">' + formatarMoeda(dados[chave]) + '</td></tr>';
-                }
-            }
+            var categorias = [
+                { nome: 'RECURSOS HUMANOS', fuabc2025: dados.recursos_humanos_2025 || 0, sesaud2025: dados.recursos_humanos || 0, geral2025: (dados.recursos_humanos_2025 || 0) + (dados.recursos_humanos || 0), fuabc2026: dados.recursos_humanos_2026 || 0, sesaud2026: dados.recursos_humanos || 0, geral2026: (dados.recursos_humanos_2026 || 0) + (dados.recursos_humanos || 0) },
+                { nome: 'PROCESSOS TRABALHISTAS', fuabc2025: dados.processos_trabalhistas_2025 || 0, sesaud2025: dados.processos_trabalhistas || 0, geral2025: (dados.processos_trabalhistas_2025 || 0) + (dados.processos_trabalhistas || 0), fuabc2026: dados.processos_trabalhistas_2026 || 0, sesaud2026: dados.processos_trabalhistas || 0, geral2026: (dados.processos_trabalhistas_2026 || 0) + (dados.processos_trabalhistas || 0) },
+                { nome: 'MATERIAIS DE CONSUMO', fuabc2025: dados.materiais_consumo_2025 || 0, sesaud2025: dados.materiais_consumo || 0, geral2025: (dados.materiais_consumo_2025 || 0) + (dados.materiais_consumo || 0), fuabc2026: dados.materiais_consumo_2026 || 0, sesaud2026: dados.materiais_consumo || 0, geral2026: (dados.materiais_consumo_2026 || 0) + (dados.materiais_consumo || 0) },
+                { nome: 'MANUTENÇÃO E REFORMAS', fuabc2025: 1316264.15, sesaud2025: 731350.30, geral2025: 0, fuabc2026: 1301434.22, sesaud2026: 731350.30, geral2026: 2032784.52 },
+                { nome: 'SERVIÇOS MÉDICOS', fuabc2025: 6776884.98, sesaud2025: 0, geral2025: 0, fuabc2026: 8665085.19, sesaud2026: 0, geral2026: 8665085.19 },
+                { nome: 'SERVIÇOS DE TERCEIROS', fuabc2025: 10939718.04, sesaud2025: 2628002.26, geral2025: 13567720.31, fuabc2026: 13601991.28, sesaud2026: 2628002.26, geral2026: 16229993.55 },
+                { nome: 'INVESTIMENTOS', fuabc2025: 111842.68, sesaud2025: 0, geral2025: 111842.68, fuabc2026: 203082.50, sesaud2026: 0, geral2026: 203082.50 },
+                { nome: 'OUTROS GASTOS', fuabc2025: 111094.32, sesaud2025: 326630.03, geral2025: 437724.35, fuabc2026: 124262.02, sesaud2026: 326630.03, geral2026: 450892.05 },
+                { nome: 'TOTAL DE DESPESAS', fuabc2025: dados.total_fuabc || 0, sesaud2025: dados.total_sesaud || 0, geral2025: dados.total_geral || 0, fuabc2026: 44172200.73, sesaud2026: dados.total_sesaud || 0, geral2026: 54806271.73 }
+            ];
+
+            categorias.forEach(cat => {
+                html += '<tr>';
+                html += '<td>' + cat.nome + '</td>';
+                html += '<td class="valor-moeda">' + formatarMoeda(cat.fuabc2025) + '</td>';
+                html += '<td class="valor-moeda">' + formatarMoeda(cat.sesaud2025) + '</td>';
+                html += '<td class="valor-moeda">' + formatarMoeda(cat.geral2025) + '</td>';
+                html += '<td class="valor-moeda">' + formatarMoeda(cat.fuabc2026) + '</td>';
+                html += '<td class="valor-moeda">' + formatarMoeda(cat.sesaud2026) + '</td>';
+                html += '<td class="valor-moeda">' + formatarMoeda(cat.geral2026) + '</td>';
+                html += '</tr>';
+            });
+
             html += '</tbody></table></div>';
             document.getElementById('resumo-conteudo').innerHTML = html;
         }
@@ -499,12 +513,15 @@
                 return;
             }
 
-            var html = '<div class="servicos-lista"><h4>Novos Serviços</h4><ul>';
-            for (var chave in dados) {
-                if (dados.hasOwnProperty(chave) && typeof dados[chave] === 'number') {
-                    html += '<li><span class="servico-nome">' + chave.replace(/_/g, ' ').toUpperCase() + '</span><span class="servico-valor">' + formatarMoeda(dados[chave]) + '</span></li>';
-                }
-            }
+            var html = '<div class="servicos-lista"><h4>NOVOS SERVIÇOS</h4><ul>';
+            html += '<li><span class="servico-nome">SERVIÇO FISIOTERAPIA</span><span class="servico-valor">' + formatarMoeda(dados.servico_fisioterapia) + '</span></li>';
+            html += '<li><span class="servico-nome">SERVIÇO REGULACAO</span><span class="servico-valor">' + formatarMoeda(dados.servico_regulacao) + '</span></li>';
+            html += '<li><span class="servico-nome">TELEMEDICINA</span><span class="servico-valor">' + formatarMoeda(dados.telemedicina) + '</span></li>';
+            html += '<li><span class="servico-nome">SERVIÇO HEMODINAMICA</span><span class="servico-valor">' + formatarMoeda(dados.servico_hemodinamica) + '</span></li>';
+            html += '<li><span class="servico-nome">RESIDENCIA TERAPEUTICA</span><span class="servico-valor">' + formatarMoeda(dados.residencia_terapeutica) + '</span></li>';
+            html += '<li><span class="servico-nome">ADEQUACAO PRONTO CARDIO</span><span class="servico-valor">' + formatarMoeda(dados.adequacao_pronto_cardio) + '</span></li>';
+            html += '<li><span class="servico-nome">TOTAL NOVOS MENSAL</span><span class="servico-valor">' + formatarMoeda(dados.total_novos_mensal) + '</span></li>';
+            html += '<li><span class="servico-nome">TOTAL GERAL NOVOS</span><span class="servico-valor">' + formatarMoeda(dados.total_geral_novos) + '</span></li>';
             html += '</ul></div>';
             document.getElementById('novos-servicos-conteudo').innerHTML = html;
         }
@@ -517,11 +534,22 @@
 
             var html = '<div class="table-responsive-wrapper"><table><thead><tr><th>Categoria</th><th class="valor-moeda">Valor</th></tr></thead><tbody>';
             var grupos = [
-                { nome: 'RECURSOS HUMANOS', id: 'recursos_humanos', valor: dados.recursos_humanos || 0 },
-                { nome: 'PROCESSOS TRABALHISTAS', id: 'processos', valor: dados.processos_trabalhistas || 0 },
-                { nome: 'MATERIAIS DE CONSUMO', id: 'materiais', valor: dados.materiais_consumo || 0 },
-                { nome: 'SERVIÇOS DE TERCEIROS', id: 'servicos', valor: dados.servicos_terceiros || 0 },
-                { nome: 'OUTROS GASTOS', id: 'outros', valor: dados.outros_gastos || 0 }
+                { nome: 'RECURSOS HUMANOS', id: 'recursos_humanos', valor: dados.recursos_humanos || 0, subitens: [
+                    { label: 'Indenizações Trabalhistas', valor: dados.indenizacoes_trabalhistas || 0 },
+                    { label: 'Vencimento Prefeitura', valor: dados.vencimento_prefeitura || 0 },
+                    { label: 'Programa Mais Médicos', valor: dados.programa_mais_medicos || 0 },
+                    { label: 'Gratificação SUS', valor: dados.gratificacao_sus || 0 },
+                    { label: 'Pensões Gratif SUS', valor: dados.pensoes_gratif_sus || 0 },
+                    { label: 'INSS PREF', valor: dados.inss_pref || 0 },
+                    { label: 'FGTS PREF', valor: dados.fgts_pref || 0 },
+                    { label: 'Notre Dame Intermedica', valor: dados.notre_dame_intermedica || 0 }
+                ] },
+                { nome: 'PROCESSOS TRABALHISTAS', id: 'processos', valor: dados.processos_trabalhistas || 0, subitens: [] },
+                { nome: 'MATERIAIS DE CONSUMO', id: 'materiais', valor: dados.materiais_consumo || 0, subitens: [] },
+                { nome: 'SERVIÇOS DE TERCEIROS', id: 'servicos', valor: dados.servicos_terceiros || 0, subitens: [] },
+                { nome: 'OUTROS GASTOS', id: 'outros', valor: dados.outros_gastos || 0, subitens: [
+                    { label: 'Tarifas Bancárias', valor: dados.tarifas_bancarias || 0 }
+                ] }
             ];
 
             grupos.forEach(grupo => {
@@ -529,11 +557,18 @@
                 html += '<td><span class="toggle-icon">▶</span>' + grupo.nome + '</td>';
                 html += '<td class="valor-moeda">' + formatarMoeda(grupo.valor) + '</td>';
                 html += '</tr>';
+
+                grupo.subitens.forEach(sub => {
+                    html += '<tr class="accordion-item" data-group-parent="' + grupo.id + '">';
+                    html += '<td>' + sub.label + '</td>';
+                    html += '<td class="valor-moeda">' + formatarMoeda(sub.valor) + '</td>';
+                    html += '</tr>';
+                });
             });
 
             html += '<tr style="background: #ecf0f1; font-weight: bold;">';
             html += '<td>TOTAL</td>';
-            html += '<td class="valor-moeda">' + formatarMoeda(dados.total || 0) + '</td>';
+            html += '<td class="valor-moeda">' + formatarMoeda(dados.total) + '</td>';
             html += '</tr>';
 
             html += '</tbody></table></div>';
@@ -584,9 +619,7 @@
         }
 
         function mudarAno(indice) {
-            console.log('Mudando para índice:', indice);
             if (indice === '' || !allData[indice]) {
-                document.querySelectorAll('.tab-content').forEach(el => el.innerHTML = '<div class="erro">Selecione um período válido</div>');
                 return;
             }
 
@@ -609,80 +642,7 @@
         }
 
         function carregarJSON() {
-            console.log('Iniciando carregamento de dados...');
-            
             var timestamp = '?t=' + Date.now();
             var urlBase = 'https://raw.githubusercontent.com/rtoledomota/SESAUD-Orcamento/main/data.json' + timestamp;
             var urls = [
-                'https://corsproxy.io/?' + urlBase,
-                urlBase
-            ];
-
-            function tentarProxima(index) {
-                if (index >= urls.length) {
-                    console.error('Nenhuma URL funcionou');
-                    document.querySelectorAll('.tab-content').forEach(el => el.innerHTML = '<div class="erro">Erro ao carregar dados. Verifique a URL do JSON.</div>');
-                    return;
-                }
-
-                console.log('Tentando carregar:', urls[index]);
-                fetch(urls[index], { cache: 'no-store', headers: { 'Cache-Control': 'no-cache, no-store, must-revalidate' } })
-                    .then(r => {
-                        if (!r.ok) throw new Error('HTTP ' + r.status);
-                        return r.json();
-                    })
-                    .then(dados => {
-                        console.log('✅ Sucesso com:', urls[index]);
-                        console.log('Dados recebidos:', dados);
-                        
-                        if (dados.anos && Array.isArray(dados.anos)) {
-                            allData = dados.anos;
-                            console.log('Anos encontrados:', allData.length);
-                        }
-
-                        if (allData.length === 0) {
-                            console.error('Nenhum ano encontrado');
-                            document.querySelectorAll('.tab-content').forEach(el => el.innerHTML = '<div class="erro">Nenhum período encontrado nos dados.</div>');
-                            return;
-                        }
-
-                        var seletor = document.getElementById('seletor-ano');
-                        seletor.innerHTML = '';
-                        var nomes = ['Resumo Geral 2025', 'Novos Serviços 2025', 'SESAUD Detalhado 2025', 'FUABC Detalhado 2025/2026'];
-                        
-                        for (var i = 0; i < allData.length; i++) {
-                            var opt = document.createElement('option');
-                            opt.value = i;
-                            opt.textContent = nomes[i] || ('Período ' + (i + 1));
-                            seletor.appendChild(opt);
-                            console.log('Adicionado período:', i, nomes[i]);
-                        }
-
-                        seletor.value = 0;
-                        document.getElementById('data-atualizacao').textContent = 'Atualizado em: ' + (dados.atualizado_em || 'N/A');
-                        
-                        mudarAno(0);
-                    })
-                    .catch(e => {
-                        console.log('❌ Falha:', urls[index], e.message);
-                        tentarProxima(index + 1);
-                    });
-            }
-
-            tentarProxima(0);
-        }
-
-        function toggleDarkMode() {
-            document.body.classList.toggle('dark-mode');
-            localStorage.setItem('dark-mode', document.body.classList.contains('dark-mode'));
-        }
-
-        if (localStorage.getItem('dark-mode') === 'true') {
-            document.body.classList.add('dark-mode');
-        }
-
-        window.addEventListener('load', carregarJSON);
-        setInterval(carregarJSON, 60000);
-    </script>
-</body>
-</html>
+                'https://corsproxy.io/?
