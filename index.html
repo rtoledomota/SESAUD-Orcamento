@@ -8,7 +8,6 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75'>📊</text></svg>">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { font-size: 16px; scroll-behavior: smooth; }
@@ -34,13 +33,13 @@
         header h1 { margin-bottom: 0.5rem; font-size: 2.5rem; font-weight: 600; letter-spacing: -0.5px; }
         header p { font-weight: 500; margin-bottom: 0.5rem; font-size: 1.1rem; opacity: 0.95; }
         .data-atualizacao { color: rgba(255,255,255,0.8); font-size: 0.9rem; margin-top: 0.5rem; }
-        .fonte-dados { color: rgba(255,255,255,0.7); font-size: 0.85rem; margin-top: 0.3rem; }
 
         .dark-mode-toggle {
             position: absolute;
             top: 1.5rem;
             right: 1.5rem;
-            padding: 0.5rem 0.8rem;
+            width: 40px;
+            height: 40px;
             background: rgba(255,255,255,0.15);
             border: 1px solid rgba(255,255,255,0.3);
             border-radius: 6px;
@@ -48,8 +47,6 @@
             cursor: pointer;
             font-size: 1.1rem;
             transition: all 0.3s ease;
-            width: 40px;
-            height: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -121,7 +118,7 @@
         h2 { color: #2c3e50; margin-bottom: 1.5rem; font-size: 1.8rem; text-align: center; font-weight: 600; }
 
         .erro { background: #fadbd8; color: #922b21; padding: 1.5rem; border-radius: 8px; margin: 1rem 0; border-left: 4px solid #e74c3c; }
-        .sucesso { background: #d5f4e6; color: #0b5345; padding: 1.5rem; border-radius: 8px; margin: 1rem 0; border-left: 4px solid #27ae60; }
+        .carregando { background: #d6eaf8; color: #1f618d; padding: 1.5rem; border-radius: 8px; margin: 1rem 0; border-left: 4px solid #3498db; text-align: center; }
 
         footer {
             margin-top: 3rem;
@@ -137,7 +134,7 @@
         /* Dark Mode */
         body.dark-mode { background: #1a1a1a; color: #ecf0f1; }
         body.dark-mode header { background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); }
-        body.dark-mode .table-responsive-wrapper, body.dark-mode table { background: #2d2d2d; }
+        body.dark-mode table { background: #2d2d2d; }
         body.dark-mode h2 { color: #ecf0f1; }
         body.dark-mode th { background: #1a1a1a; color: #ffffff !important; }
         body.dark-mode td { color: #ecf0f1; border-bottom-color: #404040; background: #2d2d2d; }
@@ -161,10 +158,8 @@
             #seletor-ano { padding: 0.4rem 0.6rem; font-size: 0.8rem; }
             h2 { font-size: 1rem; margin-bottom: 0.6rem; }
             table { min-width: 280px; font-size: 0.7rem; }
-            thead { background: #2c3e50; }
             th { padding: 0.4rem 0.5rem; font-size: 0.65rem; }
             td { padding: 0.4rem 0.5rem; font-size: 0.7rem; }
-            .table-responsive-wrapper { margin: 0.6rem 0; border-radius: 6px; }
             footer { padding: 0.6rem; font-size: 0.65rem; margin-top: 0.8rem; }
         }
 
@@ -214,7 +209,6 @@
                 </select>
             </div>
             <p class="data-atualizacao" id="data-atualizacao">Carregando dados...</p>
-            <p class="fonte-dados" id="fonte-dados">Fonte: GitHub Pages</p>
         </header>
 
         <div id="conteudo-principal"></div>
@@ -232,10 +226,21 @@
             return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(valor);
         }
 
+        function formatarChave(chave) {
+            return chave
+                .replace(/_/g, ' ')
+                .replace(/2025/g, ' 2025')
+                .replace(/2026/g, ' 2026')
+                .split(' ')
+                .map(palavra => palavra.charAt(0).toUpperCase() + palavra.slice(1).toLowerCase())
+                .join(' ')
+                .trim();
+        }
+
         function mudarAba(indice) {
             console.log('Mudando para aba:', indice);
             
-            if (indice === '' || !allData[indice]) {
+            if (indice === '' || allData[indice] === undefined) {
                 document.getElementById('conteudo-principal').innerHTML = '<div class="erro">Selecione uma aba válida</div>';
                 return;
             }
@@ -243,41 +248,48 @@
             var dados = allData[indice];
             var nomeAba = abasNomes[indice] || 'Aba ' + (parseInt(indice) + 1);
             
-            console.log('Renderizando aba:', nomeAba, dados);
+            console.log('Dados encontrados:', dados);
             renderizarConteudo(dados, nomeAba);
         }
 
         function renderizarConteudo(dados, titulo) {
-            console.log('Renderizando conteúdo:', titulo, dados);
+            console.log('Renderizando:', titulo, dados);
             
             var html = '<h2>' + titulo + '</h2>';
             
             if (!dados || typeof dados !== 'object') {
-                html += '<div class="erro">Dados inválidos ou vazios</div>';
+                html += '<div class="erro">Dados inválidos</div>';
+                document.getElementById('conteudo-principal').innerHTML = html;
+                return;
+            }
+
+            var linhas = [];
+            for (var chave in dados) {
+                if (dados.hasOwnProperty(chave) && chave !== 'nome' && chave !== 'descricao') {
+                    var valor = dados[chave];
+                    if (typeof valor === 'number') {
+                        linhas.push({
+                            chave: chave,
+                            valor: valor
+                        });
+                    }
+                }
+            }
+
+            if (linhas.length === 0) {
+                html += '<div class="carregando">Nenhum dado encontrado para esta aba</div>';
                 document.getElementById('conteudo-principal').innerHTML = html;
                 return;
             }
 
             html += '<div class="table-responsive-wrapper"><table><thead><tr><th>Item</th><th class="valor-moeda">Valor</th></tr></thead><tbody>';
             
-            var temDados = false;
-            for (var chave in dados) {
-                if (dados.hasOwnProperty(chave) && chave !== 'descricao' && chave !== 'atualizado_em' && chave !== 'nome') {
-                    var valor = dados[chave];
-                    
-                    if (typeof valor === 'number') {
-                        temDados = true;
-                        html += '<tr>';
-                        html += '<td>' + chave.replace(/_/g, ' ').toUpperCase() + '</td>';
-                        html += '<td class="valor-moeda">' + formatarMoeda(valor) + '</td>';
-                        html += '</tr>';
-                    }
-                }
-            }
-            
-            if (!temDados) {
-                html += '<tr><td colspan="2" class="erro">Nenhum dado numérico encontrado</td></tr>';
-            }
+            linhas.forEach(linha => {
+                html += '<tr>';
+                html += '<td>' + formatarChave(linha.chave) + '</td>';
+                html += '<td class="valor-moeda">' + formatarMoeda(linha.valor) + '</td>';
+                html += '</tr>';
+            });
             
             html += '</tbody></table></div>';
             
@@ -285,9 +297,10 @@
         }
 
         function carregarJSON() {
-            console.log('Iniciando carregamento de dados...');
+            console.log('=== INICIANDO CARREGAMENTO ===');
             
-            var urlBase = 'https://raw.githubusercontent.com/rtoledomota/SESAUD-Orcamento/main/data.json';
+            var timestamp = '?t=' + Date.now();
+            var urlBase = 'https://raw.githubusercontent.com/rtoledomota/SESAUD-Orcamento/main/data.json' + timestamp;
             var urls = [
                 'https://corsproxy.io/?' + urlBase,
                 urlBase
@@ -295,57 +308,57 @@
 
             function tentarProxima(index) {
                 if (index >= urls.length) {
-                    console.error('Nenhuma URL funcionou');
-                    document.getElementById('conteudo-principal').innerHTML = '<div class="erro">Erro ao carregar dados. Verifique a URL do JSON.</div>';
+                    console.error('❌ Todas as URLs falharam');
+                    document.getElementById('conteudo-principal').innerHTML = '<div class="erro">Erro ao carregar dados</div>';
                     return;
                 }
 
-                console.log('Tentando carregar:', urls[index]);
-                fetch(urls[index], { cache: 'no-store', headers: { 'Cache-Control': 'no-cache, no-store, must-revalidate' } })
+                console.log('Tentando:', urls[index]);
+                fetch(urls[index], { 
+                    cache: 'no-store',
+                    headers: { 
+                        'Cache-Control': 'no-cache, no-store, must-revalidate',
+                        'Pragma': 'no-cache'
+                    } 
+                })
                     .then(r => {
+                        console.log('Status:', r.status);
                         if (!r.ok) throw new Error('HTTP ' + r.status);
                         return r.json();
                     })
                     .then(dados => {
-                        console.log('✅ Sucesso com:', urls[index]);
-                        console.log('Dados recebidos:', dados);
+                        console.log('✅ SUCESSO - Dados completos:', dados);
                         
-                        // Trabalhar com o array de anos
-                        if (Array.isArray(dados.anos)) {
-                            console.log('Array de anos encontrado');
+                        if (Array.isArray(dados.anos) && dados.anos.length > 0) {
                             allData = dados.anos;
                             
+                            console.log('Total de abas:', allData.length);
+                            
                             allData.forEach((aba, idx) => {
-                                abasNomes[idx] = aba.descricao || aba.nome || ('Aba ' + (idx + 1));
-                                console.log('Aba ' + idx + ':', abasNomes[idx]);
+                                console.log('Aba ' + idx + ':', aba);
+                                abasNomes[idx] = aba.nome || aba.descricao || ('Aba ' + (idx + 1));
                             });
-                        }
 
-                        if (allData.length === 0) {
-                            console.error('Nenhuma aba encontrada');
-                            document.getElementById('conteudo-principal').innerHTML = '<div class="erro">Nenhuma aba encontrada nos dados.</div>';
-                            return;
-                        }
+                            var seletor = document.getElementById('seletor-ano');
+                            seletor.innerHTML = '';
+                            
+                            for (var i = 0; i < allData.length; i++) {
+                                var opt = document.createElement('option');
+                                opt.value = i;
+                                opt.textContent = abasNomes[i];
+                                seletor.appendChild(opt);
+                            }
 
-                        var seletor = document.getElementById('seletor-ano');
-                        seletor.innerHTML = '';
-                        
-                        console.log('Total de abas:', allData.length);
-                        
-                        for (var i = 0; i < allData.length; i++) {
-                            var opt = document.createElement('option');
-                            opt.value = i;
-                            opt.textContent = abasNomes[i] || ('Aba ' + (i + 1));
-                            seletor.appendChild(opt);
+                            seletor.value = 0;
+                            document.getElementById('data-atualizacao').textContent = 'Atualizado em: ' + (dados.atualizado_em || 'Agora');
+                            
+                            mudarAba(0);
+                        } else {
+                            throw new Error('Array de anos vazio ou inválido');
                         }
-
-                        seletor.value = 0;
-                        document.getElementById('data-atualizacao').textContent = 'Atualizado em: ' + (dados.atualizado_em || 'Agora');
-                        
-                        mudarAba(0);
                     })
                     .catch(e => {
-                        console.log('❌ Falha:', urls[index], e.message);
+                        console.log('❌ Falha:', e.message);
                         tentarProxima(index + 1);
                     });
             }
@@ -362,8 +375,8 @@
             document.body.classList.add('dark-mode');
         }
 
-        setInterval(carregarJSON, 60000);
         window.addEventListener('load', carregarJSON);
+        setInterval(carregarJSON, 300000);
     </script>
 </body>
 </html>
