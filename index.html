@@ -28,6 +28,7 @@
         table { width: 100%; border-collapse: collapse; background: white; min-width: 400px; }
         thead { background: #2c3e50 !important; }
         th { padding: 1rem; text-align: left; color: #ffffff !important; font-weight: 600 !important; font-size: 0.9rem; white-space: nowrap; text-transform: uppercase; letter-spacing: 0.5px; }
+        .table-responsive-wrapper th, .table-responsive-wrapper thead th { color: #ffffff !important; background: #2c3e50 !important; }
         td { padding: 0.9rem 1rem; border-bottom: 1px solid #ecf0f1; color: #2c3e50 !important; font-size: 0.9rem; }
         tbody tr:nth-child(odd) { background-color: #f8f9fa; }
         tbody tr:hover { background: #eef2f7; }
@@ -54,6 +55,7 @@
         body.dark-mode .tab-content, body.dark-mode table, body.dark-mode .servicos-lista { background: #2d2d2d; }
         body.dark-mode h2 { color: #ecf0f1; }
         body.dark-mode th { background: #1a1a1a !important; color: #ffffff !important; }
+        .table-responsive-wrapper th.dark-mode, .table-responsive-wrapper thead th.dark-mode { color: #ffffff !important; background: #1a1a1a !important; }
         body.dark-mode td { color: #ecf0f1 !important; border-bottom-color: #404040; background: #2d2d2d; }
         body.dark-mode tbody tr:nth-child(odd) { background-color: #333333; }
         body.dark-mode tbody tr:hover { background: #3a3a3a; }
@@ -198,24 +200,104 @@
         }
 
         function preencherSESAUDDetalhado() {
-            var dados = allData.anos ? allData.anos[2] : {};
             var html = '<div class="table-responsive-wrapper"><table><thead><tr><th>Categoria</th><th class="valor-moeda">Valor</th></tr></thead><tbody>';
             var grupos = [
-                { nome: 'RECURSOS HUMANOS', id: 'recursos_humanos', valor: dados.recursos_humanos || 6616449.07, subitens: [
-                    { label: 'Indenizações Trabalhistas', valor: dados.indenizacoes_trabalhistas || 25020.04 },
-                    { label: 'Vencimento Prefeitura', valor: dados.vencimento_prefeitura || 4811182.14 },
-                    { label: 'Programa Mais Médicos', valor: dados.programa_mais_medicos || 12900.00 },
-                    { label: 'Gratificação SUS', valor: dados.gratificacao_sus || 296880.38 },
-                    { label: 'Pensões Gratif SUS', valor: dados.pensoes_gratif_sus || 479.33 },
-                    { label: 'INSS PREF', valor: dados.inss_pref || 983944.34 },
-                    { label: 'FGTS PREF', valor: dados.fgts_pref || 303255.80 },
-                    { label: 'Notre Dame Intermedica', valor: dados.notre_dame_intermedica || 202288.27 }
+                { nome: 'RECURSOS HUMANOS', id: 'recursos_humanos', valor: 6616449.07, subitens: [
+                    { label: 'Indenizações Trabalhistas - Rescisões', valor: 25020.04 },
+                    { label: 'Vencimento Prefeitura - Folha', valor: 4811182.14 },
+                    { label: 'Programa - Mais Médicos', valor: 12900.00 },
+                    { label: 'Tarifas Caixa Econômica Federal / Banco do Brasil - Tarifas Bancárias', valor: 775.54 },
+                    { label: 'Gratificação SUS', valor: 296880.38 },
+                    { label: 'Pensões - Gratif. SUS', valor: 479.33 },
+                    { label: 'INSS PREF', valor: 983944.34 },
+                    { label: 'FGTS PREF', valor: 303255.80 },
+                    { label: 'Notre Dame Intermedica', valor: 202288.27 }
                 ] },
-                { nome: 'PROCESSOS TRABALHISTAS', id: 'processos', valor: dados.processos_trabalhistas || 1619.20, subitens: [] },
-                { nome: 'MATERIAIS DE CONSUMO', id: 'materiais', valor: dados.materiais_consumo || 329615.34, subitens: [] },
-                { nome: 'SERVIÇOS DE TERCEIROS', id: 'servicos', valor: dados.servicos_terceiros || 3312660.87, subitens: [] },
-                { nome: 'OUTROS GASTOS', id: 'outros', valor: dados.outros_gastos || 326630.03, subitens: [
-                    { label: 'Tarifas Bancárias', valor: dados.tarifas_bancarias || 775.54 }
+                { nome: 'PROCESSOS TRABALHISTAS', id: 'processos_trabalhistas', valor: 1619.20, subitens: [
+                    { label: 'Carla Mercia Ferreira Domingues', valor: 506.00 },
+                    { label: 'Raphael Costa Vieira', valor: 1518.00 }
+                ] },
+                { nome: 'MATERIAIS DE CONSUMO', id: 'materiais_consumo', valor: 329615.34, subitens: [
+                    { label: 'Medicamentos e Materiais Médicos e Hospitalar', valor: 264530.85 },
+                    { label: 'Abbott Laboratorios', valor: 146265.00 },
+                    { label: 'Aglon Comercio e Representações Ltda.', valor: 22033.59 },
+                    { label: 'Outros Materiais de Consumo', valor: 65084.50 },
+                    { label: 'Companhia de Gas de S.Paulo - Comgas', valor: 46286.66 },
+                    { label: 'Cia Ultragaz S.A', valor: 1843.80 },
+                    { label: 'DC Infinity Comercializadora e Distr Eireli', valor: 865.41 },
+                    { label: 'JM Suprimentos Ltda', valor: 6626.55 },
+                    { label: 'JC da Silva Suprimentos para Escritório', valor: 3561.75 },
+                    { label: 'Linecontrol Comercio Imp e Exp Ltda', valor: 2000.84 },
+                    { label: 'Preciso Equipamentos P Laboratorios Ltda', valor: 720.00 },
+                    { label: 'Quimaflex Cientifica Ltda', valor: 2160.00 },
+                    { label: 'RBS Comercio e Serviços em Geral Ltda', valor: 5470.40 },
+                    { label: 'RF Leite Aquino Alimento para Animais', valor: 42920.00 },
+                    { label: 'Solrac Comercio e Serviço Ltda', valor: 1742.28 },
+                    { label: 'Supergasbras Energia Ltda', valor: 3645.50 },
+                    { label: 'Sinsai Comercio de Descartaveis Eireli', valor: 38327.50 },
+                    { label: 'Viva Laboratorio de Analysis Ltda', valor: 1200.00 },
+                    { label: 'VC da Rocha Distribuidora Me', valor: 7049.50 },
+                    { label: 'Vila Barcelona Me', valor: 2865.00 }
+                ] },
+                { nome: 'SERVIÇOS DE TERCEIROS', id: 'servicos_terceiros', valor: 3312660.87, subitens: [
+                    { label: 'Manutenção e Reformas', valor: 731350.30 },
+                    { label: 'Soluções Serv Terceirizados Eireli - Complexo PCD', valor: 1828375.76 },
+                    { label: 'Serviços Médicos Terceirizados', valor: 0 },
+                    { label: 'Outros Serviços de Terceiros', valor: 2574910.56 },
+                    { label: 'Central de Convênios', valor: 426293.85 },
+                    { label: 'APAE - CER IV', valor: 435004.24 },
+                    { label: 'La Vita - Núcleo Clinico de Reabilitação', valor: 10541.78 },
+                    { label: 'Residencial P Idosos La Vita Ltda', valor: 6222.66 },
+                    { label: 'Centro de Readaptação Social Ltda', valor: 19572.95 },
+                    { label: 'Nucleo de Integração Luz do So Ltda', valor: 13509.56 },
+                    { label: 'Associação Estancia Primavera Comunidade Terapêutica', valor: 7500.00 },
+                    { label: 'Clínica Primavera Ltda', valor: 21365.33 },
+                    { label: 'Residencial Saúde e Bem Estar Ltda', valor: 4731.22 },
+                    { label: 'AMA - Assoc de Amigos do Autista', valor: 25310.97 },
+                    { label: 'APAE Neuro', valor: 29401.45 },
+                    { label: 'Cin Comunicação Integrada Limitada - EPP', valor: 288673.36 },
+                    { label: 'Fundação Apoio a Univers. Munic. Scs - Unimais', valor: 55401.47 },
+                    { label: 'ABX Telecom Ltda.', valor: 82486.30 },
+                    { label: 'Altbit Informatica Com e Serviços Ltda', valor: 703335.45 },
+                    { label: 'Associação Patrulheiros Mirins de S C Sul', valor: 7537.00 },
+                    { label: 'Ciama Representações e Comercio Ltda', valor: 682972.50 },
+                    { label: 'Colorsistem do Brasil Com.Sist. Reprograf.', valor: 103830.38 },
+                    { label: 'Colsan Soc.Benefic.de Coleta de Sangue', valor: 217043.32 },
+                    { label: 'Companhia de Processamento de Dados do Estado SP - Prodesp', valor: 796.52 },
+                    { label: 'Imprensa Nacional - IN', valor: 782.28 },
+                    { label: 'Inovaptt Tecnologia Ltda', valor: 37287.90 },
+                    { label: 'Max-Verde Transp e Construções Eireli', valor: 367209.51 },
+                    { label: 'Net Telecom Informática', valor: 108345.36 },
+                    { label: 'Noroeste Comercial de Suprimentos', valor: 8862.00 },
+                    { label: 'Rsm Soluções Ltda', valor: 3275.00 },
+                    { label: 'Soberana Serviços de Refeição e Com Ltda', valor: 63214.91 },
+                    { label: 'TB Serviços Transp Limp Ger.Rec.Humanos', valor: 1132787.34 },
+                    { label: 'Tres Lagoas Comercio de Embalagens Ltda', valor: 406.50 },
+                    { label: 'Vespa Saúde Ambiental Com Serviços', valor: 560.00 },
+                    { label: 'WT Peliculas Ltda', valor: 1224.61 },
+                    { label: 'Ass.Protetora dos Animais - Apascs', valor: 21000.00 },
+                    { label: 'Assoc.Prev.Depend.Quim Divina Providência', valor: 40000.00 },
+                    { label: 'Grupo de Amigos Samaritanos - G.A.S', valor: 15000.00 },
+                    { label: 'Instituição Claudio Amâncio', valor: 60000.00 },
+                    { label: 'Rede Feminina de Combate ao Câncer', valor: 40000.00 },
+                    { label: 'Soc Benefic.Grupo de Amor a Vida - GAV', valor: 80000.00 },
+                    { label: 'Locação de Imóveis', valor: 53091.70 },
+                    { label: 'Carlos Alberto Ferreira - Super Centro', valor: 11681.70 },
+                    { label: 'Elza Pianta Ferreira - Super Centro', valor: 23423.97 },
+                    { label: 'Cleligen Luiz Bonetti - Fisioterapia', valor: 8569.44 },
+                    { label: 'Alcyr Rozante Sotto - Fisioterapia', valor: 4284.72 },
+                    { label: 'Mirian Nacagami Sotto - Fisioterapia', valor: 4284.72 },
+                    { label: 'Adenilze Bechara - Pet Escola', valor: 16132.40 },
+                    { label: 'VVP Participações Ltda - UBS Santo Antonio', valor: 9455.76 }
+                ] },
+                { nome: 'INVESTIMENTOS', id: 'investimentos', valor: 0, subitens: [] },
+                { nome: 'OUTROS GASTOS', id: 'outros_gastos', valor: 326630.03, subitens: [
+                    { label: 'Combustível - Leandrini Auto Posto Ltda', valor: 26400.97 },
+                    { label: 'Utilidades, Energia, Água, coleta de lixo e internet', valor: 302869.16 },
+                    { label: 'Telefonica Brasil S/A', valor: 10332.31 },
+                    { label: 'Saesa', valor: 5010.17 },
+                    { label: 'Eletropaulo Metr.Eletr.de S.P. S/A', valor: 287154.07 },
+                    { label: 'Adiantamento', valor: 2084.07 }
                 ] }
             ];
 
@@ -234,8 +316,8 @@
             });
 
             html += '<tr style="background: #ecf0f1; font-weight: bold;">';
-            html += '<td>TOTAL</td>';
-            html += '<td class="valor-moeda">' + formatarMoeda(dados.total || 10633666.21) + '</td>';
+            html += '<td>TOTAL DE DESPESAS</td>';
+            html += '<td class="valor-moeda">' + formatarMoeda(10633666.21) + '</td>';
             html += '</tr></tbody></table></div>';
             document.getElementById('sesaud-detalhado-conteudo').innerHTML = html;
         }
@@ -244,18 +326,18 @@
             var dados = allData.anos ? allData.anos[3] : {};
             var html = '<div class="table-responsive-wrapper"><table><thead><tr><th>Categoria</th><th class="valor-moeda">2025</th><th class="valor-moeda">2026</th><th class="valor-moeda">Variação</th></tr></thead><tbody>';
             var grupos = [
-                { nome: 'RECURSOS HUMANOS', valor2025: dados.recursos_humanos_2025 || 15519978.93, valor2026: dados.recursos_humanos_2026 || 15979374.38 },
-                { nome: 'PROCESSOS TRABALHISTAS', valor2025: dados.processos_trabalhistas_2025 || 81084.03, valor2026: dados.processos_trabalhistas_2026 || 78881.08 },
-                { nome: 'MATERIAIS DE CONSUMO', valor2025: dados.materiais_consumo_2025 || 3920961.07, valor2026: dados.materiais_consumo_2026 || 4218090.06 },
-                { nome: 'SERVIÇOS DE TERCEIROS', valor2025: dados.servicos_terceiros_2025 || 19270730.55, valor2026: dados.servicos_terceiros_2026 || 23568510.69 },
-                { nome: 'INVESTIMENTOS', valor2025: dados.investimentos_2025 || 83882.01, valor2026: dados.investimentos_2026 || 203082.50 },
-                { nome: 'OUTROS GASTOS', valor2025: dados.outros_gastos_2025 || 114709.55, valor2026: dados.outros_gastos_2026 || 124262.02 }
+                { nome: 'RECURSOS HUMANOS', id: 'recursos_humanos', valor2025: dados.recursos_humanos_2025 || 15519978.93, valor2026: dados.recursos_humanos_2026 || 15979374.38 },
+                { nome: 'PROCESSOS TRABALHISTAS', id: 'processos_trabalhistas', valor2025: dados.processos_trabalhistas_2025 || 81084.03, valor2026: dados.processos_trabalhistas_2026 || 78881.08 },
+                { nome: 'MATERIAIS DE CONSUMO', id: 'materiais_consumo', valor2025: dados.materiais_consumo_2025 || 3920961.07, valor2026: dados.materiais_consumo_2026 || 4218090.06 },
+                { nome: 'SERVIÇOS DE TERCEIROS', id: 'servicos_terceiros', valor2025: dados.servicos_terceiros_2025 || 19270730.55, valor2026: dados.servicos_terceiros_2026 || 23568510.69 },
+                { nome: 'INVESTIMENTOS', id: 'investimentos', valor2025: dados.investimentos_2025 || 83882.01, valor2026: dados.investimentos_2026 || 203082.50 },
+                { nome: 'OUTROS GASTOS', id: 'outros_gastos', valor2025: dados.outros_gastos_2025 || 114709.55, valor2026: dados.outros_gastos_2026 || 124262.02 }
             ];
 
             grupos.forEach(grupo => {
                 var variacao = grupo.valor2026 - grupo.valor2025;
                 var corVariacao = variacao >= 0 ? '#27ae60' : '#e74c3c';
-                html += '<tr class="accordion-row" data-group="' + grupo.nome.toLowerCase().replace(/ /g, '_') + '" onclick="toggleAccordion(this)">';
+                html += '<tr class="accordion-row" data-group="' + grupo.id + '" onclick="toggleAccordion(this)">';
                 html += '<td><span class="toggle-icon">▶</span>' + grupo.nome + '</td>';
                 html += '<td class="valor-moeda">' + formatarMoeda(grupo.valor2025) + '</td>';
                 html += '<td class="valor-moeda">' + formatarMoeda(grupo.valor2026) + '</td>';
