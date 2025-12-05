@@ -39,26 +39,20 @@
         .card-value { font-size: 1.5rem; font-weight: bold; }
         .deficit { color: #e74c3c; } /* Para diferença negativa */
 
-        /* Tabelas e Quadros - Headers com Fonte Branca Forçada */
+        /* Tabelas - Estilos gerais para th (layout) */
         .table-responsive-wrapper { overflow-x: auto; margin: 1rem 0; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
-        table.budget-table { width: 100%; border-collapse: collapse; background: white; min-width: 600px; }
+        table { width: 100%; border-collapse: collapse; background: white; min-width: 600px; }
         
-        /* Regras CSS ultra-específicas para garantir a cor branca nos headers */
-        .budget-table th, 
-        .budget-table thead th, 
-        .tab-content .budget-table th, 
-        .tab-content .budget-table thead th,
-        .budget-table tr th { 
-            color: #ffffff !important; 
-            background-color: #2c3e50 !important; 
-            padding: 1rem !important; 
-            text-align: left !important; 
-            font-weight: 600 !important; 
-            font-size: 0.9rem !important; 
-            white-space: nowrap !important; 
-            text-transform: uppercase !important; 
-            letter-spacing: 0.5px !important; 
-            border: none !important; /* Remove bordas padrão que podem interferir */
+        /* Estilos de layout para th - cores serão sobrescritas por inline-styles no JS */
+        th { 
+            padding: 1rem; 
+            text-align: left; 
+            font-weight: 600; 
+            font-size: 0.9rem; 
+            white-space: nowrap; 
+            text-transform: uppercase; 
+            letter-spacing: 0.5px; 
+            border: none; /* Remove bordas padrão que podem interferir */
         }
         
         td { padding: 0.9rem 1rem; border-bottom: 1px solid #ecf0f1; color: #2c3e50; font-size: 0.9rem; }
@@ -100,7 +94,7 @@
             .tab-btn { padding: 0.4rem 0.5rem; font-size: 0.6rem; min-width: 60px; }
             .tab-content { padding: 0.8rem; }
             h2 { font-size: 1rem; }
-            table.budget-table { min-width: 300px; font-size: 0.7rem; }
+            table { min-width: 300px; font-size: 0.7rem; }
             th, td { padding: 0.4rem 0.5rem; }
             .accordion-item td:first-child { padding-left: 1rem; }
         }
@@ -110,7 +104,7 @@
             .tab-btn { padding: 0.6rem 1rem; font-size: 0.75rem; min-width: 80px; }
             .tab-content { padding: 1.2rem; }
             h2 { font-size: 1.4rem; }
-            table.budget-table { min-width: 500px; font-size: 0.85rem; }
+            table { min-width: 500px; font-size: 0.85rem; }
             th, td { padding: 0.6rem 0.8rem; }
             .accordion-item td:first-child { padding-left: 1.5rem; }
         }
@@ -443,6 +437,28 @@
                         <div class="card-value">${formatarMoeda(totalDespesasCard)}</div>
                     </div>
                 </div>
+                <div class="table-responsive-wrapper">
+                    <table class="budget-table">
+                        <thead>
+                            <tr>
+                                <th style="color: #ffffff !important; background-color: #2c3e50 !important; font-weight: bold !important;">ORÇAMENTO</th>
+                                <th style="color: #ffffff !important; background-color: #2c3e50 !important; font-weight: bold !important;">CUSTO MENSAL FUABC</th>
+                                <th style="color: #ffffff !important; background-color: #2c3e50 !important; font-weight: bold !important;">CUSTO MENSAL SESAUD</th>
+                                <th style="color: #ffffff !important; background-color: #2c3e50 !important; font-weight: bold !important;">GERAL</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td></td><td colspan="3">${titulo}</td></tr>
+                            <tr><td>RECURSOS HUMANOS</td><td class="valor-moeda">${formatarMoeda(ano === '2025' ? 15519978.93 : 15979374.38)}</td><td class="valor-moeda">${formatarMoeda(6616449.07)}</td><td class="valor-moeda">${formatarMoeda(ano === '2025' ? 22136428.00 : 22605823.45)}</td></tr>
+                            <tr><td>PROCESSOS TRABALHISTAS</td><td class="valor-moeda">${formatarMoeda(ano === '2025' ? 81084.03 : 78881.08)}</td><td class="valor-moeda">${formatarMoeda(1619.20)}</td><td class="valor-moeda">${formatarMoeda(ano === '2025' ? 82703.23 : 80500.28)}</td></tr>
+                            <tr><td>MATERIAIS DE CONSUMO</td><td class="valor-moeda">${formatarMoeda(ano === '2025' ? 3920961.07 : 4218090.06)}</td><td class="valor-moeda">${formatarMoeda(329615.34)}</td><td class="valor-moeda">${formatarMoeda(ano === '2025' ? 4250576.41 : 4547705.40)}</td></tr>
+                            <tr><td>SERVIÇOS DE TERCEIROS</td><td class="valor-moeda">${formatarMoeda(ano === '2025' ? 19270730.55 : 23568510.69)}</td><td class="valor-moeda">${formatarMoeda(3312660.87)}</td><td class="valor-moeda">${formatarMoeda(ano === '2025' ? 22583391.42 : 26881171.56)}</td></tr>
+                            <tr><td>INVESTIMENTOS</td><td class="valor-moeda">${formatarMoeda(ano === '2025' ? 83882.01 : 203082.50)}</td><td class="valor-moeda">R$ 0,00</td><td class="valor-moeda">${formatarMoeda(ano === '2025' ? 83882.01 : 203082.50)}</td></tr>
+                            <tr><td>OUTROS GASTOS</td><td class="valor-moeda">${formatarMoeda(ano === '2025' ? 114709.55 : 124262.02)}</td><td class="valor-moeda">${formatarMoeda(326630.03)}</td><td class="valor-moeda">${formatarMoeda(ano === '2025' ? 441339.58 : 450892.05)}</td></tr>
+                            <tr style="background: #ecf0f1; font-weight: bold;"><td>TOTAL DE DESPESAS</td><td class="valor-moeda">${formatarMoeda(fuabc)}</td><td class="valor-moeda">${formatarMoeda(sesaud)}</td><td class="valor-moeda">${formatarMoeda(totalGeralAno)}</td></tr>
+                        </tbody>
+                    </table>
+                </div>
             `;
             document.getElementById('resumo-conteudo').innerHTML = html;
         }
@@ -464,20 +480,11 @@
         }
 
         function preencherSESAUDDetalhado() {
-            var html = '<div class="table-responsive-wrapper"><table class="budget-table"><thead><tr>';
-            html += '<th style="color: #ffffff !important; background-color: #2c3e50 !important;">Categoria</th>';
-            html += '<th class="valor-moeda" style="color: #ffffff !important; background-color: #2c3e50 !important;">Valor</th>';
-            html += '</tr></thead><tbody>';
+            var html = '<div class="table-responsive-wrapper"><table class="budget-table"><thead><tr><th style="color: #ffffff !important; background-color: #2c3e50 !important; font-weight: bold !important;">Categoria</th><th class="valor-moeda" style="color: #ffffff !important; background-color: #2c3e50 !important; font-weight: bold !important;">Valor</th></tr></thead><tbody>';
             dadosSESAUD.forEach(grupo => {
-                html += '<tr class="accordion-row" data-group="' + grupo.id + '" onclick="toggleAccordion(this)">';
-                html += '<td><span class="toggle-icon">▶</span>' + grupo.nome + '</td>';
-                html += '<td class="valor-moeda">' + formatarMoeda(grupo.valor) + '</td>';
-                html += '</tr>';
+                html += '<tr class="accordion-row" data-group="' + grupo.id + '" onclick="toggleAccordion(this)"><td><span class="toggle-icon">▶</span>' + grupo.nome + '</td><td class="valor-moeda">' + formatarMoeda(grupo.valor) + '</td></tr>';
                 grupo.subitens.forEach(sub => {
-                    html += '<tr class="accordion-item" data-group-parent="' + grupo.id + '">';
-                    html += '<td>' + sub.label + '</td>';
-                    html += '<td class="valor-moeda">' + formatarMoeda(sub.valor) + '</td>';
-                    html += '</tr>';
+                    html += '<tr class="accordion-item" data-group-parent="' + grupo.id + '"><td>' + sub.label + '</td><td class="valor-moeda">' + formatarMoeda(sub.valor) + '</td></tr>';
                 });
             });
             html += '</tbody></table></div>';
@@ -485,28 +492,13 @@
         }
 
         function preencherFUABCDetalhado() {
-            var html = '<div class="table-responsive-wrapper"><table class="budget-table"><thead><tr>';
-            html += '<th style="color: #ffffff !important; background-color: #2c3e50 !important;">Categoria</th>';
-            html += '<th class="valor-moeda" style="color: #ffffff !important; background-color: #2c3e50 !important;">2025</th>';
-            html += '<th class="valor-moeda" style="color: #ffffff !important; background-color: #2c3e50 !important;">2026</th>';
-            html += '<th class="valor-moeda" style="color: #ffffff !important; background-color: #2c3e50 !important;">Variação</th>';
-            html += '</tr></thead><tbody>';
+            var html = '<div class="table-responsive-wrapper"><table class="budget-table"><thead><tr><th style="color: #ffffff !important; background-color: #2c3e50 !important; font-weight: bold !important;">Categoria</th><th class="valor-moeda" style="color: #ffffff !important; background-color: #2c3e50 !important; font-weight: bold !important;">2025</th><th class="valor-moeda" style="color: #ffffff !important; background-color: #2c3e50 !important; font-weight: bold !important;">2026</th><th class="valor-moeda" style="color: #ffffff !important; background-color: #2c3e50 !important; font-weight: bold !important;">Variação</th></tr></thead><tbody>';
             dadosFUABC.forEach(grupo => {
                 var varTotal = calcularVariacao(grupo.valor2025, grupo.valor2026);
-                html += '<tr class="accordion-row" data-group="' + grupo.id + '" onclick="toggleAccordion(this)">';
-                html += '<td><span class="toggle-icon">▶</span>' + grupo.nome + '</td>';
-                html += '<td class="valor-moeda">' + formatarMoeda(grupo.valor2025) + '</td>';
-                html += '<td class="valor-moeda">' + formatarMoeda(grupo.valor2026) + '</td>';
-                html += '<td class="valor-moeda" style="color: ' + varTotal.cor + '; font-weight: bold;">' + formatarMoeda(varTotal.variacao) + '</td>';
-                html += '</tr>';
+                html += '<tr class="accordion-row" data-group="' + grupo.id + '" onclick="toggleAccordion(this)"><td><span class="toggle-icon">▶</span>' + grupo.nome + '</td><td class="valor-moeda">' + formatarMoeda(grupo.valor2025) + '</td><td class="valor-moeda">' + formatarMoeda(grupo.valor2026) + '</td><td class="valor-moeda" style="color: ' + varTotal.cor + '; font-weight: bold;">' + formatarMoeda(varTotal.variacao) + '</td></tr>';
                 grupo.subitens.forEach(sub => {
                     var varSub = calcularVariacao(sub.valor2025, sub.valor2026);
-                    html += '<tr class="accordion-item" data-group-parent="' + grupo.id + '">';
-                    html += '<td>' + sub.label + '</td>';
-                    html += '<td class="valor-moeda">' + formatarMoeda(sub.valor2025) + '</td>';
-                    html += '<td class="valor-moeda">' + formatarMoeda(sub.valor2026) + '</td>';
-                    html += '<td class="valor-moeda" style="color: ' + varSub.cor + ';">' + formatarMoeda(varSub.variacao) + '</td>';
-                    html += '</tr>';
+                    html += '<tr class="accordion-item" data-group-parent="' + grupo.id + '"><td>' + sub.label + '</td><td class="valor-moeda">' + formatarMoeda(sub.valor2025) + '</td><td class="valor-moeda">' + formatarMoeda(sub.valor2026) + '</td><td class="valor-moeda" style="color: ' + varSub.cor + ';">' + formatarMoeda(varSub.variacao) + '</td></tr>';
                 });
             });
             html += '</tbody></table></div>';
