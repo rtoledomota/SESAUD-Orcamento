@@ -39,11 +39,11 @@
         .card-value { font-size: 1.5rem; font-weight: bold; }
         .deficit { color: #e74c3c; } /* Para diferença negativa */
 
-        /* Tabelas - Estilos gerais para th (layout) */
+        /* Tabelas e Quadros - Headers com Fonte Branca Forçada */
         .table-responsive-wrapper { overflow-x: auto; margin: 1rem 0; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
         table { width: 100%; border-collapse: collapse; background: white; min-width: 600px; }
         
-        /* Estilos de layout para th - cores serão sobrescritas por inline-styles no JS */
+        /* Regras CSS para TH - Menos específicas, mas importantes para fallback */
         th { 
             padding: 1rem; 
             text-align: left; 
@@ -52,9 +52,20 @@
             white-space: nowrap; 
             text-transform: uppercase; 
             letter-spacing: 0.5px; 
-            border: none; /* Remove bordas padrão que podem interferir */
+            /* Estas regras são importantes, mas as inline no JS terão prioridade */
+            color: #ffffff !important; 
+            background-color: #2c3e50 !important; 
         }
         
+        /* Regras mais específicas para TH em tabelas geradas dinamicamente */
+        .budget-table th, 
+        .budget-table thead th, 
+        .tab-content .budget-table th {
+            color: #ffffff !important;
+            background-color: #2c3e50 !important;
+            font-weight: bold !important;
+        }
+
         td { padding: 0.9rem 1rem; border-bottom: 1px solid #ecf0f1; color: #2c3e50; font-size: 0.9rem; }
         tbody tr:nth-child(odd) { background-color: #f8f9fa; }
         tbody tr:hover { background: #eef2f7; }
@@ -448,14 +459,52 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr><td></td><td colspan="3">${titulo}</td></tr>
-                            <tr><td>RECURSOS HUMANOS</td><td class="valor-moeda">${formatarMoeda(ano === '2025' ? 15519978.93 : 15979374.38)}</td><td class="valor-moeda">${formatarMoeda(6616449.07)}</td><td class="valor-moeda">${formatarMoeda(ano === '2025' ? 22136428.00 : 22605823.45)}</td></tr>
-                            <tr><td>PROCESSOS TRABALHISTAS</td><td class="valor-moeda">${formatarMoeda(ano === '2025' ? 81084.03 : 78881.08)}</td><td class="valor-moeda">${formatarMoeda(1619.20)}</td><td class="valor-moeda">${formatarMoeda(ano === '2025' ? 82703.23 : 80500.28)}</td></tr>
-                            <tr><td>MATERIAIS DE CONSUMO</td><td class="valor-moeda">${formatarMoeda(ano === '2025' ? 3920961.07 : 4218090.06)}</td><td class="valor-moeda">${formatarMoeda(329615.34)}</td><td class="valor-moeda">${formatarMoeda(ano === '2025' ? 4250576.41 : 4547705.40)}</td></tr>
-                            <tr><td>SERVIÇOS DE TERCEIROS</td><td class="valor-moeda">${formatarMoeda(ano === '2025' ? 19270730.55 : 23568510.69)}</td><td class="valor-moeda">${formatarMoeda(3312660.87)}</td><td class="valor-moeda">${formatarMoeda(ano === '2025' ? 22583391.42 : 26881171.56)}</td></tr>
-                            <tr><td>INVESTIMENTOS</td><td class="valor-moeda">${formatarMoeda(ano === '2025' ? 83882.01 : 203082.50)}</td><td class="valor-moeda">R$ 0,00</td><td class="valor-moeda">${formatarMoeda(ano === '2025' ? 83882.01 : 203082.50)}</td></tr>
-                            <tr><td>OUTROS GASTOS</td><td class="valor-moeda">${formatarMoeda(ano === '2025' ? 114709.55 : 124262.02)}</td><td class="valor-moeda">${formatarMoeda(326630.03)}</td><td class="valor-moeda">${formatarMoeda(ano === '2025' ? 441339.58 : 450892.05)}</td></tr>
-                            <tr style="background: #ecf0f1; font-weight: bold;"><td>TOTAL DE DESPESAS</td><td class="valor-moeda">${formatarMoeda(fuabc)}</td><td class="valor-moeda">${formatarMoeda(sesaud)}</td><td class="valor-moeda">${formatarMoeda(totalGeralAno)}</td></tr>
+                            <tr>
+                                <td></td>
+                                <td colspan="3">${ano} - MÉDIA DE EXECUÇÃO - JAN A OUT</td>
+                            </tr>
+                            <tr>
+                                <td>RECURSOS HUMANOS</td>
+                                <td class="valor-moeda">${formatarMoeda(ano === '2025' ? 15519978.93 : 15979374.38)}</td>
+                                <td class="valor-moeda">${formatarMoeda(6616449.07)}</td>
+                                <td class="valor-moeda">${formatarMoeda((ano === '2025' ? 15519978.93 : 15979374.38) + 6616449.07)}</td>
+                            </tr>
+                            <tr>
+                                <td>PROCESSOS TRABALHISTAS</td>
+                                <td class="valor-moeda">${formatarMoeda(ano === '2025' ? 81084.03 : 78881.08)}</td>
+                                <td class="valor-moeda">${formatarMoeda(1619.20)}</td>
+                                <td class="valor-moeda">${formatarMoeda((ano === '2025' ? 81084.03 : 78881.08) + 1619.20)}</td>
+                            </tr>
+                            <tr>
+                                <td>MATERIAIS DE CONSUMO</td>
+                                <td class="valor-moeda">${formatarMoeda(ano === '2025' ? 3920961.07 : 4218090.06)}</td>
+                                <td class="valor-moeda">${formatarMoeda(329615.34)}</td>
+                                <td class="valor-moeda">${formatarMoeda((ano === '2025' ? 3920961.07 : 4218090.06) + 329615.34)}</td>
+                            </tr>
+                            <tr>
+                                <td>SERVIÇOS DE TERCEIROS</td>
+                                <td class="valor-moeda">${formatarMoeda(ano === '2025' ? 19270730.55 : 23568510.69)}</td>
+                                <td class="valor-moeda">${formatarMoeda(3312660.87)}</td>
+                                <td class="valor-moeda">${formatarMoeda((ano === '2025' ? 19270730.55 : 23568510.69) + 3312660.87)}</td>
+                            </tr>
+                            <tr>
+                                <td>INVESTIMENTOS</td>
+                                <td class="valor-moeda">${formatarMoeda(ano === '2025' ? 83882.01 : 203082.50)}</td>
+                                <td class="valor-moeda">${formatarMoeda(0)}</td>
+                                <td class="valor-moeda">${formatarMoeda((ano === '2025' ? 83882.01 : 203082.50) + 0)}</td>
+                            </tr>
+                            <tr>
+                                <td>OUTROS GASTOS</td>
+                                <td class="valor-moeda">${formatarMoeda(ano === '2025' ? 114709.55 : 124262.02)}</td>
+                                <td class="valor-moeda">${formatarMoeda(326630.03)}</td>
+                                <td class="valor-moeda">${formatarMoeda((ano === '2025' ? 114709.55 : 124262.02) + 326630.03)}</td>
+                            </tr>
+                            <tr style="background: #ecf0f1; font-weight: bold;">
+                                <td>TOTAL DE DESPESAS</td>
+                                <td class="valor-moeda">${formatarMoeda(fuabc)}</td>
+                                <td class="valor-moeda">${formatarMoeda(sesaud)}</td>
+                                <td class="valor-moeda">${formatarMoeda(totalGeralAno)}</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -496,10 +545,14 @@
             dadosFUABC.forEach(grupo => {
                 var varTotal = calcularVariacao(grupo.valor2025, grupo.valor2026);
                 html += '<tr class="accordion-row" data-group="' + grupo.id + '" onclick="toggleAccordion(this)"><td><span class="toggle-icon">▶</span>' + grupo.nome + '</td><td class="valor-moeda">' + formatarMoeda(grupo.valor2025) + '</td><td class="valor-moeda">' + formatarMoeda(grupo.valor2026) + '</td><td class="valor-moeda" style="color: ' + varTotal.cor + '; font-weight: bold;">' + formatarMoeda(varTotal.variacao) + '</td></tr>';
-                grupo.subitens.forEach(sub => {
-                    var varSub = calcularVariacao(sub.valor2025, sub.valor2026);
-                    html += '<tr class="accordion-item" data-group-parent="' + grupo.id + '"><td>' + sub.label + '</td><td class="valor-moeda">' + formatarMoeda(sub.valor2025) + '</td><td class="valor-moeda">' + formatarMoeda(sub.valor2026) + '</td><td class="valor-moeda" style="color: ' + varSub.cor + ';">' + formatarMoeda(varSub.variacao) + '</td></tr>';
-                });
+                
+                // Verifica se o grupo tem subitens antes de tentar iterar
+                if (grupo.subitens && grupo.subitens.length > 0) {
+                    grupo.subitens.forEach(sub => {
+                        var varSub = calcularVariacao(sub.valor2025, sub.valor2026);
+                        html += '<tr class="accordion-item" data-group-parent="' + grupo.id + '"><td>' + sub.label + '</td><td class="valor-moeda">' + formatarMoeda(sub.valor2025) + '</td><td class="valor-moeda">' + formatarMoeda(sub.valor2026) + '</td><td class="valor-moeda" style="color: ' + varSub.cor + ';">' + formatarMoeda(varSub.variacao) + '</td></tr>';
+                    });
+                }
             });
             html += '</tbody></table></div>';
             document.getElementById('fuabc-detalhado-conteudo').innerHTML = html;
