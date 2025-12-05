@@ -159,31 +159,6 @@
         .resumo-card:nth-child(3) { background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); }
         .resumo-card:nth-child(4) { background: linear-gradient(135deg, #8e44ad 0%, #714091 100%); }
 
-        .charts-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-        .chart-box {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            height: 380px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            transition: box-shadow 0.3s ease;
-            border-top: 4px solid #bdc3c7;
-        }
-        .chart-box:nth-child(1) { border-top-color: #3498db; }
-        .chart-box:nth-child(2) { border-top-color: #27ae60; }
-        .chart-box:nth-child(3) { border-top-color: #e74c3c; }
-        .chart-box:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
-        .chart-box h3 { margin-bottom: 1rem; color: #2c3e50; text-align: center; font-size: 1.1rem; font-weight: 600; margin-top: 0; }
-
         .table-responsive-wrapper {
             overflow-x: auto;
             margin: 1rem 0;
@@ -221,75 +196,7 @@
         .valor-moeda { text-align: right; font-weight: 600; color: #2c3e50; }
         tbody tr:last-child td { border-bottom: none; }
 
-        /* Accordion Styles */
-        .accordion-row {
-            cursor: pointer;
-            user-select: none;
-            background: #2c3e50 !important;
-            color: white !important;
-            font-weight: 600 !important;
-        }
-        .accordion-row:hover { background: #34495e !important; }
-        .accordion-row td { color: white !important; font-weight: 600; }
-        .accordion-row .toggle-icon { display: inline-block; margin-right: 0.5rem; transition: transform 0.3s; }
-        .accordion-row.expanded .toggle-icon { transform: rotate(90deg); }
-
-        .accordion-item {
-            display: none;
-        }
-        .accordion-item.show {
-            display: table-row;
-        }
-        .accordion-item td:first-child {
-            padding-left: 2rem;
-            color: #3498db;
-            font-weight: 500;
-        }
-        .accordion-item td { background: #f0f8ff; }
-
-        .servicos-lista {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 8px;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        }
-        .servicos-lista h4 { color: #3498db; margin-bottom: 1rem; font-weight: 600; font-size: 1.1rem; }
-        .servicos-lista ul { list-style: none; }
-        .servicos-lista li {
-            padding: 0.8rem;
-            border-left: 4px solid #3498db;
-            margin-bottom: 0.5rem;
-            background: #f8f9fa;
-            border-radius: 4px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .servicos-lista li .servico-nome { flex: 1; font-weight: 500; }
-        .servicos-lista li .servico-valor { color: #27ae60; font-weight: 700; }
-
-        .resumo-totais {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-            padding: 1.5rem;
-            background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
-            border-radius: 8px;
-        }
-        .total-item {
-            color: white;
-            text-align: center;
-            padding: 1rem;
-            background: rgba(0,0,0,0.2);
-            border-radius: 6px;
-        }
-        .total-item h4 { font-size: 0.85rem; opacity: 0.9; margin-bottom: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; }
-        .total-item .valor { font-size: 1.5rem; font-weight: 700; }
-
         .erro { background: #fadbd8; color: #922b21; padding: 1.5rem; border-radius: 8px; margin: 1rem 0; border-left: 4px solid #e74c3c; }
-        .sucesso { background: #d5f4e6; color: #0b5345; padding: 1.5rem; border-radius: 8px; margin: 1rem 0; border-left: 4px solid #27ae60; }
 
         footer {
             margin-top: 3rem;
@@ -305,24 +212,16 @@
         /* Dark Mode */
         body.dark-mode { background: #1a1a1a; color: #ecf0f1; }
         body.dark-mode header { background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); }
-        body.dark-mode .tab-content, body.dark-mode .chart-box, body.dark-mode table, body.dark-mode .servicos-lista { background: #2d2d2d; }
-        body.dark-mode h2, body.dark-mode h3, body.dark-mode h4 { color: #ecf0f1; }
+        body.dark-mode .tab-content, body.dark-mode table { background: #2d2d2d; }
+        body.dark-mode h2, body.dark-mode h3 { color: #ecf0f1; }
         body.dark-mode th { background: #1a1a1a; color: #ffffff !important; }
         body.dark-mode td { color: #ecf0f1; border-bottom-color: #404040; background: #2d2d2d; }
         body.dark-mode tbody tr:nth-child(odd) { background-color: #333333; }
         body.dark-mode tbody tr:hover { background: #3a3a3a; }
-        body.dark-mode .accordion-item td { background: #1a1a1a; }
-        body.dark-mode .accordion-row { background: #1a1a1a !important; }
-        body.dark-mode .accordion-row:hover { background: #2d2d2d !important; }
         body.dark-mode .valor-moeda { color: #ecf0f1; }
         body.dark-mode footer { background: #2d2d2d; color: #95a5a6; }
         body.dark-mode .year-selector-container label { color: #ecf0f1; }
         body.dark-mode #seletor-ano { background: #2d2d2d; color: #ecf0f1; border-color: #3498db; }
-        body.dark-mode .servicos-lista h4 { color: #3498db; }
-        body.dark-mode .servicos-lista li { background: #333333; border-left-color: #3498db; color: #ecf0f1; }
-        body.dark-mode .servicos-lista li .servico-valor { color: #27ae60; }
-        body.dark-mode .total-item { background: rgba(255,255,255,0.1); color: #ecf0f1; }
-        body.dark-mode .resumo-totais { background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); }
 
         /* Mobile (até 480px) */
         @media (max-width: 480px) {
@@ -332,35 +231,13 @@
             header h1 { font-size: 1.4rem; margin-bottom: 0.2rem; }
             header p { font-size: 0.85rem; margin-bottom: 0.2rem; }
             .dark-mode-toggle { width: 36px; height: 36px; top: 0.8rem; right: 0.8rem; font-size: 0.9rem; }
-            .data-atualizacao { font-size: 0.75rem; margin-top: 0.2rem; }
-            .fonte-dados { font-size: 0.7rem; margin-top: 0.1rem; }
-            .year-selector-container { gap: 0.4rem; margin-bottom: 0.8rem; }
-            .year-selector-container label { font-size: 0.8rem; }
-            #seletor-ano { padding: 0.4rem 0.6rem; font-size: 0.8rem; width: 100%; max-width: 150px; }
             .tabs { gap: 0.3rem; margin-bottom: 0.8rem; }
-            .tab-btn { padding: 0.4rem 0.5rem; font-size: 0.6rem; min-width: 50px; flex: 1; }
+            .tab-btn { padding: 0.4rem 0.5rem; font-size: 0.6rem; min-width: 50px; }
             .tab-content { padding: 0.8rem; }
             h2 { font-size: 1rem; margin-bottom: 0.6rem; }
-            h3 { font-size: 0.95rem; margin: 1rem 0 0.6rem 0; }
-            .resumo-grid { grid-template-columns: 1fr; gap: 0.6rem; margin-bottom: 0.8rem; }
-            .resumo-card { padding: 0.8rem; border-radius: 6px; }
-            .resumo-card h3 { font-size: 0.65rem; margin-bottom: 0.3rem; }
-            .resumo-card .valor { font-size: 1rem; }
-            .charts-container { grid-template-columns: 1fr; gap: 0.6rem; margin-top: 0.8rem; }
-            .chart-box { height: 200px; padding: 0.6rem; border-radius: 6px; border-top-width: 3px; }
-            .chart-box h3 { font-size: 0.8rem; margin-bottom: 0.4rem; }
             table { min-width: 280px; font-size: 0.7rem; }
-            thead { background: #2c3e50; }
             th { padding: 0.4rem 0.5rem; font-size: 0.65rem; }
             td { padding: 0.4rem 0.5rem; font-size: 0.7rem; }
-            .table-responsive-wrapper { margin: 0.6rem 0; border-radius: 6px; }
-            .servicos-lista { padding: 0.8rem; margin-bottom: 0.8rem; }
-            .servicos-lista h4 { font-size: 0.9rem; margin-bottom: 0.6rem; }
-            .servicos-lista li { padding: 0.6rem; font-size: 0.75rem; }
-            .resumo-totais { gap: 0.6rem; padding: 0.8rem; margin-top: 0.8rem; }
-            .total-item { padding: 0.6rem; }
-            .total-item h4 { font-size: 0.7rem; margin-bottom: 0.5rem; }
-            .total-item .valor { font-size: 1rem; }
             footer { padding: 0.6rem; font-size: 0.65rem; margin-top: 0.8rem; }
         }
 
@@ -370,32 +247,13 @@
             body { padding: 1rem; }
             header { padding: 1.3rem; margin-bottom: 1.2rem; }
             header h1 { font-size: 1.8rem; }
-            header p { font-size: 0.95rem; }
-            .dark-mode-toggle { width: 38px; height: 38px; }
-            .year-selector-container { gap: 0.6rem; margin-bottom: 1.2rem; }
-            #seletor-ano { padding: 0.5rem 0.9rem; font-size: 0.9rem; }
-            .tabs { gap: 0.5rem; margin-bottom: 1.2rem; flex-wrap: wrap; }
-            .tab-btn { padding: 0.6rem 1rem; font-size: 0.75rem; min-width: 80px; }
+            .tabs { gap: 0.5rem; margin-bottom: 1.2rem; }
+            .tab-btn { padding: 0.6rem 1rem; font-size: 0.75rem; }
             .tab-content { padding: 1.2rem; }
             h2 { font-size: 1.4rem; margin-bottom: 1rem; }
-            h3 { font-size: 1.1rem; margin: 1.2rem 0 0.8rem 0; }
-            .resumo-grid { grid-template-columns: repeat(2, 1fr); gap: 0.8rem; margin-bottom: 1rem; }
-            .resumo-card { padding: 1rem; }
-            .resumo-card h3 { font-size: 0.8rem; margin-bottom: 0.5rem; }
-            .resumo-card .valor { font-size: 1.2rem; }
-            .charts-container { grid-template-columns: 1fr; gap: 0.8rem; margin-top: 1rem; }
-            .chart-box { height: 260px; padding: 0.9rem; }
-            .chart-box h3 { font-size: 0.9rem; margin-bottom: 0.6rem; }
             table { min-width: 400px; font-size: 0.85rem; }
             th { padding: 0.7rem 0.8rem; font-size: 0.8rem; }
             td { padding: 0.6rem 0.8rem; font-size: 0.8rem; }
-            .servicos-lista { padding: 1rem; margin-bottom: 1rem; }
-            .servicos-lista h4 { font-size: 1rem; margin-bottom: 0.8rem; }
-            .servicos-lista li { padding: 0.7rem; font-size: 0.8rem; }
-            .resumo-totais { gap: 1rem; padding: 1rem; margin-top: 1rem; }
-            .total-item { padding: 0.8rem; }
-            .total-item h4 { font-size: 0.75rem; margin-bottom: 0.6rem; }
-            .total-item .valor { font-size: 1.2rem; }
             footer { padding: 0.9rem; font-size: 0.8rem; margin-top: 1rem; }
         }
 
@@ -404,31 +262,13 @@
             html { font-size: 16px; }
             body { padding: 1.5rem; }
             header { padding: 2rem; margin-bottom: 2rem; }
-            header h1 { font-size: 2.5rem; }
-            header p { font-size: 1.1rem; }
-            .year-selector-container { margin-bottom: 2rem; }
-            .tabs { gap: 0.8rem; margin-bottom: 2rem; flex-wrap: nowrap; }
-            .tab-btn { padding: 0.75rem 1.5rem; font-size: 0.9rem; flex: 1; min-width: auto; }
+            .tabs { gap: 0.8rem; margin-bottom: 2rem; }
+            .tab-btn { padding: 0.75rem 1.5rem; font-size: 0.9rem; }
             .tab-content { padding: 2rem; }
             h2 { font-size: 1.8rem; margin-bottom: 1.5rem; }
-            h3 { font-size: 1.3rem; margin: 1.5rem 0 1rem 0; }
-            .resumo-grid { grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-bottom: 2rem; }
-            .resumo-card { padding: 1.5rem; }
-            .resumo-card h3 { font-size: 0.9rem; margin-bottom: 0.8rem; }
-            .resumo-card .valor { font-size: 1.6rem; }
-            .charts-container { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2rem; }
-            .chart-box { height: 400px; padding: 1.5rem; }
-            .chart-box h3 { font-size: 1.1rem; margin-bottom: 1rem; }
             table { font-size: 0.9rem; }
             th { padding: 1rem; font-size: 0.9rem; }
             td { padding: 1rem; font-size: 0.9rem; }
-            .servicos-lista { padding: 1.5rem; margin-bottom: 1.5rem; }
-            .servicos-lista h4 { font-size: 1.1rem; margin-bottom: 1rem; }
-            .servicos-lista li { padding: 0.8rem; font-size: 0.9rem; }
-            .resumo-totais { gap: 1.5rem; padding: 1.5rem; margin-top: 2rem; }
-            .total-item { padding: 1rem; }
-            .total-item h4 { font-size: 0.85rem; margin-bottom: 0.8rem; }
-            .total-item .valor { font-size: 1.5rem; }
             footer { padding: 1.5rem; font-size: 0.9rem; margin-top: 2rem; }
         }
     </style>
@@ -440,8 +280,8 @@
             <h1>Dashboard Orçamento</h1>
             <p>SESAUD / FUABC</p>
             <div class="year-selector-container">
-                <label for="seletor-ano">Selecione o período:</label>
-                <select id="seletor-ano" onchange="mudarAno(this.value)">
+                <label for="seletor-ano">Selecione a aba:</label>
+                <select id="seletor-ano" onchange="mudarAba(this.value)">
                     <option value="">Carregando...</option>
                 </select>
             </div>
@@ -449,32 +289,7 @@
             <p class="fonte-dados" id="fonte-dados">Fonte: GitHub Pages</p>
         </header>
 
-        <div class="tabs">
-            <button class="tab-btn active" onclick="abrirAba(event, 'resumo')">Resumo</button>
-            <button class="tab-btn" onclick="abrirAba(event, 'novos-servicos')">Novos Serviços</button>
-            <button class="tab-btn" onclick="abrirAba(event, 'sesaud-detalhado')">SESAUD Detalhado</button>
-            <button class="tab-btn" onclick="abrirAba(event, 'fuabc-detalhado')">FUABC Detalhado</button>
-        </div>
-
-        <div id="resumo" class="tab-content active">
-            <h2>Resumo Geral</h2>
-            <div id="resumo-conteudo"></div>
-        </div>
-
-        <div id="novos-servicos" class="tab-content">
-            <h2>Novos Serviços</h2>
-            <div id="novos-servicos-conteudo"></div>
-        </div>
-
-        <div id="sesaud-detalhado" class="tab-content">
-            <h2>SESAUD - Detalhado</h2>
-            <div id="sesaud-detalhado-conteudo"></div>
-        </div>
-
-        <div id="fuabc-detalhado" class="tab-content">
-            <h2>FUABC - Detalhado</h2>
-            <div id="fuabc-detalhado-conteudo"></div>
-        </div>
+        <div id="conteudo-principal"></div>
     </div>
 
     <footer>
@@ -482,271 +297,53 @@
     </footer>
 
     <script>
-        var charts = {};
         var allData = {};
+        var abasNomes = {};
 
         function formatarMoeda(valor) {
             return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(valor);
         }
 
-        function abrirAba(event, nome) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-            document.getElementById(nome).classList.add('active');
-            event.currentTarget.classList.add('active');
-        }
-
-        function toggleAccordion(element) {
-            var groupId = element.getAttribute('data-group');
-            var items = document.querySelectorAll('[data-group-parent="' + groupId + '"]');
+        function mudarAba(indice) {
+            console.log('Mudando para aba:', indice);
             
-            element.classList.toggle('expanded');
-            items.forEach(item => {
-                item.classList.toggle('show');
-            });
-        }
-
-        function preencherResumo(dados) {
-            if (!dados || !dados.linhas) {
-                document.getElementById('resumo-conteudo').innerHTML = '<div class="erro">Dados não disponíveis</div>';
+            if (!indice || !allData[indice]) {
+                document.getElementById('conteudo-principal').innerHTML = '<div class="erro">Dados não disponíveis para essa aba</div>';
                 return;
             }
 
-            var html = '<div class="resumo-grid">';
+            var dados = allData[indice];
+            var nomeAba = abasNomes[indice] || 'Aba ' + (parseInt(indice) + 1);
             
-            if (dados.totais) {
-                html += '<div class="resumo-card"><h3>Total FUABC</h3><div class="valor">' + formatarMoeda(dados.totais.fuabc_mensal || 0) + '</div></div>';
-                html += '<div class="resumo-card"><h3>Total SESAUD</h3><div class="valor">' + formatarMoeda(dados.totais.sesaud_mensal || 0) + '</div></div>';
-                html += '<div class="resumo-card"><h3>Total Geral</h3><div class="valor">' + formatarMoeda(dados.totais.geral || 0) + '</div></div>';
-            }
+            renderizarConteudo(dados, nomeAba);
+        }
 
-            if (dados.orcamento_anual && dados.orcamento_anual > 0) {
-                html += '<div class="resumo-card"><h3>Orçamento Mensal</h3><div class="valor">' + formatarMoeda(dados.orcamento_mensal) + '</div></div>';
-            }
-
-            html += '</div>';
-
-            html += '<h3>Tabela Comparativa por Categoria</h3>';
-            html += '<div class="table-responsive-wrapper"><table><thead><tr><th>Categoria</th><th class="valor-moeda">FUABC Mensal</th><th class="valor-moeda">SESAUD Mensal</th><th class="valor-moeda">Total</th></tr></thead><tbody>';
+        function renderizarConteudo(dados, titulo) {
+            var html = '<h2>' + titulo + '</h2>';
             
-            dados.linhas.forEach(linha => {
-                html += '<tr>';
-                html += '<td>' + (linha.categoria || 'N/A') + '</td>';
-                html += '<td class="valor-moeda">' + formatarMoeda(linha.fuabc_mensal || 0) + '</td>';
-                html += '<td class="valor-moeda">' + formatarMoeda(linha.sesaud_mensal || 0) + '</td>';
-                html += '<td class="valor-moeda">' + formatarMoeda(linha.geral || 0) + '</td>';
-                html += '</tr>';
-            });
-
-            if (dados.totais) {
-                html += '<tr style="background: #ecf0f1; font-weight: bold;">';
-                html += '<td>TOTAL</td>';
-                html += '<td class="valor-moeda">' + formatarMoeda(dados.totais.fuabc_mensal || 0) + '</td>';
-                html += '<td class="valor-moeda">' + formatarMoeda(dados.totais.sesaud_mensal || 0) + '</td>';
-                html += '<td class="valor-moeda">' + formatarMoeda(dados.totais.geral || 0) + '</td>';
-                html += '</tr>';
-            }
-
-            if (dados.orcamento_anual && dados.orcamento_anual > 0) {
-                html += '<tr style="background: #e8f4f8;">';
-                html += '<td><strong>Orçamento Mensal</strong></td>';
-                html += '<td class="valor-moeda" colspan="3"><strong>' + formatarMoeda(dados.orcamento_mensal) + '</strong></td>';
-                html += '</tr>';
+            // Se for um objeto com propriedades de tabela
+            if (dados && typeof dados === 'object' && !Array.isArray(dados)) {
+                html += '<div class="table-responsive-wrapper"><table><thead><tr><th>Item</th><th class="valor-moeda">Valor</th></tr></thead><tbody>';
                 
-                var deficit = dados.orcamento_mensal - (dados.totais.geral || 0);
-                var corDeficit = deficit >= 0 ? '#27ae60' : '#e74c3c';
-                html += '<tr style="background: ' + corDeficit + '20;">';
-                html += '<td><strong>Déficit/Superávit</strong></td>';
-                html += '<td class="valor-moeda" colspan="3"><strong style="color: ' + corDeficit + ';">' + formatarMoeda(deficit) + '</strong></td>';
-                html += '</tr>';
-            }
-
-            html += '</tbody></table></div>';
-            document.getElementById('resumo-conteudo').innerHTML = html;
-        }
-
-        function preencherNovosServicos(dados) {
-            if (!dados || !dados.novos_servicos) {
-                document.getElementById('novos-servicos-conteudo').innerHTML = '<div class="erro">Dados de novos serviços não disponíveis</div>';
-                return;
-            }
-
-            var html = '';
-
-            dados.novos_servicos.forEach(grupo => {
-                html += '<div class="servicos-lista">';
-                html += '<h4>' + grupo.periodo + '</h4>';
-                html += '<ul>';
-                
-                grupo.servicos.forEach(servico => {
-                    html += '<li>';
-                    html += '<span class="servico-nome">' + servico.nome + '</span>';
-                    html += '<span class="servico-valor">' + formatarMoeda(servico.valor) + '</span>';
-                    html += '</li>';
-                });
-
-                html += '</ul>';
-                html += '</div>';
-            });
-
-            if (dados.novos_servicos_totais) {
-                html += '<div class="resumo-totais">';
-                html += '<div class="total-item"><h4>Total Novos Mensal</h4><div class="valor">' + formatarMoeda(dados.novos_servicos_totais.mensal) + '</div></div>';
-                html += '<div class="total-item"><h4>Adequação Pronto Cardio</h4><div class="valor">' + formatarMoeda(dados.novos_servicos_totais.adequacao_pronto_cardio) + '</div></div>';
-                html += '<div class="total-item"><h4>Total Geral</h4><div class="valor">' + formatarMoeda(dados.novos_servicos_totais.total_geral) + '</div></div>';
-                html += '</div>';
-            }
-
-            document.getElementById('novos-servicos-conteudo').innerHTML = html;
-        }
-
-        function preencherSESAUDDetalhado(dados) {
-            if (!dados) {
-                document.getElementById('sesaud-detalhado-conteudo').innerHTML = '<div class="erro">Dados de SESAUD não disponíveis</div>';
-                return;
-            }
-
-            var html = '<div class="table-responsive-wrapper"><table><thead><tr><th>Categoria</th><th class="valor-moeda">Valor</th></tr></thead><tbody>';
-            
-            var grupos = [
-                {
-                    nome: 'RECURSOS HUMANOS',
-                    id: 'recursos_humanos',
-                    valor: dados.recursos_humanos,
-                    subitens: [
-                        { label: 'Indenizações Trabalhistas', valor: dados.indenizacoes_trabalhistas },
-                        { label: 'Vencimento Prefeitura', valor: dados.vencimento_prefeitura },
-                        { label: 'Programa - Mais Médicos', valor: dados.programa_mais_medicos },
-                        { label: 'Gratificação SUS', valor: dados.gratificacao_sus },
-                        { label: 'Pensões - Gratif. SUS', valor: dados.pensoes_gratif_sus },
-                        { label: 'INSS PREF', valor: dados.inss_pref },
-                        { label: 'FGTS PREF', valor: dados.fgts_pref },
-                        { label: 'Notre Dame Intermedica', valor: dados.notre_dame_intermedica }
-                    ]
-                },
-                {
-                    nome: 'PROCESSOS TRABALHISTAS',
-                    id: 'processos',
-                    valor: dados.processos_trabalhista,
-                    subitens: []
-                },
-                {
-                    nome: 'MATERIAIS DE CONSUMO',
-                    id: 'materiais',
-                    valor: dados.materiais_consumo,
-                    subitens: []
-                },
-                {
-                    nome: 'SERVIÇOS DE TERCEIROS',
-                    id: 'servicos',
-                    valor: dados.servicos_terceiros,
-                    subitens: []
-                },
-                {
-                    nome: 'OUTROS GASTOS',
-                    id: 'outros',
-                    valor: dados.outros_gastos,
-                    subitens: [
-                        { label: 'Tarifas Bancárias', valor: dados.tarifas_bancarias }
-                    ]
+                for (var chave in dados) {
+                    if (dados.hasOwnProperty(chave) && chave !== 'descricao' && chave !== 'atualizado_em') {
+                        var valor = dados[chave];
+                        
+                        if (typeof valor === 'number') {
+                            html += '<tr>';
+                            html += '<td>' + chave.replace(/_/g, ' ').toUpperCase() + '</td>';
+                            html += '<td class="valor-moeda">' + formatarMoeda(valor) + '</td>';
+                            html += '</tr>';
+                        }
+                    }
                 }
-            ];
-
-            grupos.forEach(grupo => {
-                html += '<tr class="accordion-row" data-group="' + grupo.id + '" onclick="toggleAccordion(this)">';
-                html += '<td><span class="toggle-icon">▶</span>' + grupo.nome + '</td>';
-                html += '<td class="valor-moeda">' + formatarMoeda(grupo.valor || 0) + '</td>';
-                html += '</tr>';
-
-                grupo.subitens.forEach(subitem => {
-                    html += '<tr class="accordion-item" data-group-parent="' + grupo.id + '">';
-                    html += '<td>' + subitem.label + '</td>';
-                    html += '<td class="valor-moeda">' + formatarMoeda(subitem.valor || 0) + '</td>';
-                    html += '</tr>';
-                });
-            });
-
-            html += '<tr style="background: #ecf0f1; font-weight: bold;">';
-            html += '<td>TOTAL</td>';
-            html += '<td class="valor-moeda">' + formatarMoeda(dados.total || 0) + '</td>';
-            html += '</tr>';
-
-            html += '</tbody></table></div>';
-            document.getElementById('sesaud-detalhado-conteudo').innerHTML = html;
-        }
-
-        function preencherFUABCDetalhado(dados2025, dados2026) {
-            if (!dados2025) {
-                document.getElementById('fuabc-detalhado-conteudo').innerHTML = '<div class="erro">Dados de FUABC não disponíveis</div>';
-                return;
-            }
-
-            var html = '<div class="table-responsive-wrapper"><table><thead><tr><th>Categoria</th><th class="valor-moeda">2025</th><th class="valor-moeda">2026</th><th class="valor-moeda">Variação</th></tr></thead><tbody>';
-            
-            var itens = [
-                { label: 'RECURSOS HUMANOS', valor2025: dados2025.recursos_humanos, valor2026: dados2026 ? dados2026.recursos_humanos : 0 },
-                { label: 'PROCESSOS TRABALHISTAS', valor2025: dados2025.processos_trabalhistas, valor2026: dados2026 ? dados2026.processos_trabalhistas : 0 },
-                { label: 'MATERIAIS DE CONSUMO', valor2025: dados2025.materiais_consumo, valor2026: dados2026 ? dados2026.materiais_consumo : 0 },
-                { label: 'SERVIÇOS DE TERCEIROS', valor2025: dados2025.servicos_terceiros, valor2026: dados2026 ? dados2026.servicos_terceiros : 0 },
-                { label: 'INVESTIMENTOS', valor2025: dados2025.investimentos, valor2026: dados2026 ? dados2026.investimentos : 0 },
-                { label: 'OUTROS GASTOS', valor2025: dados2025.outros_gastos, valor2026: dados2026 ? dados2026.outros_gastos : 0 }
-            ];
-
-            itens.forEach(item => {
-                var variacao = (item.valor2026 || 0) - (item.valor2025 || 0);
-                var corVariacao = variacao >= 0 ? '#27ae60' : '#e74c3c';
                 
-                html += '<tr>';
-                html += '<td>' + item.label + '</td>';
-                html += '<td class="valor-moeda">' + formatarMoeda(item.valor2025 || 0) + '</td>';
-                html += '<td class="valor-moeda">' + formatarMoeda(item.valor2026 || 0) + '</td>';
-                html += '<td class="valor-moeda" style="color: ' + corVariacao + '; font-weight: bold;">' + formatarMoeda(variacao) + '</td>';
-                html += '</tr>';
-            });
-
-            html += '<tr style="background: #ecf0f1; font-weight: bold;">';
-            html += '<td>TOTAL</td>';
-            html += '<td class="valor-moeda">' + formatarMoeda(dados2025.total || 0) + '</td>';
-            html += '<td class="valor-moeda">' + formatarMoeda((dados2026 ? dados2026.total : 0) || 0) + '</td>';
-            var totalVariacao = ((dados2026 ? dados2026.total : 0) || 0) - (dados2025.total || 0);
-            html += '<td class="valor-moeda" style="color: ' + (totalVariacao >= 0 ? '#27ae60' : '#e74c3c') + ';">' + formatarMoeda(totalVariacao) + '</td>';
-            html += '</tr>';
-
-            html += '</tbody></table></div>';
-            document.getElementById('fuabc-detalhado-conteudo').innerHTML = html;
-        }
-
-        function mudarAno(ano) {
-            console.log('Mudando para ano:', ano);
+                html += '</tbody></table></div>';
+            } else {
+                html += '<div class="erro">Formato de dados não reconhecido</div>';
+            }
             
-            if (!ano || !allData[ano]) {
-                console.log('Ano não encontrado ou vazio');
-                document.getElementById('resumo-conteudo').innerHTML = '<div class="erro">Dados não disponíveis para o ano ' + ano + '</div>';
-                document.getElementById('novos-servicos-conteudo').innerHTML = '<div class="erro">Dados não disponíveis para o ano ' + ano + '</div>';
-                document.getElementById('sesaud-detalhado-conteudo').innerHTML = '<div class="erro">Dados não disponíveis para o ano ' + ano + '</div>';
-                document.getElementById('fuabc-detalhado-conteudo').innerHTML = '<div class="erro">Dados não disponíveis para o ano ' + ano + '</div>';
-                return;
-            }
-
-            var dados = allData[ano];
-            document.getElementById('data-atualizacao').textContent = 'Atualizado em: ' + (dados.atualizado_em || 'N/A');
-            
-            preencherResumo(dados);
-            
-            if (dados.novos_servicos) {
-                preencherNovosServicos(dados);
-            }
-
-            var sesaudDetalhado = window.sesaudDetalhado ? window.sesaudDetalhado[ano] : null;
-            if (sesaudDetalhado) {
-                preencherSESAUDDetalhado(sesaudDetalhado);
-            }
-
-            var fuabcDetalhado2025 = window.fuabcDetalhado ? window.fuabcDetalhado['2025'] : null;
-            var fuabcDetalhado2026 = window.fuabcDetalhado ? window.fuabcDetalhado['2026'] : null;
-            if (fuabcDetalhado2025) {
-                preencherFUABCDetalhado(fuabcDetalhado2025, fuabcDetalhado2026);
-            }
+            document.getElementById('conteudo-principal').innerHTML = html;
         }
 
         function carregarJSON() {
@@ -761,7 +358,7 @@
             function tentarProxima(index) {
                 if (index >= urls.length) {
                     console.error('Nenhuma URL funcionou');
-                    document.getElementById('resumo-conteudo').innerHTML = '<div class="erro">Erro ao carregar dados. Verifique a URL do JSON.</div>';
+                    document.getElementById('conteudo-principal').innerHTML = '<div class="erro">Erro ao carregar dados. Verifique a URL do JSON.</div>';
                     return;
                 }
 
@@ -775,44 +372,48 @@
                         console.log('✅ Sucesso com:', urls[index]);
                         console.log('Dados recebidos:', dados);
                         
-                        if (dados.anos) {
+                        // Converter array para objeto se necessário
+                        if (Array.isArray(dados.anos)) {
+                            console.log('Detectado array de anos, convertendo...');
+                            var anosObj = {};
+                            dados.anos.forEach((aba, idx) => {
+                                anosObj[idx] = aba;
+                                abasNomes[idx] = aba.descricao || aba.nome || 'Aba ' + (idx + 1);
+                            });
+                            allData = anosObj;
+                        } else if (dados.anos && typeof dados.anos === 'object') {
+                            console.log('Detectado objeto de anos');
                             allData = dados.anos;
-                            console.log('Anos encontrados:', Object.keys(allData));
-                        }
-
-                        if (dados.sesaud_detalhado) {
-                            window.sesaudDetalhado = dados.sesaud_detalhado;
-                        }
-
-                        if (dados.fuabc_detalhado) {
-                            window.fuabcDetalhado = dados.fuabc_detalhado;
+                            for (var chave in allData) {
+                                if (allData.hasOwnProperty(chave)) {
+                                    abasNomes[chave] = allData[chave].descricao || allData[chave].nome || chave;
+                                }
+                            }
                         }
 
                         if (Object.keys(allData).length === 0) {
-                            console.error('Nenhum ano encontrado');
-                            document.getElementById('resumo-conteudo').innerHTML = '<div class="erro">Nenhum ano encontrado nos dados.</div>';
+                            console.error('Nenhuma aba encontrada');
+                            document.getElementById('conteudo-principal').innerHTML = '<div class="erro">Nenhuma aba encontrada nos dados.</div>';
                             return;
                         }
 
                         var seletor = document.getElementById('seletor-ano');
                         seletor.innerHTML = '';
-                        var anos = Object.keys(allData).sort();
+                        var abas = Object.keys(allData).sort();
                         
-                        console.log('Populando seletor com anos:', anos);
+                        console.log('Abas encontradas:', abas);
                         
-                        anos.forEach(ano => {
+                        abas.forEach(aba => {
                             var opt = document.createElement('option');
-                            opt.value = ano;
-                            opt.textContent = ano + ' - ' + (allData[ano].descricao || '');
+                            opt.value = aba;
+                            opt.textContent = abasNomes[aba] || ('Aba ' + aba);
                             seletor.appendChild(opt);
-                            console.log('Adicionado ano:', ano);
                         });
 
-                        seletor.value = anos[0];
-                        document.getElementById('data-atualizacao').textContent = 'Atualizado em: ' + (dados.atualizado_em || 'N/A');
+                        seletor.value = abas[0];
+                        document.getElementById('data-atualizacao').textContent = 'Atualizado em: ' + (dados.atualizado_em || 'Agora');
                         
-                        console.log('Chamando mudarAno com:', anos[0]);
-                        mudarAno(anos[0]);
+                        mudarAba(abas[0]);
                     })
                     .catch(e => {
                         console.log('❌ Falha:', urls[index], e.message);
