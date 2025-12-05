@@ -76,88 +76,10 @@
             cursor: pointer;
             font-size: 1rem;
             transition: all 0.3s ease;
+            max-width: 400px;
+            width: 100%;
         }
         #seletor-ano:hover { border-color: #2980b9; box-shadow: 0 0 8px rgba(52, 152, 219, 0.3); }
-
-        .tabs {
-            display: flex;
-            gap: 0.8rem;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        .tab-btn {
-            padding: 0.75rem 1.5rem;
-            background: white;
-            border: 2px solid #bdc3c7;
-            color: #2c3e50;
-            cursor: pointer;
-            border-radius: 6px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            flex: 1;
-            min-width: 100px;
-            text-align: center;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        .tab-btn:hover { border-color: #95a5a6; background: #ecf0f1; }
-        .tab-btn.active {
-            background: #3498db;
-            color: white;
-            border-color: #3498db;
-            box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
-        }
-
-        .tab-content {
-            display: none;
-            background: white;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            animation: fadeIn 0.3s ease-out;
-        }
-        .tab-content.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        h2 { color: #2c3e50; margin-bottom: 1.5rem; font-size: 1.8rem; text-align: center; font-weight: 600; }
-        h3 { color: #2c3e50; margin: 1.5rem 0 1rem 0; font-size: 1.3rem; font-weight: 600; }
-
-        .resumo-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-        .resumo-card {
-            color: white;
-            padding: 1.5rem;
-            border-radius: 8px;
-            text-align: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        .resumo-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, currentColor, transparent);
-            opacity: 0.5;
-        }
-        .resumo-card:hover { transform: translateY(-4px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
-        .resumo-card h3 { font-size: 0.85rem; margin-bottom: 0.8rem; opacity: 0.95; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
-        .resumo-card .valor { font-size: 1.6rem; font-weight: 700; word-break: break-word; letter-spacing: -0.5px; }
-
-        .resumo-card:nth-child(1) { background: linear-gradient(135deg, #3498db 0%, #2980b9 100%); }
-        .resumo-card:nth-child(2) { background: linear-gradient(135deg, #27ae60 0%, #229954 100%); }
-        .resumo-card:nth-child(3) { background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); }
-        .resumo-card:nth-child(4) { background: linear-gradient(135deg, #8e44ad 0%, #714091 100%); }
 
         .table-responsive-wrapper {
             overflow-x: auto;
@@ -196,7 +118,10 @@
         .valor-moeda { text-align: right; font-weight: 600; color: #2c3e50; }
         tbody tr:last-child td { border-bottom: none; }
 
+        h2 { color: #2c3e50; margin-bottom: 1.5rem; font-size: 1.8rem; text-align: center; font-weight: 600; }
+
         .erro { background: #fadbd8; color: #922b21; padding: 1.5rem; border-radius: 8px; margin: 1rem 0; border-left: 4px solid #e74c3c; }
+        .sucesso { background: #d5f4e6; color: #0b5345; padding: 1.5rem; border-radius: 8px; margin: 1rem 0; border-left: 4px solid #27ae60; }
 
         footer {
             margin-top: 3rem;
@@ -212,8 +137,8 @@
         /* Dark Mode */
         body.dark-mode { background: #1a1a1a; color: #ecf0f1; }
         body.dark-mode header { background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); }
-        body.dark-mode .tab-content, body.dark-mode table { background: #2d2d2d; }
-        body.dark-mode h2, body.dark-mode h3 { color: #ecf0f1; }
+        body.dark-mode .table-responsive-wrapper, body.dark-mode table { background: #2d2d2d; }
+        body.dark-mode h2 { color: #ecf0f1; }
         body.dark-mode th { background: #1a1a1a; color: #ffffff !important; }
         body.dark-mode td { color: #ecf0f1; border-bottom-color: #404040; background: #2d2d2d; }
         body.dark-mode tbody tr:nth-child(odd) { background-color: #333333; }
@@ -231,13 +156,15 @@
             header h1 { font-size: 1.4rem; margin-bottom: 0.2rem; }
             header p { font-size: 0.85rem; margin-bottom: 0.2rem; }
             .dark-mode-toggle { width: 36px; height: 36px; top: 0.8rem; right: 0.8rem; font-size: 0.9rem; }
-            .tabs { gap: 0.3rem; margin-bottom: 0.8rem; }
-            .tab-btn { padding: 0.4rem 0.5rem; font-size: 0.6rem; min-width: 50px; }
-            .tab-content { padding: 0.8rem; }
+            .year-selector-container { gap: 0.4rem; margin-bottom: 0.8rem; }
+            .year-selector-container label { font-size: 0.8rem; }
+            #seletor-ano { padding: 0.4rem 0.6rem; font-size: 0.8rem; }
             h2 { font-size: 1rem; margin-bottom: 0.6rem; }
             table { min-width: 280px; font-size: 0.7rem; }
+            thead { background: #2c3e50; }
             th { padding: 0.4rem 0.5rem; font-size: 0.65rem; }
             td { padding: 0.4rem 0.5rem; font-size: 0.7rem; }
+            .table-responsive-wrapper { margin: 0.6rem 0; border-radius: 6px; }
             footer { padding: 0.6rem; font-size: 0.65rem; margin-top: 0.8rem; }
         }
 
@@ -247,9 +174,10 @@
             body { padding: 1rem; }
             header { padding: 1.3rem; margin-bottom: 1.2rem; }
             header h1 { font-size: 1.8rem; }
-            .tabs { gap: 0.5rem; margin-bottom: 1.2rem; }
-            .tab-btn { padding: 0.6rem 1rem; font-size: 0.75rem; }
-            .tab-content { padding: 1.2rem; }
+            header p { font-size: 0.95rem; }
+            .dark-mode-toggle { width: 38px; height: 38px; }
+            .year-selector-container { gap: 0.6rem; margin-bottom: 1.2rem; }
+            #seletor-ano { padding: 0.5rem 0.9rem; font-size: 0.9rem; }
             h2 { font-size: 1.4rem; margin-bottom: 1rem; }
             table { min-width: 400px; font-size: 0.85rem; }
             th { padding: 0.7rem 0.8rem; font-size: 0.8rem; }
@@ -262,9 +190,9 @@
             html { font-size: 16px; }
             body { padding: 1.5rem; }
             header { padding: 2rem; margin-bottom: 2rem; }
-            .tabs { gap: 0.8rem; margin-bottom: 2rem; }
-            .tab-btn { padding: 0.75rem 1.5rem; font-size: 0.9rem; }
-            .tab-content { padding: 2rem; }
+            header h1 { font-size: 2.5rem; }
+            header p { font-size: 1.1rem; }
+            .year-selector-container { margin-bottom: 2rem; }
             h2 { font-size: 1.8rem; margin-bottom: 1.5rem; }
             table { font-size: 0.9rem; }
             th { padding: 1rem; font-size: 0.9rem; }
@@ -297,8 +225,8 @@
     </footer>
 
     <script>
-        var allData = {};
-        var abasNomes = {};
+        var allData = [];
+        var abasNomes = [];
 
         function formatarMoeda(valor) {
             return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(valor);
@@ -307,41 +235,51 @@
         function mudarAba(indice) {
             console.log('Mudando para aba:', indice);
             
-            if (!indice || !allData[indice]) {
-                document.getElementById('conteudo-principal').innerHTML = '<div class="erro">Dados não disponíveis para essa aba</div>';
+            if (indice === '' || !allData[indice]) {
+                document.getElementById('conteudo-principal').innerHTML = '<div class="erro">Selecione uma aba válida</div>';
                 return;
             }
 
             var dados = allData[indice];
             var nomeAba = abasNomes[indice] || 'Aba ' + (parseInt(indice) + 1);
             
+            console.log('Renderizando aba:', nomeAba, dados);
             renderizarConteudo(dados, nomeAba);
         }
 
         function renderizarConteudo(dados, titulo) {
+            console.log('Renderizando conteúdo:', titulo, dados);
+            
             var html = '<h2>' + titulo + '</h2>';
             
-            // Se for um objeto com propriedades de tabela
-            if (dados && typeof dados === 'object' && !Array.isArray(dados)) {
-                html += '<div class="table-responsive-wrapper"><table><thead><tr><th>Item</th><th class="valor-moeda">Valor</th></tr></thead><tbody>';
-                
-                for (var chave in dados) {
-                    if (dados.hasOwnProperty(chave) && chave !== 'descricao' && chave !== 'atualizado_em') {
-                        var valor = dados[chave];
-                        
-                        if (typeof valor === 'number') {
-                            html += '<tr>';
-                            html += '<td>' + chave.replace(/_/g, ' ').toUpperCase() + '</td>';
-                            html += '<td class="valor-moeda">' + formatarMoeda(valor) + '</td>';
-                            html += '</tr>';
-                        }
+            if (!dados || typeof dados !== 'object') {
+                html += '<div class="erro">Dados inválidos ou vazios</div>';
+                document.getElementById('conteudo-principal').innerHTML = html;
+                return;
+            }
+
+            html += '<div class="table-responsive-wrapper"><table><thead><tr><th>Item</th><th class="valor-moeda">Valor</th></tr></thead><tbody>';
+            
+            var temDados = false;
+            for (var chave in dados) {
+                if (dados.hasOwnProperty(chave) && chave !== 'descricao' && chave !== 'atualizado_em' && chave !== 'nome') {
+                    var valor = dados[chave];
+                    
+                    if (typeof valor === 'number') {
+                        temDados = true;
+                        html += '<tr>';
+                        html += '<td>' + chave.replace(/_/g, ' ').toUpperCase() + '</td>';
+                        html += '<td class="valor-moeda">' + formatarMoeda(valor) + '</td>';
+                        html += '</tr>';
                     }
                 }
-                
-                html += '</tbody></table></div>';
-            } else {
-                html += '<div class="erro">Formato de dados não reconhecido</div>';
             }
+            
+            if (!temDados) {
+                html += '<tr><td colspan="2" class="erro">Nenhum dado numérico encontrado</td></tr>';
+            }
+            
+            html += '</tbody></table></div>';
             
             document.getElementById('conteudo-principal').innerHTML = html;
         }
@@ -372,26 +310,18 @@
                         console.log('✅ Sucesso com:', urls[index]);
                         console.log('Dados recebidos:', dados);
                         
-                        // Converter array para objeto se necessário
+                        // Trabalhar com o array de anos
                         if (Array.isArray(dados.anos)) {
-                            console.log('Detectado array de anos, convertendo...');
-                            var anosObj = {};
-                            dados.anos.forEach((aba, idx) => {
-                                anosObj[idx] = aba;
-                                abasNomes[idx] = aba.descricao || aba.nome || 'Aba ' + (idx + 1);
-                            });
-                            allData = anosObj;
-                        } else if (dados.anos && typeof dados.anos === 'object') {
-                            console.log('Detectado objeto de anos');
+                            console.log('Array de anos encontrado');
                             allData = dados.anos;
-                            for (var chave in allData) {
-                                if (allData.hasOwnProperty(chave)) {
-                                    abasNomes[chave] = allData[chave].descricao || allData[chave].nome || chave;
-                                }
-                            }
+                            
+                            allData.forEach((aba, idx) => {
+                                abasNomes[idx] = aba.descricao || aba.nome || ('Aba ' + (idx + 1));
+                                console.log('Aba ' + idx + ':', abasNomes[idx]);
+                            });
                         }
 
-                        if (Object.keys(allData).length === 0) {
+                        if (allData.length === 0) {
                             console.error('Nenhuma aba encontrada');
                             document.getElementById('conteudo-principal').innerHTML = '<div class="erro">Nenhuma aba encontrada nos dados.</div>';
                             return;
@@ -399,21 +329,20 @@
 
                         var seletor = document.getElementById('seletor-ano');
                         seletor.innerHTML = '';
-                        var abas = Object.keys(allData).sort();
                         
-                        console.log('Abas encontradas:', abas);
+                        console.log('Total de abas:', allData.length);
                         
-                        abas.forEach(aba => {
+                        for (var i = 0; i < allData.length; i++) {
                             var opt = document.createElement('option');
-                            opt.value = aba;
-                            opt.textContent = abasNomes[aba] || ('Aba ' + aba);
+                            opt.value = i;
+                            opt.textContent = abasNomes[i] || ('Aba ' + (i + 1));
                             seletor.appendChild(opt);
-                        });
+                        }
 
-                        seletor.value = abas[0];
+                        seletor.value = 0;
                         document.getElementById('data-atualizacao').textContent = 'Atualizado em: ' + (dados.atualizado_em || 'Agora');
                         
-                        mudarAba(abas[0]);
+                        mudarAba(0);
                     })
                     .catch(e => {
                         console.log('❌ Falha:', urls[index], e.message);
