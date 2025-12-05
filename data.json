@@ -1,63 +1,3651 @@
 {
-  "atualizado_em": "2025-05-12",
   "anos": [
-    {
-      "nome": "RESUMO GERAL",
-      "descricao": "Resumo Geral - 2025/2026",
-      "total_fuabc": 38991346.13,
-      "total_sesaud": 10633666.21,
-      "total_geral": 49625012.34,
-      "orcamento_mensal": 4000000.00,
-      "deficit": -1625012.34
-    },
-    {
-      "nome": "NOVOS SERVIÇOS",
-      "descricao": "Novos Serviços 2025/2026",
-      "servico_fisioterapia": 191200.00,
-      "servico_regulacao": 116250.00,
-      "telemedicina": 165000.00,
-      "servico_hemodinamica": 377621.66,
-      "residencia_terapeutica": 145070.45,
-      "adequacao_pronto_cardio": 2436990.00,
-      "total_novos_mensal": 995142.11,
-      "total_geral_novos": 3432132.11
-    },
-    {
-      "nome": "SESAUD DETALHADO",
-      "descricao": "SESAUD - Detalhado 2025",
-      "recursos_humanos": 6616449.07,
-      "indenizacoes_trabalhistas": 25020.04,
-      "vencimento_prefeitura": 4811182.14,
-      "programa_mais_medicos": 12900.00,
-      "tarifas_bancarias": 775.54,
-      "gratificacao_sus": 296880.38,
-      "pensoes_gratif_sus": 479.33,
-      "inss_pref": 983944.34,
-      "fgts_pref": 303255.80,
-      "notre_dame_intermedica": 202288.27,
-      "processos_trabalhistas": 1619.20,
-      "materiais_consumo": 329615.34,
-      "servicos_terceiros": 3312660.87,
-      "outros_gastos": 326630.03,
-      "total": 10633666.21
-    },
-    {
-      "nome": "FUABC DETALHADO",
-      "descricao": "FUABC - Detalhado 2025/2026",
-      "recursos_humanos_2025": 15519978.93,
-      "recursos_humanos_2026": 15979374.38,
-      "processos_trabalhistas_2025": 81084.03,
-      "processos_trabalhistas_2026": 78881.08,
-      "materiais_consumo_2025": 3920961.07,
-      "materiais_consumo_2026": 4218090.06,
-      "servicos_terceiros_2025": 19270730.55,
-      "servicos_terceiros_2026": 23568510.69,
-      "investimentos_2025": 83882.01,
-      "investimentos_2026": 203082.50,
-      "outros_gastos_2025": 114709.55,
-      "outros_gastos_2026": 124262.02,
-      "total_2025": 38991346.13,
-      "total_2026": 44172200.73
+    "FUABC - DETALHADO",
+    "GERAL",
+    "NOVOS SERVI?OS",
+    "SESAUD - DETALHADO"
+  ],
+  "ano_ativo": "FUABC - DETALHADO",
+  "GERAL": {
+    "atualizado_em": "05/12/2025 ?s 05:27:58",
+    "despesas": [
+      {
+        "categoria": "RECURSOS HUMANOS",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "PROCESSOS TRABALHISTAS",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "MATERIAIS DE CONSUMO",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "MANUTEN??O E REFORMAS",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "SERVI?OS M?DICOS",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "SERVI?OS DE TERCEIROS",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "INVESTIMENTOS",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "OUTROS GASTOS",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "TOTAL DE DESPESAS",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "OR?AMENTO ANUAL 2026",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "OR?AMENTO MENSAL",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "DEFICIT/SUPERAVIT",
+        "fuabc": 0,
+        "sesaud": 0
+      }
+    ],
+    "categorias": [
+      {
+        "categoria": "RECURSOS HUMANOS",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "PROCESSOS TRABALHISTAS",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "MATERIAIS DE CONSUMO",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "MANUTEN??O E REFORMAS",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "SERVI?OS M?DICOS",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "SERVI?OS DE TERCEIROS",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "INVESTIMENTOS",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "OUTROS GASTOS",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "TOTAL DE DESPESAS",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "OR?AMENTO ANUAL 2026",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "OR?AMENTO MENSAL",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "DEFICIT/SUPERAVIT",
+        "fuabc": 0,
+        "sesaud": 0
+      }
+    ],
+    "resumo": {
+      "total_fuabc": 0,
+      "total_sesaud": 0,
+      "total_geral": 0,
+      "diferenca": 0
     }
-  ]
+  },
+  "NOVOS SERVI?OS": {
+    "atualizado_em": "05/12/2025 ?s 05:27:58",
+    "despesas": [
+      {
+        "categoria": "Servi?o de Fisioterapia e Assist?ncia Social",
+        "fuabc": 0,
+        "sesaud": 191.2
+      },
+      {
+        "categoria": "Servi?o de Regula??o (NIR)",
+        "fuabc": 0,
+        "sesaud": 116.25
+      },
+      {
+        "categoria": "SERVI?OS NOVOS 2026",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Telemedicina",
+        "fuabc": 0,
+        "sesaud": 165
+      },
+      {
+        "categoria": "Servi?o de Hemodinamica",
+        "fuabc": 0,
+        "sesaud": 377.621
+      },
+      {
+        "categoria": "Residencia terapeutica verificar????",
+        "fuabc": 0,
+        "sesaud": 145.07
+      },
+      {
+        "categoria": "CUIDAR - PCD",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "TOTAL NOVOS MENSAL",
+        "fuabc": 0,
+        "sesaud": 995.142
+      },
+      {
+        "categoria": "Adequa??o Pronto Cardio",
+        "fuabc": 0,
+        "sesaud": 2.436
+      },
+      {
+        "categoria": "TOTAL GERAL",
+        "fuabc": 0,
+        "sesaud": 3.432
+      }
+    ],
+    "categorias": [
+      {
+        "categoria": "Servi?o de Fisioterapia e Assist?ncia Social",
+        "fuabc": 0,
+        "sesaud": 191.2
+      },
+      {
+        "categoria": "Servi?o de Regula??o (NIR)",
+        "fuabc": 0,
+        "sesaud": 116.25
+      },
+      {
+        "categoria": "SERVI?OS NOVOS 2026",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Telemedicina",
+        "fuabc": 0,
+        "sesaud": 165
+      },
+      {
+        "categoria": "Servi?o de Hemodinamica",
+        "fuabc": 0,
+        "sesaud": 377.621
+      },
+      {
+        "categoria": "Residencia terapeutica verificar????",
+        "fuabc": 0,
+        "sesaud": 145.07
+      },
+      {
+        "categoria": "CUIDAR - PCD",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "TOTAL NOVOS MENSAL",
+        "fuabc": 0,
+        "sesaud": 995.142
+      },
+      {
+        "categoria": "Adequa??o Pronto Cardio",
+        "fuabc": 0,
+        "sesaud": 2.436
+      },
+      {
+        "categoria": "TOTAL GERAL",
+        "fuabc": 0,
+        "sesaud": 3.432
+      }
+    ],
+    "resumo": {
+      "total_fuabc": 0,
+      "total_sesaud": 1996.1509999999998,
+      "total_geral": 1996.1509999999998,
+      "diferenca": -1996.1509999999998
+    }
+  },
+  "SESAUD - DETALHADO": {
+    "atualizado_em": "05/12/2025 ?s 05:27:59",
+    "despesas": [
+      {
+        "categoria": "ACOMPANHAMENTO PLANO OR?AMENT?RIO",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "RECURSOS HUMANOS",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "INDENIZA??ES TRABALHISTAS - RESCIS?ES",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "VENCIMENTO PREFEITURA - FOLHA",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "PROGRAMA -MAIS M?DICOS",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "TARIFAS CAIXA ECONOMICA FEDERAL / BANCO DO BRASIL - TARIFAS BANC?RIAS",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "GRATIFICA??O SUS",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "PENS?ES - GRATIF. SUS",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "INSS PREF",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "FGTS PREF",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "NOTRE DAME INTERMEDICA",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "PROCESSOS TRABALHISTAS",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "CARLA MERCIA FERREIRA DOMINGUES",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "RAPHAEL COSTA VIEIRA",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "MATERIAIS DE CONSUMO",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Medicamentos e Materiais M?dicos e Hospitalar",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "ABBOTT LABORATORIOS",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "AGLON COMECIO E REPRESENTA??ES LTDA.",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Outros Materiais de Consumo",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "COMPANHIA DE GAS DE S.PAULO - COMGAS -",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "CIA ULTRAGAZ S.A -",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "DC INFINITY COMERCIALIZADORA E DISTR EIRELI",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "JM SUPRIMENTOS LTDA",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "JC DA SILVA SUPRIMENTOS PARA ESCRIT?RIO",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "LINECONTROL COMERCIO IMP E EXP LTDA",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "PRECISO EQUIPAMENTOS P LABORATORIOS LTDA",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "QUIMAFLEX CIENTIFICA LTDA",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "RBS COM?RCIO E SERVI?OS EM GERAL LTDA -",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "RF LEITE AQUINO ALIMENTO PARA ANIMAIS",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "SOLRAC COMERCIO E SERVI?O LTDA",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "SUPERGASBRAS ENERGIA LTDA",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "SINSAI COMERCIO DE DESCARTAVEIS EIRELI",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "VIVA LABORATORIO DE ANALYSIS LTDA",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "VC DA ROCHA DISTRIBUIDORA ME",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "VILA BARCELONA ME",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "G?nero Aliment?cios",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "SERVI?OS DE TERCEIROS",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Manuten??o e Reformas",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "SOLU??ES SERV TERCEIRIZADOS EIRELI - Complexo PCD",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Servi?os M?dicos Terceirizados",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Outros Servi?os de Terceiros",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "CENTRAL DE CONV?NIOS",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "APAE - CER IV",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "LA VITA - N?CLEO CLINICO DE REABILITA??O -",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "RESIDENCIAL P IDOSOS LA VITA LTDA",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "CENTRO DE READAPTA??O SOCIAL LTDA",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "NUCLEO DE INTEGRA??O LUZ DO SO LTDA",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "ASSOCIA??O ESTANCIA PRIMAVERA COMUNIDADE TERAPEUTICA",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "CLINICA PRIMAVERA LTDA",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "RESIDENCIAL SAUDE E BEM ESTAR LTDA",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "AMA- ASSOC DE AMIGOS DO AUTISTA",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "APAE NEURO",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "CIN COMUNICA??O INTEGRADA LIMITADA - EPP -",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "FUNDA??O APOIO A UNIVERS. MUNIC. SCS - UNIMAIS",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "ABX TELECOM LTDA.",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "ALTBIT INFORMATICA COM E SERVI?OS LTDA",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "ASSOCIA??O PATRULHEIROS MIRINS DE S C SUL",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "CIAMA REPRESENTA?OES E COMERCIO LTDA",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "COLORSISTHEM DO BRASIL COM.SIST. REPROGRAF.",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "COLSAN SOC.BENEFIC.DE COLETA DE SANGUE",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "COMPANHIA DE PROCESSAMENTO DE DADOS DO ESTADO SP - PRODESP",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "IMPRENSA NACIONAL - IN -",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "INOVAPTT TECNOLOGIA LTDA",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "MAX-VERDE TRANSP E CONTRU?OES EIRELI",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "NET TELECOM INFORM?TICA",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "NOROESTE COMERCIAL DE SUPRIMENTOS",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "RSM SOLU?OES LTDA",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "SOBERANA SERVI?OS DE REFEI??O E COM LTDA",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "SSD COMERCIO E ASSISTENCIA EM EQUIPAMENTOS",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "TB SERVI?OS TRANSP LIMP GER.REC.HUMANOS",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "TRES LAGOAS COMERCIO DE EMBALAGENS LTDA",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "VESPA SAUDE AMBIENTAL COM SERVI?OS",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "WT PELICULAS LTDA",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "ASS.PROTETORA DOS ANIMAIS - APASCS",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "ASSOC.PREV.DEPEND.QUIM DIVINA PROVIDENCIA",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "GRUPO DE AMIGOS SAMARITANOS - G.A.S",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "INSTITUI??O CLAUDIO AM?NCIO",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "REDE FEMININA DE COMBATE AO C?NCER",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "SOC BENEFIC.GRUPO DE AMOR A VIDA - GAV",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Loca??o de im?veis",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "CARLOS ALBERTO FERREIRA - Super Centro",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "ELZA PIANTA FERREIRA - Super Centro",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "CLELGEN LUIZ BONETTI - Fisioterapia",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "ALCYR ROZANTE SOTTO - Fisioterapia",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "MIRIAN NACAGAMI SOTTO - Fisioterapia",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "ADENILZE BECHARA - Pet Escola",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "VVP PARTICIPA?OES LTDA - UBS Santo Antonio",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Loca??o de Diversas",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "INVESTIMENTOS",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Bens e Materiais Permanentes",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Resid?ncia M?dica",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Despesas Acad?micas",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Constru??o e Amplia??o",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "OUTROS GASTOS",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Combustivel - LEANDRINI AUTO POSTO LTDA",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Utilidades, Energia , ?gua , coleta de lixo e internet",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "TELEFONICA BRASIL S/A",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "SAESA",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "ELETROPAULO METR.ELETR.DE S.P. S/A -",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "ADIANTAMENTO",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Despesas financeiras e banc?rias",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Outras despesas",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Diversos",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Caixa pequeno",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Despesas de Rateio",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Nota de d?bito",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Apoio T?cnico",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Custas Processos Judiciais",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Custas Processos Judiciais",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Despesas Administrativas",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "TOTAL DE DESPESAS",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "SUPER?VIT/D?FICIT - BASE CONTRATO DE GEST?O",
+        "fuabc": 0,
+        "sesaud": 0
+      }
+    ],
+    "categorias": [
+      {
+        "categoria": "ACOMPANHAMENTO PLANO OR?AMENT?RIO",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "RECURSOS HUMANOS",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "INDENIZA??ES TRABALHISTAS - RESCIS?ES",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "VENCIMENTO PREFEITURA - FOLHA",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "PROGRAMA -MAIS M?DICOS",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "TARIFAS CAIXA ECONOMICA FEDERAL / BANCO DO BRASIL - TARIFAS BANC?RIAS",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "GRATIFICA??O SUS",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "PENS?ES - GRATIF. SUS",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "INSS PREF",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "FGTS PREF",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "NOTRE DAME INTERMEDICA",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "PROCESSOS TRABALHISTAS",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "CARLA MERCIA FERREIRA DOMINGUES",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "RAPHAEL COSTA VIEIRA",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "MATERIAIS DE CONSUMO",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Medicamentos e Materiais M?dicos e Hospitalar",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "ABBOTT LABORATORIOS",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "AGLON COMECIO E REPRESENTA??ES LTDA.",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Outros Materiais de Consumo",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "COMPANHIA DE GAS DE S.PAULO - COMGAS -",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "CIA ULTRAGAZ S.A -",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "DC INFINITY COMERCIALIZADORA E DISTR EIRELI",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "JM SUPRIMENTOS LTDA",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "JC DA SILVA SUPRIMENTOS PARA ESCRIT?RIO",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "LINECONTROL COMERCIO IMP E EXP LTDA",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "PRECISO EQUIPAMENTOS P LABORATORIOS LTDA",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "QUIMAFLEX CIENTIFICA LTDA",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "RBS COM?RCIO E SERVI?OS EM GERAL LTDA -",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "RF LEITE AQUINO ALIMENTO PARA ANIMAIS",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "SOLRAC COMERCIO E SERVI?O LTDA",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "SUPERGASBRAS ENERGIA LTDA",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "SINSAI COMERCIO DE DESCARTAVEIS EIRELI",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "VIVA LABORATORIO DE ANALYSIS LTDA",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "VC DA ROCHA DISTRIBUIDORA ME",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "VILA BARCELONA ME",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "G?nero Aliment?cios",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "SERVI?OS DE TERCEIROS",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Manuten??o e Reformas",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "SOLU??ES SERV TERCEIRIZADOS EIRELI - Complexo PCD",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Servi?os M?dicos Terceirizados",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Outros Servi?os de Terceiros",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "CENTRAL DE CONV?NIOS",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "APAE - CER IV",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "LA VITA - N?CLEO CLINICO DE REABILITA??O -",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "RESIDENCIAL P IDOSOS LA VITA LTDA",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "CENTRO DE READAPTA??O SOCIAL LTDA",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "NUCLEO DE INTEGRA??O LUZ DO SO LTDA",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "ASSOCIA??O ESTANCIA PRIMAVERA COMUNIDADE TERAPEUTICA",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "CLINICA PRIMAVERA LTDA",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "RESIDENCIAL SAUDE E BEM ESTAR LTDA",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "AMA- ASSOC DE AMIGOS DO AUTISTA",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "APAE NEURO",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "CIN COMUNICA??O INTEGRADA LIMITADA - EPP -",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "FUNDA??O APOIO A UNIVERS. MUNIC. SCS - UNIMAIS",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "ABX TELECOM LTDA.",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "ALTBIT INFORMATICA COM E SERVI?OS LTDA",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "ASSOCIA??O PATRULHEIROS MIRINS DE S C SUL",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "CIAMA REPRESENTA?OES E COMERCIO LTDA",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "COLORSISTHEM DO BRASIL COM.SIST. REPROGRAF.",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "COLSAN SOC.BENEFIC.DE COLETA DE SANGUE",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "COMPANHIA DE PROCESSAMENTO DE DADOS DO ESTADO SP - PRODESP",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "IMPRENSA NACIONAL - IN -",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "INOVAPTT TECNOLOGIA LTDA",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "MAX-VERDE TRANSP E CONTRU?OES EIRELI",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "NET TELECOM INFORM?TICA",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "NOROESTE COMERCIAL DE SUPRIMENTOS",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "RSM SOLU?OES LTDA",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "SOBERANA SERVI?OS DE REFEI??O E COM LTDA",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "SSD COMERCIO E ASSISTENCIA EM EQUIPAMENTOS",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "TB SERVI?OS TRANSP LIMP GER.REC.HUMANOS",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "TRES LAGOAS COMERCIO DE EMBALAGENS LTDA",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "VESPA SAUDE AMBIENTAL COM SERVI?OS",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "WT PELICULAS LTDA",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "ASS.PROTETORA DOS ANIMAIS - APASCS",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "ASSOC.PREV.DEPEND.QUIM DIVINA PROVIDENCIA",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "GRUPO DE AMIGOS SAMARITANOS - G.A.S",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "INSTITUI??O CLAUDIO AM?NCIO",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "REDE FEMININA DE COMBATE AO C?NCER",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "SOC BENEFIC.GRUPO DE AMOR A VIDA - GAV",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Loca??o de im?veis",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "CARLOS ALBERTO FERREIRA - Super Centro",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "ELZA PIANTA FERREIRA - Super Centro",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "CLELGEN LUIZ BONETTI - Fisioterapia",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "ALCYR ROZANTE SOTTO - Fisioterapia",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "MIRIAN NACAGAMI SOTTO - Fisioterapia",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "ADENILZE BECHARA - Pet Escola",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "VVP PARTICIPA?OES LTDA - UBS Santo Antonio",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Loca??o de Diversas",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "INVESTIMENTOS",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Bens e Materiais Permanentes",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Resid?ncia M?dica",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Despesas Acad?micas",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Constru??o e Amplia??o",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "OUTROS GASTOS",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Combustivel - LEANDRINI AUTO POSTO LTDA",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Utilidades, Energia , ?gua , coleta de lixo e internet",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "TELEFONICA BRASIL S/A",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "SAESA",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "ELETROPAULO METR.ELETR.DE S.P. S/A -",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "ADIANTAMENTO",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Despesas financeiras e banc?rias",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Outras despesas",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Diversos",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Caixa pequeno",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Despesas de Rateio",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Nota de d?bito",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Apoio T?cnico",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Custas Processos Judiciais",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Custas Processos Judiciais",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Despesas Administrativas",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "TOTAL DE DESPESAS",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "SUPER?VIT/D?FICIT - BASE CONTRATO DE GEST?O",
+        "fuabc": 0,
+        "sesaud": 0
+      }
+    ],
+    "resumo": {
+      "total_fuabc": 0,
+      "total_sesaud": 0,
+      "total_geral": 0,
+      "diferenca": 0
+    }
+  },
+  "FUABC - DETALHADO": {
+    "atualizado_em": "05/12/2025 ?s 05:27:59",
+    "despesas": [
+      {
+        "categoria": "ACOMPANHAMENTO PLANO OR?AMENT?RIO - 2025",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "RECURSOS HUMANOS",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Folha Encargos e Benef?cios",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "F?rias",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Folha Aut?nomos",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Provis?o de 13? sal?rio",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Provis?o de 1/3 f?rias",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "PROCESSOS TRABALHISTAS",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Processos Trabalhistas - MANTENEDORA",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Processos Trabalhistas",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Outros",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "MATERIAIS DE CONSUMO",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Medicamentos e Materiais M?dicos e Hospitalar",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Material M?dico",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Medicamento",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Baxter - Proc 286/23 - fornecimento dieta parenteral prolongada ( jan/24)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "CG Medical - Proc 645/20 - fornecimento material ortop?dico em consgina??o, c/ instrumentadores ( out/20)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Fresenius Kabi - Proc 450/22 - fornecimento dieta enteral e suplementos (jan/23)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Hosp-Pharma Manipula??o - Proc 286/23 - Fornecimento de dieta parenteral prolongada (dez/23)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Mogami - Proc 361/21 - Fornecimento materiais e insumos cir. Endourol?gicas ( set/21)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Mogami - Proc 110/22 - Fornecimento materiais descartaveis em consignado p/ videolaparoscopia c/ comodato ( fev/22)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Nutriport - Proc 450/22 - dieta enteral e suplemento Complexo e unidades (nov/22)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Pr?-f?rmula quimioterapia - Proc 224/19 - Manipula??o medicamentos Oncol?gicos (jul/19)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Novo processo de Manipula??o Oncol?gicos - Proc 361/25",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Medicamental - Fornecimento de Fraldas -Proc 199/25",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Fornecimento de mantas t?rmicas Proc 79A/25",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Outros Materiais de Consumo",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Material de consumo pontual",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "13A Inform?tica - Proc 24/24 - Fornecimento de sulfite (fev/25)",
+        "fuabc": 0,
+        "sesaud": 13
+      },
+      {
+        "categoria": "Multipaper - Proc 361/19 - Fornecimento sulfite (out/19)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "G?nero Aliment?cios",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "DC Infinity - Proc 670/21 - Fornecimento gal?es de agua (dez/21)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "SERVI?OS DE TERCEIROS",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Manuten??o e Reformas",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Castelmar - Proc 102/25 - Pontual para manuten??o rede telefonia 4? andar",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Crel elevadores - Proc 530/23 - Manuten??o elevadores Complexo ( jan/24)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Clarissa Prates Ferreira - Proc 459/24 - manuten??o de tablet c/ pe?as ( set/24)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Hertz - Proc 32/23 - Manuten??o elevadores c/ pe?as Complexo e unidades ( jun/23)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Kimens Equipamentos - Proc 125/20 - Manuten??o equip. odontol?gicos c/ pe?as ( jun/20)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "SSD Comercio - Proc 16/23 - Manuten??o corretiva e preventiva ar condicionado c/ pe?as ( jun/23)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "SSD Com?rcio - Proc 204/25 C- Manuten??o corretiva e preventiva ar condicionado c/ pe?as - emergencial subst Proc 16/23 ini 26/05/25",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "SSD Comercio - Proc 006/25 - Manuten??o corretiva e preventiva ar condicionado - pontual",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "SSD Comercio - Proc 76/25 - Manuten??o corretiva camara mortuaria pontual - pontual",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Spell Com?rcio - Proc 16/23 - Manuten??o corretiva e preventiva ar condicionado c/ pe?as ( jun/23) - recindido - SSD assumiu",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Verzani - Proc 56/21 - Manuten??o Predial e equipamentos (mar/22)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Kimens Equipamentos - Proc 143/24 - Manuten??o equip. prev e corret. com back up ( abr/24)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Manuten??o de guilhotina - Proc 65/25 - pontual abril",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "CALIBRACAO DE TERMO-HIGROMETRO - Proc 250/25",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Reforma Trailer - Proc 295/25 Arcotec Com. E Desenvol. Eireli - Pontual",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Servi?os M?dicos Terceirizados",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "6R Cirurgi?es Associados - Proc 080/22 - Servi?os M?dicos Cirurgia Geral (jun/22)",
+        "fuabc": 0,
+        "sesaud": 6
+      },
+      {
+        "categoria": "Azul Sa?de - Proc 067/23 - Servi?os M?dico Oftalmologia - (dez/23)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "C.A.P - Proc 421/23 - Servi?os M?dicos Anestesiologia (out/23)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Cert Servi?os M?dicos - Proc 681/21 - Servi?os M?dicos Nefrologia ( dez/21)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Clinica M?dica e Endoscopia AES - Proc 425/23 - Servi?o de endoscopia adulto e infantil ( abr/24)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Clinica M?dica de Oxigenoterapia hiperbarica - Proc 347/19 - Encerrou - substituido por ABC PRIME",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Elite - Servi?os M?dicos em Pediatria Proc 291/25 - Inicio em 11/09/25 - substitui credenciamento",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Flavio Tsuyoshi Yamagutti - Proc 405/24 - Diagn?stico em exames liqu?ricos p/ Complexo e unidades (ago/24)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Gest?o M?dica Inteligente - Proc 216/22 - Telemedicina mod.teleatendimento c/ auxilio prof in loco (jul/22)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Gomide e Moura - Proc 259/19 - Servi?os M?dicos Obstetr?cia e Ginecologia (set/19) - FINALIZOU EM 03/09/25",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Leald - Proc 203/25 - especialidades m?dicas - substitui telemedicina proc 216/22 - inicia 16/06/25 - emergencial",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "MAISA?DE - SERVICOS DE FISIOTERAPIA E ASSISTENCIA SOCIAL PROC 355/25 12 MESES INICIO NOVEMBRO",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Medicar Emerg?ncia - Proc 569/22 - Servi?os m?dicos hosp. Movel de Urg e emerg, 156 SOS (set/23)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "MED SOLUTIONS - SERVICOS DE REGULACAO (NIR) PROC 339/25 - 15/10/25",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Presente Sa?de - Proc 085/23 - Servi?os M?dicos de ortopedia Complexos e Hosp. De emergencias ( jul/23)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "P&V Servi?os e M?dicos - Proc 528/22 - Servi?os M?dicos em neonatologia ( jun/23)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "P&V Servi?os e M?dicos - Proc 110/25 - Servi?os M?dicos em Anestesiologia - emergencial substitui 421/23 C.A.P",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "SMPV - Proc 329/24 - Servi?os m?dicos UTI e Enfermaria Complexo e Sabin ( jul/24)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "SMPV - Proc 90/25 - Servi?os m?dicos UTI - Substitui processo 329/24 -",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "SMPV - Proc 91/25 - Servi?os m?dicos Enfermaria Complexo - Substitui processo 329/24 -",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "SMPV - Proc 369/24 - Servi?os m?dicos UTI Pediatrica Complexo ( jan/25)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "TK Gest?o M?dica LTDA - Proc 323/22 - Cirurgia Vascular ( jan/23)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Takegawa e Kodama - Proc 343/23 - Nasofibrolaringoscopia (out/23)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Credenciamento -Dermaortop Clinica dermato e ortopedia - Proc 08/23 -Servi?os m?dicos de dermatologia ( jun/23)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Credenciamento -Clinica Radiol?gica Radiocran - Proc 481/23 - Realiza??o RX panor?mica Centro Odonto ( dez/23)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Credenciamento - Cortex Neurologia Diagn?stico - Proc 073/24 - Exames diagn?tico em neurologia (fev/24)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Credenciamento - APAE - Proc 073/24 - Exames diagn?tico em neurologia (maio/24)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Credenciamento -Ribeiro e Maia - Proc 073/24 - Exames diagn?tico em neurologia (fev/25)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Credenciamento - Proc 207/24 - Servi?os M?dicos de Pediatria p/complexo e UPA ( abr/24)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Credenciamento - Proc 406/24 -Lera Servi?os M?dicos Ltda - Servi?os M?dicos em Oncologia (",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Credenciamento - Proc 452/24 - Servi?os M?dicos de Psiquiatria p/ Albert Sabin( ?)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Credenciamento - Proc 435/24 - Empresas Servi?os M?dicos em enfermaria Clinica M?dica Sabin e UPA ( set/24)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Credenciamento - Proc 244/24 - Empresas para plant?o Albert Sabin e UPA ( maio/24)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Credenciamento - Proc 153/25 - Empresa medica de Infectologista - Leal Sa?de e Ci?ncia - inicio 19/05/25",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "ELITE - Servi?os M?dicos em obstetricia e ginecologia - Proc 292/25 - INICIO 03/09/25 - Substitui 259/19 Gomide",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Novo processo de Servi?os em Psiquiatria - Proc 304/25",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "RCL - Proc 358/25- Fornecimento material ortop?dico em consigna??o, c/ instrumentadores",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Servi?o de anestesiologia - Proc 338/25",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Telemedicina",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Servi?o de infecto",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Servi?o de Lavanderia - Proc 340/25",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Servi?o de triagem neonatal ampliada - teste do pezinho Proc 296/25",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Servi?o de Hemodinamica Proc 307/25",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Residencia terapeutica Proc",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Novo processo de Servi?os em Psiquiatria - Proc 304/25",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Outros Servi?os de Terceiros",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "AGEIS CME - Proc 215/23 - gest?o org., adm informatizada e ger. CME (ago/23)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "ABLER - Proc 165/25 - sistema do RH recrutamento e sele??o",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "ABC PRIME - Proc 21/2024 - servi?o de oxigenoterapia hiperb?rica ( jan/25)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Arquivei - Proc 497/17 - Gerenciamento notas fiscais digitais",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Asservo - CAPS - Manuten??o predial Proc 002/25 - sub-rogado",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Asservo - CAPS -Servi?o de limpeza Proc 004/25 - sub-rogado",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Bastos - Proc 203/22 - Desenvolvimento de sistema e/ou aplicativos suporte e manu.evolutiva e corretiva (jun/22)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Bastos - Proc 236/25 - Desenvolvimento de sistema e/ou aplicativos suporte e manu.evolutiva e corretiva (09/06/25) substitui proc203/22",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Bellator - Proc 518/19 - vigil?ncia armada centro de distribui??o + farm. De alto custo (mar/20)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "B.F.A Medicina e Seguran?a do trabalho -Proc 527/23 - Medicina do trabalho (out/24)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Biomega - Proc 11/24 - Servi?o diagn?stico em laborat?rio clinico (abr/24)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Bionexo - Proc 471/19 - portal de compras (set/21)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "BK Portaria - Proc 381/25 - emergencial substitui Guarded 317/22",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "B.M.F Residuos - Proc 030/24 - Coleta de residuos (mar/24)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Boston Scientific do Brasil - Proc 063/25 - Loca??o e monitoramento marca passo",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Castelmar - Proc 577/22 - Servi?os de inform?tica, configura??o, manuten??o (mar/23)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "CDZ Tecnologia - Proc 089/24 - Licen?a plataforma off label pesq. E auditorias Complexo ( maio/24) encerrou em 26/03",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Cek?o - Proc 224/24 - Loca??o, lavagem, e higieniza??o toalhas Escola Pet (maio/24)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Clinica Cardiol?gica Dr. Julio Abdala - Proc 074/24 - Exames cardiol?gico (mar/24)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Desintec Controle Ambiental - Proc 574/22 - Controle de pragase Vetores, desinset., desratiz. (mar/23) FINALIZOU EM 15/08/25",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "DTO Sistema - Proc 324/23 - Sistema p/ dados clinicos, indicadores de gest?o populacional ( out/23) encerrou fev/25",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "El. Diagn?stico - Proc 775/20 - RADIOLOGIA, TOMOGRAFIA, RESSONANCIA, BI?PSIA GUIADA,SEDA??O, RADIOSCOPIA C.C (dez/20)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "El. Diagn?stico - Proc 282/23 - ULTRASSONOGRAFIA COM DISPONIBILIZA??O DE CARRETA M?VEL (SET/23)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Renan Santiago Pacheco Entregas - Proc 205C/25 - Servi?os de motoboy - inicio 04/06/25 emergencial",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Funda??o do ABC - FMABC - Proc 134/20 - An?lise de exames COVID Complexo e unidades ( mar/20)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Funda??o do ABC - FMABC - Proc 073/24 - An?lise de exames diagn?stico em Neurologia ( mar/23)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Funda??o do ABC - FMABC - Proc 408/19 - An?lise patol?gico - cancelado substituido pelo 22/24",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Funda??o do ABC - FMABC - Proc 22/24 - An?lise Anatopatol?gico e Citopatologia (out/24)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Gabriel Genaro da Silva - Proc 020/24 - Confec??o, conserto e manut. Proteses dent?rias e aparelhos ortodonticos (dez/24)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Greem Paper Free - Proc 10/24 - Servi?o de sistema de cart?rio digital (mar/24)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Guarded Place - Proc 317/22 - Vigil?ncia n?o armada complexo e unidades (dez/22)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Guima - Proc 499/19 - Limpeza Hospitalar - (nov/19) - encerrado em 31/03/25",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Guima - Proc 28/24 - Limpeza Hospitalar - (abr/25) - substitui 499/19",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Enge Radios - Proc 407/22 - Sistema de monitoramento video e alarmes c/equip. (nov/22)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Interact - Proc 297/25 - Sistema Gest?o de auditoria - INTERACT",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Lavsim - Proc 471/22 - Fornecimento de enxoval Complexo e unidades (jun/23)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Metta - CAPS - Servi?o de portaria - Proc 001/25",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "MV - Proc 119/22 - Implanta??o MV SIGSS, gest?o, qualidade, BI, painel indicadores (maio/22)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Moxano - Proc 111/23 - Engenharia Clinica, assessoria, consultoria e gerenciamento pq. Equip. (nov/23)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Nuclemed - Proc 078/20 - Exames cintilografia (mar/20)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Nuclemed - Proc 33/25 - Exames de cintilografia - substitui proc 078/20 - 12 meses",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Oriovaldo Delfino - Proc 341/19 - Confec??o, conceto e/ou manuten??o de pr?teses dentaria e ap. ortodonticos ( jul/19) cancelado",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Pernambucana Desentupidora e Dedetizadora - Proc 79/22 - Limpeza cx d'agua c/laudo (mar/22)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Pittioni e Parra Gest?o em Sa?de - Proc 400/24 - Acredita??o e manunte??o ONA ( out/24)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Pluri Radio - Proc 481/23 - RX Panoramica p/ centro odontol?gico ( dez/23)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Porto Seguro - Proc 630/17 - Seguro contra inc?ndio p/ centro de distribui??o mat e med (nov/17)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "R.A Assessoria Cont?bil - Proc 591/24 - lan?amento reclamat?rias trabalhistas no e-social (dez/24)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "SCS Saude ambiental - Proc 308,25 - controle de pragas - substitui Desintec - Inicio 05/09/25",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Soberana - Proc 838/20 - Fornecimento nutri??o e alimenta??o ( ago/21) Complexo e unidades",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Soberana - CAPS - alimenta??o - Proc 003/25 emegencial",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Soluti Solu??es - Proc 126/23 - emiss?o e renova??o certificado digital ( set/23)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Total Clean - Fornecimento de enxoval - Proc 200/25 - inicio 02/06/25 - substitui 471/22 - emergencial",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Tradinworks - Proc 438/19 - Ponto eletr?nico ( out/19)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Unidade Odonto Radiologia - Proc 481/23 - RX panoramica p/ centro odontol?gico (dez/23)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Vam - refei??es e eventos Eireli - Proc 353/25 - INICIO 04/09/25 - emergencial subst soberana 838/20 e 003/25 - emergencial",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Volatile - Proc 216/24 - Reconhecimento facial e geolocaliza??o ( maio/24)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "White - Proc 504/19 - Gases medicinais (dez/19) (medicamento, manuten??o e loca??o)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Zuki - Proc 60/23 - engenharia de seguran?a do trabalho aos funcion?rios (jun/23) finalizado em 14/09/25",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Servi?o pontual - Proc 164/25 - sistema manchester - parcela ?nica",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "RC Servi?os Seguran?a - Servi?o de vigilancia armada centro de distribui??o e farmacia de alto custo Proc 108/25 substitui Bellator",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Mapeametno do processo de gest?o de auditoria Proc 103/25 - CANCELADO",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Loca??o de im?veis",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Mario Luciano - Proc 667/20 - im?vel p/ centro de distribui??o de mat e med. (out/20)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Soc. Imobiliaria Cinerama -Proc 015/24 - Im?vel Casa da Gestante ( jan/25) substitui 620/19",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Via Barcelona - Proc 613/21 - loca??o de espa?o para armazenamento e guarda de documentos, m?veis e equipamentos (nov/21)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Loca??o novo pr?dio administra??o - Proc 306/25",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Loca??o de Diversas",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Air liquide - Proc 498/22 - fornecimento g?s medicinal (mar/23) (medicamento) domiciliar",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Air liquide - Proc 525/19 - loca??o c/ manut. Equip.central geradora de v?cuo clinico (nov/19)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Air liquide - Proc 526/19 - loca??o c/ manut. Equip.central geradora de ar comprimido (nov/19)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Castelmar - Proc 315/23 - loca??o notebooks e demais equipamentos de inform?tica ( mar/24)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Castelmar - Proc 017/24 - loca??o impressoras multifuncional c/manuten??o prev. E corre. (dez/24) complexo e unidades",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Castelmar - Proc 132/24 - loca??o impressoras multifuncional c/manuten??o prev. E corre. p/ telemedicina at. Primaria (mar/24) cancelado",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "First Medical - Proc 816/20 - loca??o equip. Alta Complexidade (dez/20)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "First Medical - Proc 291/24 - loca??o equip. c/manuten??o prev e corret. c/incorpora??o patrimonio (dez/20)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "IBG Industria Brasileira - Proc 316/19 - Loca??o cilindros (temos contrato ainda?)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Lumiar Health Bullders - Proc 260/21 - Loca??o suporte de ventilat?rio p/ pacientes domiciliar ( maio/21)Processo cancelado",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Lumiar Health Bullders - Proc 669/21 - Loca??o CPAP paciente Paulo Correia encerrado em nov/24",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Movilog Serv Com. E Man. De Empilhadeiras - Proc 356/25 - Substitui Rentalmak Proc 276/19",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Rentalmak Com?rcio - Proc 276/19 - loca??o de empilhadeira (jun/19)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Sinall Com?rcio - Proc 141/22 - loca??o impressoras multifunional e de etiquetas zebrada Complexo e unidades (jun/22)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "PRIOM - Proc 436/22 - loca??o suporte ventilat?rio prog. Oxigenoterapia domiciliar (out/22)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Total PTA Loca??es - Proc 409/22 - loca??o container escrit?rio prog sa?de animal ( out/22)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Teclabel Solu??es - Proc 378/23 - loca??o ou comodato impressoras com suprimentos ( nov/24)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "D.W Comer. E Serv. - Proc 334/23 - loca??o e manuten??o 09 totens p/senha (nov/23)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "INVESTIMENTOS",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Bens e Materiais Permanentes",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "AQUISICAO EMERGENCIAL MOBILIARIO - MESA/ ARMARIO/ GAVETEIRO/ CADEIRA - PROC 624/24",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "AQUISICAO EMERGENCIAL MOBILIARIO - CADEIRA DE REFEITORIO - PROC 633/24",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "AQUISICAO MATERIAL E MOBILIARIO - ESTANTE/ BINS - PROC 634/24",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "AQUISICAO EQUIPAMENTO - CARRINHO TRANSPORTE DE CARGA MANUAL - Proc 56/25 -",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "AQUISICAO DE EQUIPAMENTO - VENTILADOR (PAREDE E COLUNA) - Proc 78/25 -",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "AQUISICAO DE EQUIPAMENTO - MICROONDAS Proc 321/25",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "AQUISICAO DE EQUIPAMENTO - MINI INCUBADORA Proc 323/25",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "AQUISICAO DE EQUIPAMENTO - LASER ODONTOLOGICO Proc 324/25",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "AQUISICAO DE MOBILIARIO - FAST TRACK - Proc 303/25",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Resid?ncia M?dica",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "FMABC",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Despesas Acad?micas",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Constru??o e Amplia??o",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Flexdrill - Proc 267/24 - obra desvio coletor tronco de esgoto",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "CONTRATACAO EMERGENCIAL CONCLUSAO OBRAS PARA UBS - PROC 430/24",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Premier - Servi?o de Adequa??o cozinha/refeit?rio - Proc 354/25 - verba especifica FUABC",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Castelmar - Proc 396/25 - Pontual para manuten??o rede telefonia pr?dio novo adm -verba FUABC",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Gesso Plenolar - Proc 398/25 - Servi?o pontual pr?dio novo adm",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Adequa??o Pronto Cardio Geral e Cabine prim?ria",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "OUTROS GASTOS",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Combust?vel",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Utilidades, Energia , ?gua , coleta de lixo e internet",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Utilidade - Mario Luciano - Proc 667/20 - im?vel p/ centro de distribui??o de mat e med. (out/20)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Utilidade - Soc. Imobiliaria Cinerama -Proc 15/24 - Im?vel Casa da Gestante ( jan/20)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Claro S.A - Proc 373/2019 - fornecimento de linha telefonica p/ Projeto Rem?dio em Casa (Jul/19)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Locaweb - Proc 603/19 - E-mail Funda??o do ABC ( jan/19 )",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Vivo -Proc 136/19 - Telefonia e internet CD - (jan/19)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Vivo - Proc 534/19 - Internet link dedicado n?cleo (jan/19)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Vivo - Proc 601/19 - Telefone fixo N?cleo ( jan/19)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Utilidade - Loca??o novo pr?dio administra??o - Proc 306/25",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Despesas financeiras e banc?rias",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Despesas banc?rias",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Outras despesas",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Diversos",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Caixa pequeno",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Despesas de Rateio",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Nota de d?bito",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Apoio T?cnico",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Custas Processos Judiciais",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Custas Processos Judiciais",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Despesas Administrativas",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "TOTAL DE DESPESAS",
+        "fuabc": 0,
+        "sesaud": 0
+      }
+    ],
+    "categorias": [
+      {
+        "categoria": "ACOMPANHAMENTO PLANO OR?AMENT?RIO - 2025",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "RECURSOS HUMANOS",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Folha Encargos e Benef?cios",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "F?rias",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Folha Aut?nomos",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Provis?o de 13? sal?rio",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Provis?o de 1/3 f?rias",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "PROCESSOS TRABALHISTAS",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Processos Trabalhistas - MANTENEDORA",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Processos Trabalhistas",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Outros",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "MATERIAIS DE CONSUMO",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Medicamentos e Materiais M?dicos e Hospitalar",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Material M?dico",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Medicamento",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Baxter - Proc 286/23 - fornecimento dieta parenteral prolongada ( jan/24)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "CG Medical - Proc 645/20 - fornecimento material ortop?dico em consgina??o, c/ instrumentadores ( out/20)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Fresenius Kabi - Proc 450/22 - fornecimento dieta enteral e suplementos (jan/23)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Hosp-Pharma Manipula??o - Proc 286/23 - Fornecimento de dieta parenteral prolongada (dez/23)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Mogami - Proc 361/21 - Fornecimento materiais e insumos cir. Endourol?gicas ( set/21)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Mogami - Proc 110/22 - Fornecimento materiais descartaveis em consignado p/ videolaparoscopia c/ comodato ( fev/22)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Nutriport - Proc 450/22 - dieta enteral e suplemento Complexo e unidades (nov/22)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Pr?-f?rmula quimioterapia - Proc 224/19 - Manipula??o medicamentos Oncol?gicos (jul/19)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Novo processo de Manipula??o Oncol?gicos - Proc 361/25",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Medicamental - Fornecimento de Fraldas -Proc 199/25",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Fornecimento de mantas t?rmicas Proc 79A/25",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Outros Materiais de Consumo",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Material de consumo pontual",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "13A Inform?tica - Proc 24/24 - Fornecimento de sulfite (fev/25)",
+        "fuabc": 0,
+        "sesaud": 13
+      },
+      {
+        "categoria": "Multipaper - Proc 361/19 - Fornecimento sulfite (out/19)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "G?nero Aliment?cios",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "DC Infinity - Proc 670/21 - Fornecimento gal?es de agua (dez/21)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "SERVI?OS DE TERCEIROS",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Manuten??o e Reformas",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Castelmar - Proc 102/25 - Pontual para manuten??o rede telefonia 4? andar",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Crel elevadores - Proc 530/23 - Manuten??o elevadores Complexo ( jan/24)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Clarissa Prates Ferreira - Proc 459/24 - manuten??o de tablet c/ pe?as ( set/24)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Hertz - Proc 32/23 - Manuten??o elevadores c/ pe?as Complexo e unidades ( jun/23)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Kimens Equipamentos - Proc 125/20 - Manuten??o equip. odontol?gicos c/ pe?as ( jun/20)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "SSD Comercio - Proc 16/23 - Manuten??o corretiva e preventiva ar condicionado c/ pe?as ( jun/23)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "SSD Com?rcio - Proc 204/25 C- Manuten??o corretiva e preventiva ar condicionado c/ pe?as - emergencial subst Proc 16/23 ini 26/05/25",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "SSD Comercio - Proc 006/25 - Manuten??o corretiva e preventiva ar condicionado - pontual",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "SSD Comercio - Proc 76/25 - Manuten??o corretiva camara mortuaria pontual - pontual",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Spell Com?rcio - Proc 16/23 - Manuten??o corretiva e preventiva ar condicionado c/ pe?as ( jun/23) - recindido - SSD assumiu",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Verzani - Proc 56/21 - Manuten??o Predial e equipamentos (mar/22)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Kimens Equipamentos - Proc 143/24 - Manuten??o equip. prev e corret. com back up ( abr/24)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Manuten??o de guilhotina - Proc 65/25 - pontual abril",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "CALIBRACAO DE TERMO-HIGROMETRO - Proc 250/25",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Reforma Trailer - Proc 295/25 Arcotec Com. E Desenvol. Eireli - Pontual",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Servi?os M?dicos Terceirizados",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "6R Cirurgi?es Associados - Proc 080/22 - Servi?os M?dicos Cirurgia Geral (jun/22)",
+        "fuabc": 0,
+        "sesaud": 6
+      },
+      {
+        "categoria": "Azul Sa?de - Proc 067/23 - Servi?os M?dico Oftalmologia - (dez/23)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "C.A.P - Proc 421/23 - Servi?os M?dicos Anestesiologia (out/23)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Cert Servi?os M?dicos - Proc 681/21 - Servi?os M?dicos Nefrologia ( dez/21)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Clinica M?dica e Endoscopia AES - Proc 425/23 - Servi?o de endoscopia adulto e infantil ( abr/24)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Clinica M?dica de Oxigenoterapia hiperbarica - Proc 347/19 - Encerrou - substituido por ABC PRIME",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Elite - Servi?os M?dicos em Pediatria Proc 291/25 - Inicio em 11/09/25 - substitui credenciamento",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Flavio Tsuyoshi Yamagutti - Proc 405/24 - Diagn?stico em exames liqu?ricos p/ Complexo e unidades (ago/24)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Gest?o M?dica Inteligente - Proc 216/22 - Telemedicina mod.teleatendimento c/ auxilio prof in loco (jul/22)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Gomide e Moura - Proc 259/19 - Servi?os M?dicos Obstetr?cia e Ginecologia (set/19) - FINALIZOU EM 03/09/25",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Leald - Proc 203/25 - especialidades m?dicas - substitui telemedicina proc 216/22 - inicia 16/06/25 - emergencial",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "MAISA?DE - SERVICOS DE FISIOTERAPIA E ASSISTENCIA SOCIAL PROC 355/25 12 MESES INICIO NOVEMBRO",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Medicar Emerg?ncia - Proc 569/22 - Servi?os m?dicos hosp. Movel de Urg e emerg, 156 SOS (set/23)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "MED SOLUTIONS - SERVICOS DE REGULACAO (NIR) PROC 339/25 - 15/10/25",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Presente Sa?de - Proc 085/23 - Servi?os M?dicos de ortopedia Complexos e Hosp. De emergencias ( jul/23)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "P&V Servi?os e M?dicos - Proc 528/22 - Servi?os M?dicos em neonatologia ( jun/23)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "P&V Servi?os e M?dicos - Proc 110/25 - Servi?os M?dicos em Anestesiologia - emergencial substitui 421/23 C.A.P",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "SMPV - Proc 329/24 - Servi?os m?dicos UTI e Enfermaria Complexo e Sabin ( jul/24)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "SMPV - Proc 90/25 - Servi?os m?dicos UTI - Substitui processo 329/24 -",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "SMPV - Proc 91/25 - Servi?os m?dicos Enfermaria Complexo - Substitui processo 329/24 -",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "SMPV - Proc 369/24 - Servi?os m?dicos UTI Pediatrica Complexo ( jan/25)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "TK Gest?o M?dica LTDA - Proc 323/22 - Cirurgia Vascular ( jan/23)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Takegawa e Kodama - Proc 343/23 - Nasofibrolaringoscopia (out/23)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Credenciamento -Dermaortop Clinica dermato e ortopedia - Proc 08/23 -Servi?os m?dicos de dermatologia ( jun/23)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Credenciamento -Clinica Radiol?gica Radiocran - Proc 481/23 - Realiza??o RX panor?mica Centro Odonto ( dez/23)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Credenciamento - Cortex Neurologia Diagn?stico - Proc 073/24 - Exames diagn?tico em neurologia (fev/24)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Credenciamento - APAE - Proc 073/24 - Exames diagn?tico em neurologia (maio/24)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Credenciamento -Ribeiro e Maia - Proc 073/24 - Exames diagn?tico em neurologia (fev/25)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Credenciamento - Proc 207/24 - Servi?os M?dicos de Pediatria p/complexo e UPA ( abr/24)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Credenciamento - Proc 406/24 -Lera Servi?os M?dicos Ltda - Servi?os M?dicos em Oncologia (",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Credenciamento - Proc 452/24 - Servi?os M?dicos de Psiquiatria p/ Albert Sabin( ?)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Credenciamento - Proc 435/24 - Empresas Servi?os M?dicos em enfermaria Clinica M?dica Sabin e UPA ( set/24)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Credenciamento - Proc 244/24 - Empresas para plant?o Albert Sabin e UPA ( maio/24)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Credenciamento - Proc 153/25 - Empresa medica de Infectologista - Leal Sa?de e Ci?ncia - inicio 19/05/25",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "ELITE - Servi?os M?dicos em obstetricia e ginecologia - Proc 292/25 - INICIO 03/09/25 - Substitui 259/19 Gomide",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Novo processo de Servi?os em Psiquiatria - Proc 304/25",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "RCL - Proc 358/25- Fornecimento material ortop?dico em consigna??o, c/ instrumentadores",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Servi?o de anestesiologia - Proc 338/25",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Telemedicina",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Servi?o de infecto",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Servi?o de Lavanderia - Proc 340/25",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Servi?o de triagem neonatal ampliada - teste do pezinho Proc 296/25",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Servi?o de Hemodinamica Proc 307/25",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Residencia terapeutica Proc",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Novo processo de Servi?os em Psiquiatria - Proc 304/25",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Outros Servi?os de Terceiros",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "AGEIS CME - Proc 215/23 - gest?o org., adm informatizada e ger. CME (ago/23)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "ABLER - Proc 165/25 - sistema do RH recrutamento e sele??o",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "ABC PRIME - Proc 21/2024 - servi?o de oxigenoterapia hiperb?rica ( jan/25)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Arquivei - Proc 497/17 - Gerenciamento notas fiscais digitais",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Asservo - CAPS - Manuten??o predial Proc 002/25 - sub-rogado",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Asservo - CAPS -Servi?o de limpeza Proc 004/25 - sub-rogado",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Bastos - Proc 203/22 - Desenvolvimento de sistema e/ou aplicativos suporte e manu.evolutiva e corretiva (jun/22)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Bastos - Proc 236/25 - Desenvolvimento de sistema e/ou aplicativos suporte e manu.evolutiva e corretiva (09/06/25) substitui proc203/22",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Bellator - Proc 518/19 - vigil?ncia armada centro de distribui??o + farm. De alto custo (mar/20)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "B.F.A Medicina e Seguran?a do trabalho -Proc 527/23 - Medicina do trabalho (out/24)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Biomega - Proc 11/24 - Servi?o diagn?stico em laborat?rio clinico (abr/24)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Bionexo - Proc 471/19 - portal de compras (set/21)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "BK Portaria - Proc 381/25 - emergencial substitui Guarded 317/22",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "B.M.F Residuos - Proc 030/24 - Coleta de residuos (mar/24)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Boston Scientific do Brasil - Proc 063/25 - Loca??o e monitoramento marca passo",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Castelmar - Proc 577/22 - Servi?os de inform?tica, configura??o, manuten??o (mar/23)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "CDZ Tecnologia - Proc 089/24 - Licen?a plataforma off label pesq. E auditorias Complexo ( maio/24) encerrou em 26/03",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Cek?o - Proc 224/24 - Loca??o, lavagem, e higieniza??o toalhas Escola Pet (maio/24)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Clinica Cardiol?gica Dr. Julio Abdala - Proc 074/24 - Exames cardiol?gico (mar/24)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Desintec Controle Ambiental - Proc 574/22 - Controle de pragase Vetores, desinset., desratiz. (mar/23) FINALIZOU EM 15/08/25",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "DTO Sistema - Proc 324/23 - Sistema p/ dados clinicos, indicadores de gest?o populacional ( out/23) encerrou fev/25",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "El. Diagn?stico - Proc 775/20 - RADIOLOGIA, TOMOGRAFIA, RESSONANCIA, BI?PSIA GUIADA,SEDA??O, RADIOSCOPIA C.C (dez/20)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "El. Diagn?stico - Proc 282/23 - ULTRASSONOGRAFIA COM DISPONIBILIZA??O DE CARRETA M?VEL (SET/23)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Renan Santiago Pacheco Entregas - Proc 205C/25 - Servi?os de motoboy - inicio 04/06/25 emergencial",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Funda??o do ABC - FMABC - Proc 134/20 - An?lise de exames COVID Complexo e unidades ( mar/20)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Funda??o do ABC - FMABC - Proc 073/24 - An?lise de exames diagn?stico em Neurologia ( mar/23)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Funda??o do ABC - FMABC - Proc 408/19 - An?lise patol?gico - cancelado substituido pelo 22/24",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Funda??o do ABC - FMABC - Proc 22/24 - An?lise Anatopatol?gico e Citopatologia (out/24)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Gabriel Genaro da Silva - Proc 020/24 - Confec??o, conserto e manut. Proteses dent?rias e aparelhos ortodonticos (dez/24)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Greem Paper Free - Proc 10/24 - Servi?o de sistema de cart?rio digital (mar/24)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Guarded Place - Proc 317/22 - Vigil?ncia n?o armada complexo e unidades (dez/22)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Guima - Proc 499/19 - Limpeza Hospitalar - (nov/19) - encerrado em 31/03/25",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Guima - Proc 28/24 - Limpeza Hospitalar - (abr/25) - substitui 499/19",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Enge Radios - Proc 407/22 - Sistema de monitoramento video e alarmes c/equip. (nov/22)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Interact - Proc 297/25 - Sistema Gest?o de auditoria - INTERACT",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Lavsim - Proc 471/22 - Fornecimento de enxoval Complexo e unidades (jun/23)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Metta - CAPS - Servi?o de portaria - Proc 001/25",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "MV - Proc 119/22 - Implanta??o MV SIGSS, gest?o, qualidade, BI, painel indicadores (maio/22)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Moxano - Proc 111/23 - Engenharia Clinica, assessoria, consultoria e gerenciamento pq. Equip. (nov/23)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Nuclemed - Proc 078/20 - Exames cintilografia (mar/20)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Nuclemed - Proc 33/25 - Exames de cintilografia - substitui proc 078/20 - 12 meses",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Oriovaldo Delfino - Proc 341/19 - Confec??o, conceto e/ou manuten??o de pr?teses dentaria e ap. ortodonticos ( jul/19) cancelado",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Pernambucana Desentupidora e Dedetizadora - Proc 79/22 - Limpeza cx d'agua c/laudo (mar/22)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Pittioni e Parra Gest?o em Sa?de - Proc 400/24 - Acredita??o e manunte??o ONA ( out/24)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Pluri Radio - Proc 481/23 - RX Panoramica p/ centro odontol?gico ( dez/23)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Porto Seguro - Proc 630/17 - Seguro contra inc?ndio p/ centro de distribui??o mat e med (nov/17)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "R.A Assessoria Cont?bil - Proc 591/24 - lan?amento reclamat?rias trabalhistas no e-social (dez/24)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "SCS Saude ambiental - Proc 308,25 - controle de pragas - substitui Desintec - Inicio 05/09/25",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Soberana - Proc 838/20 - Fornecimento nutri??o e alimenta??o ( ago/21) Complexo e unidades",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Soberana - CAPS - alimenta??o - Proc 003/25 emegencial",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Soluti Solu??es - Proc 126/23 - emiss?o e renova??o certificado digital ( set/23)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Total Clean - Fornecimento de enxoval - Proc 200/25 - inicio 02/06/25 - substitui 471/22 - emergencial",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Tradinworks - Proc 438/19 - Ponto eletr?nico ( out/19)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Unidade Odonto Radiologia - Proc 481/23 - RX panoramica p/ centro odontol?gico (dez/23)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Vam - refei??es e eventos Eireli - Proc 353/25 - INICIO 04/09/25 - emergencial subst soberana 838/20 e 003/25 - emergencial",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Volatile - Proc 216/24 - Reconhecimento facial e geolocaliza??o ( maio/24)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "White - Proc 504/19 - Gases medicinais (dez/19) (medicamento, manuten??o e loca??o)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Zuki - Proc 60/23 - engenharia de seguran?a do trabalho aos funcion?rios (jun/23) finalizado em 14/09/25",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Servi?o pontual - Proc 164/25 - sistema manchester - parcela ?nica",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "RC Servi?os Seguran?a - Servi?o de vigilancia armada centro de distribui??o e farmacia de alto custo Proc 108/25 substitui Bellator",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Mapeametno do processo de gest?o de auditoria Proc 103/25 - CANCELADO",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Loca??o de im?veis",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Mario Luciano - Proc 667/20 - im?vel p/ centro de distribui??o de mat e med. (out/20)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Soc. Imobiliaria Cinerama -Proc 015/24 - Im?vel Casa da Gestante ( jan/25) substitui 620/19",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Via Barcelona - Proc 613/21 - loca??o de espa?o para armazenamento e guarda de documentos, m?veis e equipamentos (nov/21)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Loca??o novo pr?dio administra??o - Proc 306/25",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Loca??o de Diversas",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Air liquide - Proc 498/22 - fornecimento g?s medicinal (mar/23) (medicamento) domiciliar",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Air liquide - Proc 525/19 - loca??o c/ manut. Equip.central geradora de v?cuo clinico (nov/19)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Air liquide - Proc 526/19 - loca??o c/ manut. Equip.central geradora de ar comprimido (nov/19)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Castelmar - Proc 315/23 - loca??o notebooks e demais equipamentos de inform?tica ( mar/24)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Castelmar - Proc 017/24 - loca??o impressoras multifuncional c/manuten??o prev. E corre. (dez/24) complexo e unidades",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Castelmar - Proc 132/24 - loca??o impressoras multifuncional c/manuten??o prev. E corre. p/ telemedicina at. Primaria (mar/24) cancelado",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "First Medical - Proc 816/20 - loca??o equip. Alta Complexidade (dez/20)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "First Medical - Proc 291/24 - loca??o equip. c/manuten??o prev e corret. c/incorpora??o patrimonio (dez/20)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "IBG Industria Brasileira - Proc 316/19 - Loca??o cilindros (temos contrato ainda?)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Lumiar Health Bullders - Proc 260/21 - Loca??o suporte de ventilat?rio p/ pacientes domiciliar ( maio/21)Processo cancelado",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Lumiar Health Bullders - Proc 669/21 - Loca??o CPAP paciente Paulo Correia encerrado em nov/24",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Movilog Serv Com. E Man. De Empilhadeiras - Proc 356/25 - Substitui Rentalmak Proc 276/19",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Rentalmak Com?rcio - Proc 276/19 - loca??o de empilhadeira (jun/19)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Sinall Com?rcio - Proc 141/22 - loca??o impressoras multifunional e de etiquetas zebrada Complexo e unidades (jun/22)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "PRIOM - Proc 436/22 - loca??o suporte ventilat?rio prog. Oxigenoterapia domiciliar (out/22)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Total PTA Loca??es - Proc 409/22 - loca??o container escrit?rio prog sa?de animal ( out/22)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Teclabel Solu??es - Proc 378/23 - loca??o ou comodato impressoras com suprimentos ( nov/24)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "D.W Comer. E Serv. - Proc 334/23 - loca??o e manuten??o 09 totens p/senha (nov/23)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "INVESTIMENTOS",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Bens e Materiais Permanentes",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "AQUISICAO EMERGENCIAL MOBILIARIO - MESA/ ARMARIO/ GAVETEIRO/ CADEIRA - PROC 624/24",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "AQUISICAO EMERGENCIAL MOBILIARIO - CADEIRA DE REFEITORIO - PROC 633/24",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "AQUISICAO MATERIAL E MOBILIARIO - ESTANTE/ BINS - PROC 634/24",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "AQUISICAO EQUIPAMENTO - CARRINHO TRANSPORTE DE CARGA MANUAL - Proc 56/25 -",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "AQUISICAO DE EQUIPAMENTO - VENTILADOR (PAREDE E COLUNA) - Proc 78/25 -",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "AQUISICAO DE EQUIPAMENTO - MICROONDAS Proc 321/25",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "AQUISICAO DE EQUIPAMENTO - MINI INCUBADORA Proc 323/25",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "AQUISICAO DE EQUIPAMENTO - LASER ODONTOLOGICO Proc 324/25",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "AQUISICAO DE MOBILIARIO - FAST TRACK - Proc 303/25",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Resid?ncia M?dica",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "FMABC",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Despesas Acad?micas",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Constru??o e Amplia??o",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Flexdrill - Proc 267/24 - obra desvio coletor tronco de esgoto",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "CONTRATACAO EMERGENCIAL CONCLUSAO OBRAS PARA UBS - PROC 430/24",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Premier - Servi?o de Adequa??o cozinha/refeit?rio - Proc 354/25 - verba especifica FUABC",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Castelmar - Proc 396/25 - Pontual para manuten??o rede telefonia pr?dio novo adm -verba FUABC",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Gesso Plenolar - Proc 398/25 - Servi?o pontual pr?dio novo adm",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Adequa??o Pronto Cardio Geral e Cabine prim?ria",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "OUTROS GASTOS",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Combust?vel",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Utilidades, Energia , ?gua , coleta de lixo e internet",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Utilidade - Mario Luciano - Proc 667/20 - im?vel p/ centro de distribui??o de mat e med. (out/20)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Utilidade - Soc. Imobiliaria Cinerama -Proc 15/24 - Im?vel Casa da Gestante ( jan/20)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Claro S.A - Proc 373/2019 - fornecimento de linha telefonica p/ Projeto Rem?dio em Casa (Jul/19)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Locaweb - Proc 603/19 - E-mail Funda??o do ABC ( jan/19 )",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Vivo -Proc 136/19 - Telefonia e internet CD - (jan/19)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Vivo - Proc 534/19 - Internet link dedicado n?cleo (jan/19)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Vivo - Proc 601/19 - Telefone fixo N?cleo ( jan/19)",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Utilidade - Loca??o novo pr?dio administra??o - Proc 306/25",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Despesas financeiras e banc?rias",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Despesas banc?rias",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Outras despesas",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Diversos",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Caixa pequeno",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Despesas de Rateio",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Nota de d?bito",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Apoio T?cnico",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Custas Processos Judiciais",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Custas Processos Judiciais",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "Despesas Administrativas",
+        "fuabc": 0,
+        "sesaud": 0
+      },
+      {
+        "categoria": "TOTAL DE DESPESAS",
+        "fuabc": 0,
+        "sesaud": 0
+      }
+    ],
+    "resumo": {
+      "total_fuabc": 0,
+      "total_sesaud": 19,
+      "total_geral": 19,
+      "diferenca": -19
+    }
+  }
 }
