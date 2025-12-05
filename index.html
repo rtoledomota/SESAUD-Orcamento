@@ -25,7 +25,7 @@
         .tab-content.active { display: block; }
         h2 { color: #2c3e50; margin-bottom: 1.5rem; font-size: 1.8rem; text-align: center; font-weight: 600; }
         .table-responsive-wrapper { overflow-x: auto; margin: 1rem 0; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
-        table { width: 100%; border-collapse: collapse; background: white; min-width: 400px; }
+        table { width: 100%; border-collapse: collapse; background: white; min-width: 600px; }
         thead { background: #2c3e50 !important; }
         th { padding: 1rem; text-align: left; color: #ffffff !important; font-weight: 600 !important; font-size: 0.9rem; white-space: nowrap; text-transform: uppercase; letter-spacing: 0.5px; }
         .table-responsive-wrapper th, .table-responsive-wrapper thead th { color: #ffffff !important; background: #2c3e50 !important; }
@@ -69,8 +69,8 @@
         body.dark-mode .servicos-lista h4 { color: #3498db; }
         body.dark-mode .servicos-lista li { background: #333333; border-left-color: #3498db; color: #ecf0f1; }
         body.dark-mode .servicos-lista li .servico-valor { color: #27ae60; }
-        @media (max-width: 480px) { html { font-size: 12px; } body { padding: 0.75rem; } header h1 { font-size: 1.4rem; } .tabs { gap: 0.3rem; } .tab-btn { padding: 0.4rem 0.5rem; font-size: 0.6rem; min-width: 60px; } .tab-content { padding: 0.8rem; } h2 { font-size: 1rem; } table { min-width: 280px; font-size: 0.7rem; } th, td { padding: 0.4rem 0.5rem; font-size: 0.7rem; } }
-        @media (min-width: 481px) and (max-width: 800px) { html { font-size: 14px; } body { padding: 1rem; } header h1 { font-size: 1.8rem; } .tabs { gap: 0.5rem; } .tab-btn { padding: 0.6rem 1rem; font-size: 0.75rem; min-width: 80px; } .tab-content { padding: 1.2rem; } h2 { font-size: 1.4rem; } table { min-width: 400px; font-size: 0.85rem; } th, td { padding: 0.6rem 0.8rem; font-size: 0.8rem; } }
+        @media (max-width: 480px) { html { font-size: 12px; } body { padding: 0.75rem; } header h1 { font-size: 1.4rem; } .tabs { gap: 0.3rem; } .tab-btn { padding: 0.4rem 0.5rem; font-size: 0.6rem; min-width: 60px; } .tab-content { padding: 0.8rem; } h2 { font-size: 1rem; } table { min-width: 600px; font-size: 0.7rem; } th, td { padding: 0.4rem 0.5rem; font-size: 0.7rem; } }
+        @media (min-width: 481px) and (max-width: 800px) { html { font-size: 14px; } body { padding: 1rem; } header h1 { font-size: 1.8rem; } .tabs { gap: 0.5rem; } .tab-btn { padding: 0.6rem 1rem; font-size: 0.75rem; min-width: 80px; } .tab-content { padding: 1.2rem; } h2 { font-size: 1.4rem; } table { min-width: 600px; font-size: 0.85rem; } th, td { padding: 0.6rem 0.8rem; font-size: 0.8rem; } }
     </style>
 </head>
 <body>
@@ -129,6 +129,12 @@
             return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(valor || 0);
         }
 
+        function calcularVariacao(v2025, v2026) {
+            var variacao = v2026 - v2025;
+            var cor = variacao >= 0 ? '#27ae60' : '#e74c3c';
+            return { variacao: variacao, cor: cor };
+        }
+
         function abrirAba(event, nome) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
@@ -161,14 +167,14 @@
             html += '<tr><td></td><td colspan="3">' + titulo + '</td></tr>';
 
             var categorias = [
-                { nome: 'RECURSOS HUMANOS', fuabc: ano === '2025' ? 15415513.50 : (dadosFuabc.recursos_humanos_2026 || 15979374.38), sesaud: dados2025.recursos_humanos || 6616449.07, geral: ano === '2025' ? 22031962.57 : 22595823.45 },
-                { nome: 'PROCESSOS TRABALHISTAS', fuabc: ano === '2025' ? 84890.27 : (dadosFuabc.processos_trabalhistas_2026 || 78881.08), sesaud: 2024.00, geral: ano === '2025' ? 86914.27 : 80905.08 },
-                { nome: 'MATERIAIS DE CONSUMO', fuabc: ano === '2025' ? 3888891.54 : (dadosFuabc.materiais_consumo_2026 || 4218090.06), sesaud: dados2025.materiais_consumo || 329615.34, geral: ano === '2025' ? 4218506.88 : 4547705.40 },
-                { nome: 'MANUTENÇÃO E REFORMAS', fuabc: ano === '2025' ? 1316264.15 : 1301434.22, sesaud: 731350.30, geral: ano === '2025' ? 0 : 2032784.52 },
-                { nome: 'SERVIÇOS MÉDICOS', fuabc: ano === '2025' ? 6776884.98 : 8665085.19, sesaud: 0, geral: ano === '2025' ? 0 : 8665085.19 },
-                { nome: 'SERVIÇOS DE TERCEIROS', fuabc: ano === '2025' ? 10939718.04 : (dadosFuabc.servicos_terceiros_2026 || 13601991.28), sesaud: dados2025.servicos_terceiros || 2628002.26, geral: ano === '2025' ? 13567720.31 : 16229993.55 },
-                { nome: 'INVESTIMENTOS', fuabc: ano === '2025' ? 111842.68 : (dadosFuabc.investimentos_2026 || 203082.50), sesaud: 0, geral: ano === '2025' ? 111842.68 : 203082.50 },
-                { nome: 'OUTROS GASTOS', fuabc: ano === '2025' ? 111094.32 : (dadosFuabc.outros_gastos_2026 || 124262.02), sesaud: dados2025.outros_gastos || 326630.03, geral: ano === '2025' ? 437724.35 : 450892.05 },
+                { nome: 'RECURSOS HUMANOS', fuabc: ano === '2025' ? 15519978.93 : 15979374.38, sesaud: 6616449.07, geral: ano === '2025' ? 22136428.00 : 22605823.45 },
+                { nome: 'PROCESSOS TRABALHISTAS', fuabc: ano === '2025' ? 81084.03 : 78881.08, sesaud: 1619.20, geral: ano === '2025' ? 82703.23 : 80500.28 },
+                { nome: 'MATERIAIS DE CONSUMO', fuabc: ano === '2025' ? 3920961.07 : 4218090.06, sesaud: 329615.34, geral: ano === '2025' ? 4250576.41 : 4547705.40 },
+                { nome: 'MANUTENÇÃO E REFORMAS', fuabc: ano === '2025' ? 1305975.09 : 1301434.22, sesaud: 731350.30, geral: ano === '2025' ? 0 : 2032784.52 },
+                { nome: 'SERVIÇOS MÉDICOS', fuabc: ano === '2025' ? 7050002.88 : 8665085.19, sesaud: 0, geral: ano === '2025' ? 0 : 8665085.19 },
+                { nome: 'SERVIÇOS DE TERCEIROS', fuabc: ano === '2025' ? 19270730.55 : 23568510.69, sesaud: 3312660.87, geral: ano === '2025' ? 22583391.42 : 26881171.56 },
+                { nome: 'INVESTIMENTOS', fuabc: ano === '2025' ? 83882.01 : 203082.50, sesaud: 0, geral: ano === '2025' ? 83882.01 : 203082.50 },
+                { nome: 'OUTROS GASTOS', fuabc: ano === '2025' ? 114709.55 : 124262.02, sesaud: 326630.03, geral: ano === '2025' ? 441339.58 : 450892.05 },
             ];
 
             categorias.forEach(cat => {
@@ -242,7 +248,6 @@
                 { nome: 'SERVIÇOS DE TERCEIROS', id: 'servicos_terceiros', valor: 3312660.87, subitens: [
                     { label: 'Manutenção e Reformas', valor: 731350.30 },
                     { label: 'Soluções Serv Terceirizados Eireli - Complexo PCD', valor: 1828375.76 },
-                    { label: 'Serviços Médicos Terceirizados', valor: 0 },
                     { label: 'Outros Serviços de Terceiros', valor: 2574910.56 },
                     { label: 'Central de Convênios', valor: 426293.85 },
                     { label: 'APAE - CER IV', valor: 435004.24 },
@@ -323,79 +328,32 @@
         }
 
         function preencherFUABCDetalhado() {
-            var dados = allData.anos ? allData.anos[3] : {};
             var html = '<div class="table-responsive-wrapper"><table><thead><tr><th>Categoria</th><th class="valor-moeda">2025</th><th class="valor-moeda">2026</th><th class="valor-moeda">Variação</th></tr></thead><tbody>';
             var grupos = [
-                { nome: 'RECURSOS HUMANOS', id: 'recursos_humanos', valor2025: dados.recursos_humanos_2025 || 15519978.93, valor2026: dados.recursos_humanos_2026 || 15979374.38 },
-                { nome: 'PROCESSOS TRABALHISTAS', id: 'processos_trabalhistas', valor2025: dados.processos_trabalhistas_2025 || 81084.03, valor2026: dados.processos_trabalhistas_2026 || 78881.08 },
-                { nome: 'MATERIAIS DE CONSUMO', id: 'materiais_consumo', valor2025: dados.materiais_consumo_2025 || 3920961.07, valor2026: dados.materiais_consumo_2026 || 4218090.06 },
-                { nome: 'SERVIÇOS DE TERCEIROS', id: 'servicos_terceiros', valor2025: dados.servicos_terceiros_2025 || 19270730.55, valor2026: dados.servicos_terceiros_2026 || 23568510.69 },
-                { nome: 'INVESTIMENTOS', id: 'investimentos', valor2025: dados.investimentos_2025 || 83882.01, valor2026: dados.investimentos_2026 || 203082.50 },
-                { nome: 'OUTROS GASTOS', id: 'outros_gastos', valor2025: dados.outros_gastos_2025 || 114709.55, valor2026: dados.outros_gastos_2026 || 124262.02 }
-            ];
-
-            grupos.forEach(grupo => {
-                var variacao = grupo.valor2026 - grupo.valor2025;
-                var corVariacao = variacao >= 0 ? '#27ae60' : '#e74c3c';
-                html += '<tr class="accordion-row" data-group="' + grupo.id + '" onclick="toggleAccordion(this)">';
-                html += '<td><span class="toggle-icon">▶</span>' + grupo.nome + '</td>';
-                html += '<td class="valor-moeda">' + formatarMoeda(grupo.valor2025) + '</td>';
-                html += '<td class="valor-moeda">' + formatarMoeda(grupo.valor2026) + '</td>';
-                html += '<td class="valor-moeda" style="color: ' + corVariacao + '; font-weight: bold;">' + formatarMoeda(variacao) + '</td>';
-                html += '</tr>';
-            });
-
-            var total2025 = dados.total_2025 || 38991346.13;
-            var total2026 = dados.total_2026 || 44172200.73;
-            var totalVariacao = total2026 - total2025;
-            var corTotal = totalVariacao >= 0 ? '#27ae60' : '#e74c3c';
-
-            html += '<tr style="background: #ecf0f1; font-weight: bold;">';
-            html += '<td>TOTAL</td>';
-            html += '<td class="valor-moeda">' + formatarMoeda(total2025) + '</td>';
-            html += '<td class="valor-moeda">' + formatarMoeda(total2026) + '</td>';
-            html += '<td class="valor-moeda" style="color: ' + corTotal + ';">' + formatarMoeda(totalVariacao) + '</td>';
-            html += '</tr></tbody></table></div>';
-            document.getElementById('fuabc-detalhado-conteudo').innerHTML = html;
-        }
-
-        function mudarAno(ano) {
-            anoSelecionado = ano;
-            if (document.querySelector('.tab-content.active').id === 'resumo') {
-                preencherResumo(ano);
-            }
-        }
-
-        function carregarJSON() {
-            var timestamp = '?t=' + Date.now();
-            var url = 'https://raw.githubusercontent.com/rtoledomota/SESAUD-Orcamento/main/data.json' + timestamp;
-            fetch(url, { cache: 'no-store' })
-                .then(r => r.json())
-                .then(dados => {
-                    allData = dados;
-                    var seletor = document.getElementById('seletor-ano');
-                    seletor.innerHTML = '<option value="2025">2025</option><option value="2026">2026</option>';
-                    seletor.value = '2025';
-                    document.getElementById('data-atualizacao').textContent = 'Atualizado em: ' + (dados.atualizado_em || 'Agora');
-                    mudarAno('2025');
-                    preencherResumo('2025');
-                })
-                .catch(e => {
-                    console.error('Erro ao carregar JSON:', e);
-                    document.querySelectorAll('.tab-content').forEach(el => el.innerHTML = '<div class="erro">Erro ao carregar dados. Verifique o data.json no repo.</div>');
-                });
-        }
-
-        function toggleDarkMode() {
-            document.body.classList.toggle('dark-mode');
-            localStorage.setItem('dark-mode', document.body.classList.contains('dark-mode'));
-        }
-
-        if (localStorage.getItem('dark-mode') === 'true') {
-            document.body.classList.add('dark-mode');
-        }
-
-        window.addEventListener('load', carregarJSON);
-    </script>
-</body>
-</html>
+                { nome: 'RECURSOS HUMANOS', id: 'recursos_humanos', valor2025: 15519978.93, valor2026: 15979374.38, subitens: [
+                    { label: 'Folha Encargos e Benefícios', valor2025: 13643314.28, valor2026: 15019374.38 },
+                    { label: 'Férias', valor2025: 770601.83, valor2026: 0 },
+                    { label: 'Folha Autônomos', valor2025: 159308.18, valor2026: 0 },
+                    { label: 'Provisão de 13° salário', valor2025: 946754.64, valor2026: 960000.00 },
+                    { label: 'Provisão de 1/3 férias', valor2025: 0, valor2026: 0 }
+                ] },
+                { nome: 'PROCESSOS TRABALHISTAS', id: 'processos_trabalhistas', valor2025: 81084.03, valor2026: 78881.08, subitens: [
+                    { label: 'Processos Trabalhistas - MANTENEDORA', valor2025: 50000.00, valor2026: 50000.00 },
+                    { label: 'Processos Trabalhistas', valor2025: 31084.03, valor2026: 28881.08 },
+                    { label: 'Outros', valor2025: 0, valor2026: 0 }
+                ] },
+                { nome: 'MATERIAIS DE CONSUMO', id: 'materiais_consumo', valor2025: 3920961.07, valor2026: 4218090.06, subitens: [
+                    { label: 'Medicamentos e Materiais Médicos e Hospitalar', valor2025: 3837330.63, valor2026: 4088090.06 },
+                    { label: 'Material Médico', valor2025: 1099358.86, valor2026: 1092000.00 },
+                    { label: 'Medicamento', valor2025: 2018133.67, valor2026: 1945000.00 },
+                    { label: 'Baxter - Proc 286/23 - fornecimento dieta parenteral prolongada ( jan/24)', valor2025: 22357.47, valor2026: 56556.83 },
+                    { label: 'CG Medical - Proc 645/20 - fornecimento material ortopédico em consginação, c/ instrumentadores ( out/20)', valor2025: 163360.79, valor2026: 200000.00 },
+                    { label: 'Fresenius Kabi - Proc 450/22 - fornecimento dieta enteral e suplementos (jan/23)', valor2025: 31078.68, valor2026: 36809.50 },
+                    { label: 'Hosp-Pharma Manipulação - Proc 286/23 - Fornecimento de dieta parenteral prolongada (dez/23)', valor2025: 9070.19, valor2026: 8000.00 },
+                    { label: 'Mogami - Proc 361/21 - Fornecimento materiais e insumos cir. Endourológicas ( set/21)', valor2025: 77456.02, valor2026: 77986.53 },
+                    { label: 'Mogami - Proc 110/22 - Fornecimento materiais descartaveis em consignado p/ videolaparoscopia c/ comodato ( fev/22)', valor2025: 209192.63, valor2026: 323331.66 },
+                    { label: 'Nutriport - Proc 450/22 - dieta enteral e suplemento Complexo e unidades (nov/22)', valor2025: 78780.34, valor2026: 83000.00 },
+                    { label: 'Pró-fórmula quimioterapia - Proc 224/19 - Manipulação medicamentos Oncológicos (jul/19)', valor2025: 54887.18, valor2026: 0 },
+                    { label: 'Novo processo de Manipulação Oncológicos - Proc 361/25', valor2025: 60000.00, valor2026: 100000.00 },
+                    { label: 'Medicamental - Fornecimento de Fraldas -Proc 199/25', valor2025: 143677.43, valor2026: 154540.54 },
+                    { label: 'Fornecimento de mantas térmicas
