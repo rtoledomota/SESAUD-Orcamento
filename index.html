@@ -48,7 +48,7 @@
         .servicos-lista li .servico-valor { color: #27ae60; font-weight: 700; }
         .erro { background: #fadbd8; color: #922b21; padding: 1.5rem; border-radius: 8px; margin: 1rem 0; border-left: 4px solid #e74c3c; }
         footer { margin-top: 3rem; padding: 1.5rem; text-align: center; color: #7f8c8d; font-size: 0.85rem; background: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
-        /* Dark Mode - Fonte clara em fundos escuros das tabelas */
+        /* Dark Mode - Fonte clara em fundos escuros das tabelas DETALHADO */
         body.dark-mode { background: #1a1a1a; color: #ecf0f1; }
         body.dark-mode header { background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); }
         body.dark-mode .tab-content, body.dark-mode table, body.dark-mode .servicos-lista { background: #2d2d2d; }
@@ -205,7 +205,6 @@
                     { label: 'Indenizações Trabalhistas', valor: dados.indenizacoes_trabalhistas || 25020.04 },
                     { label: 'Vencimento Prefeitura', valor: dados.vencimento_prefeitura || 4811182.14 },
                     { label: 'Programa Mais Médicos', valor: dados.programa_mais_medicos || 12900.00 },
-                    { label: 'Tarifas Bancárias', valor: dados.tarifas_bancarias || 775.54 },
                     { label: 'Gratificação SUS', valor: dados.gratificacao_sus || 296880.38 },
                     { label: 'Pensões Gratif SUS', valor: dados.pensoes_gratif_sus || 479.33 },
                     { label: 'INSS PREF', valor: dados.inss_pref || 983944.34 },
@@ -215,7 +214,9 @@
                 { nome: 'PROCESSOS TRABALHISTAS', id: 'processos', valor: dados.processos_trabalhistas || 1619.20, subitens: [] },
                 { nome: 'MATERIAIS DE CONSUMO', id: 'materiais', valor: dados.materiais_consumo || 329615.34, subitens: [] },
                 { nome: 'SERVIÇOS DE TERCEIROS', id: 'servicos', valor: dados.servicos_terceiros || 3312660.87, subitens: [] },
-                { nome: 'OUTROS GASTOS', id: 'outros', valor: dados.outros_gastos || 326630.03, subitens: [] }
+                { nome: 'OUTROS GASTOS', id: 'outros', valor: dados.outros_gastos || 326630.03, subitens: [
+                    { label: 'Tarifas Bancárias', valor: dados.tarifas_bancarias || 775.54 }
+                ] }
             ];
 
             grupos.forEach(grupo => {
@@ -299,7 +300,7 @@
                 })
                 .catch(e => {
                     console.error('Erro ao carregar JSON:', e);
-                    document.querySelectorAll('.tab-content').forEach(el => el.innerHTML = '<div class="erro">Erro ao carregar dados</div>');
+                    document.querySelectorAll('.tab-content').forEach(el => el.innerHTML = '<div class="erro">Erro ao carregar dados. Verifique o data.json no repo.</div>');
                 });
         }
 
