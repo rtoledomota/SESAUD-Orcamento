@@ -34,13 +34,13 @@
         header h1 { margin-bottom: 0.5rem; font-size: 2.5rem; font-weight: 600; letter-spacing: -0.5px; }
         header p { font-weight: 500; margin-bottom: 0.5rem; font-size: 1.1rem; opacity: 0.95; }
         .data-atualizacao { color: rgba(255,255,255,0.8); font-size: 0.9rem; margin-top: 0.5rem; }
+        .fonte-dados { color: rgba(255,255,255,0.7); font-size: 0.85rem; margin-top: 0.3rem; }
 
         .dark-mode-toggle {
             position: absolute;
             top: 1.5rem;
             right: 1.5rem;
-            width: 40px;
-            height: 40px;
+            padding: 0.5rem 0.8rem;
             background: rgba(255,255,255,0.15);
             border: 1px solid rgba(255,255,255,0.3);
             border-radius: 6px;
@@ -48,6 +48,8 @@
             cursor: pointer;
             font-size: 1.1rem;
             transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -120,6 +122,7 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         h2 { color: #2c3e50; margin-bottom: 1.5rem; font-size: 1.8rem; text-align: center; font-weight: 600; }
+        h3 { color: #2c3e50; margin: 1.5rem 0 1rem 0; font-size: 1.3rem; font-weight: 600; }
 
         .resumo-grid {
             display: grid;
@@ -219,6 +222,47 @@
         }
         .accordion-item td { background: #f0f8ff; }
 
+        .servicos-lista {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .servicos-lista h4 { color: #3498db; margin-bottom: 1rem; font-weight: 600; font-size: 1.1rem; }
+        .servicos-lista ul { list-style: none; }
+        .servicos-lista li {
+            padding: 0.8rem;
+            border-left: 4px solid #3498db;
+            margin-bottom: 0.5rem;
+            background: #f8f9fa;
+            border-radius: 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .servicos-lista li .servico-nome { flex: 1; font-weight: 500; }
+        .servicos-lista li .servico-valor { color: #27ae60; font-weight: 700; }
+
+        .resumo-totais {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+            border-radius: 8px;
+        }
+        .total-item {
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            background: rgba(0,0,0,0.2);
+            border-radius: 6px;
+        }
+        .total-item h4 { font-size: 0.85rem; opacity: 0.9; margin-bottom: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        .total-item .valor { font-size: 1.5rem; font-weight: 700; }
+
         .erro { background: #fadbd8; color: #922b21; padding: 1.5rem; border-radius: 8px; margin: 1rem 0; border-left: 4px solid #e74c3c; }
 
         footer {
@@ -235,8 +279,8 @@
         /* Dark Mode */
         body.dark-mode { background: #1a1a1a; color: #ecf0f1; }
         body.dark-mode header { background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); }
-        body.dark-mode .tab-content, body.dark-mode table { background: #2d2d2d; }
-        body.dark-mode h2 { color: #ecf0f1; }
+        body.dark-mode .tab-content, body.dark-mode table, body.dark-mode .servicos-lista { background: #2d2d2d; }
+        body.dark-mode h2, body.dark-mode h3, body.dark-mode h4 { color: #ecf0f1; }
         body.dark-mode th { background: #1a1a1a; color: #ffffff !important; }
         body.dark-mode td { color: #ecf0f1; border-bottom-color: #404040; background: #2d2d2d; }
         body.dark-mode tbody tr:nth-child(odd) { background-color: #333333; }
@@ -248,6 +292,11 @@
         body.dark-mode footer { background: #2d2d2d; color: #95a5a6; }
         body.dark-mode .year-selector-container label { color: #ecf0f1; }
         body.dark-mode #seletor-ano { background: #2d2d2d; color: #ecf0f1; border-color: #3498db; }
+        body.dark-mode .servicos-lista h4 { color: #3498db; }
+        body.dark-mode .servicos-lista li { background: #333333; border-left-color: #3498db; color: #ecf0f1; }
+        body.dark-mode .servicos-lista li .servico-valor { color: #27ae60; }
+        body.dark-mode .total-item { background: rgba(255,255,255,0.1); color: #ecf0f1; }
+        body.dark-mode .resumo-totais { background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); }
 
         /* Mobile */
         @media (max-width: 480px) {
@@ -301,11 +350,19 @@
             <button class="dark-mode-toggle" onclick="toggleDarkMode()">🌙</button>
             <h1>Dashboard Orçamento</h1>
             <p>SESAUD / FUABC</p>
+            <div class="year-selector-container">
+                <label for="seletor-ano">Selecione o período:</label>
+                <select id="seletor-ano" onchange="mudarAno(this.value)">
+                    <option value="">Carregando...</option>
+                </select>
+            </div>
             <p class="data-atualizacao" id="data-atualizacao">Carregando dados...</p>
+            <p class="fonte-dados" id="fonte-dados">Fonte: GitHub Pages</p>
         </header>
 
         <div class="tabs">
             <button class="tab-btn active" onclick="abrirAba(event, 'resumo')">Resumo</button>
+            <button class="tab-btn" onclick="abrirAba(event, 'novos-servicos')">Novos Serviços</button>
             <button class="tab-btn" onclick="abrirAba(event, 'sesaud-detalhado')">SESAUD Detalhado</button>
             <button class="tab-btn" onclick="abrirAba(event, 'fuabc-detalhado')">FUABC Detalhado</button>
         </div>
@@ -313,6 +370,11 @@
         <div id="resumo" class="tab-content active">
             <h2>Resumo Geral</h2>
             <div id="resumo-conteudo"></div>
+        </div>
+
+        <div id="novos-servicos" class="tab-content">
+            <h2>Novos Serviços</h2>
+            <div id="novos-servicos-conteudo"></div>
         </div>
 
         <div id="sesaud-detalhado" class="tab-content">
@@ -331,7 +393,7 @@
     </footer>
 
     <script>
-        var jsonData = {};
+        var allData = {};
 
         function formatarMoeda(valor) {
             return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(valor);
@@ -383,6 +445,45 @@
 
             html += '</tbody></table></div>';
             document.getElementById('resumo-conteudo').innerHTML = html;
+        }
+
+        function preencherNovosServicos(dados) {
+            if (!dados || !dados['NOVOS SERVIÇOS']) {
+                document.getElementById('novos-servicos-conteudo').innerHTML = '<div class="erro">Dados não disponíveis</div>';
+                return;
+            }
+
+            var servicos = dados['NOVOS SERVIÇOS'];
+            var html = '';
+
+            for (var categoria in servicos) {
+                if (servicos.hasOwnProperty(categoria) && categoria !== 'TOTAL') {
+                    html += '<div class="servicos-lista">';
+                    html += '<h4>' + categoria + '</h4>';
+                    html += '<ul>';
+                    
+                    var cat = servicos[categoria];
+                    for (var servico in cat) {
+                        if (cat.hasOwnProperty(servico)) {
+                            html += '<li>';
+                            html += '<span class="servico-nome">' + servico + '</span>';
+                            html += '<span class="servico-valor">' + formatarMoeda(cat[servico]) + '</span>';
+                            html += '</li>';
+                        }
+                    }
+
+                    html += '</ul>';
+                    html += '</div>';
+                }
+            }
+
+            if (servicos.TOTAL) {
+                html += '<div class="resumo-totais">';
+                html += '<div class="total-item"><h4>Total Novos</h4><div class="valor">' + formatarMoeda(servicos.TOTAL) + '</div></div>';
+                html += '</div>';
+            }
+
+            document.getElementById('novos-servicos-conteudo').innerHTML = html;
         }
 
         function preencherSESAUDDetalhado(dados) {
@@ -495,6 +596,23 @@
             document.getElementById('fuabc-detalhado-conteudo').innerHTML = html;
         }
 
+        function mudarAno(ano) {
+            console.log('Mudando para ano:', ano);
+            
+            if (!ano || !allData[ano]) {
+                document.getElementById('resumo-conteudo').innerHTML = '<div class="erro">Selecione um período válido</div>';
+                return;
+            }
+
+            var dados = allData[ano];
+            document.getElementById('data-atualizacao').textContent = 'Atualizado em: ' + (dados.atualizado_em || 'N/A');
+            
+            preencherResumo(dados);
+            preencherNovosServicos(dados);
+            preencherSESAUDDetalhado(dados);
+            preencherFUABCDetalhado(dados);
+        }
+
         function carregarJSON() {
             console.log('Carregando JSON...');
             
@@ -518,14 +636,20 @@
                 })
                     .then(r => r.json())
                     .then(dados => {
-                        console.log('✅ Sucesso:', dados);
-                        jsonData = dados;
+                        console.log('✅ Sucesso');
                         
-                        document.getElementById('data-atualizacao').textContent = 'Atualizado em: ' + (dados.atualizado_em || 'Agora');
-                        
-                        preencherResumo(dados);
-                        preencherSESAUDDetalhado(dados);
-                        preencherFUABCDetalhado(dados);
+                        if (dados.GERAL && dados['SESAUD - DETALHADO'] && dados['FUABC - DETALHADO']) {
+                            allData['2025'] = dados;
+                            
+                            var seletor = document.getElementById('seletor-ano');
+                            seletor.innerHTML = '';
+                            seletor.innerHTML += '<option value="2025">2025</option>';
+                            seletor.innerHTML += '<option value="2026">2026</option>';
+                            seletor.value = '2025';
+                            
+                            document.getElementById('data-atualizacao').textContent = 'Atualizado em: ' + (dados.atualizado_em || 'Agora');
+                            mudarAno('2025');
+                        }
                     })
                     .catch(e => {
                         console.log('Tentando próxima URL...');
