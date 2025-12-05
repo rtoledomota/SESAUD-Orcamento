@@ -28,7 +28,7 @@
         table { width: 100%; border-collapse: collapse; background: white; min-width: 600px; }
         thead { background: #2c3e50 !important; }
         th { padding: 1rem; text-align: left; color: #ffffff !important; font-weight: 600 !important; font-size: 0.9rem; white-space: nowrap; text-transform: uppercase; letter-spacing: 0.5px; }
-        /* CSS para forçar a cor branca nos headers de todas as tabelas */
+        /* CSS para forçar headers brancos */
         .tab-content table th, .tab-content .table-responsive-wrapper th, .tab-content .table-responsive-wrapper thead th, table th, thead th, .table-responsive-wrapper th, .table-responsive-wrapper thead th, body table th, body thead th, .tab-content th { color: #ffffff !important; background: #2c3e50 !important; }
         td { padding: 0.9rem 1rem; border-bottom: 1px solid #ecf0f1; color: #2c3e50; font-size: 0.9rem; }
         tbody tr:nth-child(odd) { background-color: #f8f9fa; }
@@ -42,7 +42,6 @@
         .servicos-lista li { padding: 0.8rem; border-left: 4px solid #3498db; margin-bottom: 0.5rem; background: #f8f9fa; border-radius: 4px; display: flex; justify-content: space-between; }
         .servicos-lista li .servico-nome { flex: 1; font-weight: 500; }
         .servicos-lista li .servico-valor { color: #27ae60; font-weight: 700; }
-        .erro { background: #fadbd8; color: #922b21; padding: 1.5rem; border-radius: 8px; margin: 1rem 0; border-left: 4px solid #e74c3c; }
         footer { margin-top: 3rem; padding: 1.5rem; text-align: center; color: #7f8c8d; font-size: 0.85rem; background: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
         @media (max-width: 480px) { body { padding: 0.75rem; } header h1 { font-size: 1.4rem; } .tab-btn { padding: 0.4rem 0.5rem; font-size: 0.6rem; min-width: 60px; } .tab-content { padding: 0.8rem; } h2 { font-size: 1rem; } table { min-width: 300px; font-size: 0.7rem; } th, td { padding: 0.4rem 0.5rem; } }
         @media (min-width: 481px) and (max-width: 800px) { body { padding: 1rem; } header h1 { font-size: 1.8rem; } .tab-btn { padding: 0.6rem 1rem; font-size: 0.75rem; min-width: 80px; } .tab-content { padding: 1.2rem; } h2 { font-size: 1.4rem; } table { min-width: 500px; font-size: 0.85rem; } th, td { padding: 0.6rem 0.8rem; } }
@@ -97,316 +96,434 @@
     </footer>
 
     <script>
-        // Função auxiliar para converter string de moeda para número
-        function parseCurrency(str) {
-            if (!str || str.trim() === 'R$ -' || str.trim() === '#DIV/0!') {
-                return 0;
-            }
-            return parseFloat(str.replace('R$', '').replace(/\./g, '').replace(',', '.').replace('(', '-').replace(')', ''));
-        }
-
-        // Dados SESAUD exatos do CSV (todas as linhas, valores convertidos, #DIV/0! como 0)
+        // --- Dados SESAUD exatos do CSV (todas as linhas, valores convertidos, #DIV/0! como 0) ---
         var dadosSESAUD = [
-            { categoria: 'ORÇAMENTO', valor: parseCurrency('') },
-            { categoria: 'ACOMPANHAMENTO PLANO ORÇAMENTÁRIO', valor: parseCurrency('') },
-            { categoria: 'RECURSOS HUMANOS', valor: parseCurrency('R$ 6.616.449,07') },
-            { categoria: 'INDENIZAÇÕES TRABALHISTAS - RESCISÕES', valor: parseCurrency('R$ 25.020,04') },
-            { categoria: 'VENCIMENTO PREFEITURA - FOLHA', valor: parseCurrency('R$ 4.811.182,14') },
-            { categoria: 'PROGRAMA -MAIS MÉDICOS', valor: parseCurrency('R$ 12.900,00') },
-            { categoria: 'TARIFAS CAIXA ECONOMICA FEDERAL / BANCO DO BRASIL - TARIFAS BANCÁRIAS', valor: parseCurrency('R$ 775,54') },
-            { categoria: 'GRATIFICAÇÃO SUS', valor: parseCurrency('R$ 296.880,38') },
-            { categoria: 'PENSÕES - GRATIF. SUS', valor: parseCurrency('R$ 479,33') },
-            { categoria: 'INSS PREF', valor: parseCurrency('R$ 983.944,34') },
-            { categoria: 'FGTS PREF', valor: parseCurrency('R$ 303.255,80') },
-            { categoria: 'NOTRE DAME INTERMEDICA', valor: parseCurrency('R$ 202.288,27') },
-            { categoria: 'PROCESSOS TRABALHISTAS', valor: parseCurrency('R$ 1.619,20') },
-            { categoria: 'CARLA MERCIA FERREIRA DOMINGUES', valor: parseCurrency('R$ 506,00') },
-            { categoria: 'RAPHAEL COSTA VIEIRA', valor: parseCurrency('R$ 1.518,00') },
-            { categoria: 'MATERIAIS DE CONSUMO', valor: parseCurrency('R$ 329.615,34') },
-            { categoria: 'Medicamentos e Materiais Médicos e Hospitalar', valor: parseCurrency('R$ 264.530,85') },
-            { categoria: 'ABBOTT LABORATORIOS', valor: parseCurrency('R$ 146.265,00') },
-            { categoria: 'AGLON COMECIO E REPRESENTAÇÕES LTDA.', valor: parseCurrency('R$ 22.033,59') },
-            { categoria: 'Outros Materiais de Consumo', valor: parseCurrency('R$ 65.084,50') },
-            { categoria: 'COMPANHIA DE GAS DE S.PAULO - COMGAS -', valor: parseCurrency('R$ 46.286,66') },
-            { categoria: 'CIA ULTRAGAZ S.A -', valor: parseCurrency('R$ 1.843,80') },
-            { categoria: 'DC INFINITY COMERCIALIZADORA E DISTR EIRELI', valor: parseCurrency('R$ 865,41') },
-            { categoria: 'JM SUPRIMENTOS LTDA', valor: parseCurrency('R$ 6.626,55') },
-            { categoria: 'JC DA SILVA SUPRIMENTOS PARA ESCRITÓRIO', valor: parseCurrency('R$ 3.561,75') },
-            { categoria: 'LINECONTROL COMERCIO IMP E EXP LTDA', valor: parseCurrency('R$ 2.000,84') },
-            { categoria: 'PRECISO EQUIPAMENTOS P LABORATORIOS LTDA', valor: parseCurrency('R$ 720,00') },
-            { categoria: 'QUIMAFLEX CIENTIFICA LTDA', valor: parseCurrency('R$ 2.160,00') },
-            { categoria: 'RBS COMÉRCIO E SERVIÇOS EM GERAL LTDA -', valor: parseCurrency('R$ 5.470,40') },
-            { categoria: 'RF LEITE AQUINO ALIMENTO PARA ANIMAIS', valor: parseCurrency('R$ 42.920,00') },
-            { categoria: 'SOLRAC COMERCIO E SERVIÇO LTDA', valor: parseCurrency('R$ 1.742,28') },
-            { categoria: 'SUPERGASBRAS ENERGIA LTDA', valor: parseCurrency('R$ 3.645,50') },
-            { categoria: 'SINSAI COMERCIO DE DESCARTAVEIS EIRELI', valor: parseCurrency('R$ 38.327,50') },
-            { categoria: 'VIVA LABORATORIO DE ANALYSIS LTDA', valor: parseCurrency('R$ 1.200,00') },
-            { categoria: 'VC DA ROCHA DISTRIBUIDORA ME', valor: parseCurrency('R$ 7.049,50') },
-            { categoria: 'VILA BARCELONA ME', valor: parseCurrency('R$ 2.865,00') },
-            { categoria: 'Gênero Alimentícios', valor: parseCurrency('R$ -') },
-            { categoria: 'SERVIÇOS DE TERCEIROS', valor: parseCurrency('R$ 3.312.660,87') },
-            { categoria: 'Manutenção e Reformas', valor: parseCurrency('R$ 731.350,30') },
-            { categoria: 'SOLUÇÕES SERV TERCEIRIZADOS EIRELI - Complexo PCD', valor: parseCurrency('R$ 1.828.375,76') },
-            { categoria: 'Serviços Médicos Terceirizados', valor: parseCurrency('R$ -') },
-            { categoria: 'Outros Serviços de Terceiros', valor: parseCurrency('R$ 2.574.910,56') },
-            { categoria: 'CENTRAL DE CONVÊNIOS', valor: parseCurrency('R$ 426.293,85') },
-            { categoria: 'APAE - CER IV', valor: parseCurrency('R$ 435.004,24') },
-            { categoria: 'LA VITA - NÚCLEO CLINICO DE REABILITAÇÃO -', valor: parseCurrency('R$ 10.541,78') },
-            { categoria: 'RESIDENCIAL P IDOSOS LA VITA LTDA', valor: parseCurrency('R$ 6.222,66') },
-            { categoria: 'CENTRO DE READAPTAÇÃO SOCIAL LTDA', valor: parseCurrency('R$ 19.572,95') },
-            { categoria: 'NUCLEO DE INTEGRAÇÃO LUZ DO SO LTDA', valor: parseCurrency('R$ 13.509,56') },
-            { categoria: 'ASSOCIAÇÃO ESTANCIA PRIMAVERA COMUNIDADE TERAPEUTICA', valor: parseCurrency('R$ 7.500,00') },
-            { categoria: 'CLINICA PRIMAVERA LTDA', valor: parseCurrency('R$ 21.365,33') },
-            { categoria: 'RESIDENCIAL SAUDE E BEM ESTAR LTDA', valor: parseCurrency('R$ 4.731,22') },
-            { categoria: 'AMA- ASSOC DE AMIGOS DO AUTISTA', valor: parseCurrency('R$ 25.310,97') },
-            { categoria: 'APAE NEURO', valor: parseCurrency('R$ 29.401,45') },
-            { categoria: 'CIN COMUNICAÇÃO INTEGRADA LIMITADA - EPP -', valor: parseCurrency('R$ 288.673,36') },
-            { categoria: 'FUNDAÇÃO APOIO A UNIVERS. MUNIC. SCS - UNIMAIS', valor: parseCurrency('R$ 55.401,47') },
-            { categoria: 'ABX TELECOM LTDA.', valor: parseCurrency('R$ 82.486,30') },
-            { categoria: 'ALTBIT INFORMATICA COM E SERVIÇOS LTDA', valor: parseCurrency('R$ 703.335,45') },
-            { categoria: 'ASSOCIAÇÃO PATRULHEIROS MIRINS DE S C SUL', valor: parseCurrency('R$ 7.537,00') },
-            { categoria: 'CIAMA REPRESENTAÇOES E COMERCIO LTDA', valor: parseCurrency('R$ 682.972,50') },
-            { categoria: 'COLORSISTHEM DO BRASIL COM.SIST. REPROGRAF.', valor: parseCurrency('R$ 103.830,38') },
-            { categoria: 'COLSAN SOC.BENEFIC.DE COLETA DE SANGUE', valor: parseCurrency('R$ 217.043,32') },
-            { categoria: 'COMPANHIA DE PROCESSAMENTO DE DADOS DO ESTADO SP - PRODESP', valor: parseCurrency('R$ 796,52') },
-            { categoria: 'IMPRENSA NACIONAL - IN -', valor: parseCurrency('R$ 782,28') },
-            { categoria: 'INOVAPTT TECNOLOGIA LTDA', valor: parseCurrency('R$ 37.287,90') },
-            { categoria: 'MAX-VERDE TRANSP E CONTRUÇOES EIRELI', valor: parseCurrency('R$ 367.209,51') },
-            { categoria: 'NET TELECOM INFORMÁTICA', valor: parseCurrency('R$ 108.345,36') },
-            { categoria: 'NOROESTE COMERCIAL DE SUPRIMENTOS', valor: parseCurrency('R$ 8.862,00') },
-            { categoria: 'RSM SOLUÇOES LTDA', valor: parseCurrency('R$ 3.275,00') },
-            { categoria: 'SOBERANA SERVIÇOS DE REFEIÇÃO E COM LTDA', valor: parseCurrency('R$ 63.214,91') },
-            { categoria: 'SSD COMERCIO E ASSISTENCIA EM EQUIPAMENTOS', valor: parseCurrency('#DIV/0!') },
-            { categoria: 'TB SERVIÇOS TRANSP LIMP GER.REC.HUMANOS', valor: parseCurrency('R$ 1.132.787,34') },
-            { categoria: 'TRES LAGOAS COMERCIO DE EMBALAGENS LTDA', valor: parseCurrency('R$ 406,50') },
-            { categoria: 'VESPA SAUDE AMBIENTAL COM SERVIÇOS', valor: parseCurrency('R$ 560,00') },
-            { categoria: 'WT PELICULAS LTDA', valor: parseCurrency('R$ 1.224,61') },
-            { categoria: 'ASS.PROTETORA DOS ANIMAIS - APASCS', valor: parseCurrency('R$ 21.000,00') },
-            { categoria: 'ASSOC.PREV.DEPEND.QUIM DIVINA PROVIDENCIA', valor: parseCurrency('R$ 40.000,00') },
-            { categoria: 'GRUPO DE AMIGOS SAMARITANOS - G.A.S', valor: parseCurrency('R$ 15.000,00') },
-            { categoria: 'INSTITUIÇÃO CLAUDIO AMÃNCIO', valor: parseCurrency('R$ 60.000,00') },
-            { categoria: 'REDE FEMININA DE COMBATE AO CÂNCER', valor: parseCurrency('R$ 40.000,00') },
-            { categoria: 'SOC BENEFIC.GRUPO DE AMOR A VIDA - GAV', valor: parseCurrency('R$ 80.000,00') },
-            { categoria: 'Locação de imóveis', valor: parseCurrency('R$ 53.091,70') },
-            { categoria: 'CARLOS ALBERTO FERREIRA - Super Centro', valor: parseCurrency('R$ 11.681,70') },
-            { categoria: 'ELZA PIANTA FERREIRA - Super Centro', valor: parseCurrency('R$ 23.423,97') },
-            { categoria: 'CLELGEN LUIZ BONETTI - Fisioterapia', valor: parseCurrency('R$ 8.569,44') },
-            { categoria: 'ALCYR ROZANTE SOTTO - Fisioterapia', valor: parseCurrency('R$ 4.284,72') },
-            { categoria: 'MIRIAN NACAGAMI SOTTO - Fisioterapia', valor: parseCurrency('R$ 4.284,72') },
-            { categoria: 'ADENILZE BECHARA - Pet Escola', valor: parseCurrency('R$ 16.132,40') },
-            { categoria: 'VVP PARTICIPAÇOES LTDA - UBS Santo Antonio', valor: parseCurrency('R$ 9.455,76') },
-            { categoria: 'Locação de Diversas', valor: parseCurrency('R$ -') },
-            { categoria: 'INVESTIMENTOS', valor: parseCurrency('R$ -') },
-            { categoria: 'Bens e Materiais Permanentes', valor: parseCurrency('R$ -') },
-            { categoria: 'Residência Médica', valor: parseCurrency('R$ -') },
-            { categoria: 'Despesas Acadêmicas', valor: parseCurrency('#DIV/0!') },
-            { categoria: 'Construção e Ampliação', valor: parseCurrency('R$ -') },
-            { categoria: 'OUTROS GASTOS', valor: parseCurrency('R$ 326.630,03') },
-            { categoria: 'Combustivel - LEANDRINI AUTO POSTO LTDA', valor: parseCurrency('R$ 26.400,97') },
-            { categoria: 'Utilidades, Energia , Água , coleta de lixo e internet', valor: parseCurrency('R$ 302.869,16') },
-            { categoria: 'TELEFONICA BRASIL S/A', valor: parseCurrency('R$ 10.332,31') },
-            { categoria: 'SAESA', valor: parseCurrency('R$ 5.010,17') },
-            { categoria: 'ELETROPAULO METR.ELETR.DE S.P. S/A -', valor: parseCurrency('R$ 287.154,07') },
-            { categoria: 'ADIANTAMENTO', valor: parseCurrency('R$ 2.084,07') },
-            { categoria: 'Despesas financeiras e bancárias', valor: parseCurrency('R$ -') },
-            { categoria: 'Outras despesas', valor: parseCurrency('R$ -') },
-            { categoria: 'Diversos', valor: parseCurrency('#DIV/0!') },
-            { categoria: 'Caixa pequeno', valor: parseCurrency('#DIV/0!') },
-            { categoria: 'Despesas de Rateio', valor: parseCurrency('R$ -') },
-            { categoria: 'Nota de débito', valor: parseCurrency('#DIV/0!') },
-            { categoria: 'Apoio Técnico', valor: parseCurrency('#DIV/0!') },
-            { categoria: 'Custas Processos Judiciais', valor: parseCurrency('R$ -') },
-            { categoria: 'Despesas Administrativas', valor: parseCurrency('#DIV/0!') },
-            { categoria: 'TOTAL DE DESPESAS', valor: parseCurrency('R$ 10.633.666,21') }
+            { categoria: 'ORÇAMENTO', valor: 0 },
+            { categoria: 'ACOMPANHAMENTO PLANO ORÇAMENTÁRIO', valor: 0 },
+            { categoria: 'RECURSOS HUMANOS', valor: 6616449.07 },
+            { categoria: 'INDENIZAÇÕES TRABALHISTAS - RESCISÕES', valor: 25020.04 },
+            { categoria: 'VENCIMENTO PREFEITURA - FOLHA', valor: 4811182.14 },
+            { categoria: 'PROGRAMA -MAIS MÉDICOS', valor: 12900.00 },
+            { categoria: 'TARIFAS CAIXA ECONOMICA FEDERAL / BANCO DO BRASIL - TARIFAS BANCÁRIAS', valor: 775.54 },
+            { categoria: 'GRATIFICAÇÃO SUS', valor: 296880.38 },
+            { categoria: 'PENSÕES - GRATIF. SUS', valor: 479.33 },
+            { categoria: 'INSS PREF', valor: 983944.34 },
+            { categoria: 'FGTS PREF', valor: 303255.80 },
+            { categoria: 'NOTRE DAME INTERMEDICA', valor: 202288.27 },
+            { categoria: 'PROCESSOS TRABALHISTAS', valor: 1619.20 },
+            { categoria: 'CARLA MERCIA FERREIRA DOMINGUES', valor: 506.00 },
+            { categoria: 'RAPHAEL COSTA VIEIRA', valor: 1518.00 },
+            { categoria: 'MATERIAIS DE CONSUMO', valor: 329615.34 },
+            { categoria: 'Medicamentos e Materiais Médicos e Hospitalar', valor: 264530.85 },
+            { categoria: 'ABBOTT LABORATORIOS', valor: 146265.00 },
+            { categoria: 'AGLON COMERCIO E REPRESENTAÇÕES LTDA.', valor: 22033.59 },
+            { categoria: 'Outros Materiais de Consumo', valor: 65084.50 },
+            { categoria: 'COMPANHIA DE GAS DE S.PAULO - COMGAS -', valor: 46286.66 },
+            { categoria: 'CIA ULTRAGAZ S.A -', valor: 1843.80 },
+            { categoria: 'DC INFINITY COMERCIALIZADORA E DISTR EIRELI', valor: 865.41 },
+            { categoria: 'JM SUPRIMENTOS LTDA', valor: 6626.55 },
+            { categoria: 'JC DA SILVA SUPRIMENTOS PARA ESCRITÓRIO', valor: 3561.75 },
+            { categoria: 'LINECONTROL COMERCIO IMP E EXP LTDA', valor: 2000.84 },
+            { categoria: 'PRECISO EQUIPAMENTOS P LABORATORIOS LTDA', valor: 720.00 },
+            { categoria: 'QUIMAFLEX CIENTIFICA LTDA', valor: 2160.00 },
+            { categoria: 'RBS COMÉRCIO E SERVIÇOS EM GERAL LTDA -', valor: 5470.40 },
+            { categoria: 'RF LEITE AQUINO ALIMENTO PARA ANIMAIS', valor: 42920.00 },
+            { categoria: 'SOLRAC COMERCIO E SERVIÇO LTDA', valor: 1742.28 },
+            { categoria: 'SUPERGASBRAS ENERGIA LTDA', valor: 3645.50 },
+            { categoria: 'SINSAI COMERCIO DE DESCARTAVEIS EIRELI', valor: 38327.50 },
+            { categoria: 'VIVA LABORATORIO DE ANALYSIS LTDA', valor: 1200.00 },
+            { categoria: 'VC DA ROCHA DISTRIBUIDORA ME', valor: 7049.50 },
+            { categoria: 'VILA BARCELONA ME', valor: 2865.00 },
+            { categoria: 'Gênero Alimentícios', valor: 0 },
+            { categoria: 'SERVIÇOS DE TERCEIROS', valor: 3312660.87 },
+            { categoria: 'Manutenção e Reformas', valor: 731350.30 },
+            { categoria: 'SOLUÇÕES SERV TERCEIRIZADOS EIRELI - Complexo PCD', valor: 1828375.76 },
+            { categoria: 'Serviços Médicos Terceirizados', valor: 0 },
+            { categoria: 'Outros Serviços de Terceiros', valor: 2574910.56 },
+            { categoria: 'CENTRAL DE CONVÊNIOS', valor: 426293.85 },
+            { categoria: 'APAE - CER IV', valor: 435004.24 },
+            { categoria: 'LA VITA - NÚCLEO CLINICO DE REABILITAÇÃO -', valor: 10541.78 },
+            { categoria: 'RESIDENCIAL P IDOSOS LA VITA LTDA', valor: 6222.66 },
+            { categoria: 'CENTRO DE READAPTAÇÃO SOCIAL LTDA', valor: 19572.95 },
+            { categoria: 'NUCLEO DE INTEGRAÇÃO LUZ DO SO LTDA', valor: 13509.56 },
+            { categoria: 'ASSOCIAÇÃO ESTANCIA PRIMAVERA COMUNIDADE TERAPEUTICA', valor: 7500.00 },
+            { categoria: 'CLINICA PRIMAVERA LTDA', valor: 21365.33 },
+            { categoria: 'RESIDENCIAL SAUDE E BEM ESTAR LTDA', valor: 4731.22 },
+            { categoria: 'AMA- ASSOC DE AMIGOS DO AUTISTA', valor: 25310.97 },
+            { categoria: 'APAE NEURO', valor: 29401.45 },
+            { categoria: 'CIN COMUNICAÇÃO INTEGRADA LIMITADA - EPP -', valor: 288673.36 },
+            { categoria: 'FUNDAÇÃO APOIO A UNIVERS. MUNIC. SCS - UNIMAIS', valor: 55401.47 },
+            { categoria: 'ABX TELECOM LTDA.', valor: 82486.30 },
+            { categoria: 'ALTBIT INFORMATICA COM E SERVIÇOS LTDA', valor: 703335.45 },
+            { categoria: 'ASSOCIAÇÃO PATRULHEIROS MIRINS DE S C SUL', valor: 7537.00 },
+            { categoria: 'CIAMA REPRESENTAÇOES E COMERCIO LTDA', valor: 682972.50 },
+            { categoria: 'COLORSISTHEM DO BRASIL COM.SIST. REPROGRAF.', valor: 103830.38 },
+            { categoria: 'COLSAN SOC.BENEFIC.DE COLETA DE SANGUE', valor: 217043.32 },
+            { categoria: 'COMPANHIA DE PROCESSAMENTO DE DADOS DO ESTADO SP - PRODESP', valor: 796.52 },
+            { categoria: 'IMPRENSA NACIONAL - IN -', valor: 782.28 },
+            { categoria: 'INOVAPTT TECNOLOGIA LTDA', valor: 37287.90 },
+            { categoria: 'MAX-VERDE TRANSP E CONTRUÇOES EIRELI', valor: 367209.51 },
+            { categoria: 'NET TELECOM INFORMÁTICA', valor: 108345.36 },
+            { categoria: 'NOROESTE COMERCIAL DE SUPRIMENTOS', valor: 8862.00 },
+            { categoria: 'RSM SOLUÇOES LTDA', valor: 3275.00 },
+            { categoria: 'SOBERANA SERVIÇOS DE REFEIÇÃO E COM LTDA', valor: 63214.91 },
+            { categoria: 'TB SERVIÇOS TRANSP LIMP GER.REC.HUMANOS', valor: 1132787.34 },
+            { categoria: 'TRES LAGOAS COMERCIO DE EMBALAGENS LTDA', valor: 406.50 },
+            { categoria: 'VESPA SAUDE AMBIENTAL COM SERVIÇOS', valor: 560.00 },
+            { categoria: 'WT PELICULAS LTDA', valor: 1224.61 },
+            { categoria: 'ASS.PROTETORA DOS ANIMAIS - APASCS', valor: 21000.00 },
+            { categoria: 'ASSOC.PREV.DEPEND.QUIM DIVINA PROVIDENCIA', valor: 40000.00 },
+            { categoria: 'GRUPO DE AMIGOS SAMARITANOS - G.A.S', valor: 15000.00 },
+            { categoria: 'INSTITUIÇÃO CLAUDIO AMÃNCIO', valor: 60000.00 },
+            { categoria: 'REDE FEMININA DE COMBATE AO CÂNCER', valor: 40000.00 },
+            { categoria: 'SOC BENEFIC.GRUPO DE AMOR A VIDA - GAV', valor: 80000.00 },
+            { categoria: 'Locação de imóveis', valor: 53091.70 },
+            { categoria: 'CARLOS ALBERTO FERREIRA - Super Centro', valor: 11681.70 },
+            { categoria: 'ELZA PIANTA FERREIRA - Super Centro', valor: 23423.97 },
+            { categoria: 'CLELGEN LUIZ BONETTI - Fisioterapia', valor: 8569.44 },
+            { categoria: 'ALCYR ROZANTE SOTTO - Fisioterapia', valor: 4284.72 },
+            { categoria: 'MIRIAN NACAGAMI SOTTO - Fisioterapia', valor: 4284.72 },
+            { categoria: 'ADENILZE BECHARA - Pet Escola', valor: 16132.40 },
+            { categoria: 'VVP PARTICIPAÇOES LTDA - UBS Santo Antonio', valor: 9455.76 },
+            { categoria: 'Locação de Diversas', valor: 0 },
+            { categoria: 'INVESTIMENTOS', valor: 0 },
+            { categoria: 'Bens e Materiais Permanentes', valor: 0 },
+            { categoria: 'Residência Médica', valor: 0 },
+            { categoria: 'Despesas Acadêmicas', valor: 0 },
+            { categoria: 'Construção e Ampliação', valor: 0 },
+            { categoria: 'OUTROS GASTOS', valor: 326630.03 },
+            { categoria: 'Combustivel - LEANDRINI AUTO POSTO LTDA', valor: 26400.97 },
+            { categoria: 'Utilidades, Energia , Água , coleta de lixo e internet', valor: 302869.16 },
+            { categoria: 'TELEFONICA BRASIL S/A', valor: 10332.31 },
+            { categoria: 'SAESA', valor: 5010.17 },
+            { categoria: 'ELETROPAULO METR.ELETR.DE S.P. S/A -', valor: 287154.07 },
+            { categoria: 'ADIANTAMENTO', valor: 2084.07 },
+            { categoria: 'Despesas financeiras e bancárias', valor: 0 },
+            { categoria: 'Outras despesas', valor: 0 },
+            { categoria: 'Diversos', valor: 0 },
+            { categoria: 'Caixa pequeno', valor: 0 },
+            { categoria: 'Despesas de Rateio', valor: 0 },
+            { categoria: 'Nota de débito', valor: 0 },
+            { categoria: 'Apoio Técnico', valor: 0 },
+            { categoria: 'Custas Processos Judiciais', valor: 0 },
+            { categoria: 'Despesas Administrativas', valor: 0 },
+            { categoria: 'TOTAL DE DESPESAS', valor: 10633666.21 }
         ];
 
-        // Dados FUABC exatos do CSV (todas as linhas, valores convertidos, variação calculada)
+        // --- Dados FUABC exatos do CSV (todas as linhas, valores convertidos, variação calculada) ---
         var dadosFUABC = [
-            { categoria: 'ORÇAMENTO', valor2025: parseCurrency(''), valor2026: parseCurrency('') },
-            { categoria: 'ACOMPANHAMENTO PLANO ORÇAMENTÁRIO', valor2025: parseCurrency(''), valor2026: parseCurrency('') },
-            { categoria: 'RECURSOS HUMANOS', valor2025: parseCurrency('R$ 15.519.978,93'), valor2026: parseCurrency('R$ 15.979.374,38') },
-            { categoria: 'Folha Encargos e Benefícios', valor2025: parseCurrency('R$ 13.643.314,28'), valor2026: parseCurrency('R$ 15.019.374,38') },
-            { categoria: 'Férias', valor2025: parseCurrency('R$ 770.601,83'), valor2026: parseCurrency('R$ -') },
-            { categoria: 'Folha Autônomos', valor2025: parseCurrency('R$ 159.308,18'), valor2026: parseCurrency('R$ -') },
-            { categoria: 'Provisão de 13° salário', valor2025: parseCurrency('R$ 946.754,64'), valor2026: parseCurrency('R$ 960.000,00') },
-            { categoria: 'Provisão de 1/3 férias', valor2025: parseCurrency('R$ -'), valor2026: parseCurrency('R$ -') },
-            { categoria: 'PROCESSOS TRABALHISTAS', valor2025: parseCurrency('R$ 81.084,03'), valor2026: parseCurrency('R$ 78.881,08') },
-            { categoria: 'Processos Trabalhistas - MANTENEDORA', valor2025: parseCurrency('R$ 50.000,00'), valor2026: parseCurrency('R$ 50.000,00') },
-            { categoria: 'Processos Trabalhistas', valor2025: parseCurrency('R$ 31.084,03'), valor2026: parseCurrency('R$ 28.881,08') },
-            { categoria: 'Outros', valor2025: parseCurrency('R$ -'), valor2026: parseCurrency('R$ -') },
-            { categoria: 'MATERIAIS DE CONSUMO', valor2025: parseCurrency('R$ 3.920.961,07'), valor2026: parseCurrency('R$ 4.218.090,06') },
-            { categoria: 'Medicamentos e Materiais Médicos e Hospitalar', valor2025: parseCurrency('R$ 3.837.330,63'), valor2026: parseCurrency('R$ 4.088.090,06') },
-            { categoria: 'Material Médico', valor2025: parseCurrency('R$ 1.099.358,86'), valor2026: parseCurrency('R$ 1.092.000,00') },
-            { categoria: 'Medicamento', valor2025: parseCurrency('R$ 2.018.133,67'), valor2026: parseCurrency('R$ 1.945.000,00') },
-            { categoria: 'Baxter - Proc 286/23 - fornecimento dieta parenteral prolongada ( jan/24)', valor2025: parseCurrency('R$ 22.357,47'), valor2026: parseCurrency('R$ 56.556,83') },
-            { categoria: 'CG Medical - Proc 645/20 - fornecimento material ortopédico em consginação, c/ instrumentadores ( out/20)', valor2025: parseCurrency('R$ 163.360,79'), valor2026: parseCurrency('R$ 200.000,00') },
-            { categoria: 'Fresenius Kabi - Proc 450/22 - fornecimento dieta enteral e suplementos (jan/23)', valor2025: parseCurrency('R$ 31.078,68'), valor2026: parseCurrency('R$ 36.809,50') },
-            { categoria: 'Hosp-Pharma Manipulação - Proc 286/23 - Fornecimento de dieta parenteral prolongada (dez/23)', valor2025: parseCurrency('R$ 9.070,19'), valor2026: parseCurrency('R$ 8.000,00') },
-            { categoria: 'Mogami - Proc 361/21 - Fornecimento materiais e insumos cir. Endourológicas ( set/21)', valor2025: parseCurrency('R$ 77.456,02'), valor2026: parseCurrency('R$ 77.986,53') },
-            { categoria: 'Mogami - Proc 110/22 - Fornecimento materiais descartaveis em consignado p/ videolaparoscopia c/ comodato ( fev/22)', valor2025: parseCurrency('R$ 209.192,63'), valor2026: parseCurrency('R$ 323.331,66') },
-            { categoria: 'Nutriport - Proc 450/22 - dieta enteral e suplemento Complexo e unidades (nov/22)', valor2025: parseCurrency('R$ 78.780,34'), valor2026: parseCurrency('R$ 83.000,00') },
-            { categoria: 'Pró-fórmula quimioterapia - Proc 224/19 - Manipulação medicamentos Oncológicos (jul/19)', valor2025: parseCurrency('R$ 54.887,18'), valor2026: parseCurrency('R$ -') },
-            { categoria: 'Novo processo de Manipulação Oncológicos - Proc 361/25', valor2025: parseCurrency('R$ 60.000,00'), valor2026: parseCurrency('R$ 100.000,00') },
-            { categoria: 'Medicamental - Fornecimento de Fraldas -Proc 199/25', valor2025: parseCurrency('R$ 143.677,43'), valor2026: parseCurrency('R$ 154.540,54') },
-            { categoria: 'Fornecimento de mantas térmicas Proc 79A/25', valor2025: parseCurrency('R$ 10.748,75'), valor2026: parseCurrency('R$ 10.865,00') },
-            { categoria: 'Outros Materiais de Consumo', valor2025: parseCurrency('R$ 78.659,40'), valor2026: parseCurrency('R$ 125.000,00') },
-            { categoria: 'Material de consumo pontual', valor2025: parseCurrency('R$ 54.618,40'), valor2026: parseCurrency('R$ 70.000,00') },
-            { categoria: '13A Informática - Proc 24/24 - Fornecimento de sulfite (fev/25)', valor2025: parseCurrency('R$ 51.158,40'), valor2026: parseCurrency('R$ 55.000,00') },
-            { categoria: 'Multipaper - Proc 361/19 - Fornecimento sulfite (out/19)', valor2025: parseCurrency('R$ 32.700,00'), valor2026: parseCurrency('R$ -') },
-            { categoria: 'Gênero Alimentícios', valor2025: parseCurrency('R$ 4.971,04'), valor2026: parseCurrency('R$ 5.000,00') },
-            { categoria: 'DC Infinity - Proc 670/21 - Fornecimento galões de agua (dez/21)', valor2025: parseCurrency('R$ 4.971,04'), valor2026: parseCurrency('R$ 5.000,00') },
-            { categoria: 'SERVIÇOS DE TERCEIROS', valor2025: parseCurrency('R$ 19.270.730,55'), valor2026: parseCurrency('R$ 23.568.510,69') },
-            { categoria: 'Manutenção e Reformas', valor2025: parseCurrency('R$ 1.305.975,09'), valor2026: parseCurrency('R$ 1.301.434,22') },
-            { categoria: 'Castelmar - Proc 102/25 - Pontual para manutenção rede telefonia 4º andar', valor2025: parseCurrency('R$ 7.185,00'), valor2026: parseCurrency('R$ -') },
-            { categoria: 'Crel elevadores - Proc 530/23 - Manutenção elevadores Complexo ( jan/24)', valor2025: parseCurrency('R$ 9.692,96'), valor2026: parseCurrency('R$ 10.194,09') },
-            { categoria: 'Clarissa Prates Ferreira - Proc 459/24 - manutenção de tablet c/ peças ( set/24)', valor2025: parseCurrency('R$ 4.180,00'), valor2026: parseCurrency('R$ 3.000,00') },
-            { categoria: 'Hertz - Proc 32/23 - Manutenção elevadores c/ peças Complexo e unidades ( jun/23)', valor2025: parseCurrency('R$ 10.890,33'), valor2026: parseCurrency('R$ 7.964,00') },
-            { categoria: 'Kimens Equipamentos - Proc 125/20 - Manutenção equip. odontológicos c/ peças ( jun/20)', valor2025: parseCurrency('R$ 15.095,83'), valor2026: parseCurrency('R$ 15.763,09') },
-            { categoria: 'SSD Comercio - Proc 16/23 - Manutenção corretiva e preventiva ar condicionado c/ peças ( jun/23)', valor2025: parseCurrency('R$ 13.965,00'), valor2026: parseCurrency('R$ 13.965,00') },
-            { categoria: 'SSD Comércio - Proc 204/25 C- Manutenção corretiva e preventiva ar condicionado c/ peças - emergencial subst Proc 16/23 ini 26/05/25', valor2025: parseCurrency('R$ 35.000,00'), valor2026: parseCurrency('R$ 62.050,30') },
-            { categoria: 'SSD Comercio - Proc 006/25 - Manutenção corretiva e preventiva ar condicionado - pontual', valor2025: parseCurrency('R$ 40.616,67'), valor2026: parseCurrency('R$ -') },
-            { categoria: 'SSD Comercio - Proc 76/25 - Manutenção corretiva camara mortuaria pontual - pontual', valor2025: parseCurrency('R$ 1.500,00'), valor2026: parseCurrency('R$ -') },
-            { categoria: 'Spell Comércio - Proc 16/23 - Manutenção corretiva e preventiva ar condicionado c/ peças ( jun/23) - recindido - SSD assumiu', valor2025: parseCurrency('R$ 48.869,35'), valor2026: parseCurrency('R$ -') },
-            { categoria: 'Verzani - Proc 56/21 - Manutenção Predial e equipamentos (mar/22)', valor2025: parseCurrency('R$ 1.187.949,63'), valor2026: parseCurrency('R$ 1.180.197,74') },
-            { categoria: 'Kimens Equipamentos - Proc 143/24 - Manutenção equip. prev e corret. com back up ( abr/24)', valor2025: parseCurrency('R$ 8.300,00'), valor2026: parseCurrency('R$ 8.300,00') },
-            { categoria: 'Manutenção de guilhotina - Proc 65/25 - pontual abril', valor2025: parseCurrency('R$ 1.000,00'), valor2026: parseCurrency('R$ -') },
-            { categoria: 'CALIBRACAO DE TERMO-HIGROMETRO - Proc 250/25', valor2025: parseCurrency('R$ 3.360,00'), valor2026: parseCurrency('R$ -') },
-            { categoria: 'Reforma Trailer - Proc 295/25 Arcotec Com. E Desenvol. Eireli - Pontual', valor2025: parseCurrency('R$ -'), valor2026: parseCurrency('R$ -') },
-            { categoria: 'Serviços Médicos Terceirizados', valor2025: parseCurrency('R$ 7.050.002,88'), valor2026: parseCurrency('R$ 8.665.085,19') },
-            { categoria: '6R Cirurgiões Associados - Proc 080/22 - Serviços Médicos Cirurgia Geral (jun/22)', valor2025: parseCurrency('R$ 407.433,00'), valor2026: parseCurrency('R$ 417.880,00') },
-            { categoria: 'Azul Saúde - Proc 067/23 - Serviços Médico Oftalmologia - (dez/23)', valor2025: parseCurrency('R$ 665.871,78'), valor2026: parseCurrency('R$ 668.020,47') },
-            { categoria: 'C.A.P - Proc 421/23 - Serviços Médicos Anestesiologia (out/23)', valor2025: parseCurrency('R$ 513.500,00'), valor2026: parseCurrency('R$ -') },
-            { categoria: 'Cert Serviços Médicos - Proc 681/21 - Serviços Médicos Nefrologia ( dez/21)', valor2025: parseCurrency('R$ 174.478,43'), valor2026: parseCurrency('R$ 184.395,00') },
-            { categoria: 'Clinica Médica e Endoscopia AES - Proc 425/23 - Serviço de endoscopia adulto e infantil ( abr/24)', valor2025: parseCurrency('R$ 388.394,77'), valor2026: parseCurrency('R$ 350.000,00') },
-            { categoria: 'Clinica Médica de Oxigenoterapia hiperbarica - Proc 347/19 - Encerrou - substituido por ABC PRIME', valor2025: parseCurrency('R$ 9.450,00'), valor2026: parseCurrency('R$ -') },
-            { categoria: 'Elite - Serviços Médicos em Pediatria Proc 291/25 - Inicio em 11/09/25 - substitui credenciamento', valor2025: parseCurrency('R$ 554.099,33'), valor2026: parseCurrency('R$ 755.590,00') },
-            { categoria: 'Flavio Tsuyoshi Yamagutti - Proc 405/24 - Diagnóstico em exames liquóricos p/ Complexo e unidades (ago/24)', valor2025: parseCurrency('R$ 23.508,33'), valor2026: parseCurrency('R$ 23.900,00') },
-            { categoria: 'Gestão Médica Inteligente - Proc 216/22 - Telemedicina mod.teleatendimento c/ auxilio prof in loco (jul/22)', valor2025: parseCurrency('R$ 179.752,00'), valor2026: parseCurrency('R$ -') },
-            { categoria: 'Gomide e Moura - Proc 259/19 - Serviços Médicos Obstetrícia e Ginecologia (set/19) - FINALIZOU EM 03/09/25', valor2025: parseCurrency('R$ 239.556,99'), valor2026: parseCurrency('R$ -') },
-            { categoria: 'Leald - Proc 203/25 - especialidades médicas - substitui telemedicina proc 216/22 - inicia 16/06/25 - emergencial', valor2025: parseCurrency('R$ 302.455,75'), valor2026: parseCurrency('R$ 391.851,25') },
-            { categoria: 'MAISAÚDE - SERVICOS DE FISIOTERAPIA E ASSISTENCIA SOCIAL PROC 355/25 12 MESES INICIO NOVEMBRO', valor2025: parseCurrency('R$ -'), valor2026: parseCurrency('R$ 1.000.000,00') },
-            { categoria: 'MEDICINA DIAGNOSTICA - Proc 242/25 - Serviços Médicos de Diagnóstico por Imagem (jun/25)', valor2025: parseCurrency('R$ 1.000.000,00'), valor2026: parseCurrency('R$ 1.000.000,00') },
-            { categoria: 'MEDICINA DIAGNOSTICA - Proc 242/25 - Serviços Médicos de Diagnóstico por Imagem (jun/25) - PEDIATRIA', valor2025: parseCurrency('R$ 1.000.000,00'), valor2026: parseCurrency('R$ 1.000.000,00') },
-            { categoria: 'MEDICINA DIAGNOSTICA - Proc 242/25 - Serviços Médicos de Diagnóstico por Imagem (jun/25) - ADULTO', valor2025: parseCurrency('R$ 1.000.000,00'), valor2026: parseCurrency('R$ 1.000.000,00') },
-            { categoria: 'MEDICINA DIAGNOSTICA - Proc 242/25 - Serviços Médicos de Diagnóstico por Imagem (jun/25) - GINECOLOGIA', valor2025: parseCurrency('R$ 1.000.000,00'), valor2026: parseCurrency('R$ 1.000.000,00') },
-            { categoria: 'MEDICINA DIAGNOSTICA - Proc 242/25 - Serviços Médicos de Diagnóstico por Imagem (jun/25) - ORTOPEDIA', valor2025: parseCurrency('R$ 1.000.000,00'), valor2026: parseCurrency('R$ 1.000.000,00') },
-            { categoria: 'MEDICINA DIAGNOSTICA - Proc 242/25 - Serviços Médicos de Diagnóstico por Imagem (jun/25) - NEUROLOGIA', valor2025: parseCurrency('R$ 1.000.000,00'), valor2026: parseCurrency('R$ 1.000.000,00') },
-            { categoria: 'MEDICINA DIAGNOSTICA - Proc 242/25 - Serviços Médicos de Diagnóstico por Imagem (jun/25) - CARDIOLOGIA', valor2025: parseCurrency('R$ 1.000.000,00'), valor2026: parseCurrency('R$ 1.000.000,00') },
-            { categoria: 'MEDICINA DIAGNOSTICA - Proc 242/25 - Serviços Médicos de Diagnóstico por Imagem (jun/25) - UROLOGIA', valor2025: parseCurrency('R$ 1.000.000,00'), valor2026: parseCurrency('R$ 1.000.000,00') },
-            { categoria: 'MEDICINA DIAGNOSTICA - Proc 242/25 - Serviços Médicos de Diagnóstico por Imagem (jun/25) - GASTROENTEROLOGIA', valor2025: parseCurrency('R$ 1.000.000,00'), valor2026: parseCurrency('R$ 1.000.000,00') },
-            { categoria: 'MEDICINA DIAGNOSTICA - Proc 242/25 - Serviços Médicos de Diagnóstico por Imagem (jun/25) - PNEUMOLOGIA', valor2025: parseCurrency('R$ 1.000.000,00'), valor2026: parseCurrency('R$ 1.000.000,00') },
-            { categoria: 'MEDICINA DIAGNOSTICA - Proc 242/25 - Serviços Médicos de Diagnóstico por Imagem (jun/25) - ENDOCRINOLOGIA', valor2025: parseCurrency('R$ 1.000.000,00'), valor2026: parseCurrency('R$ 1.000.000,00') },
-            { categoria: 'MEDICINA DIAGNOSTICA - Proc 242/25 - Serviços Médicos de Diagnóstico por Imagem (jun/25) - REUMATOLOGIA', valor2025: parseCurrency('R$ 1.000.000,00'), valor2026: parseCurrency('R$ 1.000.000,00') },
-            { categoria: 'MEDICINA DIAGNOSTICA - Proc 242/25 - Serviços Médicos de Diagnóstico por Imagem (jun/25) - INFECTOLOGIA', valor2025: parseCurrency('R$ 1.000.000,00'), valor2026: parseCurrency('R$ 1.000.000,00') },
-            { categoria: 'MEDICINA DIAGNOSTICA - Proc 242/25 - Serviços Médicos de Diagnóstico por Imagem (jun/25) - GERIATRIA', valor2025: parseCurrency('R$ 1.000.000,00'), valor2026: parseCurrency('R$ 1.000.000,00') },
-            { categoria: 'MEDICINA DIAGNOSTICA - Proc 242/25 - Serviços Médicos de Diagnóstico por Imagem (jun/25) - ONCOLOGIA', valor2025: parseCurrency('R$ 1.000.000,00'), valor2026: parseCurrency('R$ 1.000.000,00') },
-            { categoria: 'MEDICINA DIAGNOSTICA - Proc 242/25 - Serviços Médicos de Diagnóstico por Imagem (jun/25) - PALIATIVOS', valor2025: parseCurrency('R$ 1.000.000,00'), valor2026: parseCurrency('R$ 1.000.000,00') },
-            { categoria: 'MEDICINA DIAGNOSTICA - Proc 242/25 - Serviços Médicos de Diagnóstico por Imagem (jun/25) - PSIQUIATRIA', valor2025: parseCurrency('R$ 1.000.000,00'), valor2026: parseCurrency('R$ 1.000.000,00') },
-            { categoria: 'MEDICINA DIAGNOSTICA - Proc 242/25 - Serviços Médicos de Diagnóstico por Imagem (jun/25) - DERMATOLOGIA', valor2025: parseCurrency('R$ 1.000.000,00'), valor2026: parseCurrency('R$ 1.000.000,00') },
-            { categoria: 'MEDICINA DIAGNOSTICA - Proc 242/25 - Serviços Médicos de Diagnóstico por Imagem (jun/25) - OFTALMOLOGIA', valor2025: parseCurrency('R$ 1.000.000,00'), valor2026: parseCurrency('R$ 1.000.000,00') },
-            { categoria: 'MEDICINA DIAGNOSTICA - Proc 242/25 - Serviços Médicos de Diagnóstico por Imagem (jun/25) - OTORRINOLARINGOLOGIA', valor2025: parseCurrency('R$ 1.000.000,00'), valor2026: parseCurrency('R$ 1.000.000,00') },
-            { categoria: 'MEDICINA DIAGNOSTICA - Proc 242/25 - Serviços Médicos de Diagnóstico por Imagem (jun/25) - CIRURGIA PLASTICA', valor2025: parseCurrency('R$ 1.000.000,00'), valor2026: parseCurrency('R$ 1.000.000,00') },
-            { categoria: 'MEDICINA DIAGNOSTICA - Proc 242/25 - Serviços Médicos de Diagnóstico por Imagem (jun/25) - CIRURGIA VASCULAR', valor2025: parseCurrency('R$ 1.000.000,00'), valor2026: parseCurrency('R$ 1.000.000,00') },
-            { categoria: 'MEDICINA DIAGNOSTICA - Proc 242/25 - Serviços Médicos de Diagnóstico por Imagem (jun/25) - CIRURGIA TORACICA', valor2025: parseCurrency('R$ 1.000.000,00'), valor2026: parseCurrency('R$ 1.000.000,00') },
-            { categoria: 'MEDICINA DIAGNOSTICA - Proc 242/25 - Serviços Médicos de Diagnóstico por Imagem (jun/25) - CIRURGIA GERAL', valor2025: parseCurrency('R$ 1.000.000,00'), valor2026: parseCurrency('R$ 1.000.000,00') },
-            { categoria: 'MEDICINA DIAGNOSTICA - Proc 242/25 - Serviços Médicos de Diagnóstico por Imagem (jun/25) - CIRURGIA PEDIATRICA', valor2025: parseCurrency('R$ 1.000.000,00'), valor2026: parseCurrency('R$ 1.000.000,00') },
-            { categoria: 'MEDICINA DIAGNOSTICA - Proc 242/25 - Serviços Médicos de Diagnóstico por Imagem (jun/25) - CIRURGIA CABECA E PESCOCO', valor2025: parseCurrency('R$ 1.000.000,00'), valor2026: parseCurrency('R$ 1.000.000,00') },
-            { categoria: 'MEDICINA DIAGNOSTICA - Proc 242/25 - Serviços Médicos de Diagnóstico por Imagem (jun/25) - CIRURGIA BUCOMAXILOFACIAL', valor2025: parseCurrency('R$ 1.000.000,00'), valor2026: parseCurrency('R$ 1.000.000,00') },
-            { categoria: 'MEDICINA DIAGNOSTICA - Proc 242/25 - Serviços Médicos de Diagnóstico por Imagem (jun/25) - CIRURGIA DA MAO', valor2025: parseCurrency('R$ 1.000.000,00'), valor2026: parseCurrency('R$ 1.000.000,00') },
-            { categoria: 'MEDICINA DIAGNOSTICA - Proc 242/25 - Serviços Médicos de Diagnóstico por Imagem (jun/25) - CIRURGIA DO APARELHO DIGESTIVO', valor2025: parseCurrency('R$ 1.000.000,00'), valor2026: parseCurrency('R$ 1.000.000,00') },
-            { categoria: 'MEDICINA DIAGNOSTICA - Proc 242/25 - Serviços Médicos de Diagnóstico por Imagem (jun/25) - CIRURGIA ONCOLOGICA', valor2025: parseCurrency('R$ 1.000.000,00'), valor2026: parseCurrency('R$ 1.000.000,00') },
-            { categoria: 'Outros Serviços de Terceiros', valor2025: parseCurrency('R$ 9.907.665,93'), valor2026: parseCurrency('R$ 12.136.163,71') },
-            { categoria: 'AGEIS CME - Proc 685/21 - Serviços Médicos Cardiologia ( dez/21)', valor2025: parseCurrency('R$ -'), valor2026: parseCurrency('R$ -') },
-            { categoria: 'Abler - Proc 507/23 - Serviços Médicos Cardiologia (nov/23)', valor2025: parseCurrency('R$ -'), valor2026: parseCurrency('R$ -') },
-            { categoria: 'ABC PRIME - Proc 347/19 - Serviços Médicos Oxigenoterapia Hiperbárica (set/19)', valor2025: parseCurrency('R$ -'), valor2026: parseCurrency('R$ -') },
-            { categoria: 'Locação de imóveis', valor2025: parseCurrency('R$ 78.760,54'), valor2026: parseCurrency('R$ 96.173,03') },
-            { categoria: 'Locação de Diversas', valor2025: parseCurrency('R$ 928.326,11'), valor2026: parseCurrency('R$ 1.369.654,54') },
-            { categoria: 'INVESTIMENTOS', valor2025: parseCurrency('R$ 83.882,01'), valor2026: parseCurrency('R$ 203.082,50') },
-            { categoria: 'Bens e Materiais Permanentes', valor2025: parseCurrency('R$ 13.417,73'), valor2026: parseCurrency('R$ -') },
-            { categoria: 'Residência Médica', valor2025: parseCurrency('R$ -'), valor2026: parseCurrency('R$ -') },
-            { categoria: 'Despesas Acadêmicas', valor2025: parseCurrency('R$ -'), valor2026: parseCurrency('R$ -') },
-            { categoria: 'Construção e Ampliação', valor2025: parseCurrency('R$ 70.464,29'), valor2026: parseCurrency('R$ 203.082,50') },
-            { categoria: 'AQUISICAO EMERGENCIAL MOBILIARIO - MESA/ ARMARIO/ GAVETEIRO/ CADEIRA - PROC 624/24', valor2025: parseCurrency('R$ 64.906,00'), valor2026: parseCurrency('R$ -') },
-            { categoria: 'AQUISICAO EMERGENCIAL MOBILIARIO - CADEIRA DE REFEITORIO - PROC 633/24', valor2025: parseCurrency('R$ 1.225,00'), valor2026: parseCurrency('R$ -') },
-            { categoria: 'AQUISICAO MATERIAL E MOBILIARIO - ESTANTE/ BINS - PROC 634/24', valor2025: parseCurrency('R$ 942,40'), valor2026: parseCurrency('R$ -') },
-            { categoria: 'OUTROS GASTOS', valor2025: parseCurrency('R$ 114.709,55'), valor2026: parseCurrency('R$ 124.262,02') },
-            { categoria: 'Utilidades, Energia , Água , coleta de lixo e internet', valor2025: parseCurrency('R$ 8.691,57'), valor2026: parseCurrency('R$ 7.762,02') },
-            { categoria: 'Despesas financeiras e bancárias', valor2025: parseCurrency('R$ 428,08'), valor2026: parseCurrency('R$ 500,00') },
-            { categoria: 'Outras despesas', valor2025: parseCurrency('R$ 6.686,85'), valor2026: parseCurrency('R$ 11.000,00') },
-            { categoria: 'Despesas de Rateio', valor2025: parseCurrency('R$ 91.905,24'), valor2026: parseCurrency('R$ 95.000,00') },
-            { categoria: 'Custas Processos Judiciais', valor2025: parseCurrency('R$ 6.997,81'), valor2026: parseCurrency('R$ 10.000,00') },
-            { categoria: 'TOTAL DE DESPESAS', valor2025: parseCurrency('R$ 38.991.346,13'), valor2026: parseCurrency('R$ 44.172.200,73') }
+            { categoria: 'ORÇAMENTO', valor2025: 0, valor2026: 0 },
+            { categoria: 'ACOMPANHAMENTO PLANO ORÇAMENTÁRIO', valor2025: 0, valor2026: 0 },
+            { categoria: 'RECURSOS HUMANOS', valor2025: 15519978.93, valor2026: 15979374.38 },
+            { categoria: 'Folha Encargos e Benefícios', valor2025: 13643314.28, valor2026: 15019374.38 },
+            { categoria: 'Férias', valor2025: 770601.83, valor2026: 0 },
+            { categoria: 'Folha Autônomos', valor2025: 159308.18, valor2026: 0 },
+            { categoria: 'Provisão de 13° salário', valor2025: 946754.64, valor2026: 960000.00 },
+            { categoria: 'Provisão de 1/3 férias', valor2025: 0, valor2026: 0 },
+            { categoria: 'PROCESSOS TRABALHISTAS', valor2025: 81084.03, valor2026: 78881.08 },
+            { categoria: 'Processos Trabalhistas - MANTENEDORA', valor2025: 50000.00, valor2026: 50000.00 },
+            { categoria: 'Processos Trabalhistas', valor2025: 31084.03, valor2026: 28881.08 },
+            { categoria: 'Outros', valor2025: 0, valor2026: 0 },
+            { categoria: 'MATERIAIS DE CONSUMO', valor2025: 3920961.07, valor2026: 4218090.06 },
+            { categoria: 'Medicamentos e Materiais Médicos e Hospitalar', valor2025: 3837330.63, valor2026: 4088090.06 },
+            { categoria: 'Material Médico', valor2025: 1099358.86, valor2026: 1092000.00 },
+            { categoria: 'Medicamento', valor2025: 2018133.67, valor2026: 1945000.00 },
+            { categoria: 'Baxter - Proc 286/23 - fornecimento dieta parenteral prolongada ( jan/24)', valor2025: 22357.47, valor2026: 56556.83 },
+            { categoria: 'CG Medical - Proc 645/20 - fornecimento material ortopédico em consginação, c/ instrumentadores ( out/20)', valor2025: 163360.79, valor2026: 200000.00 },
+            { categoria: 'Fresenius Kabi - Proc 450/22 - fornecimento dieta enteral e suplementos (jan/23)', valor2025: 31078.68, valor2026: 36809.50 },
+            { categoria: 'Hosp-Pharma Manipulação - Proc 286/23 - Fornecimento de dieta parenteral prolongada (dez/23)', valor2025: 9070.19, valor2026: 8000.00 },
+            { categoria: 'Mogami - Proc 361/21 - Fornecimento materiais e insumos cir. Endourológicas ( set/21)', valor2025: 77456.02, valor2026: 77986.53 },
+            { categoria: 'Mogami - Proc 110/22 - Fornecimento materiais descartaveis em consignado p/ videolaparoscopia c/ comodato ( fev/22)', valor2025: 209192.63, valor2026: 323331.66 },
+            { categoria: 'Nutriport - Proc 450/22 - dieta enteral e suplemento Complexo e unidades (nov/22)', valor2025: 78780.34, valor2026: 83000.00 },
+            { categoria: 'Pró-fórmula quimioterapia - Proc 224/19 - Manipulação medicamentos Oncológicos (jul/19)', valor2025: 54887.18, valor2026: 0 },
+            { categoria: 'Novo processo de Manipulação Oncológicos - Proc 361/25', valor2025: 60000.00, valor2026: 100000.00 },
+            { categoria: 'Medicamental - Fornecimento de Fraldas -Proc 199/25', valor2025: 143677.43, valor2026: 154540.54 },
+            { categoria: 'Fornecimento de mantas térmicas Proc 79A/25', valor2025: 10748.75, valor2026: 10865.00 },
+            { categoria: 'Outros Materiais de Consumo', valor2025: 78659.40, valor2026: 125000.00 },
+            { categoria: 'Material de consumo pontual', valor2025: 54618.40, valor2026: 70000.00 },
+            { categoria: '13A Informática - Proc 24/24 - Fornecimento de sulfite (fev/25)', valor2025: 51158.40, valor2026: 55000.00 },
+            { categoria: 'Multipaper - Proc 361/19 - Fornecimento sulfite (out/19)', valor2025: 32700.00, valor2026: 0 },
+            { categoria: 'Gênero Alimentícios', valor2025: 4971.04, valor2026: 5000.00 },
+            { categoria: 'DC Infinity - Proc 670/21 - Fornecimento galões de agua (dez/21)', valor2025: 4971.04, valor2026: 5000.00 },
+            { categoria: 'SERVIÇOS DE TERCEIROS', valor2025: 19270730.55, valor2026: 23568510.69 },
+            { categoria: 'Manutenção e Reformas', valor2025: 1305975.09, valor2026: 1301434.22 },
+            { categoria: 'Castelmar - Proc 102/25 - Pontual para manutenção rede telefonia 4º andar', valor2025: 7185.00, valor2026: 0 },
+            { categoria: 'Crel elevadores - Proc 530/23 - Manutenção elevadores Complexo ( jan/24)', valor2025: 9692.96, valor2026: 10194.09 },
+            { categoria: 'Clarissa Prates Ferreira - Proc 459/24 - manutenção de tablet c/ peças ( set/24)', valor2025: 4180.00, valor2026: 3000.00 },
+            { categoria: 'Hertz - Proc 32/23 - Manutenção elevadores c/ peças Complexo e unidades ( jun/23)', valor2025: 10890.33, valor2026: 7964.00 },
+            { categoria: 'Kimens Equipamentos - Proc 125/20 - Manutenção equip. odontológicos c/ peças ( jun/20)', valor2025: 15095.83, valor2026: 15763.09 },
+            { categoria: 'SSD Comercio - Proc 16/23 - Manutenção corretiva e preventiva ar condicionado c/ peças ( jun/23)', valor2025: 13965.00, valor2026: 13965.00 },
+            { categoria: 'SSD Comércio - Proc 204/25 C- Manutenção corretiva e preventiva ar condicionado c/ peças - emergencial subst Proc 16/23 ini 26/05/25', valor2025: 35000.00, valor2026: 62050.30 },
+            { categoria: 'SSD Comercio - Proc 006/25 - Manutenção corretiva e preventiva ar condicionado - pontual', valor2025: 40616.67, valor2026: 0 },
+            { categoria: 'SSD Comercio - Proc 76/25 - Manutenção corretiva camara mortuaria pontual - pontual', valor2025: 1500.00, valor2026: 0 },
+            { categoria: 'Spell Comércio - Proc 16/23 - Manutenção corretiva e preventiva ar condicionado c/ peças ( jun/23) - recindido - SSD assumiu', valor2025: 48869.35, valor2026: 0 },
+            { categoria: 'Verzani - Proc 56/21 - Manutenção Predial e equipamentos (mar/22)', valor2025: 1187949.63, valor2026: 1180197.74 },
+            { categoria: 'Kimens Equipamentos - Proc 143/24 - Manutenção equip. prev e corret. com back up ( abr/24)', valor2025: 8300.00, valor2026: 8300.00 },
+            { categoria: 'Manutenção de guilhotina - Proc 65/25 - pontual abril', valor2025: 1000.00, valor2026: 0 },
+            { categoria: 'CALIBRACAO DE TERMO-HIGROMETRO - Proc 250/25', valor2025: 3360.00, valor2026: 0 },
+            { categoria: 'Reforma Trailer - Proc 295/25 Arcotec Com. E Desenvol. Eireli - Pontual', valor2025: 0, valor2026: 0 },
+            { categoria: 'Serviços Médicos Terceirizados', valor2025: 7050002.88, valor2026: 8665085.19 },
+            { categoria: '6R Cirurgiões Associados - Proc 080/22 - Serviços Médicos Cirurgia Geral (jun/22)', valor2025: 407433.00, valor2026: 417880.00 },
+            { categoria: 'Azul Saúde - Proc 067/23 - Serviços Médico Oftalmologia - (dez/23)', valor2025: 665871.78, valor2026: 668020.47 },
+            { categoria: 'C.A.P - Proc 421/23 - Serviços Médicos Anestesiologia (out/23)', valor2025: 513500.00, valor2026: 0 },
+            { categoria: 'Cert Serviços Médicos - Proc 681/21 - Serviços Médicos Nefrologia ( dez/21)', valor2025: 174478.43, valor2026: 184395.00 },
+            { categoria: 'Clinica Médica e Endoscopia AES - Proc 425/23 - Serviço de endoscopia adulto e infantil ( abr/24)', valor2025: 388394.77, valor2026: 350000.00 },
+            { categoria: 'Clinica Médica de Oxigenoterapia hiperbarica - Proc 347/19 - Encerrou - substituido por ABC PRIME', valor2025: 9450.00, valor2026: 0 },
+            { categoria: 'Elite - Serviços Médicos em Pediatria Proc 291/25 - Inicio em 11/09/25 - substitui credenciamento', valor2025: 554099.33, valor2026: 755590.00 },
+            { categoria: 'Flavio Tsuyoshi Yamagutti - Proc 405/24 - Diagnóstico em exames liquóricos p/ Complexo e unidades (ago/24)', valor2025: 23508.33, valor2026: 23900.00 },
+            { categoria: 'Gestão Médica Inteligente - Proc 216/22 - Telemedicina mod.teleatendimento c/ auxilio prof in loco (jul/22)', valor2025: 179752.00, valor2026: 0 },
+            { categoria: 'Gomide e Moura - Proc 259/19 - Serviços Médicos Obstetrícia e Ginecologia (set/19) - FINALIZOU EM 03/09/25', valor2025: 239556.99, valor2026: 0 },
+            { categoria: 'Leald - Proc 203/25 - especialidades médicas - substitui telemedicina proc 216/22 - inicia 16/06/25 - emergencial', valor2025: 302455.75, valor2026: 391851.25 },
+            { categoria: 'MAISAÚDE - SERVICOS DE FISIOTERAPIA E ASSISTENCIA SOCIAL PROC 355/25 12 MESES INICIO NOVEMBRO', valor2025: 95600.00, valor2026: 191200.00 },
+            { categoria: 'Medicar Emergência - Proc 569/22 - Serviços médicos hosp. Movel de Urg e emerg, 156 SOS (set/23)', valor2025: 240155.25, valor2026: 238354.79 },
+            { categoria: 'MED SOLUTIONS - SERVICOS DE REGULACAO (NIR) PROC 339/25 - 15/10/25', valor2025: 72656.25, valor2026: 116250.00 },
+            { categoria: 'Presente Saúde - Proc 085/23 - Serviços Médicos de ortopedia Complexos e Hosp. De emergencias ( jul/23)', valor2025: 446958.33, valor2026: 446958.33 },
+            { categoria: 'P&V Serviços e Médicos - Proc 528/22 - Serviços Médicos em neonatologia ( jun/23)', valor2025: 179405.63, valor2026: 185792.50 },
+            { categoria: 'P&V Serviços e Médicos - Proc 110/25 - Serviços Médicos em Anestesiologia - emergencial substitui 421/23 C.A.P', valor2025: 462313.20, valor2026: 546800.00 },
+            { categoria: 'SMPV - Proc 329/24 - Serviços médicos UTI e Enfermaria Complexo e Sabin ( jul/24)', valor2025: 506735.00, valor2026: 0 },
+            { categoria: 'SMPV - Proc 90/25 - Serviços médicos UTI - Substitui processo 329/24 -', valor2025: 292475.00, valor2026: 370000.00 },
+            { categoria: 'SMPV - Proc 91/25 - Serviços médicos Enfermaria Complexo - Substitui processo 329/24 -', valor2025: 422827.50, valor2026: 532000.00 },
+            { categoria: 'SMPV - Proc 369/24 - Serviços médicos UTI Pediatrica Complexo ( jan/25)', valor2025: 172751.67, valor2026: 173360.00 },
+            { categoria: 'TK Gestão Médica LTDA - Proc 323/22 - Cirurgia Vascular ( jan/23)', valor2025: 112721.91, valor2026: 115652.00 },
+            { categoria: 'Takegawa e Kodama - Proc 343/23 - Nasofibrolaringoscopia (out/23)', valor2025: 14547.00, valor2026: 18720.00 },
+            { categoria: 'Credenciamento -Dermaortop Clinica dermato e ortopedia - Proc 08/23 -Serviços médicos de dermatologia ( jun/23)', valor2025: 49389.17, valor2026: 48000.00 },
+            { categoria: 'Credenciamento -Clinica Radiológica Radiocran - Proc 481/23 - Realização RX panorâmica Centro Odonto ( dez/23)', valor2025: 6082.67, valor2026: 6400.00 },
+            { categoria: 'Credenciamento - Cortex Neurologia Diagnóstico - Proc 073/24 - Exames diagnótico em neurologia (fev/24)', valor2025: 5422.50, valor2026: 6345.00 },
+            { categoria: 'Credenciamento - APAE - Proc 073/24 - Exames diagnótico em neurologia (maio/24)', valor2025: 22354.60, valor2026: 23000.00 },
+            { categoria: 'Credenciamento -Ribeiro e Maia - Proc 073/24 - Exames diagnótico em neurologia (fev/25)', valor2025: 13130.89, valor2026: 16000.00 },
+            { categoria: 'Credenciamento - Proc 207/24 - Serviços Médicos de Pediatria p/complexo e UPA ( abr/24)', valor2025: 710874.89, valor2026: 0 },
+            { categoria: 'Credenciamento - Proc 406/24 -Lera Serviços Médicos Ltda - Serviços Médicos em Oncologia (', valor2025: 23078.46, valor2026: 40000.00 },
+            { categoria: 'Credenciamento - Proc 452/24 - Serviços Médicos de Psiquiatria p/ Albert Sabin( ?)', valor2025: 11516.94, valor2026: 15000.00 },
+            { categoria: 'Credenciamento - Proc 435/24 - Empresas Serviços Médicos em enfermaria Clinica Médica Sabin e UPA ( set/24)', valor2025: 188076.07, valor2026: 180000.00 },
+            { categoria: 'Credenciamento - Proc 244/24 - Empresas para plantão Albert Sabin e UPA ( maio/24)', valor2025: 1168761.27, valor2026: 1100000.00 },
+            { categoria: 'Credenciamento - Proc 153/25 - Empresa medica de Infectologista - Leal Saúde e Ciência - inicio 19/05/25', valor2025: 18973.37, valor2026: 0 },
+            { categoria: 'ELITE - Serviços Médicos em obstetricia e ginecologia - Proc 292/25 - INICIO 03/09/25 - Substitui 259/19 Gomide', valor2025: 253251.67, valor2026: 323300.00 },
+            { categoria: 'Novo processo de Serviços em Psiquiatria - Proc 304/25', valor2025: 0, valor2026: 0 },
+            { categoria: 'RCL - Proc 358/25- Fornecimento material ortopédico em consignação, c/ instrumentadores', valor2025: 221991.04, valor2026: 443982.08 },
+            { categoria: 'Serviço de anestesiologia - Proc 338/25', valor2025: 0, valor2026: 0 },
+            { categoria: 'Telemedicina', valor2025: 0, valor2026: 165000.00 },
+            { categoria: 'Serviço de infecto', valor2025: 0, valor2026: 40000.00 },
+            { categoria: 'Serviço de Lavanderia - Proc 340/25', valor2025: 0, valor2026: 0 },
+            { categoria: 'Serviço de triagem neonatal ampliada - teste do pezinho Proc 296/25', valor2025: 0, valor2026: 8641.66 },
+            { categoria: 'Serviço de Hemodinamica Proc 307/25', valor2025: 0, valor2026: 377621.66 },
+            { categoria: 'Residencia terapeutica Proc', valor2025: 0, valor2026: 145070.45 },
+            { categoria: 'Novo processo de Serviços em Psiquiatria - Proc 304/25', valor2025: 0, valor2026: 0 },
+            { categoria: 'Outros Serviços de Terceiros', valor2025: 9907665.93, valor2026: 12136163.71 },
+            { categoria: 'AGEIS CME - Proc 215/23 - gestão org., adm informatizada e ger. CME (ago/23)', valor2025: 498930.00, valor2026: 548823.00 },
+            { categoria: 'ABLER - Proc 165/25 - sistema do RH recrutamento e seleção', valor2025: 1825.33, valor2026: 1767.00 },
+            { categoria: 'ABC PRIME - Proc 21/2024 - serviço de oxigenoterapia hiperbárica ( jan/25)', valor2025: 11475.77, valor2026: 15443.75 },
+            { categoria: 'Arquivei - Proc 497/17 - Gerenciamento notas fiscais digitais', valor2025: 686.34, valor2026: 724.88 },
+            { categoria: 'Asservo - CAPS - Manutenção predial Proc 002/25 - sub-rogado', valor2025: 25803.92, valor2026: 27001.57 },
+            { categoria: 'Asservo - CAPS -Serviço de limpeza Proc 004/25 - sub-rogado', valor2025: 24226.49, valor2026: 0 },
+            { categoria: 'Bastos - Proc 203/22 - Desenvolvimento de sistema e/ou aplicativos suporte e manu.evolutiva e corretiva (jun/22)', valor2025: 11065.14, valor2026: 0 },
+            { categoria: 'Bastos - Proc 236/25 - Desenvolvimento de sistema e/ou aplicativos suporte e manu.evolutiva e corretiva (09/06/25) substitui proc203/22', valor2025: 19749.08, valor2026: 25350.00 },
+            { categoria: 'Bellator - Proc 518/19 - vigilância armada centro de distribuição + farm. De alto custo (mar/20)', valor2025: 46702.78, valor2026: 0 },
+            { categoria: 'B.F.A Medicina e Segurança do trabalho -Proc 527/23 - Medicina do trabalho (out/24)', valor2025: 19362.00, valor2026: 19362.00 },
+            { categoria: 'Biomega - Proc 11/24 - Serviço diagnóstico em laboratório clinico (abr/24)', valor2025: 1662757.45, valor2026: 1636616.60 },
+            { categoria: 'Bionexo - Proc 471/19 - portal de compras (set/21)', valor2025: 1616.15, valor2026: 1699.70 },
+            { categoria: 'BK Portaria - Proc 381/25 - emergencial substitui Guarded 317/22', valor2025: 553045.19, valor2026: 816660.00 },
+            { categoria: 'B.M.F Residuos - Proc 030/24 - Coleta de residuos (mar/24)', valor2025: 924.24, valor2026: 1044.00 },
+            { categoria: 'Boston Scientific do Brasil - Proc 063/25 - Locação e monitoramento marca passo', valor2025: 1910.00, valor2026: 0 },
+            { categoria: 'Castelmar - Proc 577/22 - Serviços de informática, configuração, manutenção (mar/23)', valor2025: 12253.08, valor2026: 12000.00 },
+            { categoria: 'CDZ Tecnologia - Proc 089/24 - Licença plataforma off label pesq. E auditorias Complexo ( maio/24) encerrou em 26/03', valor2025: 20333.33, valor2026: 0 },
+            { categoria: 'Cekão - Proc 224/24 - Locação, lavagem, e higienização toalhas Escola Pet (maio/24)', valor2025: 898.00, valor2026: 0 },
+            { categoria: 'Clinica Cardiológica Dr. Julio Abdala - Proc 074/24 - Exames cardiológico (mar/24)', valor2025: 379631.62, valor2026: 390000.00 },
+            { categoria: 'Desintec Controle Ambiental - Proc 574/22 - Controle de pragase Vetores, desinset., desratiz. (mar/23) FINALIZOU EM 15/08/25', valor2025: 9778.43, valor2026: 0 },
+            { categoria: 'DTO Sistema - Proc 324/23 - Sistema p/ dados clinicos, indicadores de gestão populacional ( out/23) encerrou fev/25', valor2025: 0, valor2026: 0 },
+            { categoria: 'El. Diagnóstico - Proc 775/20 - RADIOLOGIA, TOMOGRAFIA, RESSONANCIA, BIÓPSIA GUIADA,SEDAÇÃO, RADIOSCOPIA C.C (dez/20)', valor2025: 2026323.61, valor2026: 2170000.00 },
+            { categoria: 'El. Diagnóstico - Proc 282/23 - ULTRASSONOGRAFIA COM DISPONIBILIZAÇÃO DE CARRETA MÓVEL (SET/23)', valor2025: 942269.07, valor2026: 930000.00 },
+            { categoria: 'Renan Santiago Pacheco Entregas - Proc 205C/25 - Serviços de motoboy - inicio 04/06/25 emergencial', valor2025: 15225.00, valor2026: 17400.00 },
+            { categoria: 'Fundação do ABC - FMABC - Proc 134/20 - Análise de exames COVID Complexo e unidades ( mar/20)', valor2025: 113.67, valor2026: 0 },
+            { categoria: 'Fundação do ABC - FMABC - Proc 073/24 - Análise de exames diagnóstico em Neurologia ( mar/23)', valor2025: 43265.00, valor2026: 53821.00 },
+            { categoria: 'Fundação do ABC - FMABC - Proc 408/19 - Análise patológico - cancelado substituido pelo 22/24', valor2025: 0, valor2026: 0 },
+            { categoria: 'Fundação do ABC - FMABC - Proc 22/24 - Análise Anatopatológico e Citopatologia (out/24)', valor2025: 59702.08, valor2026: 59582.03 },
+            { categoria: 'Gabriel Genaro da Silva - Proc 020/24 - Confecção, conserto e manut. Proteses dentárias e aparelhos ortodonticos (dez/24)', valor2025: 56821.76, valor2026: 101951.50 },
+            { categoria: 'Greem Paper Free - Proc 10/24 - Serviço de sistema de cartório digital (mar/24)', valor2025: 15746.29, valor2026: 11620.00 },
+            { categoria: 'Guarded Place - Proc 317/22 - Vigilância não armada complexo e unidades (dez/22)', valor2025: 660888.86, valor2026: 0 },
+            { categoria: 'Guima - Proc 499/19 - Limpeza Hospitalar - (nov/19) - encerrado em 31/03/25', valor2025: 1535081.37, valor2026: 0 },
+            { categoria: 'Guima - Proc 28/24 - Limpeza Hospitalar - (abr/25) - substitui 499/19', valor2025: 1563099.16, valor2026: 1980858.14 },
+            { categoria: 'Enge Radios - Proc 407/22 - Sistema de monitoramento video e alarmes c/equip. (nov/22)', valor2025: 93109.36, valor2026: 70000.00 },
+            { categoria: 'Interact - Proc 297/25 - Sistema Gestão de auditoria - INTERACT', valor2025: 5262.00, valor2026: 3767.00 },
+            { categoria: 'Lavsim - Proc 471/22 - Fornecimento de enxoval Complexo e unidades (jun/23)', valor2025: 273048.59, valor2026: 0 },
+            { categoria: 'Metta - CAPS - Serviço de portaria - Proc 001/25', valor2025: 9900.00, valor2026: 0 },
+            { categoria: 'MV - Proc 119/22 - Implantação MV SIGSS, gestão, qualidade, BI, painel indicadores (maio/22)', valor2025: 195041.25, valor2026: 189901.25 },
+            { categoria: 'Moxano - Proc 111/23 - Engenharia Clinica, assessoria, consultoria e gerenciamento pq. Equip. (nov/23)', valor2025: 260000.00, valor2026: 266500.00 },
+            { categoria: 'Nuclemed - Proc 078/20 - Exames cintilografia (mar/20)', valor2025: 6760.97, valor2026: 0 },
+            { categoria: 'Nuclemed - Proc 33/25 - Exames de cintilografia - substitui proc 078/20 - 12 meses', valor2025: 10991.47, valor2026: 13857.47 },
+            { categoria: 'Oriovaldo Delfino - Proc 341/19 - Confecção, conceto e/ou manutenção de próteses dentaria e ap. ortodonticos ( jul/19) cancelado', valor2025: 18560.00, valor2026: 0 },
+            { categoria: 'Pernambucana Desentupidora e Dedetizadora - Proc 79/22 - Limpeza cx d\'agua c/laudo (mar/22)', valor2025: 8622.08, valor2026: 8243.28 },
+            { categoria: 'Pittioni e Parra Gestão em Saúde - Proc 400/24 - Acreditação e manunteção ONA ( out/24)', valor2025: 7464.12, valor2026: 8164.13 },
+            { categoria: 'Pluri Radio - Proc 481/23 - RX Panoramica p/ centro odontológico ( dez/23)', valor2025: 5680.00, valor2026: 6400.00 },
+            { categoria: 'Porto Seguro - Proc 630/17 - Seguro contra incêndio p/ centro de distribuição mat e med (nov/17)', valor2025: 11017.25, valor2026: 0 },
+            { categoria: 'R.A Assessoria Contábil - Proc 591/24 - lançamento reclamatórias trabalhistas no e-social (dez/24)', valor2025: 1202.39, valor2026: 490.00 },
+            { categoria: 'SCS Saude ambiental - Proc 308,25 - controle de pragas - substitui Desintec - Inicio 05/09/25', valor2025: 4956.81, valor2026: 9913.62 },
+            { categoria: 'Soberana - Proc 838/20 - Fornecimento nutrição e alimentação ( ago/21) Complexo e unidades', valor2025: 580767.17, valor2026: 0 },
+            { categoria: 'Soberana - CAPS - alimentação - Proc 003/25 emegencial', valor2025: 9070.62, valor2026: 0 },
+            { categoria: 'Soluti Soluções - Proc 126/23 - emissão e renovação certificado digital ( set/23)', valor2025: 9174.00, valor2026: 9174.00 },
+            { categoria: 'Total Clean - Fornecimento de enxoval - Proc 200/25 - inicio 02/06/25 - substitui 471/22 - emergencial', valor2025: 332168.72, valor2026: 385000.00 },
+            { categoria: 'Tradinworks - Proc 438/19 - Ponto eletrônico ( out/19)', valor2025: 12461.47, valor2026: 12500.00 },
+            { categoria: 'Unidade Odonto Radiologia - Proc 481/23 - RX panoramica p/ centro odontológico (dez/23)', valor2025: 6421.33, valor2026: 6400.00 },
+            { categoria: 'Vam - refeições e eventos Eireli - Proc 353/25 - INICIO 04/09/25 - emergencial subst soberana 838/20 e 003/25 - emergencial', valor2025: 564335.42, valor2026: 767247.34 },
+            { categoria: 'Volatile - Proc 216/24 - Reconhecimento facial e geolocalização ( maio/24)', valor2025: 2394.58, valor2026: 2435.00 },
+            { categoria: 'White - Proc 504/19 - Gases medicinais (dez/19) (medicamento, manutenção e locação)', valor2025: 37092.00, valor2026: 3717.86 },
+            { categoria: 'Zuki - Proc 60/23 - engenharia de segurança do trabalho aos funcionários (jun/23) finalizado em 14/09/25', valor2025: 16651.68, valor2026: 0 },
+            { categoria: 'Serviço pontual - Proc 164/25 - sistema manchester - parcela única', valor2025: 32540.00, valor2026: 0 },
+            { categoria: 'RC Serviços Segurança - Serviço de vigilancia armada centro de distribuição e farmacia de alto custo Proc 108/25 substitui Bellator', valor2025: 59430.00, valor2026: 84900.00 },
+            { categoria: 'Mapeametno do processo de gestão de auditoria Proc 103/25 - CANCELADO', valor2025: 0, valor2026: 0 },
+            { categoria: 'Locação de imóveis', valor2025: 78760.54, valor2026: 96173.03 },
+            { categoria: 'Mario Luciano - Proc 667/20 - imóvel p/ centro de distribuição de mat e med. (out/20)', valor2025: 20516.89, valor2026: 21577.61 },
+            { categoria: 'Soc. Imobiliaria Cinerama -Proc 015/24 - Imóvel Casa da Gestante ( jan/25) substitui 620/19', valor2025: 13432.46, valor2026: 13195.07 },
+            { categoria: 'Via Barcelona - Proc 613/21 - locação de espaço para armazenamento e guarda de documentos, móveis e equipamentos (nov/21)', valor2025: 36433.83, valor2026: 41750.00 },
+            { categoria: 'Locação novo prédio administração - Proc 306/25', valor2025: 20105.66, valor2026: 19650.35 },
+            { categoria: 'Locação de Diversas', valor2025: 928326.11, valor2026: 1369654.54 },
+            { categoria: 'Air liquide - Proc 498/22 - fornecimento gás medicinal (mar/23) (medicamento) domiciliar', valor2025: 24053.35, valor2026: 31000.00 },
+            { categoria: 'Air liquide - Proc 525/19 - locação c/ manut. Equip.central geradora de vácuo clinico (nov/19)', valor2025: 9758.24, valor2026: 10672.83 },
+            { categoria: 'Air liquide - Proc 526/19 - locação c/ manut. Equip.central geradora de ar comprimido (nov/19)', valor2025: 12938.17, valor2026: 15108.29 },
+            { categoria: 'Castelmar - Proc 315/23 - locação notebooks e demais equipamentos de informática ( mar/24)', valor2025: 13775.00, valor2026: 13775.00 },
+            { categoria: 'Castelmar - Proc 017/24 - locação impressoras multifuncional c/manutenção prev. E corre. (dez/24) complexo e unidades', valor2025: 2240.00, valor2026: 4740.00 },
+            { categoria: 'Castelmar - Proc 132/24 - locação impressoras multifuncional c/manutenção prev. E corre. p/ telemedicina at. Primaria (mar/24) cancelado', valor2025: 960.00, valor2026: 0 },
+            { categoria: 'First Medical - Proc 816/20 - locação equip. Alta Complexidade (dez/20)', valor2025: 764262.25, valor2026: 777812.06 },
+            { categoria: 'First Medical - Proc 291/24 - locação equip. c/manutenção prev e corret. c/incorporação patrimonio (dez/20)', valor2025: 71245.20, valor2026: 469000.00 },
+            { categoria: 'IBG Industria Brasileira - Proc 316/19 - Locação cilindros (temos contrato ainda?)', valor2025: 595.00, valor2026: 0 },
+            { categoria: 'Lumiar Health Bullders - Proc 260/21 - Locação suporte de ventilatório p/ pacientes domiciliar ( maio/21)Processo cancelado', valor2025: 1000.00, valor2026: 0 },
+            { categoria: 'Lumiar Health Bullders - Proc 669/21 - Locação CPAP paciente Paulo Correia encerrado em nov/24', valor2025: 302.44, valor2026: 0 },
+            { categoria: 'Movilog Serv Com. E Man. De Empilhadeiras - Proc 356/25 - Substitui Rentalmak Proc 276/19', valor2025: 1842.00, valor2026: 3700.00 },
+            { categoria: 'Rentalmak Comércio - Proc 276/19 - locação de empilhadeira (jun/19)', valor2025: 2900.00, valor2026: 0 },
+            { categoria: 'Sinall Comércio - Proc 141/22 - locação impressoras multifunional e de etiquetas zebrada Complexo e unidades (jun/22)', valor2025: 4549.56, valor2026: 4312.00 },
+            { categoria: 'PRIOM - Proc 436/22 - locação suporte ventilatório prog. Oxigenoterapia domiciliar (out/22)', valor2025: 8778.56, valor2026: 11050.00 },
+            { categoria: 'Total PTA Locações - Proc 409/22 - locação container escritório prog saúde animal ( out/22)', valor2025: 1243.51, valor2026: 956.84 },
+            { categoria: 'Teclabel Soluções - Proc 378/23 - locação ou comodato impressoras com suprimentos ( nov/24)', valor2025: 17339.64, valor2026: 21674.55 },
+            { categoria: 'D.W Comer. E Serv. - Proc 334/23 - locação e manutenção 09 totens p/senha (nov/23)', valor2025: 5852.97, valor2026: 5852.97 },
+            { categoria: 'INVESTIMENTOS', valor2025: 83882.01, valor2026: 203082.50 },
+            { categoria: 'Bens e Materiais Permanentes', valor2025: 13417.73, valor2026: 0 },
+            { categoria: 'AQUISICAO EMERGENCIAL MOBILIARIO - MESA/ ARMARIO/ GAVETEIRO/ CADEIRA - PROC 624/24', valor2025: 64906.00, valor2026: 0 },
+            { categoria: 'AQUISICAO EMERGENCIAL MOBILIARIO - CADEIRA DE REFEITORIO - PROC 633/24', valor2025: 1225.00, valor2026: 0 },
+            { categoria: 'AQUISICAO MATERIAL E MOBILIARIO - ESTANTE/ BINS - PROC 634/24', valor2025: 942.40, valor2026: 0 },
+            { categoria: 'AQUISICAO EQUIPAMENTO - CARRINHO TRANSPORTE DE CARGA MANUAL - Proc 56/25 -', valor2025: 412.00, valor2026: 0 },
+            { categoria: 'AQUISICAO DE EQUIPAMENTO - VENTILADOR (PAREDE E COLUNA) - Proc 78/25 -', valor2025: 7415.00, valor2026: 0 },
+            { categoria: 'AQUISICAO DE EQUIPAMENTO - MICROONDAS Proc 321/25', valor2025: 1979.70, valor2026: 0 },
+            { categoria: 'AQUISICAO DE EQUIPAMENTO - MINI INCUBADORA Proc 323/25', valor2025: 1030.80, valor2026: 0 },
+            { categoria: 'AQUISICAO DE EQUIPAMENTO - LASER ODONTOLOGICO Proc 324/25', valor2025: 4352.42, valor2026: 0 },
+            { categoria: 'AQUISICAO DE MOBILIARIO - FAST TRACK - Proc 303/25', valor2025: 316.60, valor2026: 0 },
+            { categoria: 'Residência Médica', valor2025: 0, valor2026: 0 },
+            { categoria: 'FMABC', valor2025: 0, valor2026: 0 },
+            { categoria: 'Despesas Acadêmicas', valor2025: 0, valor2026: 0 },
+            { categoria: 'Construção e Ampliação', valor2025: 70464.29, valor2026: 203082.50 },
+            { categoria: 'Flexdrill - Proc 267/24 - obra desvio coletor tronco de esgoto', valor2025: 0, valor2026: 0 },
+            { categoria: 'CONTRATACAO EMERGENCIAL CONCLUSAO OBRAS PARA UBS - PROC 430/24', valor2025: 387691.43, valor2026: 0 },
+            { categoria: 'Premier - Serviço de Adequação cozinha/refeitório - Proc 354/25 - verba especifica FUABC', valor2025: 228940.00, valor2026: 0 },
+            { categoria: 'Castelmar - Proc 396/25 - Pontual para manutenção rede telefonia prédio novo adm -verba FUABC', valor2025: 22500.00, valor2026: 0 },
+            { categoria: 'Gesso Plenolar - Proc 398/25 - Serviço pontual prédio novo adm', valor2025: 20525.00, valor2026: 0 },
+            { categoria: 'Adequação Pronto Cardio Geral e Cabine primária', valor2025: 0, valor2026: 609247.50 },
+            { categoria: 'OUTROS GASTOS', valor2025: 114709.55, valor2026: 124262.02 },
+            { categoria: 'Combustível', valor2025: 0, valor2026: 0 },
+            { categoria: 'Utilidades, Energia , Água , coleta de lixo e internet', valor2025: 8691.57, valor2026: 7762.02 },
+            { categoria: 'Utilidade - Mario Luciano - Proc 667/20 - imóvel p/ centro de distribuição de mat e med. (out/20)', valor2025: 3183.42, valor2026: 2200.00 },
+            { categoria: 'Utilidade - Soc. Imobiliaria Cinerama -Proc 15/24 - Imóvel Casa da Gestante ( jan/20)', valor2025: 834.07, valor2026: 500.00 },
+            { categoria: 'Claro S.A - Proc 373/2019 - fornecimento de linha telefonica p/ Projeto Remédio em Casa (Jul/19)', valor2025: 490.00, valor2026: 152.00 },
+            { categoria: 'Locaweb - Proc 603/19 - E-mail Fundação do ABC ( jan/19 )', valor2025: 246.79, valor2026: 80.13 },
+            { categoria: 'Vivo -Proc 136/19 - Telefonia e internet CD - (jan/19)', valor2025: 332.67, valor2026: 366.78 },
+            { categoria: 'Vivo - Proc 534/19 - Internet link dedicado núcleo (jan/19)', valor2025: 1026.51, valor2026: 1075.11 },
+            { categoria: 'Vivo - Proc 601/19 - Telefone fixo Núcleo ( jan/19)', valor2025: 2326.66, valor2026: 2500.00 },
+            { categoria: 'Utilidade - Locação novo prédio administração - Proc 306/25', valor2025: 603.49, valor2026: 888.00 },
+            { categoria: 'Despesas financeiras e bancárias', valor2025: 428.08, valor2026: 500.00 },
+            { categoria: 'Despesas bancárias', valor2025: 428.08, valor2026: 500.00 },
+            { categoria: 'Outras despesas', valor2025: 6686.85, valor2026: 11000.00 },
+            { categoria: 'Diversos', valor2025: 6726.39, valor2026: 10000.00 },
+            { categoria: 'Caixa pequeno', valor2025: 520.99, valor2026: 1000.00 },
+            { categoria: 'Despesas de Rateio', valor2025: 91905.24, valor2026: 95000.00 },
+            { categoria: 'Nota de débito', valor2025: 91905.24, valor2026: 95000.00 },
+            { categoria: 'Apoio Técnico', valor2025: 0, valor2026: 0 },
+            { categoria: 'Custas Processos Judiciais', valor2025: 6997.81, valor2026: 10000.00 },
+            { categoria: 'Custas Processos Judiciais', valor2025: 6997.81, valor2026: 10000.00 },
+            { categoria: 'Despesas Administrativas', valor2025: 0, valor2026: 0 },
+            { categoria: 'TOTAL DE DESPESAS', valor2025: 38991346.13, valor2026: 44172200.73 }
         ];
 
-        var anoSelecionado = '2025'; // Variável global para o ano selecionado
-
-        // Função para formatar valores como moeda BRL
+        // --- Funções JavaScript ---
         function formatarMoeda(valor) {
             return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(valor || 0);
         }
 
-        // Função para calcular variação e retornar classe CSS
         function calcularVariacao(v2025, v2026) {
             var variacao = v2026 - v2025;
             var classe = variacao >= 0 ? 'variacao-positiva' : 'variacao-negativa';
             return { variacao: variacao, classe: classe };
         }
 
-        // Função para abrir abas
         function abrirAba(event, nome) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
             document.getElementById(nome).classList.add('active');
             event.currentTarget.classList.add('active');
             
-            // Preenche o conteúdo da aba ativa
-            if (nome === 'resumo') {
-                preencherResumo(anoSelecionado);
-            } else if (nome === 'novos-servicos') {
-                preencherNovosServicos();
-            } else if (nome === 'sesaud-detalhado') {
-                preencherSESAUDDetalhado();
-            } else if (nome === 'fuabc-detalhado') {
-                preencherFUABCDetalhado();
-            }
+            // Chamar a função de preenchimento da aba ativa
+            if (nome === 'resumo') preencherResumo(anoSelecionado);
+            else if (nome === 'novos-servicos') preencherNovosServicos();
+            else if (nome === 'sesaud-detalhado') preencherSESAUDDetalhado();
+            else if (nome === 'fuabc-detalhado') preencherFUABCDetalhado();
         }
 
-        // Função para preencher a aba Resumo Geral
         function preencherResumo(ano) {
             var titulo = ano === '2025' ? '2025 - MÉDIA DE EXECUÇÃO - JAN A OUT' : '2026 - PROJEÇÃO';
             var fuabcTotal = ano === '2025' ? 38991346.13 : 44172200.73;
-            var sesaudTotal = 10633666.21; // Valor fixo para SESAUD
-            var geralTotal = (ano === '2025' ? 38991346.13 : 44172200.73) + 10633666.21; // Soma FUABC do ano + SESAUD fixo
+            var sesaudTotal = 10633666.21;
+            var geralTotal = ano === '2025' ? 49625012.34 : 54805867.00;
 
-            var html = '<div class="table-responsive-wrapper"><table><thead><tr><th>ORÇAMENTO</th><th>CUSTO MENSAL FUABC</th><th>CUSTO MENSAL SESAUD</th><th>GERAL</th></tr></thead><tbody><tr><td></td><td colspan="3">' + titulo + '</td></tr>';
+            var html = '<div class="table-responsive-wrapper"><table><thead><tr><th>ORÇAMENTO</th><th>CUSTO MENSAL FUABC</th><th>CUSTO MENSAL SESAUD</th><th>GERAL</th></tr></thead><tbody>';
+            html += '<tr><td></td><td colspan="3">' + titulo + '</td></tr>';
             
-            // Dados para o resumo (valores fixos conforme solicitado)
-            var resumoCategorias = [
-                { nome: 'RECURSOS HUMANOS', fuabc2025: 15519978.93, fuabc2026: 15979374.38, sesaud: 6616449.07 },
-                { nome: 'PROCESSOS TRABALHISTAS', fuabc2025: 81084.03, fuabc2026: 78881.08, sesaud: 1619.20 },
-                { nome: 'MATERIAIS DE CONSUMO', fuabc2025: 3920961.07, fuabc2026: 4218090.06, sesaud: 329615.34 },
-                { nome: 'SERVIÇOS DE TERCEIROS', fuabc2025: 19270730.55, fuabc2026: 23568510.69, sesaud: 3312660.87 },
-                { nome: 'INVESTIMENTOS', fuabc2025: 83882.01, fuabc2026: 203082.50, sesaud: 0 },
-                { nome: 'OUTROS GASTOS', fuabc2025: 114709.55, fuabc2026: 124262.02, sesaud: 326630.03 }
-            ];
+            // Valores agregados para o resumo
+            var rhFuabc = ano === '2025' ? 15519978.93 : 15979374.38;
+            var rhSesa = 6616449.07;
+            var rhGeral = rhFuabc + rhSesa;
 
-            resumoCategorias.forEach(cat => {
-                var fuabcValor = ano === '2025' ? cat.fuabc2025 : cat.fuabc2026;
-                var geralValor = fuabcValor + cat.sesaud;
-                html += '<tr><td>' + cat.nome + '</td><td class="valor-moeda">' + formatarMoeda(fuabcValor) + '</td><td class="valor-moeda">' + formatarMoeda(cat.sesaud) + '</td><td class="valor-moeda">' + formatarMoeda(geralValor) + '</td></tr>';
-            });
+            var ptFuabc = ano === '2025' ? 81084.03 : 78881.08;
+            var ptSesa = 1619.20;
+            var ptGeral = ptFuabc + ptSesa;
 
-            html += '<tr style="background: #ecf0f1; font-weight: bold;"><td>TOTAL DE DESPESAS</td><td class="valor-moeda">' + formatarMoeda(fuabcTotal) + '</td><td class="valor-moeda">' + formatarMoeda(sesaudTotal) + '</td><td class="valor-moeda">' + formatarMoeda(geralTotal) + '</td></tr></tbody></table></div>';
+            var mcFuabc = ano === '2025' ? 3920961.07 : 4218090.06;
+            var mcSesa = 329615.34;
+            var mcGeral = mcFuabc + mcSesa;
+
+            var stFuabc = ano === '2025' ? 19270730.55 : 23568510.69;
+            var stSesa = 3312660.87;
+            var stGeral = stFuabc + stSesa;
+
+            var invFuabc = ano === '2025' ? 83882.01 : 203082.50;
+            var invSesa = 0; // SESAUD CSV mostra 0 para investimentos
+            var invGeral = invFuabc + invSesa;
+
+            var ogFuabc = ano === '2025' ? 114709.55 : 124262.02;
+            var ogSesa = 326630.03;
+            var ogGeral = ogFuabc + ogSesa;
+
+            html += '<tr><td>RECURSOS HUMANOS</td><td class="valor-moeda">' + formatarMoeda(rhFuabc) + '</td><td class="valor-moeda">' + formatarMoeda(rhSesa) + '</td><td class="valor-moeda">' + formatarMoeda(rhGeral) + '</td></tr>';
+            html += '<tr><td>PROCESSOS TRABALHISTAS</td><td class="valor-moeda">' + formatarMoeda(ptFuabc) + '</td><td class="valor-moeda">' + formatarMoeda(ptSesa) + '</td><td class="valor-moeda">' + formatarMoeda(ptGeral) + '</td></tr>';
+            html += '<tr><td>MATERIAIS DE CONSUMO</td><td class="valor-moeda">' + formatarMoeda(mcFuabc) + '</td><td class="valor-moeda">' + formatarMoeda(mcSesa) + '</td><td class="valor-moeda">' + formatarMoeda(mcGeral) + '</td></tr>';
+            html += '<tr><td>SERVIÇOS DE TERCEIROS</td><td class="valor-moeda">' + formatarMoeda(stFuabc) + '</td><td class="valor-moeda">' + formatarMoeda(stSesa) + '</td><td class="valor-moeda">' + formatarMoeda(stGeral) + '</td></tr>';
+            html += '<tr><td>INVESTIMENTOS</td><td class="valor-moeda">' + formatarMoeda(invFuabc) + '</td><td class="valor-moeda">' + formatarMoeda(invSesa) + '</td><td class="valor-moeda">' + formatarMoeda(invGeral) + '</td></tr>';
+            html += '<tr><td>OUTROS GASTOS</td><td class="valor-moeda">' + formatarMoeda(ogFuabc) + '</td><td class="valor-moeda">' + formatarMoeda(ogSesa) + '</td><td class="valor-moeda">' + formatarMoeda(ogGeral) + '</td></tr>';
+            
+            html += '<tr style="background: #ecf0f1; font-weight: bold;"><td>TOTAL DE DESPESAS</td><td class="valor-moeda">' + formatarMoeda(fuabcTotal) + '</td><td class="valor-moeda">' + formatarMoeda(sesaudTotal) + '</td><td class="valor-moeda">' + formatarMoeda(geralTotal) + '</td></tr>';
+            html += '</tbody></table></div>';
             document.getElementById('resumo-conteudo').innerHTML = html;
         }
 
-        // Função para preencher a aba Novos Serviços
         function preencherNovosServicos() {
-            var html = '<div class="servicos-lista"><h4>Novos Serviços 2025/2026</h4><ul><li><span class="servico-nome">Serviço Fisioterapia</span><span class="servico-valor">R$ 0,00</span></li><li><span class="servico-nome">Serviço Regulação</span><span class="servico-valor">R$ 0,00</span></li><li><span class="servico-nome">Telemedicina</span><span class="servico-valor">R$ 0,00</span></li><li><span class="servico-nome">Serviço Hemodinâmica</span><span class="servico-valor">R$ 0,00</span></li><li><span class="servico-nome">Residência Terapêutica</span><span class="servico-valor">R$ 0,00</span></li><li><span class="servico-nome">Adequação Pronto Cardio</span><span class="servico-valor">R$ 0,00</span></li><li><span class="servico-nome">Total Novos Mensal</span><span class="servico-valor">R$ 0,00</span></li><li><span class="servico-nome">Total Geral Novos</span><span class="servico-valor">R$ 0,00</span></li></ul></div>';
+            var html = '<div class="servicos-lista"><h4>Novos Serviços 2025/2026</h4><ul>';
+            html += '<li><span class="servico-nome">Serviço Fisioterapia</span><span class="servico-valor">R$ 0,00</span></li>';
+            html += '<li><span class="servico-nome">Serviço Regulação</span><span class="servico-valor">R$ 0,00</span></li>';
+            html += '<li><span class="servico-nome">Telemedicina</span><span class="servico-valor">R$ 0,00</span></li>';
+            html += '<li><span class="servico-nome">Serviço Hemodinâmica</span><span class="servico-valor">R$ 0,00</span></li>';
+            html += '<li><span class="servico-nome">Residência Terapêutica</span><span class="servico-valor">R$ 0,00</span></li>';
+            html += '<li><span class="servico-nome">Adequação Pronto Cardio</span><span class="servico-valor">R$ 0,00</span></li>';
+            html += '<li><span class="servico-nome">Total Novos Mensal</span><span class="servico-valor">R$ 0,00</span></li>';
+            html += '<li><span class="servico-nome">Total Geral Novos</span><span class="servico-valor">R$ 0,00</span></li>';
+            html += '</ul></div>';
             document.getElementById('novos-servicos-conteudo').innerHTML = html;
         }
 
-        // Função para preencher a aba SESAUD Detalhado
         function preencherSESAUDDetalhado() {
             var html = '<div class="table-responsive-wrapper"><table><thead><tr><th>Categoria</th><th class="valor-moeda">Valor</th></tr></thead><tbody>';
             dadosSESAUD.forEach(linha => {
@@ -416,7 +533,6 @@
             document.getElementById('sesaud-detalhado-conteudo').innerHTML = html;
         }
 
-        // Função para preencher a aba FUABC Detalhado
         function preencherFUABCDetalhado() {
             var html = '<div class="table-responsive-wrapper"><table><thead><tr><th>Categoria</th><th class="valor-moeda">2025</th><th class="valor-moeda">2026</th><th class="valor-moeda">Variação</th></tr></thead><tbody>';
             dadosFUABC.forEach(linha => {
@@ -427,19 +543,18 @@
             document.getElementById('fuabc-detalhado-conteudo').innerHTML = html;
         }
 
-        // Função para mudar o ano (afeta apenas o Resumo Geral)
         function mudarAno(ano) {
             anoSelecionado = ano;
-            // Se a aba de resumo estiver ativa, atualiza-a
-            if (document.getElementById('resumo').classList.contains('active')) {
+            // Apenas o resumo é afetado pelo seletor de ano
+            if (document.querySelector('.tab-content.active').id === 'resumo') {
                 preencherResumo(ano);
             }
         }
 
-        // Inicializa o dashboard ao carregar a página
+        // --- Inicialização ao carregar a página ---
         window.addEventListener('load', function() {
-            preencherResumo('2025'); // Carrega o resumo para 2025 por padrão
-            document.getElementById('seletor-ano').value = '2025'; // Define o seletor para 2025
+            preencherResumo('2025'); // Preenche o resumo inicial para 2025
+            document.getElementById('seletor-ano').value = '2025'; // Garante que o seletor esteja em 2025
         });
     </script>
 </body>
