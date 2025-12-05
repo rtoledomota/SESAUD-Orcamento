@@ -8,7 +8,7 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <style>
-        /* Estilos Gerais */
+        /* Estilos Gerais - Modo Claro Apenas (Sem Dark Mode) */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', sans-serif; background: #f5f6f8; color: #2c3e50; padding: 1.5rem; }
         .container { max-width: 1400px; margin: 0 auto; }
@@ -32,13 +32,19 @@
         .tab-content.active { display: block; }
         h2 { color: #2c3e50; margin-bottom: 1.5rem; font-size: 1.8rem; text-align: center; font-weight: 600; }
 
-        /* Tabelas */
+        /* Cards para Resumo (Como na Foto) */
+        .cards-container { display: flex; justify-content: space-between; gap: 1rem; margin: 1rem 0; flex-wrap: wrap; }
+        .data-card { flex: 1; min-width: 200px; background: #2c3e50; color: white; padding: 1.5rem; border-radius: 8px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .card-label { font-size: 0.8rem; opacity: 0.8; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem; }
+        .card-value { font-size: 1.5rem; font-weight: bold; }
+        .deficit { color: #e74c3c; } /* Para diferença negativa */
+
+        /* Tabelas e Quadros - Headers com Fonte Branca Forçada (Ajuste Ultra-Específico) */
         .table-responsive-wrapper { overflow-x: auto; margin: 1rem 0; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
         table { width: 100%; border-collapse: collapse; background: white; min-width: 600px; }
         
-        /* Headers das Tabelas - Corrigido para branco no fundo escuro */
-        th { padding: 1rem; text-align: left; color: #ffffff !important; font-weight: 600 !important; font-size: 0.9rem; white-space: nowrap; text-transform: uppercase; letter-spacing: 0.5px; }
-        /* Seletores ultra-específicos para garantir a cor branca nos headers (ajuste solicitado) */
+        th { padding: 1rem; text-align: left; color: #ffffff !important; font-weight: 600 !important; font-size: 0.9rem; white-space: nowrap; text-transform: uppercase; letter-spacing: 0.5px; background: #2c3e50 !important; }
+        /* Seletores ultra-específicos para garantir a cor branca nos headers em todas as situações */
         .tab-content table th, .tab-content .table-responsive-wrapper th, .tab-content .table-responsive-wrapper thead th, table th, thead th, .table-responsive-wrapper th, .table-responsive-wrapper thead th, body table th, body thead th, .tab-content th, th { 
             color: #ffffff !important; 
             background: #2c3e50 !important; 
@@ -59,7 +65,7 @@
         .accordion-item td:first-child { padding-left: 2rem; color: #3498db !important; font-weight: 500; }
         .accordion-item td { background: #f0f8ff; color: #2c3e50 !important; }
 
-        /* Variação (FUABC) */
+        /* Variação */
         .variacao-positiva { color: #27ae60; font-weight: bold; }
         .variacao-negativa { color: #e74c3c; font-weight: bold; }
 
@@ -74,8 +80,10 @@
         /* Footer */
         footer { margin-top: 3rem; padding: 1.5rem; text-align: center; color: #7f8c8d; font-size: 0.85rem; background: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
 
-        /* Media Queries para Responsividade */
+        /* Responsividade */
         @media (max-width: 480px) {
+            .cards-container { flex-direction: column; }
+            .data-card { min-width: auto; }
             body { padding: 0.75rem; }
             header h1 { font-size: 1.4rem; }
             .tab-btn { padding: 0.4rem 0.5rem; font-size: 0.6rem; min-width: 60px; }
@@ -146,10 +154,9 @@
     </footer>
 
     <script>
-        // Variável global definida no topo
         var anoSelecionado = '2025';
 
-        // Dados SESAUD exatos do CSV (categorias principais com subitens para accordion)
+        // Dados SESAUD (completo do CSV)
         var dadosSESAUD = [
             { nome: 'ORÇAMENTO', id: 'orcamento', valor: 0, subitens: [] },
             { nome: 'ACOMPANHAMENTO PLANO ORÇAMENTÁRIO', id: 'acompanhamento', valor: 0, subitens: [] },
@@ -230,7 +237,7 @@
                 { label: 'ASS.PROTETORA DOS ANIMAIS - APASCS', valor: 21000.00 },
                 { label: 'ASSOC.PREV.DEPEND.QUIM DIVINA PROVIDENCIA', valor: 40000.00 },
                 { label: 'GRUPO DE AMIGOS SAMARITANOS - G.A.S', valor: 15000.00 },
-                { label: 'INSTITUIÇÃO CLAUDIO AMÃNCIO', valor: 60000.00 },
+                { label: 'INSTITUIÇÃO CLAUDIO AMÂNCIO', valor: 60000.00 },
                 { label: 'REDE FEMININA DE COMBATE AO CÂNCER', valor: 40000.00 },
                 { label: 'SOC BENEFIC.GRUPO DE AMOR A VIDA - GAV', valor: 80000.00 },
                 { label: 'Locação de imóveis', valor: 53091.70 },
@@ -269,7 +276,7 @@
             { nome: 'TOTAL DE DESPESAS', id: 'total', valor: 10633666.21, subitens: [] }
         ];
 
-        // Dados FUABC exatos do CSV (categorias principais com subitens para accordion)
+        // Dados FUABC (completo do CSV)
         var dadosFUABC = [
             { nome: 'ORÇAMENTO', id: 'orcamento', valor2025: 0, valor2026: 0, subitens: [] },
             { nome: 'ACOMPANHAMENTO PLANO ORÇAMENTÁRIO', id: 'acompanhamento', valor2025: 0, valor2026: 0, subitens: [] },
@@ -322,18 +329,19 @@
                 { label: 'Kimens Equipamentos - Proc 143/24 - Manutenção equip. prev e corret. com back up ( abr/24)', valor2025: 8300.00, valor2026: 8300.00 },
                 { label: 'Manutenção de guilhotina - Proc 65/25 - pontual abril', valor2025: 1000.00, valor2026: 0 },
                 { label: 'CALIBRACAO DE TERMO-HIGROMETRO - Proc 250/25', valor2025: 3360.00, valor2026: 0 },
-                { label: 'Serviços Médicos Terceirizados', valor2025: 7050002.88, valor2026: 8665085.19 },
-                { label: '6R Cirurgiões Associados - Proc 080/22 - Serviços Médicos Cirurgia Geral (jun/22)', valor2025: 407433.00, valor2026: 417880.00 },
-                { label: 'Azul Saúde - Proc 067/23 - Serviços Médico Oftalmologia - (dez/23)', valor2025: 665871.78, valor2026: 668020.47 },
-                { label: 'C.A.P - Proc 421/23 - Serviços Médicos Anestesiologia (out/23)', valor2025: 513500.00, valor2026: 0 },
-                { label: 'Cert Serviços Médicos - Proc 681/21 - Serviços Médicos Nefrologia ( dez/21)', valor2025: 174478.43, valor2026: 184395.00 },
-                { label: 'Clinica Médica e Endoscopia AES - Proc 425/23 - Serviço de endoscopia adulto e infantil ( abr/24)', valor2025: 388394.77, valor2026: 350000.00 },
-                { label: 'Clinica Médica de Oxigenoterapia hiperbarica - Proc 347/19 - Encerrou - substituido por ABC PRIME', valor2025: 9450.00, valor2026: 0 },
-                { label: 'Elite - Serviços Médicos em Pediatria Proc 291/25 - Inicio em 11/09/25 - substitui credenciamento', valor2025: 554099.33, valor2026: 755590.00 },
-                { label: 'Flavio Tsuyoshi Yamagutti - Proc 405/24 - Diagnóstico em exames liquóricos p/ Complexo e unidades (ago/24)', valor2025: 23508.33, valor2026: 23900.00 },
-                { label: 'Gestão Médica Inteligente - Proc 216/22 - Telemedicina mod.teleatendimento c/ auxilio prof in loco (jul/22)', valor2025: 179752.00, valor2026: 0 },
-                { label: 'Gomide e Moura - Proc 259/19 - Serviços Médicos Obstetrícia e Ginecologia (set/19) - FINALIZOU EM 03/09/25', valor2025: 239556.99, valor2026: 0 },
-                { label: 'Leald - Proc 203/25 - especialidades médicas - substitui telemedicina proc 216/22 - inicia 16/06/25 - emergencial', valor2025: 302455.75, valor2026: 391851.25 },
+                { label: 'Serviços Médicos Terceirizados', valor2025: 7050002.88, valor2026: 8665085.19, subitens: [
+                    { label: '6R Cirurgiões Associados - Proc 080/22 - Serviços Médicos Cirurgia Geral (jun/22)', valor2025: 407433.00, valor2026: 417880.00 },
+                    { label: 'Azul Saúde - Proc 067/23 - Serviços Médico Oftalmologia - (dez/23)', valor2025: 665871.78, valor2026: 668020.47 },
+                    { label: 'C.A.P - Proc 421/23 - Serviços Médicos Anestesiologia (out/23)', valor2025: 513500.00, valor2026: 0 },
+                    { label: 'Cert Serviços Médicos - Proc 681/21 - Serviços Médicos Nefrologia ( dez/21)', valor2025: 174478.43, valor2026: 184395.00 },
+                    { label: 'Clinica Médica e Endoscopia AES - Proc 425/23 - Serviço de endoscopia adulto e infantil ( abr/24)', valor2025: 388394.77, valor2026: 350000.00 },
+                    { label: 'Clinica Médica de Oxigenoterapia hiperbarica - Proc 347/19 - Encerrou - substituido por ABC PRIME', valor2025: 9450.00, valor2026: 0 },
+                    { label: 'Elite - Serviços Médicos em Pediatria Proc 291/25 - Inicio em 11/09/25 - substitui credenciamento', valor2025: 554099.33, valor2026: 755590.00 },
+                    { label: 'Flavio Tsuyoshi Yamagutti - Proc 405/24 - Diagnóstico em exames liquóricos p/ Complexo e unidades (ago/24)', valor2025: 23508.33, valor2026: 23900.00 },
+                    { label: 'Gestão Médica Inteligente - Proc 216/22 - Telemedicina mod.teleatendimento c/ auxilio prof in loco (jul/22)', valor2025: 179752.00, valor2026: 0 },
+                    { label: 'Gomide e Moura - Proc 259/19 - Serviços Médicos Obstetrícia e Ginecologia (set/19) - FINALIZOU EM 03/09/25', valor2025: 239556.99, valor2026: 0 },
+                    { label: 'Leald - Proc 203/25 - especialidades médicas - substitui telemedicina proc 216/22 - inicia 16/06/25 - emergencial', valor2025: 302455.75, valor2026: 391851.25 }
+                ]},
                 { label: 'Outros Serviços de Terceiros', valor2025: 9907665.93, valor2026: 12136163.71 },
                 { label: 'AGEIS CME - Proc 685/21 - Serviços Médicos Cardiologia ( dez/21)', valor2025: 0, valor2026: 0 },
                 { label: 'Abler - Proc 507/23 - Serviços Médicos Cardiologia (nov/23)', valor2025: 0, valor2026: 0 },
@@ -357,14 +365,15 @@
             { nome: 'TOTAL DE DESPESAS', id: 'total', valor2025: 38991346.13, valor2026: 44172200.73, subitens: [] }
         ];
 
+        // Funções
         function formatarMoeda(valor) {
             return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(valor || 0);
         }
 
         function calcularVariacao(v2025, v2026) {
             var variacao = v2026 - v2025;
-            var classe = variacao >= 0 ? 'variacao-positiva' : 'variacao-negativa';
-            return { variacao: variacao, cor: classe };
+            var cor = variacao >= 0 ? '#27ae60' : '#e74c3c';
+            return { variacao: variacao, cor: cor };
         }
 
         function toggleAccordion(element) {
@@ -386,29 +395,44 @@
         }
 
         function preencherResumo(ano) {
-            var titulo = ano === '2025' ? '2025 - MÉDIA DE EXECUÇÃO - JAN A OUT' : '2026 - PROJEÇÃO';
-            var fuabcTotal = ano === '2025' ? 38991346.13 : 44172200.73;
-            var sesaudTotal = 10633666.21;
-            var geralTotal = (ano === '2025' ? 49625012.34 : 54805867.00);
+            // Valores fixos dos cards conforme a imagem
+            var orcamentoAnual2026 = 551236772.00;
+            var orcamentoMensal = 45936397.67;
+            var totalDespesasCard = 32522889.07; // Valor fixo da imagem para "TOTAL DE DESPESAS"
 
-            var html = '<div class="table-responsive-wrapper"><table><thead><tr><th>ORÇAMENTO</th><th>CUSTO MENSAL FUABC</th><th>CUSTO MENSAL SESAUD</th><th>GERAL</th></tr></thead><tbody><tr><td></td><td colspan="3">' + titulo + '</td></tr>';
-            
-            var resumoData = [
-                { label: 'RECURSOS HUMANOS', fuabc2025: 15519978.93, fuabc2026: 15979374.38, sesaud: 6616449.07 },
-                { label: 'PROCESSOS TRABALHISTAS', fuabc2025: 81084.03, fuabc2026: 78881.08, sesaud: 1619.20 },
-                { label: 'MATERIAIS DE CONSUMO', fuabc2025: 3920961.07, fuabc2026: 4218090.06, sesaud: 329615.34 },
-                { label: 'SERVIÇOS DE TERCEIROS', fuabc2025: 19270730.55, fuabc2026: 23568510.69, sesaud: 3312660.87 },
-                { label: 'INVESTIMENTOS', fuabc2025: 83882.01, fuabc2026: 203082.50, sesaud: 0 },
-                { label: 'OUTROS GASTOS', fuabc2025: 114709.55, fuabc2026: 124262.02, sesaud: 326630.03 }
-            ];
+            // Valores dinâmicos do seu código original
+            var fuabc = ano === '2025' ? 38991346.13 : 44172200.73;
+            var sesaud = 10633666.21; // SESAUD é fixo no seu código
+            var totalGeralAno = fuabc + sesaud; // Corresponde ao 'geral' anterior
 
-            resumoData.forEach(item => {
-                var fuabcValor = ano === '2025' ? item.fuabc2025 : item.fuabc2026;
-                var geralValor = fuabcValor + item.sesaud;
-                html += '<tr><td>' + item.label + '</td><td class="valor-moeda">' + formatarMoeda(fuabcValor) + '</td><td class="valor-moeda">' + formatarMoeda(item.sesaud) + '</td><td class="valor-moeda">' + formatarMoeda(geralValor) + '</td></tr>';
-            });
+            // Cálculo da Diferença (TOTAL - ORÇAMENTO MENSAL)
+            var diferenca = totalGeralAno - orcamentoMensal;
+            var diferencaClass = diferenca < 0 ? 'deficit' : '';
 
-            html += '<tr style="background: #ecf0f1; font-weight: bold;"><td>TOTAL DE DESPESAS</td><td class="valor-moeda">' + formatarMoeda(fuabcTotal) + '</td><td class="valor-moeda">' + formatarMoeda(sesaudTotal) + '</td><td class="valor-moeda">' + formatarMoeda(geralTotal) + '</td></tr></tbody></table></div>';
+            var html = `
+                <div class="cards-container">
+                    <div class="data-card">
+                        <div class="card-label">TOTAL (${ano})</div>
+                        <div class="card-value">${formatarMoeda(totalGeralAno)}</div>
+                    </div>
+                    <div class="data-card">
+                        <div class="card-label">ORÇAMENTO ANUAL 2026</div>
+                        <div class="card-value">${formatarMoeda(orcamentoAnual2026)}</div>
+                    </div>
+                    <div class="data-card">
+                        <div class="card-label">ORÇAMENTO MENSAL</div>
+                        <div class="card-value">${formatarMoeda(orcamentoMensal)}</div>
+                    </div>
+                    <div class="data-card">
+                        <div class="card-label">DIFERENÇA - SUPERAVIT/DEFICIT</div>
+                        <div class="card-value ${diferencaClass}">${formatarMoeda(diferenca)}</div>
+                    </div>
+                    <div class="data-card">
+                        <div class="card-label">TOTAL DE DESPESAS</div>
+                        <div class="card-value">${formatarMoeda(totalDespesasCard)}</div>
+                    </div>
+                </div>
+            `;
             document.getElementById('resumo-conteudo').innerHTML = html;
         }
 
