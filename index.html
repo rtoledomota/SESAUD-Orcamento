@@ -11,7 +11,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', sans-serif; background: #f5f6f8; color: #2c3e50; padding: 1.5rem; }
         .container { max-width: 1400px; margin: 0 auto; }
-        header { background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%); padding: 2rem; border-radius: 8px; margin-bottom: 2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center; color: white; position: relative; }
+        header { background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%); padding: 2rem; border-radius: 8px; margin-bottom: 2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center; color: white; }
         header h1 { font-size: 2.5rem; font-weight: 600; margin-bottom: 0.5rem; }
         header p { font-size: 1.1rem; opacity: 0.95; margin-bottom: 0.5rem; }
         .data-atualizacao { font-size: 0.9rem; opacity: 0.8; margin-top: 0.5rem; }
@@ -27,7 +27,7 @@
         .table-responsive-wrapper { overflow-x: auto; margin: 1rem 0; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
         table { width: 100%; border-collapse: collapse; background: white; min-width: 400px; }
         thead { background: #2c3e50 !important; }
-        th { padding: 1rem; text-align: left; color: #ffffff !important; font-weight: 600; font-size: 0.9rem; white-space: nowrap; text-transform: uppercase; letter-spacing: 0.5px; }
+        th { padding: 1rem; text-align: left; color: #ffffff !important; font-weight: 600 !important; font-size: 0.9rem; white-space: nowrap; text-transform: uppercase; letter-spacing: 0.5px; }
         td { padding: 0.9rem 1rem; border-bottom: 1px solid #ecf0f1; color: #2c3e50 !important; font-size: 0.9rem; }
         tbody tr:nth-child(odd) { background-color: #f8f9fa; }
         tbody tr:hover { background: #eef2f7; }
@@ -38,34 +38,9 @@
         .accordion-row.expanded .toggle-icon { transform: rotate(90deg); }
         .accordion-item { display: none; }
         .accordion-item.show { display: table-row; }
-        .accordion-item td:first-child { padding-left: 2rem; color: #3498db; font-weight: 500; }
+        .accordion-item td:first-child { padding-left: 2rem; color: #3498db !important; font-weight: 500; }
         .accordion-item td { background: #f0f8ff; color: #2c3e50 !important; }
         .servicos-lista { background: white; padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
         .servicos-lista h4 { color: #3498db; margin-bottom: 1rem; font-weight: 600; }
         .servicos-lista ul { list-style: none; }
-        .servicos-lista li { padding: 0.8rem; border-left: 4px solid #3498db; margin-bottom: 0.5rem; background: #f8f9fa; border-radius: 4px; display: flex; justify-content: space-between; }
-        .servicos-lista li .servico-nome { flex: 1; font-weight: 500; }
-        .servicos-lista li .servico-valor { color: #27ae60; font-weight: 700; }
-        .erro { background: #fadbd8; color: #922b21; padding: 1.5rem; border-radius: 8px; margin: 1rem 0; border-left: 4px solid #e74c3c; }
-        footer { margin-top: 3rem; padding: 1.5rem; text-align: center; color: #7f8c8d; font-size: 0.85rem; background: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
-        /* Dark Mode - Fundo escuro da tabela com fonte clara */
-        body.dark-mode { background: #1a1a1a; color: #ecf0f1; }
-        body.dark-mode header { background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); }
-        body.dark-mode .tab-content, body.dark-mode table, body.dark-mode .servicos-lista { background: #2d2d2d; }
-        body.dark-mode h2 { color: #ecf0f1; }
-        body.dark-mode th { background: #1a1a1a; color: #ffffff !important; }
-        body.dark-mode td { color: #ecf0f1 !important; border-bottom-color: #404040; background: #2d2d2d; }
-        body.dark-mode tbody tr:nth-child(odd) { background-color: #333333; }
-        body.dark-mode tbody tr:hover { background: #3a3a3a; }
-        body.dark-mode .accordion-item td { background: #1a1a1a; color: #ecf0f1 !important; }
-        body.dark-mode .accordion-row { background: #1a1a1a !important; color: #ffffff !important; }
-        body.dark-mode .accordion-row:hover { background: #2d2d2d !important; }
-        body.dark-mode .valor-moeda { color: #ecf0f1 !important; }
-        body.dark-mode footer { background: #2d2d2d; color: #95a5a6; }
-        body.dark-mode .year-selector-container label { color: #ecf0f1; }
-        body.dark-mode #seletor-ano { background: #2d2d2d; color: #ecf0f1; border-color: #3498db; }
-        body.dark-mode .servicos-lista h4 { color: #3498db; }
-        body.dark-mode .servicos-lista li { background: #333333; border-left-color: #3498db; color: #ecf0f1; }
-        body.dark-mode .servicos-lista li .servico-valor { color: #27ae60; }
-        @media (max-width: 480px) { html { font-size: 12px; } body { padding: 0.75rem; } header h1 { font-size: 1.4rem; } .tabs { gap: 0.3rem; } .tab-btn { padding: 0.4rem 0.5rem; font-size: 0.6rem; min-width: 60px; } .tab-content { padding: 0.8rem; } h2 { font-size: 1rem; } table { min-width: 280px; font-size: 0.7rem; } th, td { padding: 0.4rem 0.5rem; font-size: 0.7rem; } }
-        @media (min-width: 481px) and (max-width: 800px) { html { font-size: 14px; } body { padding: 1rem; } header h1 { font-size: 1.8rem; } .tabs { gap: 0.5rem; } .tab-btn { padding: 0.6rem 1rem
+        .servicos-lista li { padding: 0.8rem; border-left: 4px solid #3498db; margin-bottom: 0.5rem
