@@ -32,22 +32,33 @@
         .tab-content.active { display: block; }
         h2 { color: #2c3e50; margin-bottom: 1.5rem; font-size: 1.8rem; text-align: center; font-weight: 600; }
 
-        /* Cards para Resumo (Como na Foto) */
+        /* Cards para Resumo */
         .cards-container { display: flex; justify-content: space-between; gap: 1rem; margin: 1rem 0; flex-wrap: wrap; }
         .data-card { flex: 1; min-width: 200px; background: #2c3e50; color: white; padding: 1.5rem; border-radius: 8px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
         .card-label { font-size: 0.8rem; opacity: 0.8; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem; }
         .card-value { font-size: 1.5rem; font-weight: bold; }
         .deficit { color: #e74c3c; } /* Para diferença negativa */
 
-        /* Tabelas e Quadros - Headers com Fonte Branca Forçada (Ajuste Ultra-Específico) */
+        /* Tabelas e Quadros - Headers com Fonte Branca Forçada */
         .table-responsive-wrapper { overflow-x: auto; margin: 1rem 0; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
         table { width: 100%; border-collapse: collapse; background: white; min-width: 600px; }
         
-        th { padding: 1rem; text-align: left; color: #ffffff !important; font-weight: 600 !important; font-size: 0.9rem; white-space: nowrap; text-transform: uppercase; letter-spacing: 0.5px; background: #2c3e50 !important; }
-        /* Seletores ultra-específicos para garantir a cor branca nos headers em todas as situações */
-        .tab-content table th, .tab-content .table-responsive-wrapper th, .tab-content .table-responsive-wrapper thead th, table th, thead th, .table-responsive-wrapper th, .table-responsive-wrapper thead th, body table th, body thead th, .tab-content th, th { 
-            color: #ffffff !important; 
-            background: #2c3e50 !important; 
+        /* Regras para garantir cor branca nos headers */
+        th, 
+        thead th, 
+        .table-responsive-wrapper th, 
+        .tab-content th, 
+        tr th { 
+            padding: 1rem !important; 
+            text-align: left !important; 
+            color: #ffffff !important; /* Branco puro, forçado */
+            background-color: #2c3e50 !important; /* Fundo escuro para contraste */
+            font-weight: 600 !important; 
+            font-size: 0.9rem !important; 
+            white-space: nowrap !important; 
+            text-transform: uppercase !important; 
+            letter-spacing: 0.5px !important; 
+            border: none !important; /* Remove bordas padrão que podem interferir */
         }
         
         td { padding: 0.9rem 1rem; border-bottom: 1px solid #ecf0f1; color: #2c3e50; font-size: 0.9rem; }
@@ -237,7 +248,7 @@
                 { label: 'ASS.PROTETORA DOS ANIMAIS - APASCS', valor: 21000.00 },
                 { label: 'ASSOC.PREV.DEPEND.QUIM DIVINA PROVIDENCIA', valor: 40000.00 },
                 { label: 'GRUPO DE AMIGOS SAMARITANOS - G.A.S', valor: 15000.00 },
-                { label: 'INSTITUIÇÃO CLAUDIO AMÂNCIO', valor: 60000.00 },
+                { label: 'INSTITUIÇÃO CLAUDIO AMÃNCIO', valor: 60000.00 },
                 { label: 'REDE FEMININA DE COMBATE AO CÂNCER', valor: 40000.00 },
                 { label: 'SOC BENEFIC.GRUPO DE AMOR A VIDA - GAV', valor: 80000.00 },
                 { label: 'Locação de imóveis', valor: 53091.70 },
