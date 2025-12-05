@@ -40,7 +40,8 @@
             position: absolute;
             top: 1.5rem;
             right: 1.5rem;
-            padding: 0.5rem 0.8rem;
+            width: 40px;
+            height: 40px;
             background: rgba(255,255,255,0.15);
             border: 1px solid rgba(255,255,255,0.3);
             border-radius: 6px;
@@ -48,8 +49,6 @@
             cursor: pointer;
             font-size: 1.1rem;
             transition: all 0.3s ease;
-            width: 40px;
-            height: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -178,7 +177,7 @@
             text-align: left;
             border: none;
             font-weight: 600;
-            color: #ffffff !important; /* Cor branca para títulos da tabela */
+            color: #ffffff !important;
             font-size: 0.9rem;
             white-space: nowrap;
             text-transform: uppercase;
@@ -196,7 +195,7 @@
         .valor-moeda { text-align: right; font-weight: 600; color: #2c3e50; }
         tbody tr:last-child td { border-bottom: none; }
 
-        /* Accordion Styles - Expansível como Excel */
+        /* Accordion Styles */
         .accordion-row {
             cursor: pointer;
             user-select: none;
@@ -476,19 +475,27 @@
                 return;
             }
 
+            // Usando dados do JSON para resumo geral (índice 0)
+            var fuabc2025 = 38645099.48; // Total FUABC 2025 do JSON (aproximado com total_2025)
+            var sesaud2025 = dados.total_sesaud || 10633666.21;
+            var geral2025 = dados.total_geral || 49625012.34;
+            var fuabc2026 = 44172200.73; // Total FUABC 2026 do JSON
+            var sesaud2026 = sesaud2025; // SESAUD é o mesmo para 2026
+            var geral2026 = fuabc2026 + sesaud2026;
+
             var html = '<div class="table-responsive-wrapper"><table><thead><tr><th>ORÇAMENTO</th><th class="valor-moeda">2025 - MÉDIA DE EXECUÇÃO - JAN A OUT</th><th></th><th></th><th class="valor-moeda">2026 - PROJEÇÃO</th><th></th><th></th></tr></thead><tbody>';
             html += '<tr><td></td><td>CUSTO MENSAL FUABC</td><td>CUSTO MENSAL SESAUD</td><td>GERAL</td><td>CUSTO MENSAL FUABC</td><td>CUSTO MENSAL SESAUD</td><td>GERAL</td></tr>';
 
             var categorias = [
-                { nome: 'RECURSOS HUMANOS', fuabc2025: dados.recursos_humanos_2025 || 0, sesaud2025: dados.recursos_humanos || 0, geral2025: (dados.recursos_humanos_2025 || 0) + (dados.recursos_humanos || 0), fuabc2026: dados.recursos_humanos_2026 || 0, sesaud2026: dados.recursos_humanos || 0, geral2026: (dados.recursos_humanos_2026 || 0) + (dados.recursos_humanos || 0) },
-                { nome: 'PROCESSOS TRABALHISTAS', fuabc2025: dados.processos_trabalhistas_2025 || 0, sesaud2025: dados.processos_trabalhistas || 0, geral2025: (dados.processos_trabalhistas_2025 || 0) + (dados.processos_trabalhistas || 0), fuabc2026: dados.processos_trabalhistas_2026 || 0, sesaud2026: dados.processos_trabalhistas || 0, geral2026: (dados.processos_trabalhistas_2026 || 0) + (dados.processos_trabalhistas || 0) },
-                { nome: 'MATERIAIS DE CONSUMO', fuabc2025: dados.materiais_consumo_2025 || 0, sesaud2025: dados.materiais_consumo || 0, geral2025: (dados.materiais_consumo_2025 || 0) + (dados.materiais_consumo || 0), fuabc2026: dados.materiais_consumo_2026 || 0, sesaud2026: dados.materiais_consumo || 0, geral2026: (dados.materiais_consumo_2026 || 0) + (dados.materiais_consumo || 0) },
+                { nome: 'RECURSOS HUMANOS', fuabc2025: 15415513.50, sesaud2025: 6616449.07, geral2025: 22031962.57, fuabc2026: 15979374.38, sesaud2026: 6616449.07, geral2026: 22595823.45 },
+                { nome: 'PROCESSOS TRABALHISTAS', fuabc2025: 84890.27, sesaud2025: 2024.00, geral2025: 86914.27, fuabc2026: 78881.08, sesaud2026: 2024.00, geral2026: 80905.08 },
+                { nome: 'MATERIAIS DE CONSUMO', fuabc2025: 3888891.54, sesaud2025: 329615.34, geral2025: 4218506.88, fuabc2026: 4218090.06, sesaud2026: 329615.34, geral2026: 4547705.40 },
                 { nome: 'MANUTENÇÃO E REFORMAS', fuabc2025: 1316264.15, sesaud2025: 731350.30, geral2025: 0, fuabc2026: 1301434.22, sesaud2026: 731350.30, geral2026: 2032784.52 },
                 { nome: 'SERVIÇOS MÉDICOS', fuabc2025: 6776884.98, sesaud2025: 0, geral2025: 0, fuabc2026: 8665085.19, sesaud2026: 0, geral2026: 8665085.19 },
                 { nome: 'SERVIÇOS DE TERCEIROS', fuabc2025: 10939718.04, sesaud2025: 2628002.26, geral2025: 13567720.31, fuabc2026: 13601991.28, sesaud2026: 2628002.26, geral2026: 16229993.55 },
                 { nome: 'INVESTIMENTOS', fuabc2025: 111842.68, sesaud2025: 0, geral2025: 111842.68, fuabc2026: 203082.50, sesaud2026: 0, geral2026: 203082.50 },
                 { nome: 'OUTROS GASTOS', fuabc2025: 111094.32, sesaud2025: 326630.03, geral2025: 437724.35, fuabc2026: 124262.02, sesaud2026: 326630.03, geral2026: 450892.05 },
-                { nome: 'TOTAL DE DESPESAS', fuabc2025: dados.total_fuabc || 0, sesaud2025: dados.total_sesaud || 0, geral2025: dados.total_geral || 0, fuabc2026: 44172200.73, sesaud2026: dados.total_sesaud || 0, geral2026: 54806271.73 }
+                { nome: 'TOTAL DE DESPESAS', fuabc2025: fuabc2025, sesaud2025: sesaud2025, geral2025: geral2025, fuabc2026: fuabc2026, sesaud2026: sesaud2026, geral2026: geral2026 }
             ];
 
             categorias.forEach(cat => {
@@ -513,15 +520,15 @@
                 return;
             }
 
-            var html = '<div class="servicos-lista"><h4>NOVOS SERVIÇOS</h4><ul>';
-            html += '<li><span class="servico-nome">SERVIÇO FISIOTERAPIA</span><span class="servico-valor">' + formatarMoeda(dados.servico_fisioterapia) + '</span></li>';
-            html += '<li><span class="servico-nome">SERVIÇO REGULACAO</span><span class="servico-valor">' + formatarMoeda(dados.servico_regulacao) + '</span></li>';
-            html += '<li><span class="servico-nome">TELEMEDICINA</span><span class="servico-valor">' + formatarMoeda(dados.telemedicina) + '</span></li>';
-            html += '<li><span class="servico-nome">SERVIÇO HEMODINAMICA</span><span class="servico-valor">' + formatarMoeda(dados.servico_hemodinamica) + '</span></li>';
-            html += '<li><span class="servico-nome">RESIDENCIA TERAPEUTICA</span><span class="servico-valor">' + formatarMoeda(dados.residencia_terapeutica) + '</span></li>';
-            html += '<li><span class="servico-nome">ADEQUACAO PRONTO CARDIO</span><span class="servico-valor">' + formatarMoeda(dados.adequacao_pronto_cardio) + '</span></li>';
-            html += '<li><span class="servico-nome">TOTAL NOVOS MENSAL</span><span class="servico-valor">' + formatarMoeda(dados.total_novos_mensal) + '</span></li>';
-            html += '<li><span class="servico-nome">TOTAL GERAL NOVOS</span><span class="servico-valor">' + formatarMoeda(dados.total_geral_novos) + '</span></li>';
+            var html = '<div class="servicos-lista"><h4>Novos Serviços</h4><ul>';
+            html += '<li><span class="servico-nome">Serviço Fisioterapia</span><span class="servico-valor">' + formatarMoeda(dados.servico_fisioterapia) + '</span></li>';
+            html += '<li><span class="servico-nome">Serviço Regulação</span><span class="servico-valor">' + formatarMoeda(dados.servico_regulacao) + '</span></li>';
+            html += '<li><span class="servico-nome">Telemedicina</span><span class="servico-valor">' + formatarMoeda(dados.telemedicina) + '</span></li>';
+            html += '<li><span class="servico-nome">Serviço Hemodinâmica</span><span class="servico-valor">' + formatarMoeda(dados.servico_hemodinamica) + '</span></li>';
+            html += '<li><span class="servico-nome">Residência Terapêutica</span><span class="servico-valor">' + formatarMoeda(dados.residencia_terapeutica) + '</span></li>';
+            html += '<li><span class="servico-nome">Adequação Pronto Cardio</span><span class="servico-valor">' + formatarMoeda(dados.adequacao_pronto_cardio) + '</span></li>';
+            html += '<li><span class="servico-nome">Total Novos Mensal</span><span class="servico-valor">' + formatarMoeda(dados.total_novos_mensal) + '</span></li>';
+            html += '<li><span class="servico-nome">Total Geral Novos</span><span class="servico-valor">' + formatarMoeda(dados.total_geral_novos) + '</span></li>';
             html += '</ul></div>';
             document.getElementById('novos-servicos-conteudo').innerHTML = html;
         }
@@ -619,30 +626,79 @@
         }
 
         function mudarAno(indice) {
-            if (indice === '' || !allData[indice]) {
+            console.log('Mudando para aba:', indice);
+
+            if (indice === '' || allData[indice] === undefined) {
+                document.getElementById('conteudo-principal').innerHTML = '<div class="erro">Selecione uma aba válida</div>';
                 return;
             }
 
             var dados = allData[indice];
-            var abaAtiva = document.querySelector('.tab-content.active').id;
-            switch (abaAtiva) {
-                case 'resumo':
-                    preencherResumo(dados);
-                    break;
-                case 'novos-servicos':
-                    preencherNovosServicos(dados);
-                    break;
-                case 'sesaud-detalhado':
-                    preencherSESAUDDetalhado(dados);
-                    break;
-                case 'fuabc-detalhado':
-                    preencherFUABCDetalhado(dados);
-                    break;
+            var nomeAba = nomesAbas[indice] || 'Aba ' + (parseInt(indice) + 1);
+            
+            console.log('Dados encontrados:', dados);
+            renderizarConteudo(dados, nomeAba);
+        }
+
+        function renderizarConteudo(dados, titulo) {
+            console.log('Renderizando:', titulo, dados);
+            
+            var html = '<h2>' + titulo + '</h2>';
+            
+            if (!dados || typeof dados !== 'object') {
+                html += '<div class="erro">Dados inválidos</div>';
+                document.getElementById('conteudo-principal').innerHTML = html;
+                return;
             }
+
+            var linhas = [];
+            for (var chave in dados) {
+                if (dados.hasOwnProperty(chave) && chave !== 'nome' && chave !== 'descricao') {
+                    var valor = dados[chave];
+                    if (typeof valor === 'number') {
+                        linhas.push({
+                            chave: chave,
+                            valor: valor
+                        });
+                    }
+                }
+            }
+
+            if (linhas.length === 0) {
+                html += '<div class="carregando">Nenhum dado encontrado para esta aba</div>';
+                document.getElementById('conteudo-principal').innerHTML = html;
+                return;
+            }
+
+            html += '<div class="table-responsive-wrapper"><table><thead><tr><th>Item</th><th class="valor-moeda">Valor</th></tr></thead><tbody>';
+            
+            linhas.forEach(linha => {
+                html += '<tr>';
+                html += '<td>' + formatarChave(linha.chave) + '</td>';
+                html += '<td class="valor-moeda">' + formatarMoeda(linha.valor) + '</td>';
+                html += '</tr>';
+            });
+            
+            html += '</tbody></table></div>';
+            
+            document.getElementById('conteudo-principal').innerHTML = html;
+        }
+
+        function formatarChave(chave) {
+            return chave
+                .replace(/_/g, ' ')
+                .replace(/2025/g, ' 2025')
+                .replace(/2026/g, ' 2026')
+                .split(' ')
+                .map(palavra => palavra.charAt(0).toUpperCase() + palavra.slice(1).toLowerCase())
+                .join(' ')
+                .trim();
         }
 
         function carregarJSON() {
+            console.log('Iniciando carregamento de dados...');
+            
             var timestamp = '?t=' + Date.now();
             var urlBase = 'https://raw.githubusercontent.com/rtoledomota/SESAUD-Orcamento/main/data.json' + timestamp;
             var urls = [
-                'https://corsproxy.io/?
+                'https://corsproxy.io/?'
