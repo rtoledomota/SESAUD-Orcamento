@@ -28,7 +28,8 @@
         table { width: 100%; border-collapse: collapse; background: white; min-width: 600px; }
         thead { background: #2c3e50 !important; }
         th { padding: 1rem; text-align: left; color: #ffffff !important; font-weight: 600 !important; font-size: 0.9rem; white-space: nowrap; text-transform: uppercase; letter-spacing: 0.5px; }
-        .tab-content table th, .tab-content .table-responsive-wrapper th, .tab-content .table-responsive-wrapper thead th, table th, thead th, .table-responsive-wrapper th, .table-responsive-wrapper thead th, body table th, body thead th, .tab-content th { color: #ffffff !important; background: #2c3e50 !important; }
+        /* Forçar cor branca nos headers de todas as tabelas e abas */
+        .tab-content table th, .tab-content .table-responsive-wrapper th, .tab-content .table-responsive-wrapper thead th, table th, thead th, .table-responsive-wrapper th, .table-responsive-wrapper thead th, body table th, body thead th, .tab-content th, th { color: #ffffff !important; background: #2c3e50 !important; }
         td { padding: 0.9rem 1rem; border-bottom: 1px solid #ecf0f1; color: #2c3e50; font-size: 0.9rem; }
         tbody tr:nth-child(odd) { background-color: #f8f9fa; }
         tbody tr:hover { background: #eef2f7; }
@@ -181,12 +182,12 @@
                 { label: 'SOBERANA SERVIÇOS DE REFEIÇÃO E COM LTDA', valor: 63214.91 },
                 { label: 'TB SERVIÇOS TRANSP LIMP GER.REC.HUMANOS', valor: 1132787.34 },
                 { label: 'TRES LAGOAS COMERCIO DE EMBALAGENS LTDA', valor: 406.50 },
-                { label: 'VESPA SAUDE AMBIENTAL COM SERVIÇOS', valor: 560.00 },
+                { label: 'VESPA SAÚDE AMBIENTAL COM SERVIÇOS', valor: 560.00 },
                 { label: 'WT PELICULAS LTDA', valor: 1224.61 },
                 { label: 'ASS.PROTETORA DOS ANIMAIS - APASCS', valor: 21000.00 },
                 { label: 'ASSOC.PREV.DEPEND.QUIM DIVINA PROVIDENCIA', valor: 40000.00 },
                 { label: 'GRUPO DE AMIGOS SAMARITANOS - G.A.S', valor: 15000.00 },
-                { label: 'INSTITUIÇÃO CLAUDIO AMÃNCIO', valor: 60000.00 },
+                { label: 'INSTITUIÇÃO CLAUDIO AMÂNCIO', valor: 60000.00 },
                 { label: 'REDE FEMININA DE COMBATE AO CÂNCER', valor: 40000.00 },
                 { label: 'SOC BENEFIC.GRUPO DE AMOR A VIDA - GAV', valor: 80000.00 },
                 { label: 'Locação de imóveis', valor: 53091.70 },
@@ -196,7 +197,7 @@
                 { label: 'ALCYR ROZANTE SOTTO - Fisioterapia', valor: 4284.72 },
                 { label: 'MIRIAN NACAGAMI SOTTO - Fisioterapia', valor: 4284.72 },
                 { label: 'ADENILZE BECHARA - Pet Escola', valor: 16132.40 },
-                { label: 'VVP PARTICIPAÇOES LTDA - UBS Santo Antonio', valor: 9455.76 },
+                { label: 'VVP PARTICIPAÇÕES LTDA - UBS Santo Antonio', valor: 9455.76 },
                 { label: 'Locação de Diversas', valor: 0 }
             ] },
             { nome: 'INVESTIMENTOS', id: 'investimentos', valor: 0, subitens: [
@@ -346,4 +347,4 @@
             var fuabc = ano === '2025' ? 38991346.13 : 44172200.73;
             var sesaud = 10633666.21;
             var geral = ano === '2025' ? 49625012.34 : 54805867.00;
-            var html = '<div class="table-responsive-wrapper"><table><thead><tr><th>ORÇAMENTO</th><th>CUSTO MENSAL FUABC</th><th>CUSTO MENSAL SESAUD</th><th>GERAL</th></tr></thead><tbody><tr><td></td><td colspan="3">' + titulo + '</td></tr><tr><td>RECURSOS HUMANOS</td><td class="valor-moeda">' + formatarMoeda(ano === '2025' ? 15519978.93 : 15979374.38) + '</td><td class="valor-moeda">' + formatarMoeda(6616449.07) + '</td><td class="valor-moeda">' + formatarMoeda(ano === '2025' ? 22136428.00 : 22605823.45) + '</td></tr><tr><td>PROCESSOS TRABALHISTAS</td><td class="valor-moeda">' + formatarMoeda(ano === '2025' ? 81084.03 : 78881.08) + '</td><td class="valor-moeda">' + formatarMoeda(1619.20) + '</td><td class="valor-moeda">' + formatarMoeda(ano === '2025' ? 82703.23 : 80500.28) + '</td></tr><tr><td>MATERIAIS DE CONSUMO</td><td class="valor-moeda">' + formatarMoeda(ano === '2025' ? 3920961.07 : 4218090.06) + '</td><td class="valor-moeda">' + formatarMoeda(329615.34) + '</td><td class="valor-moeda">' + formatarMoeda(ano === '2025' ? 4250576.41 : 4547705.40) + '</td></tr><tr><td>SERVIÇOS DE TERCEIROS</td><td class="valor-moeda">' + formatarMoeda(ano === '2025' ? 19270730.55 : 23568510.69) + '</td><td class="valor-moeda">' + formatarMoeda(3312660.87) + '</td><td class="valor-moeda">' + formatarMoeda(ano ===
+            var html = '<div class="table-responsive-wrapper"><table><thead><tr><th>ORÇAMENTO</th><th>CUSTO MENSAL FUABC</th><th>CUSTO MENSAL SESAUD</th><th>GERAL</th></tr></thead><tbody><tr><td></td><td colspan="3">' + titulo + '</td></tr><tr><td>RECURSOS HUMANOS</td><td class="valor-moeda">' + formatarMoeda(ano === '2025' ? 15519978.93 : 15979374.38) + '</td><td class="valor-moeda">' + formatarMoeda(6616449.07) + '</td><td class="valor-moeda">' + formatarMoeda(ano === '2025' ? 22136428.00 : 22605823.45) + '</td></tr><tr><td>PROCESSOS TRABALHISTAS</td><td class="valor-moeda">' + formatarMoeda(ano === '2025' ? 81084.03 : 78881.08) + '</td><td class="valor-moeda">' + formatarMoeda(1619.20) + '</td><td class="valor-moeda">' + formatarMoeda(ano === '2025' ? 82703.23 : 80500.28) + '</td></tr><tr><td>MATERIAIS DE CONSUMO</td><td class="valor-moeda">' + formatarMoeda(ano === '2025' ? 3920961.07 : 4218090.06) + '</td><td class="valor-moeda">' + formatarMoeda(329615.34) + '</td><td class="valor-moeda">' + formatarMoeda(ano === '2025' ? 4250576.41 :
