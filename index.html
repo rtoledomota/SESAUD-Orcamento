@@ -11,7 +11,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', sans-serif; background: #f5f6f8; color: #2c3e50; padding: 1.5rem; }
         .container { max-width: 1400px; margin: 0 auto; }
-        header { background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%); padding: 2rem; border-radius: 8px; margin-bottom: 2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center; color: white; }
+        header { background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%); padding: 2rem; border-radius: 8px; margin-bottom: 2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center; color: white; position: relative; }
         header h1 { font-size: 2.5rem; font-weight: 600; margin-bottom: 0.5rem; }
         header p { font-size: 1.1rem; opacity: 0.95; margin-bottom: 0.5rem; }
         .data-atualizacao { font-size: 0.9rem; opacity: 0.8; margin-top: 0.5rem; }
@@ -81,11 +81,12 @@
             <div class="year-selector-container">
                 <label for="seletor-ano">Selecione o ano:</label>
                 <select id="seletor-ano" onchange="mudarAno(this.value)">
-                    <option value="">Carregando...</option>
+                    <option value="2025">2025</option>
+                    <option value="2026">2026</option>
                 </select>
             </div>
-            <p class="data-atualizacao" id="data-atualizacao">Carregando dados...</p>
-            <p class="fonte-dados">Fonte: GitHub Pages</p>
+            <p class="data-atualizacao" id="data-atualizacao">Atualizado em: Agora (dados CSV embutidos)</p>
+            <p class="fonte-dados">Fonte: CSVs e JSON</p>
         </header>
 
         <div class="tabs">
@@ -121,7 +122,6 @@
     </footer>
 
     <script>
-        var allData = {};
         var anoSelecionado = '2025';
 
         function formatarMoeda(valor) {
@@ -156,8 +156,7 @@
         }
 
         function preencherNovosServicos() {
-            var dados = allData.anos ? allData.anos[1] : {};
-            var html = '<div class="servicos-lista"><h4>Novos Serviços 2025/2026</h4><ul><li><span class="servico-nome">Serviço Fisioterapia</span><span class="servico-valor">' + formatarMoeda(dados.servico_fisioterapia) + '</span></li><li><span class="servico-nome">Serviço Regulação</span><span class="servico-valor">' + formatarMoeda(dados.servico_regulacao) + '</span></li><li><span class="servico-nome">Telemedicina</span><span class="servico-valor">' + formatarMoeda(dados.telemedicina) + '</span></li><li><span class="servico-nome">Serviço Hemodinâmica</span><span class="servico-valor">' + formatarMoeda(dados.servico_hemodinamica) + '</span></li><li><span class="servico-nome">Residência Terapêutica</span><span class="servico-valor">' + formatarMoeda(dados.residencia_terapeutica) + '</span></li><li><span class="servico-nome">Adequação Pronto Cardio</span><span class="servico-valor">' + formatarMoeda(dados.adequacao_pronto_cardio) + '</span></li><li><span class="servico-nome">Total Novos Mensal</span><span class="servico-valor">' + formatarMoeda(dados.total_novos_mensal) + '</span></li><li><span class="servico-nome">Total Geral Novos</span><span class="servico-valor">' + formatarMoeda(dados.total_geral_novos) + '</span></li></ul></div>';
+            var html = '<div class="servicos-lista"><h4>Novos Serviços 2025/2026</h4><ul><li><span class="servico-nome">Serviço Fisioterapia</span><span class="servico-valor">R$ 0,00</span></li><li><span class="servico-nome">Serviço Regulação</span><span class="servico-valor">R$ 0,00</span></li><li><span class="servico-nome">Telemedicina</span><span class="servico-valor">R$ 0,00</span></li><li><span class="servico-nome">Serviço Hemodinâmica</span><span class="servico-valor">R$ 0,00</span></li><li><span class="servico-nome">Residência Terapêutica</span><span class="servico-valor">R$ 0,00</span></li><li><span class="servico-nome">Adequação Pronto Cardio</span><span class="servico-valor">R$ 0,00</span></li><li><span class="servico-nome">Total Novos Mensal</span><span class="servico-valor">R$ 0,00</span></li><li><span class="servico-nome">Total Geral Novos</span><span class="servico-valor">R$ 0,00</span></li></ul></div>';
             document.getElementById('novos-servicos-conteudo').innerHTML = html;
         }
 
@@ -169,7 +168,11 @@
                     { label: 'Vencimento Prefeitura - Folha', valor: 4811182.14 },
                     { label: 'Programa - Mais Médicos', valor: 12900.00 },
                     { label: 'Tarifas Caixa Econômica Federal / Banco do Brasil - Tarifas Bancárias', valor: 775.54 },
-                    { label: 'Gratificação SUS', valor: 296880.38 }
+                    { label: 'Gratificação SUS', valor: 296880.38 },
+                    { label: 'Pensões - Gratif. SUS', valor: 479.33 },
+                    { label: 'INSS PREF', valor: 983944.34 },
+                    { label: 'FGTS PREF', valor: 303255.80 },
+                    { label: 'Notre Dame Intermedica', valor: 202288.27 }
                 ] },
                 { nome: 'PROCESSOS TRABALHISTAS', id: 'processos_trabalhistas', valor: 1619.20, subitens: [
                     { label: 'Carla Mercia Ferreira Domingues', valor: 506.00 },
@@ -179,126 +182,60 @@
                     { label: 'Medicamentos e Materiais Médicos e Hospitalar', valor: 264530.85 },
                     { label: 'Abbott Laboratorios', valor: 146265.00 },
                     { label: 'Aglon Comercio e Representações Ltda.', valor: 22033.59 },
+                    { label: 'Outros Materiais de Consumo', valor: 65084.50 },
                     { label: 'Companhia de Gas de S.Paulo - Comgas', valor: 46286.66 },
-                    { label: 'Cia Ultragaz S.A', valor: 1843.80 }
+                    { label: 'Cia Ultragaz S.A', valor: 1843.80 },
+                    { label: 'DC Infinity Comercializadora e Distr Eireli', valor: 865.41 },
+                    { label: 'JM Suprimentos Ltda', valor: 6626.55 },
+                    { label: 'JC da Silva Suprimentos para Escritório', valor: 3561.75 },
+                    { label: 'Linecontrol Comercio Imp e Exp Ltda', valor: 2000.84 },
+                    { label: 'Preciso Equipamentos P Laboratorios Ltda', valor: 720.00 },
+                    { label: 'Quimaflex Cientifica Ltda', valor: 2160.00 },
+                    { label: 'RBS Comercio e Serviços em Geral Ltda', valor: 5470.40 },
+                    { label: 'RF Leite Aquino Alimento para Animais', valor: 42920.00 },
+                    { label: 'Solrac Comercio e Serviço Ltda', valor: 1742.28 },
+                    { label: 'Supergasbras Energia Ltda', valor: 3645.50 },
+                    { label: 'Sinsai Comercio de Descartaveis Eireli', valor: 38327.50 },
+                    { label: 'Viva Laboratorio de Analysis Ltda', valor: 1200.00 },
+                    { label: 'VC da Rocha Distribuidora Me', valor: 7049.50 },
+                    { label: 'Vila Barcelona Me', valor: 2865.00 }
                 ] },
                 { nome: 'SERVIÇOS DE TERCEIROS', id: 'servicos_terceiros', valor: 3312660.87, subitens: [
                     { label: 'Manutenção e Reformas', valor: 731350.30 },
                     { label: 'Soluções Serv Terceirizados Eireli - Complexo PCD', valor: 1828375.76 },
+                    { label: 'Outros Serviços de Terceiros', valor: 2574910.56 },
                     { label: 'Central de Convênios', valor: 426293.85 },
                     { label: 'APAE - CER IV', valor: 435004.24 },
-                    { label: 'La Vita - Núcleo Clinico de Reabilitação', valor: 10541.78 }
-                ] },
-                { nome: 'OUTROS GASTOS', id: 'outros_gastos', valor: 326630.03, subitens: [
-                    { label: 'Combustível - Leandrini Auto Posto Ltda', valor: 26400.97 },
-                    { label: 'Utilidades, Energia, Água, coleta de lixo e internet', valor: 302869.16 },
-                    { label: 'Telefonica Brasil S/A', valor: 10332.31 },
-                    { label: 'Saesa', valor: 5010.17 },
-                    { label: 'Eletropaulo Metr.Eletr.de S.P. S/A', valor: 287154.07 }
-                ] }
-            ];
-            grupos.forEach(grupo => {
-                html += '<tr class="accordion-row" data-group="' + grupo.id + '" onclick="toggleAccordion(this)"><td><span class="toggle-icon">▶</span>' + grupo.nome + '</td><td class="valor-moeda">' + formatarMoeda(grupo.valor) + '</td></tr>';
-                grupo.subitens.forEach(sub => {
-                    html += '<tr class="accordion-item" data-group-parent="' + grupo.id + '"><td>' + sub.label + '</td><td class="valor-moeda">' + formatarMoeda(sub.valor) + '</td></tr>';
-                });
-            });
-            html += '<tr style="background: #ecf0f1; font-weight: bold;"><td>TOTAL DE DESPESAS</td><td class="valor-moeda">' + formatarMoeda(10633666.21) + '</td></tr></tbody></table></div>';
-            document.getElementById('sesaud-detalhado-conteudo').innerHTML = html;
-        }
-
-        function preencherFUABCDetalhado() {
-            var html = '<div class="table-responsive-wrapper"><table><thead><tr><th>Categoria</th><th class="valor-moeda">2025</th><th class="valor-moeda">2026</th><th class="valor-moeda">Variação</th></tr></thead><tbody>';
-            var grupos = [
-                { nome: 'RECURSOS HUMANOS', id: 'recursos_humanos', valor2025: 15519978.93, valor2026: 15979374.38, subitens: [
-                    { label: 'Folha Encargos e Benefícios', valor2025: 13643314.28, valor2026: 15019374.38 },
-                    { label: 'Férias', valor2025: 770601.83, valor2026: 0 },
-                    { label: 'Folha Autônomos', valor2025: 159308.18, valor2026: 0 },
-                    { label: 'Provisão de 13° salário', valor2025: 946754.64, valor2026: 960000.00 },
-                    { label: 'Provisão de 1/3 férias', valor2025: 0, valor2026: 0 }
-                ] },
-                { nome: 'PROCESSOS TRABALHISTAS', id: 'processos_trabalhistas', valor2025: 81084.03, valor2026: 78881.08, subitens: [
-                    { label: 'Processos Trabalhistas - MANTENEDORA', valor2025: 50000.00, valor2026: 50000.00 },
-                    { label: 'Processos Trabalhistas', valor2025: 31084.03, valor2026: 28881.08 },
-                    { label: 'Outros', valor2025: 0, valor2026: 0 }
-                ] },
-                { nome: 'MATERIAIS DE CONSUMO', id: 'materiais_consumo', valor2025: 3920961.07, valor2026: 4218090.06, subitens: [
-                    { label: 'Medicamentos e Materiais Médicos e Hospitalar', valor2025: 3837330.63, valor2026: 4088090.06 },
-                    { label: 'Material Médico', valor2025: 1099358.86, valor2026: 1092000.00 },
-                    { label: 'Medicamento', valor2025: 2018133.67, valor2026: 1945000.00 },
-                    { label: 'Baxter - Proc 286/23 - fornecimento dieta parenteral prolongada ( jan/24)', valor2025: 22357.47, valor2026: 56556.83 },
-                    { label: 'CG Medical - Proc 645/20 - fornecimento material ortopédico em consginação, c/ instrumentadores ( out/20)', valor2025: 163360.79, valor2026: 200000.00 }
-                ] },
-                { nome: 'SERVIÇOS DE TERCEIROS', id: 'servicos_terceiros', valor2025: 19270730.55, valor2026: 23568510.69, subitens: [
-                    { label: 'Manutenção e Reformas', valor2025: 1305975.09, valor2026: 1301434.22 },
-                    { label: 'Serviços Médicos Terceirizados', valor2025: 7050002.88, valor2026: 8665085.19 },
-                    { label: 'Outros Serviços de Terceiros', valor2025: 9907665.93, valor2026: 12136163.71 },
-                    { label: 'Locação de Imóveis', valor2025: 78760.54, valor2026: 96173.03 },
-                    { label: 'Locação de Diversas', valor2025: 928326.11, valor2026: 1369654.54 }
-                ] },
-                { nome: 'INVESTIMENTOS', id: 'investimentos', valor2025: 83882.01, valor2026: 203082.50, subitens: [
-                    { label: 'Bens e Materiais Permanentes', valor2025: 13417.73, valor2026: 0 },
-                    { label: 'Construção e Ampliação', valor2025: 70464.29, valor2026: 203082.50 }
-                ] },
-                { nome: 'OUTROS GASTOS', id: 'outros_gastos', valor2025: 114709.55, valor2026: 124262.02, subitens: [
-                    { label: 'Utilidades, Energia , Água , coleta de lixo e internet', valor2025: 8691.57, valor2026: 7762.02 },
-                    { label: 'Despesas financeiras e bancárias', valor2025: 428.08, valor2026: 500.00 },
-                    { label: 'Outras despesas', valor2025: 6686.85, valor2026: 11000.00 },
-                    { label: 'Despesas de Rateio', valor2025: 91905.24, valor2026: 95000.00 },
-                    { label: 'Custas Processos Judiciais', valor2025: 6997.81, valor2026: 10000.00 }
-                ] }
-            ];
-            grupos.forEach(grupo => {
-                var varTotal = calcularVariacao(grupo.valor2025, grupo.valor2026);
-                html += '<tr class="accordion-row" data-group="' + grupo.id + '" onclick="toggleAccordion(this)"><td><span class="toggle-icon">▶</span>' + grupo.nome + '</td><td class="valor-moeda">' + formatarMoeda(grupo.valor2025) + '</td><td class="valor-moeda">' + formatarMoeda(grupo.valor2026) + '</td><td class="valor-moeda" style="color: ' + varTotal.cor + '; font-weight: bold;">' + formatarMoeda(varTotal.variacao) + '</td></tr>';
-                grupo.subitens.forEach(sub => {
-                    var varSub = calcularVariacao(sub.valor2025, sub.valor2026);
-                    html += '<tr class="accordion-item" data-group-parent="' + grupo.id + '"><td>' + sub.label + '</td><td class="valor-moeda">' + formatarMoeda(sub.valor2025) + '</td><td class="valor-moeda">' + formatarMoeda(sub.valor2026) + '</td><td class="valor-moeda" style="color: ' + varSub.cor + ';">' + formatarMoeda(varSub.variacao) + '</td></tr>';
-                });
-            });
-            var totalVar = calcularVariacao(38991346.13, 44172200.73);
-            html += '<tr style="background: #ecf0f1; font-weight: bold;"><td>TOTAL DE DESPESAS</td><td class="valor-moeda">' + formatarMoeda(38991346.13) + '</td><td class="valor-moeda">' + formatarMoeda(44172200.73) + '</td><td class="valor-moeda" style="color: ' + totalVar.cor + ';">' + formatarMoeda(totalVar.variacao) + '</td></tr></tbody></table></div>';
-            document.getElementById('fuabc-detalhado-conteudo').innerHTML = html;
-        }
-
-        function calcularVariacao(v2025, v2026) {
-            var variacao = v2026 - v2025;
-            return { variacao: variacao, cor: variacao >= 0 ? '#27ae60' : '#e74c3c' };
-        }
-
-        function mudarAno(ano) {
-            anoSelecionado = ano;
-            if (document.querySelector('.tab-content.active').id === 'resumo') preencherResumo(ano);
-        }
-
-        function carregarJSON() {
-            var timestamp = '?t=' + Date.now();
-            var url = 'https://raw.githubusercontent.com/rtoledomota/SESAUD-Orcamento/main/data.json' + timestamp;
-            fetch(url, { cache: 'no-store' })
-                .then(r => r.json())
-                .then(dados => {
-                    allData = dados;
-                    var seletor = document.getElementById('seletor-ano');
-                    seletor.innerHTML = '<option value="2025">2025</option><option value="2026">2026</option>';
-                    seletor.value = '2025';
-                    document.getElementById('data-atualizacao').textContent = 'Atualizado em: ' + (dados.atualizado_em || 'Agora');
-                    mudarAno('2025');
-                    preencherResumo('2025');
-                })
-                .catch(e => {
-                    console.error('Erro ao carregar JSON:', e);
-                    document.querySelectorAll('.tab-content').forEach(el => el.innerHTML = '<div class="erro">Erro ao carregar dados. Verifique o data.json no repo.</div>');
-                });
-        }
-
-        function toggleDarkMode() {
-            document.body.classList.toggle('dark-mode');
-            localStorage.setItem('dark-mode', document.body.classList.contains('dark-mode'));
-        }
-
-        if (localStorage.getItem('dark-mode') === 'true') document.body.classList.add('dark-mode');
-
-        window.addEventListener('load', carregarJSON);
-    </script>
-</body>
-</html>
+                    { label: 'La Vita - Núcleo Clinico de Reabilitação', valor: 10541.78 },
+                    { label: 'Residencial P Idosos La Vita Ltda', valor: 6222.66 },
+                    { label: 'Centro de Readaptação Social Ltda', valor: 19572.95 },
+                    { label: 'Nucleo de Integração Luz do So Ltda', valor: 13509.56 },
+                    { label: 'Associação Estancia Primavera Comunidade Terapêutica', valor: 7500.00 },
+                    { label: 'Clínica Primavera Ltda', valor: 21365.33 },
+                    { label: 'Residencial Saúde e Bem Estar Ltda', valor: 4731.22 },
+                    { label: 'AMA - Assoc de Amigos do Autista', valor: 25310.97 },
+                    { label: 'APAE Neuro', valor: 29401.45 },
+                    { label: 'Cin Comunicação Integrada Limitada - EPP', valor: 288673.36 },
+                    { label: 'Fundação Apoio a Univers. Munic. Scs - Unimais', valor: 55401.47 },
+                    { label: 'ABX Telecom Ltda.', valor: 82486.30 },
+                    { label: 'Altbit Informatica Com e Serviços Ltda', valor: 703335.45 },
+                    { label: 'Associação Patrulheiros Mirins de S C Sul', valor: 7537.00 },
+                    { label: 'Ciama Representações e Comercio Ltda', valor: 682972.50 },
+                    { label: 'Colorsistem do Brasil Com.Sist. Reprograf.', valor: 103830.38 },
+                    { label: 'Colsan Soc.Benefic.de Coleta de Sangue', valor: 217043.32 },
+                    { label: 'Companhia de Processamento de Dados do Estado SP - Prodesp', valor: 796.52 },
+                    { label: 'Imprensa Nacional - IN', valor: 782.28 },
+                    { label: 'Inovaptt Tecnologia Ltda', valor: 37287.90 },
+                    { label: 'Max-Verde Transp e Construções Eireli', valor: 367209.51 },
+                    { label: 'Net Telecom Informática', valor: 108345.36 },
+                    { label: 'Noroeste Comercial de Suprimentos', valor: 8862.00 },
+                    { label: 'Rsm Soluções Ltda', valor: 3275.00 },
+                    { label: 'Soberana Serviços de Refeição e Com Ltda', valor: 63214.91 },
+                    { label: 'TB Serviços Transp Limp Ger.Rec.Humanos', valor: 1132787.34 },
+                    { label: 'Tres Lagoas Comercio de Embalagens Ltda', valor: 406.50 },
+                    { label: 'Vespa Saúde Ambiental Com Serviços', valor: 560.00 },
+                    { label: 'WT Peliculas Ltda', valor: 1224.61 },
+                    { label: 'Ass.Protetora dos Animais - Apascs', valor: 21000.00 },
+                    { label: 'Assoc.Prev.Depend.Quim Divina Providência', valor: 40000.00 },
+                    { label: 'Grupo de Amigos Samaritanos - G.A.S', valor: 15000.00 },
+                    {
