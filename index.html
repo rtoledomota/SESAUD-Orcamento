@@ -178,7 +178,7 @@
             text-align: left;
             border: none;
             font-weight: 600;
-            color: #ffffff !important;
+            color: #ffffff !important; /* Cor branca para títulos da tabela */
             font-size: 0.9rem;
             white-space: nowrap;
             text-transform: uppercase;
@@ -196,7 +196,7 @@
         .valor-moeda { text-align: right; font-weight: 600; color: #2c3e50; }
         tbody tr:last-child td { border-bottom: none; }
 
-        /* Accordion Styles */
+        /* Accordion Styles - Expansível como Excel */
         .accordion-row {
             cursor: pointer;
             user-select: none;
@@ -443,12 +443,23 @@
             document.getElementById(nome).classList.add('active');
             event.currentTarget.classList.add('active');
             
-            // Renderizar conteúdo da aba ativa
-            var abaAtiva = document.querySelector('.tab-content.active');
-            var nomeAba = abaAtiva.id;
             var indiceAno = document.getElementById('seletor-ano').value;
             if (indiceAno !== '' && allData[indiceAno]) {
-                renderizarAba(nomeAba, allData[indiceAno]);
+                var dados = allData[indiceAno];
+                switch (nome) {
+                    case 'resumo':
+                        preencherResumo(dados);
+                        break;
+                    case 'novos-servicos':
+                        preencherNovosServicos(dados);
+                        break;
+                    case 'sesaud-detalhado':
+                        preencherSESAUDDetalhado(dados);
+                        break;
+                    case 'fuabc-detalhado':
+                        preencherFUABCDetalhado(dados);
+                        break;
+                }
             }
         }
 
@@ -457,23 +468,6 @@
             var items = document.querySelectorAll('[data-group-parent="' + groupId + '"]');
             element.classList.toggle('expanded');
             items.forEach(item => item.classList.toggle('show'));
-        }
-
-        function renderizarAba(nomeAba, dados) {
-            switch (nomeAba) {
-                case 'resumo':
-                    preencherResumo(dados);
-                    break;
-                case 'novos-servicos':
-                    preencherNovosServicos(dados);
-                    break;
-                case 'sesaud-detalhado':
-                    preencherSESAUDDetalhado(dados);
-                    break;
-                case 'fuabc-detalhado':
-                    preencherFUABCDetalhado(dados);
-                    break;
-            }
         }
 
         function preencherResumo(dados) {
@@ -492,7 +486,7 @@
             html += '<div class="table-responsive-wrapper"><table><thead><tr><th>Categoria</th><th class="valor-moeda">Valor</th></tr></thead><tbody>';
             for (var chave in dados) {
                 if (dados.hasOwnProperty(chave) && typeof dados[chave] === 'number' && chave !== 'total_geral' && chave !== 'total_fuabc' && chave !== 'total_sesaud' && chave !== 'orcamento_mensal') {
-                    html += '<tr><td>' + chave.toUpperCase() + '</td><td class="valor-moeda">' + formatarMoeda(dados[chave]) + '</td></tr>';
+                    html += '<tr><td>' + chave.replace(/_/g, ' ').toUpperCase() + '</td><td class="valor-moeda">' + formatarMoeda(dados[chave]) + '</td></tr>';
                 }
             }
             html += '</tbody></table></div>';
@@ -508,7 +502,7 @@
             var html = '<div class="servicos-lista"><h4>Novos Serviços</h4><ul>';
             for (var chave in dados) {
                 if (dados.hasOwnProperty(chave) && typeof dados[chave] === 'number') {
-                    html += '<li><span class="servico-nome">' + chave.toUpperCase() + '</span><span class="servico-valor">' + formatarMoeda(dados[chave]) + '</span></li>';
+                    html += '<li><span class="servico-nome">' + chave.replace(/_/g, ' ').toUpperCase() + '</span><span class="servico-valor">' + formatarMoeda(dados[chave]) + '</span></li>';
                 }
             }
             html += '</ul></div>';
@@ -553,22 +547,22 @@
             }
 
             var html = '<div class="table-responsive-wrapper"><table><thead><tr><th>Categoria</th><th class="valor-moeda">2025</th><th class="valor-moeda">2026</th><th class="valor-moeda">Variação</th></tr></thead><tbody>';
-            var itens = [
-                { label: 'RECURSOS HUMANOS', 2025: dados.recursos_humanos_2025 || 0, 2026: dados.recursos_humanos_2026 || 0 },
-                { label: 'PROCESSOS TRABALHISTAS', 2025: dados.processos_trabalhistas_2025 || 0, 2026: dados.processos_trabalhistas_2026 || 0 },
-                { label: 'MATERIAIS DE CONSUMO', 2025: dados.materiais_consumo_2025 || 0, 2026: dados.materiais_consumo_2026 || 0 },
-                { label: 'SERVIÇOS DE TERCEIROS', 2025: dados.servicos_terceiros_2025 || 0, 2026: dados.servicos_terceiros_2026 || 0 },
-                { label: 'INVESTIMENTOS', 2025: dados.investimentos_2025 || 0, 2026: dados.investimentos_2026 || 0 },
-                { label: 'OUTROS GASTOS', 2025: dados.outros_gastos_2025 || 0, 2026: dados.outros_gastos_2026 || 0 }
+            var grupos = [
+                { nome: 'RECURSOS HUMANOS', id: 'recursos_humanos', valor2025: dados.recursos_humanos_2025 || 0, valor2026: dados.recursos_humanos_2026 || 0 },
+                { nome: 'PROCESSOS TRABALHISTAS', id: 'processos', valor2025: dados.processos_trabalhistas_2025 || 0, valor2026: dados.processos_trabalhistas_2026 || 0 },
+                { nome: 'MATERIAIS DE CONSUMO', id: 'materiais', valor2025: dados.materiais_consumo_2025 || 0, valor2026: dados.materiais_consumo_2026 || 0 },
+                { nome: 'SERVIÇOS DE TERCEIROS', id: 'servicos', valor2025: dados.servicos_terceiros_2025 || 0, valor2026: dados.servicos_terceiros_2026 || 0 },
+                { nome: 'INVESTIMENTOS', id: 'investimentos', valor2025: dados.investimentos_2025 || 0, valor2026: dados.investimentos_2026 || 0 },
+                { nome: 'OUTROS GASTOS', id: 'outros', valor2025: dados.outros_gastos_2025 || 0, valor2026: dados.outros_gastos_2026 || 0 }
             ];
 
-            itens.forEach(item => {
-                var variacao = item['2026'] - item['2025'];
+            grupos.forEach(grupo => {
+                var variacao = grupo.valor2026 - grupo.valor2025;
                 var corVariacao = variacao >= 0 ? '#27ae60' : '#e74c3c';
-                html += '<tr>';
-                html += '<td>' + item.label + '</td>';
-                html += '<td class="valor-moeda">' + formatarMoeda(item['2025']) + '</td>';
-                html += '<td class="valor-moeda">' + formatarMoeda(item['2026']) + '</td>';
+                html += '<tr class="accordion-row" data-group="' + grupo.id + '" onclick="toggleAccordion(this)">';
+                html += '<td><span class="toggle-icon">▶</span>' + grupo.nome + '</td>';
+                html += '<td class="valor-moeda">' + formatarMoeda(grupo.valor2025) + '</td>';
+                html += '<td class="valor-moeda">' + formatarMoeda(grupo.valor2026) + '</td>';
                 html += '<td class="valor-moeda" style="color: ' + corVariacao + '; font-weight: bold;">' + formatarMoeda(variacao) + '</td>';
                 html += '</tr>';
             });
@@ -576,12 +570,13 @@
             var total2025 = dados.total_2025 || 0;
             var total2026 = dados.total_2026 || 0;
             var totalVariacao = total2026 - total2025;
+            var corTotal = totalVariacao >= 0 ? '#27ae60' : '#e74c3c';
 
             html += '<tr style="background: #ecf0f1; font-weight: bold;">';
             html += '<td>TOTAL</td>';
             html += '<td class="valor-moeda">' + formatarMoeda(total2025) + '</td>';
             html += '<td class="valor-moeda">' + formatarMoeda(total2026) + '</td>';
-            html += '<td class="valor-moeda" style="color: ' + (totalVariacao >= 0 ? '#27ae60' : '#e74c3c') + ';">' + formatarMoeda(totalVariacao) + '</td>';
+            html += '<td class="valor-moeda" style="color: ' + corTotal + ';">' + formatarMoeda(totalVariacao) + '</td>';
             html += '</tr>';
 
             html += '</tbody></table></div>';
@@ -596,12 +591,26 @@
             }
 
             var dados = allData[indice];
-            var nomeAba = document.querySelector('.tab-content.active').id;
-            renderizarAba(nomeAba, dados);
+            var abaAtiva = document.querySelector('.tab-content.active').id;
+            switch (abaAtiva) {
+                case 'resumo':
+                    preencherResumo(dados);
+                    break;
+                case 'novos-servicos':
+                    preencherNovosServicos(dados);
+                    break;
+                case 'sesaud-detalhado':
+                    preencherSESAUDDetalhado(dados);
+                    break;
+                case 'fuabc-detalhado':
+                    preencherFUABCDetalhado(dados);
+                    break;
+            }
         }
 
         function carregarJSON() {
-            console.log('Carregando JSON...');
+            console.log('Iniciando carregamento de dados...');
+            
             var timestamp = '?t=' + Date.now();
             var urlBase = 'https://raw.githubusercontent.com/rtoledomota/SESAUD-Orcamento/main/data.json' + timestamp;
             var urls = [
@@ -611,39 +620,51 @@
 
             function tentarProxima(index) {
                 if (index >= urls.length) {
-                    console.error('Falha em todas as URLs');
-                    document.querySelectorAll('.tab-content').forEach(el => el.innerHTML = '<div class="erro">Erro ao carregar dados</div>');
+                    console.error('Nenhuma URL funcionou');
+                    document.querySelectorAll('.tab-content').forEach(el => el.innerHTML = '<div class="erro">Erro ao carregar dados. Verifique a URL do JSON.</div>');
                     return;
                 }
 
-                console.log('Tentando URL ' + (index + 1));
+                console.log('Tentando carregar:', urls[index]);
                 fetch(urls[index], { cache: 'no-store', headers: { 'Cache-Control': 'no-cache, no-store, must-revalidate' } })
                     .then(r => {
                         if (!r.ok) throw new Error('HTTP ' + r.status);
                         return r.json();
                     })
                     .then(dados => {
-                        console.log('✅ Sucesso - JSON carregado:', dados);
-                        if (dados.anos && Array.isArray(dados.anos) && dados.anos.length === 4) {
+                        console.log('✅ Sucesso com:', urls[index]);
+                        console.log('Dados recebidos:', dados);
+                        
+                        if (dados.anos && Array.isArray(dados.anos)) {
                             allData = dados.anos;
-                            var seletor = document.getElementById('seletor-ano');
-                            seletor.innerHTML = '';
-                            var nomesAbas = ['Resumo Geral', 'Novos Serviços', 'SESAUD Detalhado', 'FUABC Detalhado'];
-                            for (var i = 0; i < allData.length; i++) {
-                                var opt = document.createElement('option');
-                                opt.value = i;
-                                opt.textContent = nomesAbas[i] + ' - ' + (allData[i].descricao || '');
-                                seletor.appendChild(opt);
-                            }
-                            seletor.value = 0;
-                            document.getElementById('data-atualizacao').textContent = 'Atualizado em: ' + (dados.atualizado_em || 'Agora');
-                            mudarAno(0);
-                        } else {
-                            throw new Error('Estrutura inválida - esperado array de 4 anos');
+                            console.log('Anos encontrados:', allData.length);
                         }
+
+                        if (allData.length === 0) {
+                            console.error('Nenhum ano encontrado');
+                            document.querySelectorAll('.tab-content').forEach(el => el.innerHTML = '<div class="erro">Nenhum período encontrado nos dados.</div>');
+                            return;
+                        }
+
+                        var seletor = document.getElementById('seletor-ano');
+                        seletor.innerHTML = '';
+                        var nomes = ['Resumo Geral 2025', 'Novos Serviços 2025', 'SESAUD Detalhado 2025', 'FUABC Detalhado 2025/2026'];
+                        
+                        for (var i = 0; i < allData.length; i++) {
+                            var opt = document.createElement('option');
+                            opt.value = i;
+                            opt.textContent = nomes[i] || ('Período ' + (i + 1));
+                            seletor.appendChild(opt);
+                            console.log('Adicionado período:', i, nomes[i]);
+                        }
+
+                        seletor.value = 0;
+                        document.getElementById('data-atualizacao').textContent = 'Atualizado em: ' + (dados.atualizado_em || 'N/A');
+                        
+                        mudarAno(0);
                     })
                     .catch(e => {
-                        console.log('Falha:', e.message);
+                        console.log('❌ Falha:', urls[index], e.message);
                         tentarProxima(index + 1);
                     });
             }
@@ -661,7 +682,7 @@
         }
 
         window.addEventListener('load', carregarJSON);
-        setInterval(carregarJSON, 300000);
+        setInterval(carregarJSON, 60000);
     </script>
 </body>
 </html>
