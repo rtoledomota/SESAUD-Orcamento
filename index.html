@@ -36,29 +36,10 @@
         .table-responsive-wrapper { overflow-x: auto; margin: 1rem 0; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
         table { width: 100%; border-collapse: collapse; background: white; min-width: 600px; }
         
-        /* Headers das Tabelas - Corrigido para branco no fundo escuro (ajuste solicitado) */
-        th { 
-            padding: 1rem; 
-            text-align: left; 
-            color: #ffffff !important; /* Branco puro, forçado */
-            font-weight: 600 !important; 
-            font-size: 0.9rem; 
-            white-space: nowrap; 
-            text-transform: uppercase; 
-            letter-spacing: 0.5px; 
-            background: #2c3e50 !important; /* Fundo escuro, forçado */
-        }
-        /* Seletores ultra-específicos para garantir a cor branca nos headers */
-        .tab-content table th, 
-        .tab-content .table-responsive-wrapper th, 
-        .tab-content .table-responsive-wrapper thead th, 
-        table th, 
-        thead th, 
-        .table-responsive-wrapper th, 
-        .table-responsive-wrapper thead th, 
-        body table th, 
-        body thead th, 
-        .tab-content th { 
+        /* Headers das Tabelas - Corrigido para branco no fundo escuro */
+        th { padding: 1rem; text-align: left; color: #ffffff !important; font-weight: 600 !important; font-size: 0.9rem; white-space: nowrap; text-transform: uppercase; letter-spacing: 0.5px; }
+        /* Seletores ultra-específicos para garantir a cor branca nos headers (ajuste solicitado) */
+        .tab-content table th, .tab-content .table-responsive-wrapper th, .tab-content .table-responsive-wrapper thead th, table th, thead th, .table-responsive-wrapper th, .table-responsive-wrapper thead th, body table th, body thead th, .tab-content th, th { 
             color: #ffffff !important; 
             background: #2c3e50 !important; 
         }
@@ -249,7 +230,7 @@
                 { label: 'ASS.PROTETORA DOS ANIMAIS - APASCS', valor: 21000.00 },
                 { label: 'ASSOC.PREV.DEPEND.QUIM DIVINA PROVIDENCIA', valor: 40000.00 },
                 { label: 'GRUPO DE AMIGOS SAMARITANOS - G.A.S', valor: 15000.00 },
-                { label: 'INSTITUIÇÃO CLAUDIO AMÂNCIO', valor: 60000.00 },
+                { label: 'INSTITUIÇÃO CLAUDIO AMÃNCIO', valor: 60000.00 },
                 { label: 'REDE FEMININA DE COMBATE AO CÂNCER', valor: 40000.00 },
                 { label: 'SOC BENEFIC.GRUPO DE AMOR A VIDA - GAV', valor: 80000.00 },
                 { label: 'Locação de imóveis', valor: 53091.70 },
@@ -382,8 +363,8 @@
 
         function calcularVariacao(v2025, v2026) {
             var variacao = v2026 - v2025;
-            var cor = variacao >= 0 ? '#27ae60' : '#e74c3c';
-            return { variacao: variacao, cor: cor };
+            var classe = variacao >= 0 ? 'variacao-positiva' : 'variacao-negativa';
+            return { variacao: variacao, cor: classe };
         }
 
         function toggleAccordion(element) {
@@ -407,23 +388,24 @@
         function preencherResumo(ano) {
             var titulo = ano === '2025' ? '2025 - MÉDIA DE EXECUÇÃO - JAN A OUT' : '2026 - PROJEÇÃO';
             var fuabcTotal = ano === '2025' ? 38991346.13 : 44172200.73;
-            var sesaudTotal = 10633666.21; // SESAUD total é fixo para ambos os anos no resumo
-            var geralTotal = ano === '2025' ? 49625012.34 : 54805867.00;
+            var sesaudTotal = 10633666.21;
+            var geralTotal = (ano === '2025' ? 49625012.34 : 54805867.00);
 
             var html = '<div class="table-responsive-wrapper"><table><thead><tr><th>ORÇAMENTO</th><th>CUSTO MENSAL FUABC</th><th>CUSTO MENSAL SESAUD</th><th>GERAL</th></tr></thead><tbody><tr><td></td><td colspan="3">' + titulo + '</td></tr>';
             
-            // Dados do resumo (agregados)
             var resumoData = [
-                { categoria: 'RECURSOS HUMANOS', fuabc: { '2025': 15519978.93, '2026': 15979374.38 }, sesaud: 6616449.07, geral: { '2025': 22136428.00, '2026': 22605823.45 } },
-                { categoria: 'PROCESSOS TRABALHISTAS', fuabc: { '2025': 81084.03, '2026': 78881.08 }, sesaud: 1619.20, geral: { '2025': 82703.23, '2026': 80500.28 } },
-                { categoria: 'MATERIAIS DE CONSUMO', fuabc: { '2025': 3920961.07, '2026': 4218090.06 }, sesaud: 329615.34, geral: { '2025': 4250576.41, '2026': 4547705.40 } },
-                { categoria: 'SERVIÇOS DE TERCEIROS', fuabc: { '2025': 19270730.55, '2026': 23568510.69 }, sesaud: 3312660.87, geral: { '2025': 22583391.42, '2026': 26881171.56 } },
-                { categoria: 'INVESTIMENTOS', fuabc: { '2025': 83882.01, '2026': 203082.50 }, sesaud: 0, geral: { '2025': 83882.01, '2026': 203082.50 } },
-                { categoria: 'OUTROS GASTOS', fuabc: { '2025': 114709.55, '2026': 124262.02 }, sesaud: 326630.03, geral: { '2025': 441339.58, '2026': 450892.05 } }
+                { label: 'RECURSOS HUMANOS', fuabc2025: 15519978.93, fuabc2026: 15979374.38, sesaud: 6616449.07 },
+                { label: 'PROCESSOS TRABALHISTAS', fuabc2025: 81084.03, fuabc2026: 78881.08, sesaud: 1619.20 },
+                { label: 'MATERIAIS DE CONSUMO', fuabc2025: 3920961.07, fuabc2026: 4218090.06, sesaud: 329615.34 },
+                { label: 'SERVIÇOS DE TERCEIROS', fuabc2025: 19270730.55, fuabc2026: 23568510.69, sesaud: 3312660.87 },
+                { label: 'INVESTIMENTOS', fuabc2025: 83882.01, fuabc2026: 203082.50, sesaud: 0 },
+                { label: 'OUTROS GASTOS', fuabc2025: 114709.55, fuabc2026: 124262.02, sesaud: 326630.03 }
             ];
 
             resumoData.forEach(item => {
-                html += '<tr><td>' + item.categoria + '</td><td class="valor-moeda">' + formatarMoeda(item.fuabc[ano]) + '</td><td class="valor-moeda">' + formatarMoeda(item.sesaud) + '</td><td class="valor-moeda">' + formatarMoeda(item.geral[ano]) + '</td></tr>';
+                var fuabcValor = ano === '2025' ? item.fuabc2025 : item.fuabc2026;
+                var geralValor = fuabcValor + item.sesaud;
+                html += '<tr><td>' + item.label + '</td><td class="valor-moeda">' + formatarMoeda(fuabcValor) + '</td><td class="valor-moeda">' + formatarMoeda(item.sesaud) + '</td><td class="valor-moeda">' + formatarMoeda(geralValor) + '</td></tr>';
             });
 
             html += '<tr style="background: #ecf0f1; font-weight: bold;"><td>TOTAL DE DESPESAS</td><td class="valor-moeda">' + formatarMoeda(fuabcTotal) + '</td><td class="valor-moeda">' + formatarMoeda(sesaudTotal) + '</td><td class="valor-moeda">' + formatarMoeda(geralTotal) + '</td></tr></tbody></table></div>';
