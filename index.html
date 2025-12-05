@@ -11,7 +11,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', sans-serif; background: #f5f6f8; color: #2c3e50; padding: 1.5rem; }
         .container { max-width: 1400px; margin: 0 auto; }
-        header { background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%); padding: 2rem; border-radius: 8px; margin-bottom: 2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center; color: white; }
+        header { background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%); padding: 2rem; border-radius: 8px; margin-bottom: 2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center; color: white; position: relative; }
         header h1 { font-size: 2.5rem; font-weight: 600; margin-bottom: 0.5rem; }
         header p { font-size: 1.1rem; opacity: 0.95; margin-bottom: 0.5rem; }
         .data-atualizacao { font-size: 0.9rem; opacity: 0.8; margin-top: 0.5rem; }
@@ -25,7 +25,7 @@
         .tab-content.active { display: block; }
         h2 { color: #2c3e50; margin-bottom: 1.5rem; font-size: 1.8rem; text-align: center; font-weight: 600; }
         .table-responsive-wrapper { overflow-x: auto; margin: 1rem 0; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
-        table { width: 100%; border-collapse: collapse; background: white; min-width: 600px; }
+        table { width: 100%; border-collapse: collapse; background: white; min-width: 400px; }
         thead { background: #2c3e50; }
         th { padding: 1rem; text-align: left; color: #ffffff !important; font-weight: 600; font-size: 0.9rem; white-space: nowrap; text-transform: uppercase; letter-spacing: 0.5px; }
         td { padding: 0.9rem 1rem; border-bottom: 1px solid #ecf0f1; color: #2c3e50; font-size: 0.9rem; }
@@ -59,7 +59,7 @@
             <h1>Dashboard Orçamento</h1>
             <p>SESAUD / FUABC</p>
             <div class="year-selector-container">
-                <label for="seletor-ano">Selecione o período:</label>
+                <label for="seletor-ano">Selecione o ano:</label>
                 <select id="seletor-ano" onchange="mudarAno(this.value)">
                     <option value="">Carregando...</option>
                 </select>
@@ -76,7 +76,7 @@
         </div>
 
         <div id="resumo" class="tab-content active">
-            <h2>Resumo Geral (2025/2026)</h2>
+            <h2>Resumo Geral</h2>
             <div id="resumo-conteudo"></div>
         </div>
 
@@ -101,7 +101,8 @@
     </footer>
 
     <script>
-        var allData = [];
+        var allData = {};
+        var anoSelecionado = '2025';
 
         function formatarMoeda(valor) {
             return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(valor || 0);
@@ -113,23 +114,14 @@
             document.getElementById(nome).classList.add('active');
             event.currentTarget.classList.add('active');
             
-            var indiceAno = document.getElementById('seletor-ano').value;
-            if (indiceAno !== '' && allData[indiceAno]) {
-                var dados = allData[indiceAno];
-                switch (nome) {
-                    case 'resumo':
-                        preencherResumo(dados);
-                        break;
-                    case 'novos-servicos':
-                        preencherNovosServicos(dados);
-                        break;
-                    case 'sesaud-detalhado':
-                        preencherSESAUDDetalhado(dados);
-                        break;
-                    case 'fuabc-detalhado':
-                        preencherFUABCDetalhado(dados);
-                        break;
-                }
+            if (nome === 'resumo') {
+                preencherResumo(anoSelecionado);
+            } else if (nome === 'novos-servicos') {
+                preencherNovosServicos();
+            } else if (nome === 'sesaud-detalhado') {
+                preencherSESAUDDetalhado();
+            } else if (nome === 'fuabc-detalhado') {
+                preencherFUABCDetalhado();
             }
         }
 
@@ -140,36 +132,31 @@
             items.forEach(item => item.classList.toggle('show'));
         }
 
-        function preencherResumo(dados) {
-            if (!dados) {
-                document.getElementById('resumo-conteudo').innerHTML = '<div class="erro">Dados não disponíveis</div>';
-                return;
-            }
-
-            var html = '<div class="table-responsive-wrapper"><table><thead><tr><th>ORÇAMENTO</th><th>CUSTO MENSAL FUABC</th><th>CUSTO MENSAL SESAUD</th><th>GERAL</th><th>CUSTO MENSAL FUABC</th><th>CUSTO MENSAL SESAUD</th><th>GERAL</th></tr></thead><tbody>';
-            html += '<tr><td></td><td colspan="3">2025 - MÉDIA DE EXECUÇÃO - JAN A OUT</td><td colspan="3">2026 - PROJEÇÃO</td></tr>';
+        function preencherResumo(ano) {
+            var dados2025 = allData.anos ? allData.anos[0] : {};
+            var dadosFuabc = allData.anos ? allData.anos[3] : {};
+            var titulo = ano === '2025' ? '2025 - MÉDIA DE EXECUÇÃO - JAN A OUT' : '2026 - PROJEÇÃO';
+            var html = '<div class="table-responsive-wrapper"><table><thead><tr><th>ORÇAMENTO</th><th>CUSTO MENSAL FUABC</th><th>CUSTO MENSAL SESAUD</th><th>GERAL</th></tr></thead><tbody>';
+            html += '<tr><td></td><td colspan="3">' + titulo + '</td></tr>';
 
             var categorias = [
-                { nome: 'RECURSOS HUMANOS', fuabc2025: 15415513.50, sesaud2025: dados.recursos_humanos || 6616449.07, geral2025: 22031962.57, fuabc2026: dados.recursos_humanos_2026 || 15979374.38, sesaud2026: dados.recursos_humanos || 6616449.07, geral2026: 22595823.45 },
-                { nome: 'PROCESSOS TRABALHISTAS', fuabc2025: 84890.27, sesaud2025: 2024.00, geral2025: 86914.27, fuabc2026: dados.processos_trabalhistas_2026 || 78881.08, sesaud2026: 2024.00, geral2026: 80905.08 },
-                { nome: 'MATERIAIS DE CONSUMO', fuabc2025: 3888891.54, sesaud2025: dados.materiais_consumo || 329615.34, geral2025: 4218506.88, fuabc2026: dados.materiais_consumo_2026 || 4218090.06, sesaud2026: dados.materiais_consumo || 329615.34, geral2026: 4547705.40 },
-                { nome: 'MANUTENÇÃO E REFORMAS', fuabc2025: 1316264.15, sesaud2025: 731350.30, geral2025: 0, fuabc2026: 1301434.22, sesaud2026: 731350.30, geral2026: 2032784.52 },
-                { nome: 'SERVIÇOS MÉDICOS', fuabc2025: 6776884.98, sesaud2025: 0, geral2025: 0, fuabc2026: 8665085.19, sesaud2026: 0, geral2026: 8665085.19 },
-                { nome: 'SERVIÇOS DE TERCEIROS', fuabc2025: 10939718.04, sesaud2025: dados.servicos_terceiros || 2628002.26, geral2025: 13567720.31, fuabc2026: dados.servicos_terceiros_2026 || 13601991.28, sesaud2026: dados.servicos_terceiros || 2628002.26, geral2026: 16229993.55 },
-                { nome: 'INVESTIMENTOS', fuabc2025: 111842.68, sesaud2025: 0, geral2025: 111842.68, fuabc2026: dados.investimentos_2026 || 203082.50, sesaud2026: 0, geral2026: 203082.50 },
-                { nome: 'OUTROS GASTOS', fuabc2025: 111094.32, sesaud2025: dados.outros_gastos || 326630.03, geral2025: 437724.35, fuabc2026: dados.outros_gastos_2026 || 124262.02, sesaud2026: dados.outros_gastos || 326630.03, geral2026: 450892.05 },
-                { nome: 'TOTAL DE DESPESAS', fuabc2025: dados.total_fuabc || 38645099.48, sesaud2025: dados.total_sesaud || 10634071.01, geral2025: dados.total_geral || 49279170.49, fuabc2026: dados.total_2026 || 44172200.73, sesaud2026: dados.total_sesaud || 10634071.01, geral2026: 54806271.74 }
+                { nome: 'RECURSOS HUMANOS', fuabc: ano === '2025' ? 15415513.50 : (dadosFuabc.recursos_humanos_2026 || 15979374.38), sesaud: dados2025.recursos_humanos || 6616449.07, geral: ano === '2025' ? 22031962.57 : 22595823.45 },
+                { nome: 'PROCESSOS TRABALHISTAS', fuabc: ano === '2025' ? 84890.27 : (dadosFuabc.processos_trabalhistas_2026 || 78881.08), sesaud: 2024.00, geral: ano === '2025' ? 86914.27 : 80905.08 },
+                { nome: 'MATERIAIS DE CONSUMO', fuabc: ano === '2025' ? 3888891.54 : (dadosFuabc.materiais_consumo_2026 || 4218090.06), sesaud: dados2025.materiais_consumo || 329615.34, geral: ano === '2025' ? 4218506.88 : 4547705.40 },
+                { nome: 'MANUTENÇÃO E REFORMAS', fuabc: ano === '2025' ? 1316264.15 : 1301434.22, sesaud: 731350.30, geral: ano === '2025' ? 0 : 2032784.52 },
+                { nome: 'SERVIÇOS MÉDICOS', fuabc: ano === '2025' ? 6776884.98 : 8665085.19, sesaud: 0, geral: ano === '2025' ? 0 : 8665085.19 },
+                { nome: 'SERVIÇOS DE TERCEIROS', fuabc: ano === '2025' ? 10939718.04 : (dadosFuabc.servicos_terceiros_2026 || 13601991.28), sesaud: dados2025.servicos_terceiros || 2628002.26, geral: ano === '2025' ? 13567720.31 : 16229993.55 },
+                { nome: 'INVESTIMENTOS', fuabc: ano === '2025' ? 111842.68 : (dadosFuabc.investimentos_2026 || 203082.50), sesaud: 0, geral: ano === '2025' ? 111842.68 : 203082.50 },
+                { nome: 'OUTROS GASTOS', fuabc: ano === '2025' ? 111094.32 : (dadosFuabc.outros_gastos_2026 || 124262.02), sesaud: dados2025.outros_gastos || 326630.03, geral: ano === '2025' ? 437724.35 : 450892.05 },
+                { nome: 'TOTAL DE DESPESAS', fuabc: ano === '2025' ? (dados2025.total_fuabc || 38645099.48) : (dadosFuabc.total_2026 || 44172200.73), sesaud: dados2025.total_sesaud || 10634071.01, geral: ano === '2025' ? (dados2025.total_geral || 49279170.49) : 54806271.74 }
             ];
 
             categorias.forEach(cat => {
                 html += '<tr>';
                 html += '<td>' + cat.nome + '</td>';
-                html += '<td class="valor-moeda">' + formatarMoeda(cat.fuabc2025) + '</td>';
-                html += '<td class="valor-moeda">' + formatarMoeda(cat.sesaud2025) + '</td>';
-                html += '<td class="valor-moeda">' + formatarMoeda(cat.geral2025) + '</td>';
-                html += '<td class="valor-moeda">' + formatarMoeda(cat.fuabc2026) + '</td>';
-                html += '<td class="valor-moeda">' + formatarMoeda(cat.sesaud2026) + '</td>';
-                html += '<td class="valor-moeda">' + formatarMoeda(cat.geral2026) + '</td>';
+                html += '<td class="valor-moeda">' + formatarMoeda(cat.fuabc) + '</td>';
+                html += '<td class="valor-moeda">' + formatarMoeda(cat.sesaud) + '</td>';
+                html += '<td class="valor-moeda">' + formatarMoeda(cat.geral) + '</td>';
                 html += '</tr>';
             });
 
@@ -177,12 +164,8 @@
             document.getElementById('resumo-conteudo').innerHTML = html;
         }
 
-        function preencherNovosServicos(dados) {
-            if (!dados) {
-                document.getElementById('novos-servicos-conteudo').innerHTML = '<div class="erro">Dados não disponíveis</div>';
-                return;
-            }
-
+        function preencherNovosServicos() {
+            var dados = allData.anos ? allData.anos[1] : {};
             var html = '<div class="servicos-lista"><h4>Novos Serviços 2025/2026</h4><ul>';
             html += '<li><span class="servico-nome">Serviço Fisioterapia</span><span class="servico-valor">' + formatarMoeda(dados.servico_fisioterapia) + '</span></li>';
             html += '<li><span class="servico-nome">Serviço Regulação</span><span class="servico-valor">' + formatarMoeda(dados.servico_regulacao) + '</span></li>';
@@ -196,12 +179,8 @@
             document.getElementById('novos-servicos-conteudo').innerHTML = html;
         }
 
-        function preencherSESAUDDetalhado(dados) {
-            if (!dados) {
-                document.getElementById('sesaud-detalhado-conteudo').innerHTML = '<div class="erro">Dados não disponíveis</div>';
-                return;
-            }
-
+        function preencherSESAUDDetalhado() {
+            var dados = allData.anos ? allData.anos[2] : {};
             var html = '<div class="table-responsive-wrapper"><table><thead><tr><th>Categoria</th><th class="valor-moeda">Valor</th></tr></thead><tbody>';
             var grupos = [
                 { nome: 'RECURSOS HUMANOS', id: 'recursos_humanos', valor: dados.recursos_humanos || 0, subitens: [
@@ -244,26 +223,22 @@
             document.getElementById('sesaud-detalhado-conteudo').innerHTML = html;
         }
 
-        function preencherFUABCDetalhado(dados) {
-            if (!dados) {
-                document.getElementById('fuabc-detalhado-conteudo').innerHTML = '<div class="erro">Dados não disponíveis</div>';
-                return;
-            }
-
+        function preencherFUABCDetalhado() {
+            var dados = allData.anos ? allData.anos[3] : {};
             var html = '<div class="table-responsive-wrapper"><table><thead><tr><th>Categoria</th><th class="valor-moeda">2025</th><th class="valor-moeda">2026</th><th class="valor-moeda">Variação</th></tr></thead><tbody>';
             var grupos = [
-                { nome: 'RECURSOS HUMANOS', id: 'recursos_humanos', valor2025: dados.recursos_humanos_2025 || 0, valor2026: dados.recursos_humanos_2026 || 0 },
-                { nome: 'PROCESSOS TRABALHISTAS', id: 'processos', valor2025: dados.processos_trabalhistas_2025 || 0, valor2026: dados.processos_trabalhistas_2026 || 0 },
-                { nome: 'MATERIAIS DE CONSUMO', id: 'materiais', valor2025: dados.materiais_consumo_2025 || 0, valor2026: dados.materiais_consumo_2026 || 0 },
-                { nome: 'SERVIÇOS DE TERCEIROS', id: 'servicos', valor2025: dados.servicos_terceiros_2025 || 0, valor2026: dados.servicos_terceiros_2026 || 0 },
-                { nome: 'INVESTIMENTOS', id: 'investimentos', valor2025: dados.investimentos_2025 || 0, valor2026: dados.investimentos_2026 || 0 },
-                { nome: 'OUTROS GASTOS', id: 'outros', valor2025: dados.outros_gastos_2025 || 0, valor2026: dados.outros_gastos_2026 || 0 }
+                { nome: 'RECURSOS HUMANOS', valor2025: dados.recursos_humanos_2025 || 0, valor2026: dados.recursos_humanos_2026 || 0 },
+                { nome: 'PROCESSOS TRABALHISTAS', valor2025: dados.processos_trabalhistas_2025 || 0, valor2026: dados.processos_trabalhistas_2026 || 0 },
+                { nome: 'MATERIAIS DE CONSUMO', valor2025: dados.materiais_consumo_2025 || 0, valor2026: dados.materiais_consumo_2026 || 0 },
+                { nome: 'SERVIÇOS DE TERCEIROS', valor2025: dados.servicos_terceiros_2025 || 0, valor2026: dados.servicos_terceiros_2026 || 0 },
+                { nome: 'INVESTIMENTOS', valor2025: dados.investimentos_2025 || 0, valor2026: dados.investimentos_2026 || 0 },
+                { nome: 'OUTROS GASTOS', valor2025: dados.outros_gastos_2025 || 0, valor2026: dados.outros_gastos_2026 || 0 }
             ];
 
             grupos.forEach(grupo => {
                 var variacao = grupo.valor2026 - grupo.valor2025;
                 var corVariacao = variacao >= 0 ? '#27ae60' : '#e74c3c';
-                html += '<tr class="accordion-row" data-group="' + grupo.id + '" onclick="toggleAccordion(this)">';
+                html += '<tr class="accordion-row" data-group="' + grupo.nome.toLowerCase().replace(/ /g, '_') + '" onclick="toggleAccordion(this)">';
                 html += '<td><span class="toggle-icon">▶</span>' + grupo.nome + '</td>';
                 html += '<td class="valor-moeda">' + formatarMoeda(grupo.valor2025) + '</td>';
                 html += '<td class="valor-moeda">' + formatarMoeda(grupo.valor2026) + '</td>';
@@ -286,24 +261,10 @@
             document.getElementById('fuabc-detalhado-conteudo').innerHTML = html;
         }
 
-        function mudarAno(indice) {
-            console.log('Mudando para aba:', indice);
-            if (indice === '' || !allData[indice]) return;
-            var abaAtiva = document.querySelector('.tab-content.active').id;
-            var dados = allData[indice];
-            switch (abaAtiva) {
-                case 'resumo':
-                    preencherResumo(dados);
-                    break;
-                case 'novos-servicos':
-                    preencherNovosServicos(dados);
-                    break;
-                case 'sesaud-detalhado':
-                    preencherSESAUDDetalhado(dados);
-                    break;
-                case 'fuabc-detalhado':
-                    preencherFUABCDetalhado(dados);
-                    break;
+        function mudarAno(ano) {
+            anoSelecionado = ano;
+            if (document.querySelector('.tab-content.active').id === 'resumo') {
+                preencherResumo(ano);
             }
         }
 
@@ -313,22 +274,16 @@
             fetch(url, { cache: 'no-store' })
                 .then(r => r.json())
                 .then(dados => {
-                    allData = dados.anos || [];
+                    allData = dados;
                     var seletor = document.getElementById('seletor-ano');
-                    seletor.innerHTML = '';
-                    var nomes = ['Resumo Geral', 'Novos Serviços', 'SESAUD Detalhado', 'FUABC Detalhado'];
-                    for (var i = 0; i < allData.length; i++) {
-                        var opt = document.createElement('option');
-                        opt.value = i;
-                        opt.text = nomes[i] + ' - ' + (allData[i].descricao || '');
-                        seletor.appendChild(opt);
-                    }
-                    seletor.value = 0;
+                    seletor.innerHTML = '<option value="2025">2025</option><option value="2026">2026</option>';
+                    seletor.value = '2025';
                     document.getElementById('data-atualizacao').textContent = 'Atualizado em: ' + (dados.atualizado_em || 'Agora');
-                    mudarAno(0);
+                    mudarAno('2025');
+                    preencherResumo('2025');
                 })
                 .catch(e => {
-                    console.error('Erro ao carregar JSON:', e);
+                    console.error('Erro:', e);
                     document.querySelectorAll('.tab-content').forEach(el => el.innerHTML = '<div class="erro">Erro ao carregar dados</div>');
                 });
         }
