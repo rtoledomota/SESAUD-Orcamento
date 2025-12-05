@@ -129,12 +129,6 @@
             return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(valor || 0);
         }
 
-        function calcularVariacao(v2025, v2026) {
-            var variacao = v2026 - v2025;
-            var cor = variacao >= 0 ? '#27ae60' : '#e74c3c';
-            return { variacao: variacao, cor: cor };
-        }
-
         function abrirAba(event, nome) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
@@ -160,23 +154,21 @@
         }
 
         function preencherResumo(ano) {
-            var dados2025 = allData.anos ? allData.anos[0] : {};
-            var dadosFuabc = allData.anos ? allData.anos[3] : {};
             var titulo = ano === '2025' ? '2025 - MÉDIA DE EXECUÇÃO - JAN A OUT' : '2026 - PROJEÇÃO';
+            var fuabc2025 = ano === '2025' ? 38991346.13 : 44172200.73;
+            var sesaud2025 = 10633666.21;
+            var geral2025 = ano === '2025' ? 49625012.34 : 54805867.00;
             var html = '<div class="table-responsive-wrapper"><table><thead><tr><th>ORÇAMENTO</th><th>CUSTO MENSAL FUABC</th><th>CUSTO MENSAL SESAUD</th><th>GERAL</th></tr></thead><tbody>';
             html += '<tr><td></td><td colspan="3">' + titulo + '</td></tr>';
-
             var categorias = [
                 { nome: 'RECURSOS HUMANOS', fuabc: ano === '2025' ? 15519978.93 : 15979374.38, sesaud: 6616449.07, geral: ano === '2025' ? 22136428.00 : 22605823.45 },
                 { nome: 'PROCESSOS TRABALHISTAS', fuabc: ano === '2025' ? 81084.03 : 78881.08, sesaud: 1619.20, geral: ano === '2025' ? 82703.23 : 80500.28 },
                 { nome: 'MATERIAIS DE CONSUMO', fuabc: ano === '2025' ? 3920961.07 : 4218090.06, sesaud: 329615.34, geral: ano === '2025' ? 4250576.41 : 4547705.40 },
-                { nome: 'MANUTENÇÃO E REFORMAS', fuabc: ano === '2025' ? 1305975.09 : 1301434.22, sesaud: 731350.30, geral: ano === '2025' ? 0 : 2032784.52 },
-                { nome: 'SERVIÇOS MÉDICOS', fuabc: ano === '2025' ? 7050002.88 : 8665085.19, sesaud: 0, geral: ano === '2025' ? 0 : 8665085.19 },
                 { nome: 'SERVIÇOS DE TERCEIROS', fuabc: ano === '2025' ? 19270730.55 : 23568510.69, sesaud: 3312660.87, geral: ano === '2025' ? 22583391.42 : 26881171.56 },
                 { nome: 'INVESTIMENTOS', fuabc: ano === '2025' ? 83882.01 : 203082.50, sesaud: 0, geral: ano === '2025' ? 83882.01 : 203082.50 },
                 { nome: 'OUTROS GASTOS', fuabc: ano === '2025' ? 114709.55 : 124262.02, sesaud: 326630.03, geral: ano === '2025' ? 441339.58 : 450892.05 },
+                { nome: 'TOTAL DE DESPESAS', fuabc: fuabc2025, sesaud: sesaud2025, geral: geral2025 }
             ];
-
             categorias.forEach(cat => {
                 html += '<tr>';
                 html += '<td>' + cat.nome + '</td>';
@@ -185,7 +177,6 @@
                 html += '<td class="valor-moeda">' + formatarMoeda(cat.geral) + '</td>';
                 html += '</tr>';
             });
-
             html += '</tbody></table></div>';
             document.getElementById('resumo-conteudo').innerHTML = html;
         }
@@ -356,4 +347,28 @@
                     { label: 'Pró-fórmula quimioterapia - Proc 224/19 - Manipulação medicamentos Oncológicos (jul/19)', valor2025: 54887.18, valor2026: 0 },
                     { label: 'Novo processo de Manipulação Oncológicos - Proc 361/25', valor2025: 60000.00, valor2026: 100000.00 },
                     { label: 'Medicamental - Fornecimento de Fraldas -Proc 199/25', valor2025: 143677.43, valor2026: 154540.54 },
-                    { label: 'Fornecimento de mantas térmicas
+                    { label: 'Fornecimento de mantas térmicas Proc 79A/25', valor2025: 10748.75, valor2026: 10865.00 },
+                    { label: 'Outros Materiais de Consumo', valor2025: 78659.40, valor2026: 125000.00 },
+                    { label: 'Material de consumo pontual', valor2025: 54618.40, valor2026: 70000.00 },
+                    { label: '13A Informática - Proc 24/24 - Fornecimento de sulfite (fev/25)', valor2025: 51158.40, valor2026: 55000.00 },
+                    { label: 'Multipaper - Proc 361/19 - Fornecimento sulfite (out/19)', valor2025: 32700.00, valor2026: 0 },
+                    { label: 'Gênero Alimentícios', valor2025: 4971.04, valor2026: 5000.00 },
+                    { label: 'DC Infinity - Proc 670/21 - Fornecimento galões de agua (dez/21)', valor2025: 4971.04, valor2026: 5000.00 }
+                ] },
+                { nome: 'SERVIÇOS DE TERCEIROS', id: 'servicos_terceiros', valor2025: 19270730.55, valor2026: 23568510.69, subitens: [
+                    { label: 'Manutenção e Reformas', valor2025: 1305975.09, valor2026: 1301434.22 },
+                    { label: 'Castelmar - Proc 102/25 - Pontual para manutenção rede telefonia 4º andar', valor2025: 7185.00, valor2026: 0 },
+                    { label: 'Crel elevadores - Proc 530/23 - Manutenção elevadores Complexo ( jan/24)', valor2025: 9692.96, valor2026: 10194.09 },
+                    { label: 'Clarissa Prates Ferreira - Proc 459/24 - manutenção de tablet c/ peças ( set/24)', valor2025: 4180.00, valor2026: 3000.00 },
+                    { label: 'Hertz - Proc 32/23 - Manutenção elevadores c/ peças Complexo e unidades ( jun/23)', valor2025: 10890.33, valor2026: 7964.00 },
+                    { label: 'Kimens Equipamentos - Proc 125/20 - Manutenção equip. odontológicos c/ peças ( jun/20)', valor2025: 15095.83, valor2026: 15763.09 },
+                    { label: 'SSD Comercio - Proc 16/23 - Manutenção corretiva e preventiva ar condicionado c/ peças ( jun/23)', valor2025: 13965.00, valor2026: 13965.00 },
+                    { label: 'SSD Comércio - Proc 204/25 C- Manutenção corretiva e preventiva ar condicionado c/ peças - emergencial subst Proc 16/23 ini 26/05/25', valor2025: 35000.00, valor2026: 62050.30 },
+                    { label: 'SSD Comercio - Proc 006/25 - Manutenção corretiva e preventiva ar condicionado - pontual', valor2025: 40616.67, valor2026: 0 },
+                    { label: 'SSD Comercio - Proc 76/25 - Manutenção corretiva camara mortuaria pontual - pontual', valor2025: 1500.00, valor2026: 0 },
+                    { label: 'Spell Comércio - Proc 16/23 - Manutenção corretiva e preventiva ar condicionado c/ peças ( jun/23) - recindido - SSD assumiu', valor2025: 48869.35, valor2026: 0 },
+                    { label: 'Verzani - Proc 56/21 - Manutenção Predial e equipamentos (mar/22)', valor2025: 1187949.63, valor2026: 1180197.74 },
+                    { label: 'Kimens Equipamentos - Proc 143/24 - Manutenção equip. prev e corret. com back up ( abr/24)', valor2025: 8300.00, valor2026: 8300.00 },
+                    { label: 'Manutenção de guilhotina - Proc 65/25 - pontual abril', valor2025: 1000.00, valor2026: 0 },
+                    { label: 'CALIBRACAO DE TERMO-HIGROMETRO - Proc 250/25', valor2025: 3360.00, valor2026: 0 },
+                    { label: '
