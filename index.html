@@ -28,7 +28,7 @@
         table { width: 100%; border-collapse: collapse; background: white; min-width: 600px; }
         thead { background: #2c3e50 !important; }
         th { padding: 1rem; text-align: left; color: #ffffff !important; font-weight: 600 !important; font-size: 0.9rem; white-space: nowrap; text-transform: uppercase; letter-spacing: 0.5px; }
-        .tab-content table th, .tab-content .table-responsive-wrapper th, .tab-content .table-responsive-wrapper thead th, table th, thead th, .table-responsive-wrapper th, .table-responsive-wrapper thead th, body table th, body thead th { color: #ffffff !important; background: #2c3e50 !important; }
+        .tab-content table th, .tab-content .table-responsive-wrapper th, .tab-content .table-responsive-wrapper thead th, table th, thead th, .table-responsive-wrapper th, .table-responsive-wrapper thead th, body table th, body thead th, .tab-content th { color: #ffffff !important; background: #2c3e50 !important; }
         td { padding: 0.9rem 1rem; border-bottom: 1px solid #ecf0f1; color: #2c3e50; font-size: 0.9rem; }
         tbody tr:nth-child(odd) { background-color: #f8f9fa; }
         tbody tr:hover { background: #eef2f7; }
@@ -59,8 +59,8 @@
                     <option value="2026">2026</option>
                 </select>
             </div>
-            <p class="data-atualizacao">Atualizado em: Agora (dados CSV embutidos - modo claro)</p>
-            <p class="fonte-dados">Fonte: Planilhas Originais</p>
+            <p class="data-atualizacao">Atualizado em: Agora (dados CSV embutidos - modo claro apenas)</p>
+            <p class="fonte-dados">Fonte: Planilhas Originais (exata reprodução)</p>
         </header>
 
         <div class="tabs">
@@ -98,69 +98,149 @@
     <script>
         var anoSelecionado = '2025';
 
-        function formatarMoeda(valor) {
-            return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(valor || 0);
-        }
+        // Dados SESAUD exatos do CSV (todas as linhas, valores convertidos, #DIV/0! como 0)
+        var dadosSESAUD = [
+            { categoria: 'ORÇAMENTO', valor: 0 },
+            { categoria: 'ACOMPANHAMENTO PLANO ORÇAMENTÁRIO', valor: 0 },
+            { categoria: 'RECURSOS HUMANOS', valor: 6616449.07 },
+            { categoria: 'INDENIZAÇÕES TRABALHISTAS - RESCISÕES', valor: 25020.04 },
+            { categoria: 'VENCIMENTO PREFEITURA - FOLHA', valor: 4811182.14 },
+            { categoria: 'PROGRAMA -MAIS MÉDICOS', valor: 12900.00 },
+            { categoria: 'TARIFAS CAIXA ECONOMICA FEDERAL / BANCO DO BRASIL - TARIFAS BANCÁRIAS', valor: 775.54 },
+            { categoria: 'GRATIFICAÇÃO SUS', valor: 296880.38 },
+            { categoria: 'PENSÕES - GRATIF. SUS', valor: 479.33 },
+            { categoria: 'INSS PREF', valor: 983944.34 },
+            { categoria: 'FGTS PREF', valor: 303255.80 },
+            { categoria: 'NOTRE DAME INTERMEDICA', valor: 202288.27 },
+            { categoria: 'PROCESSOS TRABALHISTAS', valor: 1619.20 },
+            { categoria: 'CARLA MERCIA FERREIRA DOMINGUES', valor: 506.00 },
+            { categoria: 'RAPHAEL COSTA VIEIRA', valor: 1518.00 },
+            { categoria: 'MATERIAIS DE CONSUMO', valor: 329615.34 },
+            { categoria: 'Medicamentos e Materiais Médicos e Hospitalar', valor: 264530.85 },
+            { categoria: 'ABBOTT LABORATORIOS', valor: 146265.00 },
+            { categoria: 'AGLON COMERCIO E REPRESENTAÇÕES LTDA.', valor: 22033.59 },
+            { categoria: 'Outros Materiais de Consumo', valor: 65084.50 },
+            { categoria: 'COMPANHIA DE GAS DE S.PAULO - COMGAS -', valor: 46286.66 },
+            { categoria: 'CIA ULTRAGAZ S.A -', valor: 1843.80 },
+            { categoria: 'DC INFINITY COMERCIALIZADORA E DISTR EIRELI', valor: 865.41 },
+            { categoria: 'JM SUPRIMENTOS LTDA', valor: 6626.55 },
+            { categoria: 'JC DA SILVA SUPRIMENTOS PARA ESCRITÓRIO', valor: 3561.75 },
+            { categoria: 'LINECONTROL COMERCIO IMP E EXP LTDA', valor: 2000.84 },
+            { categoria: 'PRECISO EQUIPAMENTOS P LABORATORIOS LTDA', valor: 720.00 },
+            { categoria: 'QUIMAFLEX CIENTIFICA LTDA', valor: 2160.00 },
+            { categoria: 'RBS COMÉRCIO E SERVIÇOS EM GERAL LTDA -', valor: 5470.40 },
+            { categoria: 'RF LEITE AQUINO ALIMENTO PARA ANIMAIS', valor: 42920.00 },
+            { categoria: 'SOLRAC COMERCIO E SERVIÇO LTDA', valor: 1742.28 },
+            { categoria: 'SUPERGASBRAS ENERGIA LTDA', valor: 3645.50 },
+            { categoria: 'SINSAI COMERCIO DE DESCARTAVEIS EIRELI', valor: 38327.50 },
+            { categoria: 'VIVA LABORATORIO DE ANALYSIS LTDA', valor: 1200.00 },
+            { categoria: 'VC DA ROCHA DISTRIBUIDORA ME', valor: 7049.50 },
+            { categoria: 'VILA BARCELONA ME', valor: 2865.00 },
+            { categoria: 'Gênero Alimentícios', valor: 0 },
+            { categoria: 'SERVIÇOS DE TERCEIROS', valor: 3312660.87 },
+            { categoria: 'Manutenção e Reformas', valor: 731350.30 },
+            { categoria: 'SOLUÇÕES SERV TERCEIRIZADOS EIRELI - Complexo PCD', valor: 1828375.76 },
+            { categoria: 'Serviços Médicos Terceirizados', valor: 0 },
+            { categoria: 'Outros Serviços de Terceiros', valor: 2574910.56 },
+            { categoria: 'CENTRAL DE CONVÊNIOS', valor: 426293.85 },
+            { categoria: 'APAE - CER IV', valor: 435004.24 },
+            { categoria: 'LA VITA - NÚCLEO CLINICO DE REABILITAÇÃO -', valor: 10541.78 },
+            { categoria: 'RESIDENCIAL P IDOSOS LA VITA LTDA', valor: 6222.66 },
+            { categoria: 'CENTRO DE READAPTAÇÃO SOCIAL LTDA', valor: 19572.95 },
+            { categoria: 'NUCLEO DE INTEGRAÇÃO LUZ DO SO LTDA', valor: 13509.56 },
+            { categoria: 'ASSOCIAÇÃO ESTANCIA PRIMAVERA COMUNIDADE TERAPEUTICA', valor: 7500.00 },
+            { categoria: 'CLINICA PRIMAVERA LTDA', valor: 21365.33 },
+            { categoria: 'RESIDENCIAL SAUDE E BEM ESTAR LTDA', valor: 4731.22 },
+            { categoria: 'AMA- ASSOC DE AMIGOS DO AUTISTA', valor: 25310.97 },
+            { categoria: 'APAE NEURO', valor: 29401.45 },
+            { categoria: 'CIN COMUNICAÇÃO INTEGRADA LIMITADA - EPP -', valor: 288673.36 },
+            { categoria: 'FUNDAÇÃO APOIO A UNIVERS. MUNIC. SCS - UNIMAIS', valor: 55401.47 },
+            { categoria: 'ABX TELECOM LTDA.', valor: 82486.30 },
+            { categoria: 'ALTBIT INFORMATICA COM E SERVIÇOS LTDA', valor: 703335.45 },
+            { categoria: 'ASSOCIAÇÃO PATRULHEIROS MIRINS DE S C SUL', valor: 7537.00 },
+            { categoria: 'CIAMA REPRESENTAÇOES E COMERCIO LTDA', valor: 682972.50 },
+            { categoria: 'COLORSISTHEM DO BRASIL COM.SIST. REPROGRAF.', valor: 103830.38 },
+            { categoria: 'COLSAN SOC.BENEFIC.DE COLETA DE SANGUE', valor: 217043.32 },
+            { categoria: 'COMPANHIA DE PROCESSAMENTO DE DADOS DO ESTADO SP - PRODESP', valor: 796.52 },
+            { categoria: 'IMPRENSA NACIONAL - IN -', valor: 782.28 },
+            { categoria: 'INOVAPTT TECNOLOGIA LTDA', valor: 37287.90 },
+            { categoria: 'MAX-VERDE TRANSP E CONTRUÇOES EIRELI', valor: 367209.51 },
+            { categoria: 'NET TELECOM INFORMÁTICA', valor: 108345.36 },
+            { categoria: 'NOROESTE COMERCIAL DE SUPRIMENTOS', valor: 8862.00 },
+            { categoria: 'RSM SOLUÇOES LTDA', valor: 3275.00 },
+            { categoria: 'SOBERANA SERVIÇOS DE REFEIÇÃO E COM LTDA', valor: 63214.91 },
+            { categoria: 'TB SERVIÇOS TRANSP LIMP GER.REC.HUMANOS', valor: 1132787.34 },
+            { categoria: 'TRES LAGOAS COMERCIO DE EMBALAGENS LTDA', valor: 406.50 },
+            { categoria: 'VESPA SAUDE AMBIENTAL COM SERVIÇOS', valor: 560.00 },
+            { categoria: 'WT PELICULAS LTDA', valor: 1224.61 },
+            { categoria: 'ASS.PROTETORA DOS ANIMAIS - APASCS', valor: 21000.00 },
+            { categoria: 'ASSOC.PREV.DEPEND.QUIM DIVINA PROVIDENCIA', valor: 40000.00 },
+            { categoria: 'GRUPO DE AMIGOS SAMARITANOS - G.A.S', valor: 15000.00 },
+            { categoria: 'INSTITUIÇÃO CLAUDIO AMÃNCIO', valor: 60000.00 },
+            { categoria: 'REDE FEMININA DE COMBATE AO CÂNCER', valor: 40000.00 },
+            { categoria: 'SOC BENEFIC.GRUPO DE AMOR A VIDA - GAV', valor: 80000.00 },
+            { categoria: 'Locação de imóveis', valor: 53091.70 },
+            { categoria: 'CARLOS ALBERTO FERREIRA - Super Centro', valor: 11681.70 },
+            { categoria: 'ELZA PIANTA FERREIRA - Super Centro', valor: 23423.97 },
+            { categoria: 'CLELGEN LUIZ BONETTI - Fisioterapia', valor: 8569.44 },
+            { categoria: 'ALCYR ROZANTE SOTTO - Fisioterapia', valor: 4284.72 },
+            { categoria: 'MIRIAN NACAGAMI SOTTO - Fisioterapia', valor: 4284.72 },
+            { categoria: 'ADENILZE BECHARA - Pet Escola', valor: 16132.40 },
+            { categoria: 'VVP PARTICIPAÇOES LTDA - UBS Santo Antonio', valor: 9455.76 },
+            { categoria: 'Locação de Diversas', valor: 0 },
+            { categoria: 'INVESTIMENTOS', valor: 0 },
+            { categoria: 'Bens e Materiais Permanentes', valor: 0 },
+            { categoria: 'Residência Médica', valor: 0 },
+            { categoria: 'Despesas Acadêmicas', valor: 0 },
+            { categoria: 'Construção e Ampliação', valor: 0 },
+            { categoria: 'OUTROS GASTOS', valor: 326630.03 },
+            { categoria: 'Combustivel - LEANDRINI AUTO POSTO LTDA', valor: 26400.97 },
+            { categoria: 'Utilidades, Energia , Água , coleta de lixo e internet', valor: 302869.16 },
+            { categoria: 'TELEFONICA BRASIL S/A', valor: 10332.31 },
+            { categoria: 'SAESA', valor: 5010.17 },
+            { categoria: 'ELETROPAULO METR.ELETR.DE S.P. S/A -', valor: 287154.07 },
+            { categoria: 'ADIANTAMENTO', valor: 2084.07 },
+            { categoria: 'Despesas financeiras e bancárias', valor: 0 },
+            { categoria: 'Outras despesas', valor: 0 },
+            { categoria: 'Diversos', valor: 0 },
+            { categoria: 'Caixa pequeno', valor: 0 },
+            { categoria: 'Despesas de Rateio', valor: 0 },
+            { categoria: 'Nota de débito', valor: 0 },
+            { categoria: 'Apoio Técnico', valor: 0 },
+            { categoria: 'Custas Processos Judiciais', valor: 0 },
+            { categoria: 'Despesas Administrativas', valor: 0 },
+            { categoria: 'TOTAL DE DESPESAS', valor: 10633666.21 }
+        ];
 
-        function calcularVariacao(v2025, v2026) {
-            var variacao = v2026 - v2025;
-            var classe = variacao >= 0 ? 'variacao-positiva' : 'variacao-negativa';
-            return { variacao: variacao, classe: classe };
-        }
-
-        function abrirAba(event, nome) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-            document.getElementById(nome).classList.add('active');
-            event.currentTarget.classList.add('active');
-            if (nome === 'resumo') preencherResumo(anoSelecionado);
-            else if (nome === 'novos-servicos') preencherNovosServicos();
-            else if (nome === 'sesaud-detalhado') preencherSESAUDDetalhado();
-            else if (nome === 'fuabc-detalhado') preencherFUABCDetalhado();
-        }
-
-        function preencherResumo(ano) {
-            var titulo = ano === '2025' ? '2025 - MÉDIA DE EXECUÇÃO - JAN A OUT' : '2026 - PROJEÇÃO';
-            var fuabc = ano === '2025' ? 38991346.13 : 44172200.73;
-            var sesaud = 10633666.21;
-            var geral = ano === '2025' ? 49625012.34 : 54805867.00;
-            var html = '<div class="table-responsive-wrapper"><table><thead><tr><th>ORÇAMENTO</th><th>CUSTO MENSAL FUABC</th><th>CUSTO MENSAL SESAUD</th><th>GERAL</th></tr></thead><tbody><tr><td></td><td colspan="3">' + titulo + '</td></tr><tr><td>RECURSOS HUMANOS</td><td class="valor-moeda">' + formatarMoeda(ano === '2025' ? 15519978.93 : 15979374.38) + '</td><td class="valor-moeda">' + formatarMoeda(6616449.07) + '</td><td class="valor-moeda">' + formatarMoeda(ano === '2025' ? 22136428.00 : 22605823.45) + '</td></tr><tr><td>PROCESSOS TRABALHISTAS</td><td class="valor-moeda">' + formatarMoeda(ano === '2025' ? 81084.03 : 78881.08) + '</td><td class="valor-moeda">' + formatarMoeda(1619.20) + '</td><td class="valor-moeda">' + formatarMoeda(ano === '2025' ? 82703.23 : 80500.28) + '</td></tr><tr><td>MATERIAIS DE CONSUMO</td><td class="valor-moeda">' + formatarMoeda(ano === '2025' ? 3920961.07 : 4218090.06) + '</td><td class="valor-moeda">' + formatarMoeda(329615.34) + '</td><td class="valor-moeda">' + formatarMoeda(ano === '2025' ? 4250576.41 : 4547705.40) + '</td></tr><tr><td>SERVIÇOS DE TERCEIROS</td><td class="valor-moeda">' + formatarMoeda(ano === '2025' ? 19270730.55 : 23568510.69) + '</td><td class="valor-moeda">' + formatarMoeda(3312660.87) + '</td><td class="valor-moeda">' + formatarMoeda(ano === '2025' ? 22583391.42 : 26881171.56) + '</td></tr><tr><td>INVESTIMENTOS</td><td class="valor-moeda">' + formatarMoeda(ano === '2025' ? 83882.01 : 203082.50) + '</td><td class="valor-moeda">R$ 0,00</td><td class="valor-moeda">' + formatarMoeda(ano === '2025' ? 83882.01 : 203082.50) + '</td></tr><tr><td>OUTROS GASTOS</td><td class="valor-moeda">' + formatarMoeda(ano === '2025' ? 114709.55 : 124262.02) + '</td><td class="valor-moeda">' + formatarMoeda(326630.03) + '</td><td class="valor-moeda">' + formatarMoeda(ano === '2025' ? 441339.58 : 450892.05) + '</td></tr><tr style="background: #ecf0f1; font-weight: bold;"><td>TOTAL DE DESPESAS</td><td class="valor-moeda">' + formatarMoeda(fuabc) + '</td><td class="valor-moeda">' + formatarMoeda(sesaud) + '</td><td class="valor-moeda">' + formatarMoeda(geral) + '</td></tr></tbody></table></div>';
-            document.getElementById('resumo-conteudo').innerHTML = html;
-        }
-
-        function preencherNovosServicos() {
-            var html = '<div class="servicos-lista"><h4>Novos Serviços 2025/2026</h4><ul><li><span class="servico-nome">Serviço Fisioterapia</span><span class="servico-valor">R$ 0,00</span></li><li><span class="servico-nome">Serviço Regulação</span><span class="servico-valor">R$ 0,00</span></li><li><span class="servico-nome">Telemedicina</span><span class="servico-valor">R$ 0,00</span></li><li><span class="servico-nome">Serviço Hemodinâmica</span><span class="servico-valor">R$ 0,00</span></li><li><span class="servico-nome">Residência Terapêutica</span><span class="servico-valor">R$ 0,00</span></li><li><span class="servico-nome">Adequação Pronto Cardio</span><span class="servico-valor">R$ 0,00</span></li><li><span class="servico-nome">Total Novos Mensal</span><span class="servico-valor">R$ 0,00</span></li><li><span class="servico-nome">Total Geral Novos</span><span class="servico-valor">R$ 0,00</span></li></ul></div>';
-            document.getElementById('novos-servicos-conteudo').innerHTML = html;
-        }
-
-        function preencherSESAUDDetalhado() {
-            var html = '<div class="table-responsive-wrapper"><table><thead><tr><th>Categoria</th><th class="valor-moeda">Valor</th></tr></thead><tbody>';
-            dadosSESAUD.forEach(linha => {
-                html += '<tr><td>' + linha.categoria + '</td><td class="valor-moeda">' + formatarMoeda(linha.valor) + '</td></tr>';
-            });
-            html += '</tbody></table></div>';
-            document.getElementById('sesaud-detalhado-conteudo').innerHTML = html;
-        }
-
-        function preencherFUABCDetalhado() {
-            var html = '<div class="table-responsive-wrapper"><table><thead><tr><th>Categoria</th><th class="valor-moeda">2025</th><th class="valor-moeda">2026</th><th class="valor-moeda">Variação</th></tr></thead><tbody>';
-            dadosFUABC.forEach(linha => {
-                var varLinha = calcularVariacao(linha.valor2025, linha.valor2026);
-                html += '<tr><td>' + linha.categoria + '</td><td class="valor-moeda">' + formatarMoeda(linha.valor2025) + '</td><td class="valor-moeda">' + formatarMoeda(linha.valor2026) + '</td><td class="' + varLinha.classe + '">' + formatarMoeda(varLinha.variacao) + '</td></tr>';
-            });
-            html += '</tbody></table></div>';
-            document.getElementById('fuabc-detalhado-conteudo').innerHTML = html;
-        }
-
-        function mudarAno(ano) {
-            anoSelecionado = ano;
-            if (document.querySelector('.tab-content.active').id === 'resumo') preencherResumo(ano);
-        }
-
-        window.addEventListener('load', function() {
-            preencherResumo('2025');
-            document.getElementById('seletor-ano').value = '2025';
-        });
-    </script>
-</body>
-</html>
+        // Dados FUABC exatos do CSV (todas as linhas, valores convertidos, variação calculada)
+        var dadosFUABC = [
+            { categoria: 'ORÇAMENTO', valor2025: 0, valor2026: 0 },
+            { categoria: 'ACOMPANHAMENTO PLANO ORÇAMENTÁRIO', valor2025: 0, valor2026: 0 },
+            { categoria: 'RECURSOS HUMANOS', valor2025: 15519978.93, valor2026: 15979374.38 },
+            { categoria: 'Folha Encargos e Benefícios', valor2025: 13643314.28, valor2026: 15019374.38 },
+            { categoria: 'Férias', valor2025: 770601.83, valor2026: 0 },
+            { categoria: 'Folha Autônomos', valor2025: 159308.18, valor2026: 0 },
+            { categoria: 'Provisão de 13° salário', valor2025: 946754.64, valor2026: 960000.00 },
+            { categoria: 'Provisão de 1/3 férias', valor2025: 0, valor2026: 0 },
+            { categoria: 'PROCESSOS TRABALHISTAS', valor2025: 81084.03, valor2026: 78881.08 },
+            { categoria: 'Processos Trabalhistas - MANTENEDORA', valor2025: 50000.00, valor2026: 50000.00 },
+            { categoria: 'Processos Trabalhistas', valor2025: 31084.03, valor2026: 28881.08 },
+            { categoria: 'Outros', valor2025: 0, valor2026: 0 },
+            { categoria: 'MATERIAIS DE CONSUMO', valor2025: 3920961.07, valor2026: 4218090.06 },
+            { categoria: 'Medicamentos e Materiais Médicos e Hospitalar', valor2025: 3837330.63, valor2026: 4088090.06 },
+            { categoria: 'Material Médico', valor2025: 1099358.86, valor2026: 1092000.00 },
+            { categoria: 'Medicamento', valor2025: 2018133.67, valor2026: 1945000.00 },
+            { categoria: 'Baxter - Proc 286/23 - fornecimento dieta parenteral prolongada ( jan/24)', valor2025: 22357.47, valor2026: 56556.83 },
+            { categoria: 'CG Medical - Proc 645/20 - fornecimento material ortopédico em consginação, c/ instrumentadores ( out/20)', valor2025: 163360.79, valor2026: 200000.00 },
+            { categoria: 'Fresenius Kabi - Proc 450/22 - fornecimento dieta enteral e suplementos (jan/23)', valor2025: 31078.68, valor2026: 36809.50 },
+            { categoria: 'Hosp-Pharma Manipulação - Proc 286/23 - Fornecimento de dieta parenteral prolongada (dez/23)', valor2025: 9070.19, valor2026: 8000.00 },
+            { categoria: 'Mogami - Proc 361/21 - Fornecimento materiais e insumos cir. Endourológicas ( set/21)', valor2025: 77456.02, valor2026: 77986.53 },
+            { categoria: 'Mogami - Proc 110/22 - Fornecimento materiais descartaveis em consignado p/ videolaparoscopia c/ comodato ( fev/22)', valor2025: 209192.63, valor2026: 323331.66 },
+            { categoria: 'Nutriport - Proc 450/22 - dieta enteral e suplemento Complexo e unidades (nov/22)', valor2025: 78780.34, valor2026: 83000.00 },
+            { categoria: 'Pró-fórmula quimioterapia - Proc 224/19 - Manipulação medicamentos Oncológicos (jul/19)', valor2025: 54887.18, valor2026: 0 },
+            { categoria: 'Novo processo de Manipulação Oncológicos - Proc 361/25', valor2025: 60000.00, valor2026: 100000.00 },
+            { categoria: 'Medicamental - Fornecimento de Fraldas -Proc 199/25', valor2025: 143677.43, valor2026: 154540.54 },
+            { categoria: 'Outros Materiais de Consumo', valor2025: 78659.40, valor2026: 125000.00 },
+            { categoria: 'Material de consumo pontual', valor2025: 54618.40, valor2026: 70000.00 },
+            { categoria: '13A Informática - Proc 24/24 - Fornecimento de sulfite (fev/25)', valor2025: 51158.40, valor2026: 55000.00 },
+            { categoria: 'Multipaper - Proc 361/19 - Fornecimento sulfite (out/19)', valor
