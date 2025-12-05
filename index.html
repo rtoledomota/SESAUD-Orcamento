@@ -37,23 +37,9 @@
         table { width: 100%; border-collapse: collapse; background: white; min-width: 600px; }
         
         /* Headers das Tabelas - Corrigido para branco no fundo escuro */
-        th { 
-            padding: 1rem; 
-            text-align: left; 
-            font-weight: 600 !important; 
-            font-size: 0.9rem; 
-            white-space: nowrap; 
-            text-transform: uppercase; 
-            letter-spacing: 0.5px; 
-            color: #ffffff !important;  /* Branco puro, forçado */
-            background: #2c3e50 !important;  /* Fundo escuro para contraste */
-        }
-        
-        /* Garantia extra para todas as tabelas (abas, responsive, etc.) */
-        thead th, .table-responsive-wrapper th, .tab-content th { 
-            color: #ffffff !important; 
-            background: #2c3e50 !important; 
-        }
+        th { padding: 1rem; text-align: left; color: #ffffff !important; font-weight: 600 !important; font-size: 0.9rem; white-space: nowrap; text-transform: uppercase; letter-spacing: 0.5px; }
+        /* Seletores ultra-específicos para garantir a cor */
+        .tab-content table th, .tab-content .table-responsive-wrapper th, .tab-content .table-responsive-wrapper thead th, table th, thead th, .table-responsive-wrapper th, .table-responsive-wrapper thead th, body table th, body thead th, .tab-content th, th { color: #ffffff !important; background: #2c3e50 !important; }
         
         td { padding: 0.9rem 1rem; border-bottom: 1px solid #ecf0f1; color: #2c3e50; font-size: 0.9rem; }
         tbody tr:nth-child(odd) { background-color: #f8f9fa; }
@@ -401,4 +387,67 @@
             var fuabc = ano === '2025' ? 38991346.13 : 44172200.73;
             var sesaud = 10633666.21;
             var geral = ano === '2025' ? 49625012.34 : 54805867.00;
-            var html = '<div class="table-responsive-wrapper"><table><thead><tr><th>ORÇAMENTO</th><th>CUSTO MENSAL FUABC</th><th>CUSTO MENSAL SESAUD</th><th>GERAL</th></tr></thead><tbody><tr><td></td><td colspan="3">' + titulo + '</td></tr><tr><td>RECURSOS HUMANOS</td><td class="valor-moeda">' + formatarMoeda(ano === '2025' ? 15519978.93 : 15979374.38) + '</td><td class="valor-moeda">' + formatarMoeda(6616449.07) + '</td><td class="valor-moeda">' + formatarMoeda(ano === '2025' ? 22136428.00 : 22605823.45) + '</td></tr><tr><td>PROCESSOS TRABALHISTAS</td><td class="valor-moeda">' + formatarMoeda(ano === '2025' ? 81084.03 : 78881.08) + '</td><td class="valor-moeda">' + formatarMoeda(1619.20) + '</td><td class="valor-moeda">' + formatarMoeda(ano === '2025' ? 82703.23 : 80500.28) + '</td></tr><tr><td>MATERIAIS DE CONSUMO</td><td class="valor-moeda">' + formatarMoeda(ano === '2025' ? 3920961.07 : 4218090.06) + '</td><td class="valor-moeda">' + formatarMoeda(329615.34) + '</td><td class="valor-moeda">' + formatarMoeda(ano === '2025' ? 4250576.41 : 4547705.40) + '</td></tr><tr><td>SERVIÇOS DE TERCEIROS</td><td class="valor-moeda">' + formatarMoeda(ano === '2025' ? 19270730.55 : 23568510.69) + '</td><td class="valor-moeda">' + formatarMoeda(3312660.87) + '</td><td class="valor-moeda">' + formatarMoeda(ano === '2025' ? 22583391.42 : 26881171.56) + '</td></tr><tr><td>INVESTIMENTOS</td><td class="valor-moeda">' + formatarMoeda(ano === '2025' ? 83882.01 : 203082.50) + '</td><td class="valor-moeda">R$ 0,00</td><td class="valor-moeda">' + formatarMoeda(ano === '2025' ? 83882.01 : 203082.50) + '</td></tr><tr><td>OUTROS GASTOS</td><td class="valor-moeda">' + formatarMoeda(ano === '2025' ? 114709.55 : 124262.02) + '</td><td class="valor-moeda">' + formatarMoeda(326630.03) + '</td><td class="valor-moeda">' + formatarMoeda(ano === '2025' ? 441339.58 : 450892.05) + '</td></tr><tr style="background: #ecf0f1; font-weight: bold;"><td>TOTAL DE DESPESAS</td><td class="valor-moeda">' + formatar
+            var html = '<div class="table-responsive-wrapper"><table><thead><tr><th>ORÇAMENTO</th><th>CUSTO MENSAL FUABC</th><th>CUSTO MENSAL SESAUD</th><th>GERAL</th></tr></thead><tbody><tr><td></td><td colspan="3">' + titulo + '</td></tr><tr><td>RECURSOS HUMANOS</td><td class="valor-moeda">' + formatarMoeda(ano === '2025' ? 15519978.93 : 15979374.38) + '</td><td class="valor-moeda">' + formatarMoeda(6616449.07) + '</td><td class="valor-moeda">' + formatarMoeda(ano === '2025' ? 22136428.00 : 22605823.45) + '</td></tr><tr><td>PROCESSOS TRABALHISTAS</td><td class="valor-moeda">' + formatarMoeda(ano === '2025' ? 81084.03 : 78881.08) + '</td><td class="valor-moeda">' + formatarMoeda(1619.20) + '</td><td class="valor-moeda">' + formatarMoeda(ano === '2025' ? 82703.23 : 80500.28) + '</td></tr><tr><td>MATERIAIS DE CONSUMO</td><td class="valor-moeda">' + formatarMoeda(ano === '2025' ? 3920961.07 : 4218090.06) + '</td><td class="valor-moeda">' + formatarMoeda(329615.34) + '</td><td class="valor-moeda">' + formatarMoeda(ano === '2025' ? 4250576.41 : 4547705.40) + '</td></tr><tr><td>SERVIÇOS DE TERCEIROS</td><td class="valor-moeda">' + formatarMoeda(ano === '2025' ? 19270730.55 : 23568510.69) + '</td><td class="valor-moeda">' + formatarMoeda(3312660.87) + '</td><td class="valor-moeda">' + formatarMoeda(ano === '2025' ? 22583391.42 : 26881171.56) + '</td></tr><tr><td>INVESTIMENTOS</td><td class="valor-moeda">' + formatarMoeda(ano === '2025' ? 83882.01 : 203082.50) + '</td><td class="valor-moeda">R$ 0,00</td><td class="valor-moeda">' + formatarMoeda(ano === '2025' ? 83882.01 : 203082.50) + '</td></tr><tr><td>OUTROS GASTOS</td><td class="valor-moeda">' + formatarMoeda(ano === '2025' ? 114709.55 : 124262.02) + '</td><td class="valor-moeda">' + formatarMoeda(326630.03) + '</td><td class="valor-moeda">' + formatarMoeda(ano === '2025' ? 441339.58 : 450892.05) + '</td></tr><tr style="background: #ecf0f1; font-weight: bold;"><td>TOTAL DE DESPESAS</td><td class="valor-moeda">' + formatarMoeda(fuabc) + '</td><td class="valor-moeda">' + formatarMoeda(sesaud) + '</td><td class="valor-moeda">' + formatarMoeda(geral) + '</td></tr></tbody></table></div>';
+            document.getElementById('resumo-conteudo').innerHTML = html;
+        }
+
+        function preencherNovosServicos() {
+            // Placeholder values for Novos Serviços
+            var novosServicosData = {
+                servico_fisioterapia: 0,
+                servico_regulacao: 0,
+                telemedicina: 0,
+                servico_hemodinamica: 0,
+                residencia_terapeutica: 0,
+                adequacao_pronto_cardio: 0,
+                total_novos_mensal: 0,
+                total_geral_novos: 0
+            };
+            var html = '<div class="servicos-lista"><h4>Novos Serviços 2025/2026</h4><ul><li><span class="servico-nome">Serviço Fisioterapia</span><span class="servico-valor">' + formatarMoeda(novosServicosData.servico_fisioterapia) + '</span></li><li><span class="servico-nome">Serviço Regulação</span><span class="servico-valor">' + formatarMoeda(novosServicosData.servico_regulacao) + '</span></li><li><span class="servico-nome">Telemedicina</span><span class="servico-valor">' + formatarMoeda(novosServicosData.telemedicina) + '</span></li><li><span class="servico-nome">Serviço Hemodinâmica</span><span class="servico-valor">' + formatarMoeda(novosServicosData.servico_hemodinamica) + '</span></li><li><span class="servico-nome">Residência Terapêutica</span><span class="servico-valor">' + formatarMoeda(novosServicosData.residencia_terapeutica) + '</span></li><li><span class="servico-nome">Adequação Pronto Cardio</span><span class="servico-valor">' + formatarMoeda(novosServicosData.adequacao_pronto_cardio) + '</span></li><li><span class="servico-nome">Total Novos Mensal</span><span class="servico-valor">' + formatarMoeda(novosServicosData.total_novos_mensal) + '</span></li><li><span class="servico-nome">Total Geral Novos</span><span class="servico-valor">' + formatarMoeda(novosServicosData.total_geral_novos) + '</span></li></ul></div>';
+            document.getElementById('novos-servicos-conteudo').innerHTML = html;
+        }
+
+        function preencherSESAUDDetalhado() {
+            var html = '<div class="table-responsive-wrapper"><table><thead><tr><th>Categoria</th><th class="valor-moeda">Valor</th></tr></thead><tbody>';
+            dadosSESAUD.forEach(grupo => {
+                html += '<tr class="accordion-row" data-group="' + grupo.id + '" onclick="toggleAccordion(this)"><td><span class="toggle-icon">▶</span>' + grupo.nome + '</td><td class="valor-moeda">' + formatarMoeda(grupo.valor) + '</td></tr>';
+                grupo.subitens.forEach(sub => {
+                    html += '<tr class="accordion-item" data-group-parent="' + grupo.id + '"><td>' + sub.label + '</td><td class="valor-moeda">' + formatarMoeda(sub.valor) + '</td></tr>';
+                });
+            });
+            html += '</tbody></table></div>';
+            document.getElementById('sesaud-detalhado-conteudo').innerHTML = html;
+        }
+
+        function preencherFUABCDetalhado() {
+            var html = '<div class="table-responsive-wrapper"><table><thead><tr><th>Categoria</th><th class="valor-moeda">2025</th><th class="valor-moeda">2026</th><th class="valor-moeda">Variação</th></tr></thead><tbody>';
+            dadosFUABC.forEach(grupo => {
+                var varTotal = calcularVariacao(grupo.valor2025, grupo.valor2026);
+                html += '<tr class="accordion-row" data-group="' + grupo.id + '" onclick="toggleAccordion(this)"><td><span class="toggle-icon">▶</span>' + grupo.nome + '</td><td class="valor-moeda">' + formatarMoeda(grupo.valor2025) + '</td><td class="valor-moeda">' + formatarMoeda(grupo.valor2026) + '</td><td class="valor-moeda" style="color: ' + varTotal.cor + '; font-weight: bold;">' + formatarMoeda(varTotal.variacao) + '</td></tr>';
+                grupo.subitens.forEach(sub => {
+                    var varSub = calcularVariacao(sub.valor2025, sub.valor2026);
+                    html += '<tr class="accordion-item" data-group-parent="' + grupo.id + '"><td>' + sub.label + '</td><td class="valor-moeda">' + formatarMoeda(sub.valor2025) + '</td><td class="valor-moeda">' + formatarMoeda(sub.valor2026) + '</td><td class="valor-moeda" style="color: ' + varSub.cor + ';">' + formatarMoeda(varSub.variacao) + '</td></tr>';
+                });
+            });
+            html += '</tbody></table></div>';
+            document.getElementById('fuabc-detalhado-conteudo').innerHTML = html;
+        }
+
+        function mudarAno(ano) {
+            anoSelecionado = ano;
+            // Recarrega o resumo quando o ano é alterado
+            if (document.querySelector('.tab-content.active').id === 'resumo') {
+                preencherResumo(ano);
+            }
+            // As abas detalhadas não dependem do seletor de ano, pois já mostram 2025 e 2026
+        }
+
+        // Inicializa o dashboard ao carregar a página
+        window.onload = function() {
+            preencherResumo('2025'); // Carrega o resumo para 2025 por padrão
+            // Abre a aba de resumo por padrão
+            document.querySelector('.tab-btn.active').click();
+        };
+    </script>
+</body>
+</html>
