@@ -39,26 +39,36 @@
         .card-value { font-size: 1.5rem; font-weight: bold; }
         .deficit { color: #e74c3c; } /* Para diferença negativa */
 
-        /* Tabelas e Quadros - Headers com Fonte Branca Forçada */
+        /* Tabelas */
         .table-responsive-wrapper { overflow-x: auto; margin: 1rem 0; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
         table { width: 100%; border-collapse: collapse; background: white; min-width: 600px; }
         
-        /* Regras para garantir cor branca nos headers */
-        th, 
+        /* Headers das Tabelas - Corrigido para Branco em Fundo Escuro (Otimizado para Chrome) */
+        th { 
+            padding: 1rem; 
+            text-align: left; 
+            font-weight: 600; 
+            font-size: 0.9rem; 
+            white-space: nowrap; 
+            text-transform: uppercase; 
+            letter-spacing: 0.5px; 
+            border: none; /* Garante que não haja bordas conflitantes */
+            /* Força a cor branca e fundo escuro para todos os headers */
+            color: #ffffff !important; 
+            background-color: #2c3e50 !important; 
+        }
+        /* Seletores adicionais para garantir a especificidade e cobrir todos os casos */
         thead th, 
         .table-responsive-wrapper th, 
-        .tab-content th, 
-        tr th { 
-            padding: 1rem !important; 
-            text-align: left !important; 
-            color: #ffffff !important; /* Branco puro, forçado */
-            background-color: #2c3e50 !important; /* Fundo escuro para contraste */
-            font-weight: 600 !important; 
-            font-size: 0.9rem !important; 
-            white-space: nowrap !important; 
-            text-transform: uppercase !important; 
-            letter-spacing: 0.5px !important; 
-            border: none !important; /* Remove bordas padrão que podem interferir */
+        .tab-content th,
+        table th { /* Regra mais genérica para qualquer th em uma tabela */
+            color: #ffffff !important; 
+            background-color: #2c3e50 !important; 
+        }
+        /* Para garantir que as linhas de accordion não sejam afetadas, mas seus headers sim */
+        .accordion-row th {
+            color: #ffffff !important; 
+            background-color: #2c3e50 !important; 
         }
         
         td { padding: 0.9rem 1rem; border-bottom: 1px solid #ecf0f1; color: #2c3e50; font-size: 0.9rem; }
